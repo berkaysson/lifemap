@@ -1,4 +1,4 @@
-const DataUnit = require("../Components/DataUnit");
+const DataUnit = require("./DataUnit");
 const fs = require("fs");
 
 const fileContent = fs.readFileSync("olddata.json", "utf-8");
