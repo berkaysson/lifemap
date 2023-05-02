@@ -1,0 +1,40 @@
+{
+  "studyCategories": [
+    "Coding",
+    "Reading",
+    "Writing",
+    "Language",
+    "Technology",
+    "Philosophy",
+    "Business/Finance",
+    "Professional Development",
+    "Art",
+    "Custom"
+  ],
+  "sportCategories": [
+    "Arm",
+    "Abs",
+    "Leg",
+    "Shoulder/Back",
+    "Chest",
+    "Cardio",
+    "Walking",
+    "Custom"
+  ],
+  "gameCategories": [
+    "custom"
+  ],
+  "expenseCategories": [
+    "Rent",
+    "Utilities",
+    "Groceries",
+    "Dining Out",
+    "Entertainment",
+    "Transportation",
+    "Clothing",
+    "Personal Care",
+    "Travel",
+    "Gifts",
+    "Other"
+  ]  
+}
