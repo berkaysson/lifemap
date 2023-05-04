@@ -1,9 +1,9 @@
-import { CATEGORIES } from "./categoryData.json";
+import categoryData from "./categoryData.json";
 
-const studyCategories = CATEGORIES[0];
-const sportCategories = CATEGORIES[1];
-const gameCategories = CATEGORIES[2];
-const expenseCategories = CATEGORIES[3];
+const studyCategories = categoryData.studyCategories;
+const sportCategories = categoryData.sportCategories;
+const gameCategories = categoryData.gameCategories;
+const expenseCategories = categoryData.expenseCategories;
 
 const dataUnitConstructor = (date) => {
   let studies = { total: 0 };
