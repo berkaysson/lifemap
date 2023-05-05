@@ -1,12 +1,14 @@
 import DataViewer from "./DataViewer";
 import DataViewerForm from "./Forms/DataViewerForm";
+import DataUpdaterForm from "./Forms/DataUpdaterForm";
 
-const AppContent = () => {
+const AppContent = ({onCreateToday, onGetDataByDate, onUpdateData, selectedDate}) => {
   return (
     <>
-      <button>Create Today</button>
-      <DataViewerForm />
-      <DataViewer />
+      <button onClick={onCreateToday}>Create Today</button>
+      <DataUpdaterForm onUpdateData={onUpdateData} />
+      <DataViewerForm onDateSelection={onGetDataByDate} />
+      <DataViewer selectedDate={selectedDate} />
     </>
   );
 }
