@@ -69,7 +69,9 @@ function App({db}) {
     .then((dataUnit) => {
       console.log('Data to be updated retrieved successfully')
       const selectedYear = toBeUpdatedData.date.slice(0,4).toString();
-      dataUnit[toBeUpdatedData.category][toBeUpdatedData.subCategory] = toBeUpdatedData.value;
+      const currentValue = parseInt(dataUnit[toBeUpdatedData.category][toBeUpdatedData.subCategory]) || 0;
+      const newValue = parseInt(toBeUpdatedData.value) || 0;
+      dataUnit[toBeUpdatedData.category][toBeUpdatedData.subCategory] = (currentValue + newValue).toString();
 
       const transaction = db.transaction([selectedYear], "readwrite");
       const dataStore = transaction.objectStore(selectedYear);
