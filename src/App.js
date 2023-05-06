@@ -53,6 +53,20 @@ function App({db}) {
     });
   }
 
+  const getAllCategories = () => {
+    return new Promise((resolve, reject) => {
+      let dbCategoriesStore = [];
+      const request = db.transaction(["Categories"], 'readonly').objectStore("Categories").getAll();
+      request.onsuccess = (event) => {
+        dbCategoriesStore = event.target.result;
+        resolve(dbCategoriesStore);
+      };
+      request.onerror = (event) => {
+        reject(event.target.error);
+      };
+    });
+  }
+
   const getDataUnitbyDate = (date) => {
     getDataUnit(date)
     .then((dataUnit) => {
@@ -89,10 +103,70 @@ function App({db}) {
       console.error('Failed to get data unit:', error);
     })
   }
+
+  const updateCategory = (category, subCategory) => {
+    const transaction = db.transaction(["Categories"], "readwrite");
+    const store = transaction.objectStore("Categories");
+
+    const request = store.get(category);
+
+    request.onsuccess = (event) => {
+      const categoryData = event.target.result;
+      
+      if (categoryData) {
+        // If the category exists, update its subcategories and put it back in the store
+        if (!categoryData.hasOwnProperty("subcategories")) {
+          categoryData.subcategories = [subCategory];
+        } else {
+          if (categoryData.subcategories.includes(subCategory)) {
+            alert(`${subCategory} already exists in ${category}`);
+            return;
+          }
+          categoryData.subcategories.push(subCategory);
+        }
+        store.put(categoryData);
+      }
+    };
+    
+    request.onerror = (event) => {
+      console.error("Error getting category data:", event.target.error);
+    };
+  }
+
+  const deleteSubCategory = (category, subCategory) => {
+    const transaction = db.transaction(["Categories"], "readwrite");
+    const store = transaction.objectStore("Categories");
+  
+    const request = store.get(category);
+  
+    request.onsuccess = (event) => {
+      const categoryData = event.target.result;
+  
+      if (categoryData) {
+        const subcategories = categoryData.subcategories.filter(
+          (s) => s !== subCategory
+        );
+        categoryData.subcategories = subcategories;
+        store.put(categoryData);
+      }
+    };
+  
+    request.onerror = (event) => {
+      console.error("Error getting category data:", event.target.error);
+    };
+  }
   
   return (
     <div className="App">
-      <AppContent onCreateToday={createDataUnit} onGetDataByDate={getDataUnitbyDate} onUpdateData={updateDataUnit} selectedDate={selectedDate} />
+      <AppContent
+        onCreateToday={createDataUnit}
+        onGetDataByDate={getDataUnitbyDate}
+        onUpdateData={updateDataUnit}
+        selectedDate={selectedDate}
+        onGetAllCategories={getAllCategories}
+        onUpdateCategory = {updateCategory}
+        onDeleteSubCategory={deleteSubCategory}
+      />
     </div>
   );
 }
