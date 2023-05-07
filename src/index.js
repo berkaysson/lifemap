@@ -1,10 +1,14 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
+
 import './index.css';
+
 import App from './App';
 
+import categoryData from "./Data/categoryData.json";
+
 const STORES = ['2020', '2021', '2022', '2023'];
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 const DB_NAME = 'lifemap';
 
 // Open the database
@@ -36,6 +40,11 @@ const openDB = () => {
 
         // Define the store schema here
       });
+      const storeCategories = db.createObjectStore("Categories", {keyPath:'name'});
+
+      Object.keys(categoryData).forEach((category) => {
+        db.transaction(["Categories"], "readwrite").put({name:category});
+      })
     };
   });
 };
