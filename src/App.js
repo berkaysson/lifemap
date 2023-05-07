@@ -114,15 +114,15 @@ function App({db}) {
       const categoryData = event.target.result;
       
       if (categoryData) {
-        // If the category exists, update its subcategories and put it back in the store
-        if (!categoryData.hasOwnProperty("subcategories")) {
-          categoryData.subcategories = [subCategory];
+        // If the category exists, update its subCategories and put it back in the store
+        if (!categoryData.hasOwnProperty("subCategories")) {
+          categoryData.subCategories = [subCategory];
         } else {
-          if (categoryData.subcategories.includes(subCategory)) {
+          if (categoryData.subCategories.includes(subCategory)) {
             alert(`${subCategory} already exists in ${category}`);
             return;
           }
-          categoryData.subcategories.push(subCategory);
+          categoryData.subCategories.push(subCategory);
         }
         store.put(categoryData);
       }
@@ -143,10 +143,10 @@ function App({db}) {
       const categoryData = event.target.result;
   
       if (categoryData) {
-        const subcategories = categoryData.subcategories.filter(
+        const subCategories = categoryData.subCategories.filter(
           (s) => s !== subCategory
         );
-        categoryData.subcategories = subcategories;
+        categoryData.subCategories = subCategories;
         store.put(categoryData);
       }
     };

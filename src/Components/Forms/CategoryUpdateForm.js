@@ -40,7 +40,7 @@ const CategoryUpdateForm = ({onGetAllCategories,onUpdateCategory,onDeleteSubCate
     setSelectedCategory(event.target.value);
 
     const category = categories.find((item) => item.name === event.target.value);
-    setSubCategories(category.subcategories)
+    setSubCategories(category.subCategories)
   }
 
   const subCategorySelectHandler = (event) => {
@@ -99,7 +99,7 @@ const CategoryUpdateForm = ({onGetAllCategories,onUpdateCategory,onDeleteSubCate
               <button type="button" onClick={deleteSubCategory}>Delete</button>
             </>
           ) : (
-            <p>No subcategories found</p>
+            <p>No subCategories found</p>
           )}
 
           <button type="button" onClick={cancelClickHandler}>
