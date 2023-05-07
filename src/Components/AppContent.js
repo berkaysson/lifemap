@@ -15,7 +15,7 @@ const AppContent = ({
   return (
     <>
       <button onClick={onCreateToday}>Create Today</button>
-      <DataUpdaterForm onUpdateData={onUpdateData} />
+      <DataUpdaterForm onUpdateData={onUpdateData} onGetAllCategories={onGetAllCategories} />
       <DataViewerForm onDateSelection={onGetDataByDate} />
       <CategoryUpdateForm
         onGetAllCategories={onGetAllCategories}
