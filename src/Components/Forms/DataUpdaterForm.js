@@ -79,6 +79,7 @@ const DataUpdaterForm = ({onUpdateData, onGetAllCategories}) => {
             placeholder={"--Select a subCategory--"}
             onChange={subCategorySelectHandler}
             options={subCategoryOptions}
+            category={selectedCategory}
             />
         <label>Enter the value</label>
         <input type="number" name="valueInput"></input>

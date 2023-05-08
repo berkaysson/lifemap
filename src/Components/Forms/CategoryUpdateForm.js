@@ -112,6 +112,7 @@ const CategoryUpdateForm = ({onGetAllCategories,onUpdateCategory,onDeleteSubCate
             onChange={subCategorySelectHandler}
             options={subCategoryOptions}
             placeholder={"Select a subCategory"}
+            category={selectedCategory}
           />
           <button type="button" onClick={deleteSubCategory}>
             Delete
