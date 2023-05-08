@@ -8,9 +8,9 @@ const CURRENT_STORE = "2023"
 function App({db}) {
   const [selectedDate, setSelectedDate] = useState(null);
 
-  const createDataUnit = () => {
+  const createDataUnit = async () => {
     const dataUnitDate = (new Date().toISOString()).slice(0,10);
-    const dataUnit = dataUnitConstructor(dataUnitDate);
+    const dataUnit = await dataUnitConstructor(dataUnitDate, db);
 
     const transaction = db.transaction([CURRENT_STORE], 'readwrite');
     const dataStore = transaction.objectStore(CURRENT_STORE);

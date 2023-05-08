@@ -1,40 +1,39 @@
-import categoryData from "./categoryData.json";
+const dataUnitConstructor = (date, db) => {
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("Categories", "readonly");
+    const categoryStore = transaction.objectStore("Categories");
+    let allCategories;
+    const categoriesObj = {};
+    const request = categoryStore.getAll();
+    request.onsuccess = (event) => {
+      allCategories = event.target.result;
 
-const studyCategories = categoryData.studyCategories;
-const sportCategories = categoryData.sportCategories;
-const gameCategories = categoryData.gameCategories;
-const expenseCategories = categoryData.expenseCategories;
+      allCategories.forEach(category => {
+        const subCategoriesObj = {};
+        if(category.subCategories){
+          category.subCategories.forEach((subCategory) => {
+            subCategoriesObj[subCategory] = 0;
+          });
+        }
+        categoriesObj[category.name] = {
+          total: 0,
+          ...subCategoriesObj,
+        };
+      });
+      console.log(categoriesObj);
 
-const dataUnitConstructor = (date) => {
-  let studies = { total: 0 };
-  let sports = { total: 0 };
-  let games = { total: 0 };
-  let expenses = { total: 0 };
+      const result = {
+        id: date,
+        date: date,
+        ...categoriesObj,
+      };
+      resolve(result);
+    };
 
-  studyCategories.forEach((category) => {
-    studies[category] = 0;
+    request.onerror = (event) => {
+      reject(event.target.error);
+    };
   });
-
-  sportCategories.forEach((category) => {
-    sports[category] = 0;
-  });
-
-  gameCategories.forEach((category) => {
-    games[category] = 0;
-  });
-
-  expenseCategories.forEach((category) => {
-    expenses[category] = 0;
-  });
-
-  return {
-    id: date,
-    date: date,
-    studyData: studies,
-    sportData: sports,
-    gameData: games,
-    expenseData: expenses,
-  };
 };
 
 export default dataUnitConstructor;
