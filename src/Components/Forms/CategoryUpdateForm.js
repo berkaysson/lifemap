@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+
+import Select from "react-select";
+
 import styled from "styled-components";
 
 const CategoryUpdateFormWrapper = styled.div`
@@ -7,10 +10,24 @@ const CategoryUpdateFormWrapper = styled.div`
 
 const CategoryUpdateForm = ({onGetAllCategories,onUpdateCategory,onDeleteSubCategory}) => {
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setselectedSubCategory] = useState(null);
   const [updateMode, setUpdateMode] = useState(null);
   const [subCategories, setSubCategories] = useState([]);
+
+  const categoryOptions = categories.map((category) => ({
+    label: category.name,
+    value: category.name,
+    category: category
+  }));
+
+  const subCategoryOptions = subCategories.map((subCategory) => {
+    return {
+      label:subCategory,
+      value:subCategory,
+      subCategory:subCategory
+    }
+  })
 
   useEffect(()=>{
     async function fetchCategories(){
@@ -34,18 +51,19 @@ const CategoryUpdateForm = ({onGetAllCategories,onUpdateCategory,onDeleteSubCate
       return;
     }
 
-    onUpdateCategory(selectedCategory, subCategoryInput);
+    onUpdateCategory(selectedCategory.value, subCategoryInput);
   }
 
-  const categorySelectHandler = (event) => {
-    setSelectedCategory(event.target.value);
+  const categorySelectHandler = (selectedOption) => {
+    setSelectedCategory(selectedOption);
+    setselectedSubCategory(null);
 
-    const category = categories.find((item) => item.name === event.target.value);
+    const category = categories.find((item) => item.name === selectedOption.value);
     setSubCategories(category.subCategories)
   }
 
-  const subCategorySelectHandler = (event) => {
-    setselectedSubCategory(event.target.value);
+  const subCategorySelectHandler = (selectedSubCategory) => {
+    setselectedSubCategory(selectedSubCategory);
   }
 
   const updateClickHandler = () => {
@@ -61,7 +79,7 @@ const CategoryUpdateForm = ({onGetAllCategories,onUpdateCategory,onDeleteSubCate
   }
 
   const deleteSubCategory = () => {
-    onDeleteSubCategory(selectedCategory,selectedSubCategory);
+    onDeleteSubCategory(selectedCategory.value, selectedSubCategory.value);
   }
 
   const getFormContent = () => {
@@ -91,12 +109,12 @@ const CategoryUpdateForm = ({onGetAllCategories,onUpdateCategory,onDeleteSubCate
         <>
           {subCategories && subCategories.length > 0 ? (
             <>
-              <select onChange={subCategorySelectHandler}>
-                <option disabled>Select a subCategory</option>
-                {subCategories.map((item) => (
-                  <option value={item}>{item}</option>
-                ))}
-              </select>
+              <Select 
+                onChange={subCategorySelectHandler}
+                options={subCategoryOptions}
+                placeholder="Select a subCategory"
+                value={selectedSubCategory}
+              />
               <button type="button" onClick={deleteSubCategory}>Delete</button>
             </>
           ) : (
@@ -111,18 +129,20 @@ const CategoryUpdateForm = ({onGetAllCategories,onUpdateCategory,onDeleteSubCate
     }
   }
 
-  return <CategoryUpdateFormWrapper>
-    <form onSubmit={submitHandler}>
-      <select onChange={categorySelectHandler}>
-        <option disabled>--Select a category--</option>
-        {
-          categories.map((item, index) => <option key={index} value={item.name}>{item.name}</option>)
-        }
-      </select>
+  return (
+    <CategoryUpdateFormWrapper>
+      <form onSubmit={submitHandler}>
+        <Select
+          value={selectedCategory}
+          options={categoryOptions}
+          onChange={categorySelectHandler}
+          placeholder="--Select a category--"
+        />
 
-      {getFormContent()}
-    </form>
-  </CategoryUpdateFormWrapper>
+        {getFormContent()}
+      </form>
+    </CategoryUpdateFormWrapper>
+  );
 }
 
 export default CategoryUpdateForm;
