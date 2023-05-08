@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import Select from "react-select";
+import SubCategorySelect from "./SubCategorySelect";
 
 import styled from "styled-components";
 
@@ -107,19 +108,14 @@ const CategoryUpdateForm = ({onGetAllCategories,onUpdateCategory,onDeleteSubCate
     } else if (updateMode === "delete") {
       return (
         <>
-          {subCategories && subCategories.length > 0 ? (
-            <>
-              <Select 
-                onChange={subCategorySelectHandler}
-                options={subCategoryOptions}
-                placeholder="Select a subCategory"
-                value={selectedSubCategory}
-              />
-              <button type="button" onClick={deleteSubCategory}>Delete</button>
-            </>
-          ) : (
-            <p>No subCategories found</p>
-          )}
+          <SubCategorySelect
+            onChange={subCategorySelectHandler}
+            options={subCategoryOptions}
+            placeholder={"Select a subCategory"}
+          />
+          <button type="button" onClick={deleteSubCategory}>
+            Delete
+          </button>
 
           <button type="button" onClick={cancelClickHandler}>
             Cancel
