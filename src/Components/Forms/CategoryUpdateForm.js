@@ -7,18 +7,25 @@ import styled from "styled-components";
 
 const CategoryUpdateFormWrapper = styled.div`
   border: 4px aqua solid;
-`
+`;
 
-const CategoryUpdateForm = ({onGetAllCategories,onUpdateCategory,onDeleteSubCategory}) => {
+const CategoryUpdateForm = ({
+  onGetAllCategories,
+  onUpdateCategory,
+  onDeleteSubCategory,
+}) => {
+  // Define the state variables for the component
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedSubCategory, setselectedSubCategory] = useState(null);
-  const [updateMode, setUpdateMode] = useState(null);
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  const [formMode, setFormMode] = useState(null);
   const [subCategories, setSubCategories] = useState([]);
 
+  // Define state variables for the select dropdown options
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [subCategoryOptions, setSubCategoryOptions] = useState();
 
+  // Fetch the list of categories on mount and update the select dropdown options
   async function fetchCategories() {
     const newCategories = await onGetAllCategories();
     setCategories(newCategories);
@@ -29,36 +36,39 @@ const CategoryUpdateForm = ({onGetAllCategories,onUpdateCategory,onDeleteSubCate
     setSubCategories(category?.subCategories ?? []);
   }
 
-  useEffect(()=>{
-    setCategoryOptions(() =>
-        categories.map((category) => ({
-          label: category.name,
-          value: category.name,
-          category: category,
-        }))
-      );
+  useEffect(() => {
+    fetchCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-      setSubCategoryOptions(() =>
+  // Update the select dropdown options when the categories or subCategories change
+  useEffect(() => {
+    setCategoryOptions(() =>
+      categories.map((category) => ({
+        label: category.name,
+        value: category.name,
+        category: category,
+      }))
+    );
+
+    setSubCategoryOptions(() =>
       subCategories.map((subCategory) => ({
         label: subCategory,
         value: subCategory,
         subCategory: subCategory,
-      })));
-  },[categories, subCategories])
+      }))
+    );
+  }, [categories, subCategories]);
 
-  useEffect(() => {
-    fetchCategories()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  // Handle form submission to update the category with a new subcategory
   const submitHandler = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     const subCategoryInput = event.target["subCategoryInput"].value.trim();
     if (!subCategoryInput) {
       alert("Subcategory name cannot be empty");
       return;
     }
-  
+
     if (subCategoryInput.length < 3 || subCategoryInput.length > 30) {
       alert("Subcategory name must be between 3 and 30 characters");
       return;
@@ -66,94 +76,112 @@ const CategoryUpdateForm = ({onGetAllCategories,onUpdateCategory,onDeleteSubCate
 
     await onUpdateCategory(selectedCategory.value, subCategoryInput);
     fetchCategories();
-  }
+  };
 
+  // Handle selection of a category from the dropdown
   const categorySelectHandler = (selectedOption) => {
     setSelectedCategory(selectedOption);
-    setselectedSubCategory(null);
+    setSelectedSubCategory(null);
 
-    const category = categories.find((item) => item.name === selectedOption.value);
-    setSubCategories(category.subCategories)
-  }
+    const category = categories.find(
+      (item) => item.name === selectedOption.value
+    );
+    setSubCategories(category.subCategories);
+  };
 
+  // Handle selection of a subcategory from the dropdown
   const subCategorySelectHandler = (selectedSubCategory) => {
-    setselectedSubCategory(selectedSubCategory);
-  }
+    setSelectedSubCategory(selectedSubCategory);
+  };
 
+  //Handle formMode changes
   const updateClickHandler = () => {
-    setUpdateMode("update");
-  }
+    setFormMode("update");
+  };
 
   const deleteClickHandler = () => {
-    setUpdateMode("delete");
-  }
+    setFormMode("delete");
+  };
 
   const cancelClickHandler = () => {
-    setUpdateMode(null);
-  }
+    setFormMode(null);
+  };
 
+  // Handle deleting a subcategory
   const deleteSubCategory = async () => {
-    await onDeleteSubCategory(selectedCategory.value, selectedSubCategory.value);
+    await onDeleteSubCategory(
+      selectedCategory.value,
+      selectedSubCategory.value
+    );
     fetchCategories();
-  }
+  };
 
+  //render the appropriate form content based on the formMode state variable.
   const getFormContent = () => {
-    if (updateMode == null) {
-      return (
-        <>
-          <button type="button" onClick={updateClickHandler}>
-            Update
-          </button>
-          <button type="button" onClick={deleteClickHandler}>
-            Delete
-          </button>
-        </>
-      );
-    } else if (updateMode === "update") {
-      return (
-        <>
-          <input type="text" name="subCategoryInput"></input>
-          <button type="submit">Submit</button>
-          <button type="button" onClick={cancelClickHandler}>
-            Cancel
-          </button>
-        </>
-      );
-    } else if (updateMode === "delete") {
-      return (
-        <>
-          <SubCategorySelect
-            onChange={subCategorySelectHandler}
-            options={subCategoryOptions}
-            placeholder={"Select a subCategory"}
-            category={selectedCategory}
-          />
-          <button type="button" onClick={deleteSubCategory}>
-            Delete
-          </button>
+    switch (formMode) {
+      case null:
+        return (
+          <>
+            <button type="button" onClick={updateClickHandler}>
+              Update
+            </button>
+            <button type="button" onClick={deleteClickHandler}>
+              Delete
+            </button>
+          </>
+        );
+      case "update":
+        return (
+          <>
+            <form onSubmit={submitHandler}>
+              <Select
+                value={selectedCategory}
+                options={categoryOptions}
+                onChange={categorySelectHandler}
+                placeholder="--Select a category--"
+              />
+              <input type="text" name="subCategoryInput"></input>
+              <button type="submit">Submit</button>
+            </form>
+            <button type="button" onClick={cancelClickHandler}>
+              Cancel
+            </button>
+          </>
+        );
+      case "delete":
+        return (
+          <>
+            <form onSubmit={submitHandler}>
+              <Select
+                value={selectedCategory}
+                options={categoryOptions}
+                onChange={categorySelectHandler}
+                placeholder="--Select a category--"
+              />
+            </form>
+            <SubCategorySelect
+              onChange={subCategorySelectHandler}
+              options={subCategoryOptions}
+              placeholder={"Select a subCategory"}
+              category={selectedCategory}
+            />
+            <button type="button" onClick={deleteSubCategory}>
+              Delete
+            </button>
 
-          <button type="button" onClick={cancelClickHandler}>
-            Cancel
-          </button>
-        </>
-      );
+            <button type="button" onClick={cancelClickHandler}>
+              Cancel
+            </button>
+          </>
+        );
+      default:
+        return null;
     }
-  }
+  };
 
   return (
-    <CategoryUpdateFormWrapper>
-      <form onSubmit={submitHandler}>
-        <Select
-          value={selectedCategory}
-          options={categoryOptions}
-          onChange={categorySelectHandler}
-          placeholder="--Select a category--"
-        />
-
-        {getFormContent()}
-      </form>
-    </CategoryUpdateFormWrapper>
+    <CategoryUpdateFormWrapper>{getFormContent()}</CategoryUpdateFormWrapper>
   );
-}
+};
 
 export default CategoryUpdateForm;
