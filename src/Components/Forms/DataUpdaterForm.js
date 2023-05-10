@@ -16,32 +16,44 @@ const DataUpdaterForm = ({onUpdateData, onGetAllCategories}) => {
   const [subCategories, setSubCategories] = useState([]);
   const [selectedSubCategory, setselectedSubCategory] = useState(null);
 
+  const [categoryOptions, setCategoryOptions] = useState([]);
+  const [subCategoryOptions, setSubCategoryOptions] = useState();
+
   let toBeUpdatedData = {};
 
-  const categoryOptions = categories.map((category) => ({
-    label: category.name,
-    value: category.name,
-    category: category
-  }));
-
-  const subCategoryOptions = subCategories.map((subCategory) => {
-    return {
-      label:subCategory,
-      value:subCategory,
-      subCategory:subCategory
-    }
-  })
+  async function fetchCategories() {
+    const newCategories = await onGetAllCategories();
+    setCategories(newCategories);
+    const selectedCategoryName = selectedCategory?.value;
+    const category = newCategories.find(
+      (item) => item.name === selectedCategoryName
+    );
+    setSubCategories(category?.subCategories ?? []);
+  }
 
   useEffect(()=>{
-    async function fetchCategories(){
-      const newCategories = await onGetAllCategories();
-      setCategories(newCategories);
-    }
-    fetchCategories();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+    setCategoryOptions(() =>
+        categories.map((category) => ({
+          label: category.name,
+          value: category.name,
+          category: category,
+        }))
+      );
 
-  const submitHandler = (e) => {
+      setSubCategoryOptions(() =>
+      subCategories.map((subCategory) => ({
+        label: subCategory,
+        value: subCategory,
+        subCategory: subCategory,
+      })));
+  },[categories, subCategories])
+
+  useEffect(() => {
+    fetchCategories()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const submitHandler = async (e) => {
     e.preventDefault();
     toBeUpdatedData = {
       date:selectedDate,
@@ -54,6 +66,7 @@ const DataUpdaterForm = ({onUpdateData, onGetAllCategories}) => {
 
   const categorySelectionHandler = (selectedCategory) => {
     setSelectedCategory(selectedCategory);
+    setselectedSubCategory(null);
 
     const category = categories.find((item) => item.name === selectedCategory.value);
     setSubCategories(category.subCategories)

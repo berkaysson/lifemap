@@ -16,30 +16,42 @@ const CategoryUpdateForm = ({onGetAllCategories,onUpdateCategory,onDeleteSubCate
   const [updateMode, setUpdateMode] = useState(null);
   const [subCategories, setSubCategories] = useState([]);
 
-  const categoryOptions = categories.map((category) => ({
-    label: category.name,
-    value: category.name,
-    category: category
-  }));
+  const [categoryOptions, setCategoryOptions] = useState([]);
+  const [subCategoryOptions, setSubCategoryOptions] = useState();
 
-  const subCategoryOptions = subCategories.map((subCategory) => {
-    return {
-      label:subCategory,
-      value:subCategory,
-      subCategory:subCategory
-    }
-  })
+  async function fetchCategories() {
+    const newCategories = await onGetAllCategories();
+    setCategories(newCategories);
+    const selectedCategoryName = selectedCategory?.value;
+    const category = newCategories.find(
+      (item) => item.name === selectedCategoryName
+    );
+    setSubCategories(category?.subCategories ?? []);
+  }
 
   useEffect(()=>{
-    async function fetchCategories(){
-      const newCategories = await onGetAllCategories();
-      setCategories(newCategories);
-    }
-    fetchCategories();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+    setCategoryOptions(() =>
+        categories.map((category) => ({
+          label: category.name,
+          value: category.name,
+          category: category,
+        }))
+      );
 
-  const submitHandler = (event) => {
+      setSubCategoryOptions(() =>
+      subCategories.map((subCategory) => ({
+        label: subCategory,
+        value: subCategory,
+        subCategory: subCategory,
+      })));
+  },[categories, subCategories])
+
+  useEffect(() => {
+    fetchCategories()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const submitHandler = async (event) => {
     event.preventDefault()
     const subCategoryInput = event.target["subCategoryInput"].value.trim();
     if (!subCategoryInput) {
@@ -52,7 +64,8 @@ const CategoryUpdateForm = ({onGetAllCategories,onUpdateCategory,onDeleteSubCate
       return;
     }
 
-    onUpdateCategory(selectedCategory.value, subCategoryInput);
+    await onUpdateCategory(selectedCategory.value, subCategoryInput);
+    fetchCategories();
   }
 
   const categorySelectHandler = (selectedOption) => {
@@ -79,8 +92,9 @@ const CategoryUpdateForm = ({onGetAllCategories,onUpdateCategory,onDeleteSubCate
     setUpdateMode(null);
   }
 
-  const deleteSubCategory = () => {
-    onDeleteSubCategory(selectedCategory.value, selectedSubCategory.value);
+  const deleteSubCategory = async () => {
+    await onDeleteSubCategory(selectedCategory.value, selectedSubCategory.value);
+    fetchCategories();
   }
 
   const getFormContent = () => {
