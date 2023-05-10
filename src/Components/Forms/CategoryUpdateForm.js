@@ -10,27 +10,22 @@ const CategoryUpdateFormWrapper = styled.div`
 `;
 
 const CategoryUpdateForm = ({
-  onGetAllCategories,
   onUpdateCategory,
   onDeleteSubCategory,
+  categories,
+  categoryOptions
 }) => {
-  // Define the state variables for the component
-  const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [formMode, setFormMode] = useState(null);
   const [subCategories, setSubCategories] = useState([]);
 
-  // Define state variables for the select dropdown options
-  const [categoryOptions, setCategoryOptions] = useState([]);
   const [subCategoryOptions, setSubCategoryOptions] = useState();
 
   // Fetch the list of categories on mount and update the select dropdown options
   async function fetchCategories() {
-    const newCategories = await onGetAllCategories();
-    setCategories(newCategories);
     const selectedCategoryName = selectedCategory?.value;
-    const category = newCategories.find(
+    const category = categories.find(
       (item) => item.name === selectedCategoryName
     );
     setSubCategories(category?.subCategories ?? []);
@@ -41,16 +36,8 @@ const CategoryUpdateForm = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Update the select dropdown options when the categories or subCategories change
+  // Update the select dropdown options when the subCategories change
   useEffect(() => {
-    setCategoryOptions(() =>
-      categories.map((category) => ({
-        label: category.name,
-        value: category.name,
-        category: category,
-      }))
-    );
-
     setSubCategoryOptions(() =>
       subCategories.map((subCategory) => ({
         label: subCategory,

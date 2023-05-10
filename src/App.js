@@ -6,7 +6,30 @@ import AppContent from "./Components/AppContent";
 const CURRENT_STORE = "2023"
 
 function App({db}) {
+  const [categories, setCategories] = useState([]);
+  const [categoryOptions, setCategoryOptions] = useState([]);
+
   const [selectedDateDataUnit, setSelectedDateDataUnit] = useState(null);
+
+  async function fetchCategories() {
+    const newCategories = await getAllCategories();
+    setCategories(newCategories);
+  };
+
+  useEffect(()=>{
+    setCategoryOptions(() =>
+        categories.map((category) => ({
+          label: category.name,
+          value: category.name,
+          category: category,
+        }))
+      );
+  },[categories])
+
+  useEffect(() => {
+    fetchCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const createDataUnit = async () => {
     const dataUnitDate = (new Date().toISOString()).slice(0,10);
@@ -125,6 +148,7 @@ function App({db}) {
           categoryData.subCategories.push(subCategory);
         }
         store.put(categoryData);
+        fetchCategories();
       }
     };
     
@@ -148,6 +172,7 @@ function App({db}) {
         );
         categoryData.subCategories = subCategories;
         store.put(categoryData);
+        fetchCategories();
       }
     };
   
@@ -163,9 +188,10 @@ function App({db}) {
         onGetDataByDate={getDataUnitbyDate}
         onUpdateData={updateDataUnit}
         selectedDateDataUnit={selectedDateDataUnit}
-        onGetAllCategories={getAllCategories}
         onUpdateCategory = {updateCategory}
         onDeleteSubCategory={deleteSubCategory}
+        categories={categories}
+        categoryOptions={categoryOptions}
       />
     </div>
   );

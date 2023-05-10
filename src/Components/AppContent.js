@@ -8,19 +8,25 @@ const AppContent = ({
   onGetDataByDate,
   onUpdateData,
   selectedDateDataUnit,
-  onGetAllCategories,
   onUpdateCategory,
-  onDeleteSubCategory
+  onDeleteSubCategory,
+  categories,
+  categoryOptions
 }) => {
   return (
     <>
       <button onClick={onCreateToday}>Create Today</button>
-      <DataUpdaterForm onUpdateData={onUpdateData} onGetAllCategories={onGetAllCategories} />
+      <DataUpdaterForm 
+        onUpdateData={onUpdateData} 
+        categories={categories}
+        categoryOptions={categoryOptions}
+        />
       <DataViewerForm onDateSelection={onGetDataByDate} />
       <CategoryUpdateForm
-        onGetAllCategories={onGetAllCategories}
         onUpdateCategory={onUpdateCategory}
         onDeleteSubCategory={onDeleteSubCategory}
+        categories={categories}
+        categoryOptions={categoryOptions}
       />
       <DataViewer selectedDateDataUnit={selectedDateDataUnit} />
     </>
