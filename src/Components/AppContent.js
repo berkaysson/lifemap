@@ -7,7 +7,7 @@ const AppContent = ({
   onCreateToday,
   onGetDataByDate,
   onUpdateData,
-  selectedDate,
+  selectedDateDataUnit,
   onGetAllCategories,
   onUpdateCategory,
   onDeleteSubCategory
@@ -22,7 +22,7 @@ const AppContent = ({
         onUpdateCategory={onUpdateCategory}
         onDeleteSubCategory={onDeleteSubCategory}
       />
-      <DataViewer selectedDate={selectedDate} />
+      <DataViewer selectedDateDataUnit={selectedDateDataUnit} />
     </>
   );
 };

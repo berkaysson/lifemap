@@ -6,7 +6,7 @@ import AppContent from "./Components/AppContent";
 const CURRENT_STORE = "2023"
 
 function App({db}) {
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDateDataUnit, setSelectedDateDataUnit] = useState(null);
 
   const createDataUnit = async () => {
     const dataUnitDate = (new Date().toISOString()).slice(0,10);
@@ -70,7 +70,7 @@ function App({db}) {
   const getDataUnitbyDate = (date) => {
     getDataUnit(date)
     .then((dataUnit) => {
-      setSelectedDate(dataUnit);
+      setSelectedDateDataUnit(dataUnit);
       console.log('Data unit assigned successfully');
     })
     .catch((error) => {
@@ -162,7 +162,7 @@ function App({db}) {
         onCreateToday={createDataUnit}
         onGetDataByDate={getDataUnitbyDate}
         onUpdateData={updateDataUnit}
-        selectedDate={selectedDate}
+        selectedDateDataUnit={selectedDateDataUnit}
         onGetAllCategories={getAllCategories}
         onUpdateCategory = {updateCategory}
         onDeleteSubCategory={deleteSubCategory}
