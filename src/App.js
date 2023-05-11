@@ -114,6 +114,8 @@ function App({db}) {
       const dataStore = transaction.objectStore(selectedYear);
       const request = dataStore.put(dataUnit);
 
+      if(dataUnit.date === selectedDateDataUnit.date) setSelectedDateDataUnit(dataUnit);
+
       request.onsuccess = () => {
         console.log('Data unit updated successfully');
       };
