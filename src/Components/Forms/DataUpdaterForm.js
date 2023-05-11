@@ -9,6 +9,15 @@ const DataUpdaterFormWrapper = styled.div`
   border: 2px red solid;
 `;
 
+const ActiveButton = styled.button`
+  opacity: 0.8;
+  &.active{
+    background-color: #000000;
+    color: #ffffff;
+    opacity: 1;
+  }
+`
+
 const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
   const selectedDate = new Date().toISOString().slice(0, 10);
   const [dateInputActive, setDateInputActive] = useState(false);
@@ -16,7 +25,7 @@ const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [subCategories, setSubCategories] = useState([]);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
-
+  const [formMode, setFormMode] = useState('add');
   const [subCategoryOptions, setSubCategoryOptions] = useState();
 
   let toBeUpdatedData = {};
@@ -55,6 +64,7 @@ const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
       category: selectedCategory.value,
       subCategory: selectedSubCategory.value,
       value: e.target.valueInput.value,
+      formMode: formMode
     };
     onUpdateData(toBeUpdatedData);
   };
@@ -77,6 +87,10 @@ const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
 
   const dateChangeHandler = () => {
     setDateInputActive(!dateInputActive);
+  }
+
+  const formModeChangeHandler = (mode) => {
+    setFormMode(mode);
   }
 
   return (
@@ -102,7 +116,18 @@ const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
         />
         <label>Enter the value</label>
         <input type="number" name="valueInput"></input>
-        <button type="submit">Add</button>
+        <div>
+        <label>Do you want to add the value or delete</label>
+        <ActiveButton
+         type="button" 
+         className={formMode==='add' ? "active": ""} 
+         onClick={()=>formModeChangeHandler('add')}>Add</ActiveButton>
+        <ActiveButton
+         type="button" 
+         className={formMode==='add' ? "" : "active"}
+         onClick={()=>formModeChangeHandler('delete')}>Delete</ActiveButton>
+        </div>
+        <button type="submit">Submit</button>
       </form>
     </DataUpdaterFormWrapper>
   );

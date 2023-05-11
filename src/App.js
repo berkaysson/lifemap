@@ -105,10 +105,17 @@ function App({db}) {
     getDataUnit(toBeUpdatedData.date)
     .then((dataUnit) => {
       console.log('Data to be updated retrieved successfully')
-      const selectedYear = toBeUpdatedData.date.slice(0,4).toString();
-      const currentValue = parseInt(dataUnit[toBeUpdatedData.category][toBeUpdatedData.subCategory]) || 0;
+      const selectedYear = toBeUpdatedData.date.slice(0, 4).toString();
+      const currentValue =
+        parseInt(
+          dataUnit[toBeUpdatedData.category][toBeUpdatedData.subCategory]
+        ) || 0;
       const newValue = parseInt(toBeUpdatedData.value) || 0;
-      dataUnit[toBeUpdatedData.category][toBeUpdatedData.subCategory] = (currentValue + newValue).toString();
+      dataUnit[toBeUpdatedData.category][toBeUpdatedData.subCategory] = (
+        toBeUpdatedData.formMode === 'add'
+          ? (+currentValue + +newValue)
+          : (+currentValue - +newValue)
+      ).toString();
 
       const transaction = db.transaction([selectedYear], "readwrite");
       const dataStore = transaction.objectStore(selectedYear);
