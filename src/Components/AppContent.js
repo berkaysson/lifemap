@@ -28,7 +28,7 @@ const AppContent = ({
         categories={categories}
         categoryOptions={categoryOptions}
       />
-      <DataViewer selectedDateDataUnit={selectedDateDataUnit} />
+      <DataViewer selectedDateDataUnit={selectedDateDataUnit} categories={categories} />
     </>
   );
 };

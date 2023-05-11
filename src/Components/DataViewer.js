@@ -1,49 +1,67 @@
-import categoryData from "../Data/categoryData.json";
+import styled from 'styled-components';
 
-const DataViewer = ({ selectedDate }) => {
-  if(selectedDate == null) return;
-  const studyCategories = categoryData.studyCategories;
-  const sportCategories = categoryData.sportCategories;
-  const gameCategories = categoryData.gameCategories;
-  const expenseCategories = categoryData.expenseCategories;
-  console.log(selectedDate)
+const Table = styled.table`
+  border-collapse: collapse;
+  margin: 20px 0;
+`;
+
+const TableHead = styled.thead`
+  background-color: #eee;
+`;
+
+const TableHeader = styled.th`
+  padding: 10px;
+  text-align: left;
+`;
+
+const TableRow = styled.tr`
+  &:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+`;
+
+const TableCell = styled.td`
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+`;
+
+const DataViewer = ({ selectedDateDataUnit, categories }) => {
+  if (!selectedDateDataUnit || !categories) return <p>No Data</p>;
+
+  const tableHeaders = categories.map((category) => (
+    category.subCategories.map((subCategory) => (
+      <TableHeader key={`${category.name}-${subCategory}`}>{subCategory}</TableHeader>
+    ))
+  ));
+
+  let tableRow = [];
+
+  categories.forEach(category => {
+    category['subCategories'].forEach((subCategory) => {
+      let tableValue = (selectedDateDataUnit[category.name][subCategory] || 0);
+      tableRow.push(tableValue);
+    })
+  });
+
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          {studyCategories.map((category) => (
-            <th key={category}>{category}</th>
-          ))}
-          {sportCategories.map((category) => (
-            <th key={category}>{category}</th>
-          ))}
-          {gameCategories.map((category) => (
-            <th key={category}>{category}</th>
-          ))}
-          {expenseCategories.map((category) => (
-            <th key={category}>{category}</th>
-          ))}
-        </tr>
-      </thead>
+    <Table>
+      <TableHead>
+        {categories.map((category) => (
+          <th key={`${category.name}-header`} colSpan={category.subCategories.length}>
+            {category.name}
+          </th>
+        ))}
+        <TableRow>{tableHeaders}</TableRow>
+      </TableHead>
       <tbody>
-        <tr>
-          <td>{selectedDate.date}</td>
-          {studyCategories.map((category) => (
-            <td key={category}>{selectedDate.studyData[category]}</td>
+        <TableRow>
+          {tableRow.map((column, index) => (
+            <TableCell key={`cell-${index}`}>{column}</TableCell>
           ))}
-          {sportCategories.map((category) => (
-            <td key={category}>{selectedDate.sportData[category]}</td>
-          ))}
-          {gameCategories.map((category) => (
-            <td key={category}>{selectedDate.gameData[category]}</td>
-          ))}
-          {expenseCategories.map((category) => (
-            <td key={category}>{selectedDate.expenseData[category]}</td>
-          ))}
-        </tr>
+        </TableRow>
       </tbody>
-    </table>
+    </Table>
   );
 };
 
