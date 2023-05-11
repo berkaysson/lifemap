@@ -11,6 +11,7 @@ const DataUpdaterFormWrapper = styled.div`
 
 const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
   const selectedDate = new Date().toISOString().slice(0, 10);
+  const [dateInputActive, setDateInputActive] = useState(false);
 
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [subCategories, setSubCategories] = useState([]);
@@ -48,8 +49,9 @@ const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
   // Handle form submission to update data with toBeUpdatedData object
   const submitHandler = async (e) => {
     e.preventDefault();
+    const dateInput = dateInputActive ? e.target['dateInput'].value : selectedDate;
     toBeUpdatedData = {
-      date: selectedDate,
+      date: dateInput,
       category: selectedCategory.value,
       subCategory: selectedSubCategory.value,
       value: e.target.valueInput.value,
@@ -73,10 +75,17 @@ const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
     setSelectedSubCategory(selectedSubCategory);
   };
 
+  const dateChangeHandler = () => {
+    setDateInputActive(!dateInputActive);
+  }
+
   return (
     <DataUpdaterFormWrapper>
-      <h4>Current Date: {selectedDate}</h4>
       <form onSubmit={submitHandler}>
+        {dateInputActive ? <input type="date" name="dateInput" defaultValue={selectedDate}></input> : selectedDate}
+        <button onClick={dateChangeHandler}>{
+          dateInputActive ? "select Today":"Select date"
+        }</button>
         <label>Select Updated Category</label>
         <Select
           onChange={categorySelectionHandler}
@@ -93,7 +102,7 @@ const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
         />
         <label>Enter the value</label>
         <input type="number" name="valueInput"></input>
-        <button type="submit">Submit</button>
+        <button type="submit">Add</button>
       </form>
     </DataUpdaterFormWrapper>
   );
