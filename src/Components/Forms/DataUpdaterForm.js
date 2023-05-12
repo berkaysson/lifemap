@@ -59,11 +59,16 @@ const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     const dateInput = dateInputActive ? e.target['dateInput'].value : selectedDate;
+    const valueInput = e.target.valueInput.value;
+    if(valueInput<0){
+      alert("Value can not be smaller than 0");
+      return;
+    }
     toBeUpdatedData = {
       date: dateInput,
       category: selectedCategory.value,
       subCategory: selectedSubCategory.value,
-      value: e.target.valueInput.value,
+      value: valueInput,
       formMode: formMode
     };
     onUpdateData(toBeUpdatedData);
@@ -97,7 +102,7 @@ const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
     <DataUpdaterFormWrapper>
       <form onSubmit={submitHandler}>
         {dateInputActive ? <input type="date" name="dateInput" defaultValue={selectedDate}></input> : selectedDate}
-        <button onClick={dateChangeHandler}>{
+        <button type="button" onClick={dateChangeHandler}>{
           dateInputActive ? "select Today":"Select date"
         }</button>
         <label>Select Updated Category</label>

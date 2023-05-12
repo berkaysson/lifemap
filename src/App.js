@@ -111,11 +111,18 @@ function App({db}) {
           dataUnit[toBeUpdatedData.category][toBeUpdatedData.subCategory]
         ) || 0;
       const newValue = parseInt(toBeUpdatedData.value) || 0;
-      dataUnit[toBeUpdatedData.category][toBeUpdatedData.subCategory] = (
+      const calculatedValue = (
         toBeUpdatedData.formMode === 'add'
           ? (+currentValue + +newValue)
           : (+currentValue - +newValue)
       ).toString();
+      if (calculatedValue < 0)
+        return alert(
+          "Value is negative, it must be bigger than zero, value after change:" +
+            calculatedValue
+        );
+      dataUnit[toBeUpdatedData.category][toBeUpdatedData.subCategory] =
+        calculatedValue;
 
       const transaction = db.transaction([selectedYear], "readwrite");
       const dataStore = transaction.objectStore(selectedYear);
