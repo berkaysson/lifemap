@@ -55,7 +55,7 @@ const rootElement = document.getElementById('root');
 openDB().then((db) => {
   createRoot(rootElement).render(
     <React.StrictMode>
-      <App db={db} />
+      <App db={db} STORES={STORES} />
     </React.StrictMode>
   );
 }).catch((error) => {

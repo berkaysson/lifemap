@@ -5,7 +5,7 @@ import AppContent from "./Components/AppContent";
 
 const CURRENT_STORE = "2023"
 
-function App({db}) {
+function App({db, STORES}) {
   const [categories, setCategories] = useState([]);
   const [categoryOptions, setCategoryOptions] = useState([]);
 
@@ -90,6 +90,33 @@ function App({db}) {
     });
   }
 
+  const getDataUnitsByYear = (year) => {
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction([year], "readonly");
+      const store = transaction.objectStore(year);
+      const request = store.getAll();
+
+      request.onsuccess = (event) => {
+        const dataUnits = event.target.result;
+        resolve(dataUnits);
+      };
+
+      request.onerror = (event) => {
+        console.error("Error getting data units:", event.target.error);
+        reject(event.target.error);
+      };
+    });
+  };
+
+  const getAllDataUnits = async () => {
+    const allDataUnits = [];
+    for (const year of STORES) {
+      const newDataUnits = await getDataUnitsByYear(year);
+      allDataUnits.push(...newDataUnits);
+    }
+    return allDataUnits;
+  };
+  
   const getDataUnitbyDate = (date) => {
     getDataUnit(date)
     .then((dataUnit) => {
@@ -173,7 +200,13 @@ function App({db}) {
     };
   }
 
-  const deleteSubCategory = (category, subCategory) => {
+  const deleteSubCategory = async (category, subCategory) => {
+    const allDataUnits = await getAllDataUnits();
+    
+    if (allDataUnits.some(dataUnit => dataUnit[category]?.[subCategory] > 0)) {
+      return alert(`This category has been used before, can not be deleted`);
+    }
+
     const transaction = db.transaction(["Categories"], "readwrite");
     const store = transaction.objectStore("Categories");
   
