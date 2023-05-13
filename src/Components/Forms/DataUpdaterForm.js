@@ -32,7 +32,7 @@ const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
 
   // Fetch the list of categories on mount and update the select dropdown options
   async function fetchCategories() {
-    const selectedCategoryName = selectedCategory?.value;
+    const selectedCategoryName = selectedCategory?.name;
     const category = categories.find(
       (item) => item.name === selectedCategoryName
     );
@@ -66,7 +66,7 @@ const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
     }
     toBeUpdatedData = {
       date: dateInput,
-      category: selectedCategory.value,
+      category: selectedCategory.label,
       subCategory: selectedSubCategory.value,
       value: valueInput,
       formMode: formMode
@@ -80,7 +80,7 @@ const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
     setSelectedSubCategory(null);
 
     const category = categories.find(
-      (item) => item.name === selectedCategory.value
+      (item) => item.id === selectedCategory.value
     );
     setSubCategories(category.subCategories);
   };

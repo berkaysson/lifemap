@@ -24,7 +24,7 @@ const CategoryUpdateForm = ({
 
   // Fetch the list of categories on mount and update the select dropdown options
   async function fetchCategories() {
-    const selectedCategoryName = selectedCategory?.value;
+    const selectedCategoryName = selectedCategory?.name;
     const category = categories.find(
       (item) => item.name === selectedCategoryName
     );
@@ -71,7 +71,7 @@ const CategoryUpdateForm = ({
     setSelectedSubCategory(null);
 
     const category = categories.find(
-      (item) => item.name === selectedOption.value
+      (item) => item.id === selectedOption.value
     );
     setSubCategories(category.subCategories);
   };
@@ -97,8 +97,9 @@ const CategoryUpdateForm = ({
   // Handle deleting a subcategory
   const deleteSubCategory = async () => {
     await onDeleteSubCategory(
+      selectedCategory.label,
       selectedCategory.value,
-      selectedSubCategory.value
+      selectedSubCategory.label
     );
     fetchCategories();
   };

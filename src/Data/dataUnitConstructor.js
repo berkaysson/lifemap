@@ -1,39 +1,32 @@
-const dataUnitConstructor = (date, db) => {
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction("Categories", "readonly");
-    const categoryStore = transaction.objectStore("Categories");
-    let allCategories;
-    const categoriesObj = {};
-    const request = categoryStore.getAll();
-    request.onsuccess = (event) => {
-      allCategories = event.target.result;
+const dataUnitConstructor = async (date, db) => {
+  const categoriesObj = {};
 
-      allCategories.forEach(category => {
-        const subCategoriesObj = {};
-        if(category.subCategories){
-          category.subCategories.forEach((subCategory) => {
-            subCategoriesObj[subCategory] = 0;
-          });
-        }
-        categoriesObj[category.name] = {
-          total: 0,
-          ...subCategoriesObj,
-        };
-      });
-      console.log(categoriesObj);
+  try {
+    const allCategories = await db.Categories.toArray();
 
-      const result = {
-        id: date,
-        date: date,
-        ...categoriesObj,
+    allCategories.forEach(category => {
+      const subCategoriesObj = {};
+      if(category.subCategories){
+        category.subCategories.forEach((subCategory) => {
+          subCategoriesObj[subCategory] = 0;
+        });
+      }
+      categoriesObj[category.name] = {
+        total: 0,
+        ...subCategoriesObj,
       };
-      resolve(result);
-    };
+    });
 
-    request.onerror = (event) => {
-      reject(event.target.error);
+    const result = {
+      id: date,
+      date: date,
+      ...categoriesObj,
     };
-  });
+    return result;
+  } catch (error) {
+    console.error('Error creating data unit:', error);
+    throw error;
+  }
 };
 
 export default dataUnitConstructor;

@@ -1,63 +1,51 @@
-import React from 'react';
-import {createRoot} from 'react-dom/client';
+import React from "react";
+import { createRoot } from "react-dom/client";
 
-import './index.css';
+import Dexie from "dexie";
 
-import App from './App';
+import "./index.css";
+
+import App from "./App";
 
 import categoryData from "./Data/categoryData.json";
 
-const STORES = ['2020', '2021', '2022', '2023'];
-const DB_VERSION = 2;
-const DB_NAME = 'lifemap';
+const STORES = ["2020", "2021", "2022", "2023", "2024", "2025"];
+const DB_VERSION = 1;
+const DB_NAME = "lifemap";
 
 // Open the database
-const openDB = () => {
-  return new Promise((resolve, reject) => {
-    const request = window.indexedDB.open(DB_NAME, DB_VERSION);
+const openDB = async () => {
+  const db = new Dexie(DB_NAME);
 
-    // Handle errors
-    request.onerror = () => {
-      console.error('Database error:', request.error);
-      reject(request.error);
-    };
-
-    // Handle success
-    request.onsuccess = () => {
-      const db = request.result;
-      console.log('Database opened successfully:', db);
-      resolve(db);
-    };
-
-    // Handle upgrades
-    request.onupgradeneeded = (event) => {
-      const db = event.target.result;
-      console.log('Database upgrade needed:', db);
-
-      // Create object stores for each year
-      STORES.forEach((storeName) => {
-        const store = db.createObjectStore(storeName, { keyPath: 'id', autoIncrement: true });
-
-        // Define the store schema here
-      });
-      const storeCategories = db.createObjectStore("Categories", {keyPath:'name'});
-
-      Object.keys(categoryData).forEach((category) => {
-        db.transaction(["Categories"], "readwrite").put({name:category});
-      })
-    };
+  db.version(DB_VERSION).stores({
+    ...STORES.reduce((acc, store) => ({ ...acc, [store]: "date" }), {}),
+    Categories: "id",
   });
+
+  await db.open();
+
+  await db.Categories.bulkPut(
+    Object.values(categoryData).map((category) => ({
+      id: category.id,
+      name: category.name,
+      subCategories: category.subCategories,
+    }))
+  );
+
+  return db;
 };
 
 // Render the app inside a root element
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById("root");
 
-openDB().then((db) => {
-  createRoot(rootElement).render(
-    <React.StrictMode>
-      <App db={db} STORES={STORES} />
-    </React.StrictMode>
-  );
-}).catch((error) => {
-  console.error('Failed to open database:', error);
-});
+openDB()
+  .then((db) => {
+    createRoot(rootElement).render(
+      <React.StrictMode>
+        <App db={db} STORES={STORES} />
+      </React.StrictMode>
+    );
+  })
+  .catch((error) => {
+    console.error("Failed to open database:", error);
+  });
