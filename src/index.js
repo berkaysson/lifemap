@@ -15,18 +15,16 @@ const DB_NAME = "lifemap";
 
 // Open the database
 const openDB = async () => {
-  const exists = await Dexie.exists(DB_NAME);
+  const db = new Dexie(DB_NAME);
 
-  if(!exists){
-    const db = new Dexie(DB_NAME);
+  db.version(DB_VERSION).stores({
+    ...STORES.reduce((acc, store) => ({ ...acc, [store]: "date" }), {}),
+    Categories: "id",
+  });
 
-    db.version(DB_VERSION).stores({
-      ...STORES.reduce((acc, store) => ({ ...acc, [store]: "date" }), {}),
-      Categories: "id",
-    });
-  
-    await db.open();
-  
+  await db.open();
+
+  if ((await db.Categories.count()) === 0) {
     await db.Categories.bulkPut(
       Object.values(categoryData).map((category) => ({
         id: category.id,
@@ -34,15 +32,9 @@ const openDB = async () => {
         subCategories: category.subCategories,
       }))
     );
-  
-    return db;
   }
-  else{
-    const db = new Dexie(DB_NAME);
-    await db.open();
 
-    return db;
-  }
+  return db;
 };
 
 // Render the app inside a root element
