@@ -4,9 +4,9 @@ const dataUnitConstructor = async (date, db) => {
   try {
     const allCategories = await db.Categories.toArray();
 
-    allCategories.forEach(category => {
+    allCategories.forEach((category) => {
       const subCategoriesObj = {};
-      if(category.subCategories){
+      if (category.subCategories) {
         category.subCategories.forEach((subCategory) => {
           subCategoriesObj[subCategory] = 0;
         });
@@ -24,7 +24,7 @@ const dataUnitConstructor = async (date, db) => {
     };
     return result;
   } catch (error) {
-    console.error('Error creating data unit:', error);
+    console.error("Error creating data unit:", error);
     throw error;
   }
 };

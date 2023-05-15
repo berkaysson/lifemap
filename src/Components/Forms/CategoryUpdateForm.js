@@ -13,7 +13,7 @@ const CategoryUpdateForm = ({
   onUpdateCategory,
   onDeleteSubCategory,
   categories,
-  categoryOptions
+  categoryOptions,
 }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);

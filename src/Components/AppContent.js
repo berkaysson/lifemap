@@ -14,16 +14,16 @@ const AppContent = ({
   categories,
   categoryOptions,
   onExport,
-  onImport
+  onImport,
 }) => {
   return (
     <>
       <button onClick={onCreateToday}>Create Today</button>
-      <DataUpdaterForm 
-        onUpdateData={onUpdateData} 
+      <DataUpdaterForm
+        onUpdateData={onUpdateData}
         categories={categories}
         categoryOptions={categoryOptions}
-        />
+      />
       <DataViewerForm onDateSelection={onGetDataByDate} />
       <CategoryUpdateForm
         onUpdateCategory={onUpdateCategory}
@@ -31,7 +31,10 @@ const AppContent = ({
         categories={categories}
         categoryOptions={categoryOptions}
       />
-      <DataViewer selectedDateDataUnit={selectedDateDataUnit} categories={categories} />
+      <DataViewer
+        selectedDateDataUnit={selectedDateDataUnit}
+        categories={categories}
+      />
       <DexieImportExport onExport={onExport} onImport={onImport} />
     </>
   );

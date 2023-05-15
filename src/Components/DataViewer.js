@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Table = styled.table`
   border-collapse: collapse;
@@ -29,26 +29,31 @@ const TableCell = styled.td`
 const DataViewer = ({ selectedDateDataUnit, categories }) => {
   if (!selectedDateDataUnit || !categories) return <p>No Data</p>;
 
-  const tableHeaders = categories.map((category) => (
+  const tableHeaders = categories.map((category) =>
     category.subCategories.map((subCategory) => (
-      <TableHeader key={`${category.name}-${subCategory}`}>{subCategory}</TableHeader>
+      <TableHeader key={`${category.name}-${subCategory}`}>
+        {subCategory}
+      </TableHeader>
     ))
-  ));
+  );
 
   let tableRow = [];
 
-  categories.forEach(category => {
-    category['subCategories'].forEach((subCategory) => {
-      let tableValue = (selectedDateDataUnit[category.name][subCategory] || 0);
+  categories.forEach((category) => {
+    category["subCategories"].forEach((subCategory) => {
+      let tableValue = selectedDateDataUnit[category.name][subCategory] || 0;
       tableRow.push(tableValue);
-    })
+    });
   });
 
   return (
     <Table>
       <TableHead>
         {categories.map((category) => (
-          <th key={`${category.name}-header`} colSpan={category.subCategories.length}>
+          <th
+            key={`${category.name}-header`}
+            colSpan={category.subCategories.length}
+          >
             {category.name}
           </th>
         ))}

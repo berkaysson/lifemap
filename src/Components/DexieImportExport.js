@@ -4,9 +4,9 @@ import styled from "styled-components";
 
 const DexieImportExportWrapper = styled.div`
   border: 3px solid green;
-`
+`;
 
-const DexieImportExport = ({onExport, onImport}) => {
+const DexieImportExport = ({ onExport, onImport }) => {
   const [file, setFile] = useState(null);
 
   const handleImport = async () => {
@@ -20,13 +20,13 @@ const DexieImportExport = ({onExport, onImport}) => {
     } catch (error) {
       console.error("Failed to read file:", error);
     }
-  }
+  };
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     setFile(selectedFile);
-  }
-  
+  };
+
   return (
     <DexieImportExportWrapper>
       <button onClick={onExport}>Export</button>
@@ -36,6 +36,6 @@ const DexieImportExport = ({onExport, onImport}) => {
       <button onClick={handleImport}>Import</button>
     </DexieImportExportWrapper>
   );
-}
+};
 
 export default DexieImportExport;

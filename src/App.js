@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
-import { exportDB} from "dexie-export-import";
+import { exportDB } from "dexie-export-import";
 
 import dataUnitConstructor from "./Data/dataUnitConstructor";
 import AppContent from "./Components/AppContent";
 import Dexie from "dexie";
 
-const CURRENT_STORE = "2023"
-
-function App({db, STORES}) {
+function App({ db, STORES }) {
   const [categories, setCategories] = useState([]);
   const [categoryOptions, setCategoryOptions] = useState([]);
 
@@ -16,17 +14,17 @@ function App({db, STORES}) {
   async function fetchCategories() {
     const newCategories = await getAllCategories();
     setCategories(newCategories);
-  };
+  }
 
-  useEffect(()=>{
+  useEffect(() => {
     setCategoryOptions(() =>
-        categories.map((category) => ({
-          value: category.id,
-          label: category.name,
-          subCategories: category.subCategories,
-        }))
-      );
-  },[categories])
+      categories.map((category) => ({
+        value: category.id,
+        label: category.name,
+        subCategories: category.subCategories,
+      }))
+    );
+  }, [categories]);
 
   useEffect(() => {
     fetchCategories();
@@ -71,17 +69,6 @@ function App({db, STORES}) {
     }
   };
 
-  const getDataUnitsByYear = async (year) => {
-    try {
-      const dataUnits = await db[year].toArray();
-      console.log("Data units retrieved successfully");
-      return dataUnits;
-    } catch (error) {
-      console.error("Error getting data units:", error);
-      throw error;
-    }
-  };
-
   const getAllDataUnits = async () => {
     const allDataUnits = [];
     try {
@@ -89,53 +76,57 @@ function App({db, STORES}) {
         const newDataUnits = await db[year].toArray();
         allDataUnits.push(...newDataUnits);
       }
-      console.log('All data units retrieved successfully');
+      console.log("All data units retrieved successfully");
       return allDataUnits;
     } catch (error) {
-      console.error('Error getting all data units:', error);
+      console.error("Error getting all data units:", error);
       throw error;
     }
   };
-  
+
   const setDataUnit = async (date) => {
     try {
       const dataUnit = await getDataUnit(date);
       setSelectedDateDataUnit(dataUnit);
-      console.log('Data unit assigned successfully');
+      console.log("Data unit assigned successfully");
     } catch (error) {
-      console.error('Failed to get data unit:', error);
+      console.error("Failed to get data unit:", error);
     }
-  }
+  };
 
   const updateDataUnit = async (toBeUpdatedData) => {
     try {
       const dataUnit = await getDataUnit(toBeUpdatedData.date);
-      console.log('Data to be updated retrieved successfully');
+      console.log("Data to be updated retrieved successfully");
       console.log(dataUnit);
       const selectedYear = toBeUpdatedData.date.slice(0, 4).toString();
       const currentValue =
-        parseInt(dataUnit[toBeUpdatedData.category][toBeUpdatedData.subCategory]) || 0;
+        parseInt(
+          dataUnit[toBeUpdatedData.category][toBeUpdatedData.subCategory]
+        ) || 0;
       const newValue = parseInt(toBeUpdatedData.value) || 0;
       const calculatedValue = (
-        toBeUpdatedData.formMode === 'add'
-          ? (+currentValue + +newValue)
-          : (+currentValue - +newValue)
+        toBeUpdatedData.formMode === "add"
+          ? +currentValue + +newValue
+          : +currentValue - +newValue
       ).toString();
       if (calculatedValue < 0) {
         return alert(
-          "Value is negative, it must be bigger than zero, value after change:" + calculatedValue
+          "Value is negative, it must be bigger than zero, value after change:" +
+            calculatedValue
         );
       }
-      dataUnit[toBeUpdatedData.category][toBeUpdatedData.subCategory] = calculatedValue;
+      dataUnit[toBeUpdatedData.category][toBeUpdatedData.subCategory] =
+        calculatedValue;
 
       await db[selectedYear].put(dataUnit);
-  
+
       if (dataUnit.date === selectedDateDataUnit.date) {
         setSelectedDateDataUnit(dataUnit);
       }
-      console.log('Data unit updated successfully');
+      console.log("Data unit updated successfully");
     } catch (error) {
-      console.error('Failed to get data unit:', error);
+      console.error("Failed to get data unit:", error);
     }
   };
 
@@ -152,7 +143,7 @@ function App({db, STORES}) {
           }
           categoryData.subCategories.push(subCategory);
         }
-  
+
         await db.Categories.put(categoryData);
         await fetchCategories();
       }
@@ -163,14 +154,18 @@ function App({db, STORES}) {
 
   const deleteSubCategory = async (categoryName, categoryID, subCategory) => {
     const allDataUnits = await getAllDataUnits();
-    if (allDataUnits.some(dataUnit => dataUnit[categoryName]?.[subCategory] > 0)) {
+    if (
+      allDataUnits.some((dataUnit) => dataUnit[categoryName]?.[subCategory] > 0)
+    ) {
       return alert(`This category has been used before, can not be deleted`);
     }
-  
+
     try {
       const categoryData = await db.Categories.get(categoryID);
       if (categoryData) {
-        const subCategories = categoryData.subCategories.filter(s => s !== subCategory);
+        const subCategories = categoryData.subCategories.filter(
+          (s) => s !== subCategory
+        );
         await db.Categories.update(categoryID, { subCategories });
         await fetchCategories();
       }
@@ -180,30 +175,28 @@ function App({db, STORES}) {
   };
 
   const exportHandler = async () => {
-    try{
-      const blob = await exportDB(db, {prettyJson:true});
+    try {
+      const blob = await exportDB(db, { prettyJson: true });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
       link.download = "lifemap-data.json";
       link.click();
-    }
-    catch(error){
+    } catch (error) {
       console.error("Failed to export database:", error);
     }
-  }
+  };
 
   const importHandler = async (blob) => {
-    try{
+    try {
       await db.delete();
       db = await Dexie.import(blob);
       console.log("Imported data successfully!");
-    }
-    catch(error){
+    } catch (error) {
       console.error("Failed to import data:", error);
     }
-  }
-  
+  };
+
   return (
     <div className="App">
       <AppContent
@@ -211,7 +204,7 @@ function App({db, STORES}) {
         onGetDataByDate={setDataUnit}
         onUpdateData={updateDataUnit}
         selectedDateDataUnit={selectedDateDataUnit}
-        onUpdateCategory = {updateCategory}
+        onUpdateCategory={updateCategory}
         onDeleteSubCategory={deleteSubCategory}
         categories={categories}
         categoryOptions={categoryOptions}
