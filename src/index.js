@@ -13,6 +13,8 @@ const STORES = ["2020", "2021", "2022", "2023", "2024", "2025"];
 const DB_VERSION = 1;
 const DB_NAME = "lifemap";
 
+const CURRENT_DATE = new Date().toISOString().slice(0, 10);
+
 // Open the database
 const openDB = async () => {
   const db = new Dexie(DB_NAME);
@@ -20,9 +22,16 @@ const openDB = async () => {
   db.version(DB_VERSION).stores({
     ...STORES.reduce((acc, store) => ({ ...acc, [store]: "date" }), {}),
     Categories: "id",
+    userData:"++id, creationDate"
   });
 
   await db.open();
+
+  const userData = await db.userData.get({ creationDate: CURRENT_DATE });
+
+  if (!userData) {
+    await db.userData.put({ creationDate: CURRENT_DATE });
+  }
 
   if ((await db.Categories.count()) === 0) {
     await db.Categories.bulkPut(
