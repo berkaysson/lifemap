@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { exportDB} from "dexie-export-import";
 
 import dataUnitConstructor from "./Data/dataUnitConstructor";
 import AppContent from "./Components/AppContent";
+import Dexie from "dexie";
 
 const CURRENT_STORE = "2023"
 
@@ -176,6 +178,31 @@ function App({db, STORES}) {
       console.error("Error getting category data:", error);
     }
   };
+
+  const exportHandler = async () => {
+    try{
+      const blob = await exportDB(db, {prettyJson:true});
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "lifemap-data.json";
+      link.click();
+    }
+    catch(error){
+      console.error("Failed to export database:", error);
+    }
+  }
+
+  const importHandler = async (blob) => {
+    try{
+      await db.delete();
+      db = await Dexie.import(blob);
+      console.log("Imported data successfully!");
+    }
+    catch(error){
+      console.error("Failed to import data:", error);
+    }
+  }
   
   return (
     <div className="App">
@@ -188,6 +215,8 @@ function App({db, STORES}) {
         onDeleteSubCategory={deleteSubCategory}
         categories={categories}
         categoryOptions={categoryOptions}
+        onExport={exportHandler}
+        onImport={importHandler}
       />
     </div>
   );

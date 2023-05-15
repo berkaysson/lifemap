@@ -2,6 +2,7 @@ import DataViewer from "./DataViewer";
 import DataViewerForm from "./Forms/DataViewerForm";
 import DataUpdaterForm from "./Forms/DataUpdaterForm";
 import CategoryUpdateForm from "./Forms/CategoryUpdateForm";
+import DexieImportExport from "./DexieImportExport";
 
 const AppContent = ({
   onCreateToday,
@@ -11,7 +12,9 @@ const AppContent = ({
   onUpdateCategory,
   onDeleteSubCategory,
   categories,
-  categoryOptions
+  categoryOptions,
+  onExport,
+  onImport
 }) => {
   return (
     <>
@@ -29,6 +32,7 @@ const AppContent = ({
         categoryOptions={categoryOptions}
       />
       <DataViewer selectedDateDataUnit={selectedDateDataUnit} categories={categories} />
+      <DexieImportExport onExport={onExport} onImport={onImport} />
     </>
   );
 };
