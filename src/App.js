@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { exportDB } from "dexie-export-import";
+import moment from 'moment';
 
 import dataUnitConstructor from "./Data/dataUnitConstructor";
 import AppContent from "./Components/AppContent";
 import Dexie from "dexie";
+
+const CURRENT_DATE = new Date().toISOString().slice(0, 10);
 
 function App({ db, STORES }) {
   const [categories, setCategories] = useState([]);
@@ -28,18 +31,36 @@ function App({ db, STORES }) {
 
   useEffect(() => {
     fetchCategories();
+    createMissingDataUnits();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const createDataUnit = async () => {
-    const dataUnitDate = new Date().toISOString().slice(0, 10);
-    const dataUnit = await dataUnitConstructor(dataUnitDate, db);
-    const year = dataUnitDate.slice(0, 4);
+  const createDataUnit = async (
+    date = new Date().toISOString().slice(0, 10)
+  ) => {
+    const dataUnit = await dataUnitConstructor(date, db);
+    const year = date.slice(0, 4);
     try {
       await db[year].add(dataUnit);
       console.log("Data unit added successfully");
     } catch (error) {
       console.error("Error adding data unit:", error);
+    }
+  };
+
+  const createMissingDataUnits = async () => {
+    const creationDate = await db.userData.get("creationDate");
+
+    for (
+      let startDate = moment(creationDate.creationDate);
+      startDate <= moment(CURRENT_DATE);
+      startDate.add(1, "days")
+    ) {
+      const date = startDate.format("YYYY-MM-DD");
+      const year = date.slice(0, 4);
+      if (!(await db[year].get(date))) {
+        await createDataUnit(date);
+      }
     }
   };
 
