@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import Select from "react-select";
-import SubCategorySelect from "./SubCategorySelect";
+import SubCategorySelect from "../../Interfaces/SubCategorySelect";
 
 import { useEffect, useState } from "react";
 
