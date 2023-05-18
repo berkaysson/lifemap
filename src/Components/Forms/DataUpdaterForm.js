@@ -5,6 +5,9 @@ import SubCategorySelect from "../../Interfaces/SubCategorySelect";
 
 import { useEffect, useState } from "react";
 
+import Button from "../../Interfaces/Button";
+import ToggleButton from "../../Interfaces/ToggleButton";
+
 const DataUpdaterFormWrapper = styled.div`
   border: 2px red solid;
 `;
@@ -103,6 +106,7 @@ const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
   return (
     <DataUpdaterFormWrapper>
       <form onSubmit={submitHandler}>
+        <label>Date:</label>
         {dateInputActive ? (
           <input
             type="date"
@@ -112,9 +116,13 @@ const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
         ) : (
           selectedDate
         )}
-        <button type="button" onClick={dateChangeHandler}>
-          {dateInputActive ? "select Today" : "Select date"}
-        </button>
+        <ToggleButton
+          onClick={dateChangeHandler}
+          options={[
+            { value: "today", label: "Today" },
+            { value: "other", label: "Select Date" },
+          ]}
+        />
         <label>Select Updated Category</label>
         <Select
           onChange={categorySelectionHandler}
@@ -132,23 +140,16 @@ const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
         <label>Enter the value</label>
         <input type="number" name="valueInput"></input>
         <div>
-          <label>Do you want to add the value or delete</label>
-          <ActiveButton
-            type="button"
-            className={formMode === "add" ? "active" : ""}
-            onClick={() => formModeChangeHandler("add")}
-          >
-            Add
-          </ActiveButton>
-          <ActiveButton
-            type="button"
-            className={formMode === "add" ? "" : "active"}
-            onClick={() => formModeChangeHandler("delete")}
-          >
-            Delete
-          </ActiveButton>
+        <label>Do you want to add the value or delete</label>
+          <ToggleButton
+            onClick={formModeChangeHandler}
+            options={[
+              { value: "add", label: "Add" },
+              { value: "delete", label: "Delete" },
+            ]}
+          />
         </div>
-        <button type="submit">Submit</button>
+        <Button text={"Submit"} type={"submit"} />
       </form>
     </DataUpdaterFormWrapper>
   );

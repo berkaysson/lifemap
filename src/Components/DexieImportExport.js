@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import Button from "../Interfaces/Button";
+
 import styled from "styled-components";
 
 const DexieImportExportWrapper = styled.div`
@@ -29,11 +31,11 @@ const DexieImportExport = ({ onExport, onImport }) => {
 
   return (
     <DexieImportExportWrapper>
-      <button onClick={onExport}>Export</button>
+      <Button text={"Export"} type={"button"} onClick={onExport} />
 
       <h4>Import Database</h4>
       <input type="file" accept=".json" onChange={handleFileChange} />
-      <button onClick={handleImport}>Import</button>
+      <Button text={"Import"} type={"button"} onClick={handleImport} />
     </DexieImportExportWrapper>
   );
 };
