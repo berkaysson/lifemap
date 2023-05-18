@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import Select from "react-select";
 import SubCategorySelect from "../../Interfaces/SubCategorySelect";
 
+import Button from "../../Interfaces/Button";
+
 import styled from "styled-components";
+import ToggleButton from "../../Interfaces/ToggleButton";
 
 const CategoryUpdateFormWrapper = styled.div`
   border: 4px aqua solid;
@@ -17,7 +20,7 @@ const CategoryUpdateForm = ({
 }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
-  const [formMode, setFormMode] = useState(null);
+  const [formMode, setFormMode] = useState("update");
   const [subCategories, setSubCategories] = useState([]);
 
   const [subCategoryOptions, setSubCategoryOptions] = useState();
@@ -94,6 +97,10 @@ const CategoryUpdateForm = ({
     setFormMode(null);
   };
 
+  const formModeChangeHandler = (mode) => {
+    setFormMode(mode);
+  };
+
   // Handle deleting a subcategory
   const deleteSubCategory = async () => {
     await onDeleteSubCategory(
@@ -110,12 +117,6 @@ const CategoryUpdateForm = ({
       case null:
         return (
           <>
-            <button type="button" onClick={updateClickHandler}>
-              Update
-            </button>
-            <button type="button" onClick={deleteClickHandler}>
-              Delete
-            </button>
           </>
         );
       case "update":
@@ -129,11 +130,8 @@ const CategoryUpdateForm = ({
                 placeholder="--Select a category--"
               />
               <input type="text" name="subCategoryInput"></input>
-              <button type="submit">Submit</button>
+              <Button text={"Submit"} type={"submit"} />
             </form>
-            <button type="button" onClick={cancelClickHandler}>
-              Cancel
-            </button>
           </>
         );
       case "delete":
@@ -153,13 +151,11 @@ const CategoryUpdateForm = ({
               placeholder={"Select a subCategory"}
               category={selectedCategory}
             />
-            <button type="button" onClick={deleteSubCategory}>
-              Delete
-            </button>
-
-            <button type="button" onClick={cancelClickHandler}>
-              Cancel
-            </button>
+            <Button
+              text={"Delete"}
+              type={"button"}
+              onClick={deleteSubCategory}
+            />
           </>
         );
       default:
@@ -168,7 +164,16 @@ const CategoryUpdateForm = ({
   };
 
   return (
-    <CategoryUpdateFormWrapper>{getFormContent()}</CategoryUpdateFormWrapper>
+    <CategoryUpdateFormWrapper>
+      <ToggleButton
+        onClick={formModeChangeHandler}
+        options={[
+          { label: "Update", value: "update" },
+          { label: "Delete", value: "delete" },
+        ]}
+      />
+      {getFormContent()}
+    </CategoryUpdateFormWrapper>
   );
 };
 
