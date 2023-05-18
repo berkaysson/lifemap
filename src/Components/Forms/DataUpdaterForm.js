@@ -9,7 +9,6 @@ import Button from "../../Interfaces/Button";
 import ToggleButton from "../../Interfaces/ToggleButton";
 
 const DataUpdaterFormWrapper = styled.div`
-  border: 2px red solid;
 `;
 
 const ActiveButton = styled.button`

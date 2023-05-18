@@ -5,7 +5,7 @@ import Button from "../Interfaces/Button";
 import styled from "styled-components";
 
 const DexieImportExportWrapper = styled.div`
-  border: 3px solid green;
+
 `;
 
 const DexieImportExport = ({ onExport, onImport }) => {

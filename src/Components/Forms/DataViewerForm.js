@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Button from "../../Interfaces/Button";
 
 const DataViewerFormWrapper = styled.div`
-  border: 1px solid blue;
+
 `;
 
 const DataViewerForm = ({ onDateSelection }) => {

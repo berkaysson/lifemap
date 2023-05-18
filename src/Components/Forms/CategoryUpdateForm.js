@@ -9,7 +9,6 @@ import styled from "styled-components";
 import ToggleButton from "../../Interfaces/ToggleButton";
 
 const CategoryUpdateFormWrapper = styled.div`
-  border: 4px aqua solid;
 `;
 
 const CategoryUpdateForm = ({
