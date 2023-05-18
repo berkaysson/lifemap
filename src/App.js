@@ -32,6 +32,7 @@ function App({ db, STORES }) {
   useEffect(() => {
     fetchCategories();
     createMissingDataUnits();
+    setDataUnit(CURRENT_DATE);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
