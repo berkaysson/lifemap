@@ -125,7 +125,7 @@ const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
         <label>Select Updated Category</label>
         <Select
           onChange={categorySelectionHandler}
-          options={categoryOptions}
+          options={categoryOptions.filter(obj => obj.value !== "expenseCategories")}
           placeholder="--Select a category--"
           value={selectedCategory}
         />
