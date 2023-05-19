@@ -132,7 +132,7 @@ function App({ db, STORES }) {
           ? +currentValue + +newValue
           : +currentValue - +newValue
       ).toString();
-      if (calculatedValue < 0) {
+      if (calculatedValue < 0 && toBeUpdatedData.category !== "expenseCategories") {
         return alert(
           "Value is negative, it must be bigger than zero, value after change:" +
             calculatedValue
