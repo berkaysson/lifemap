@@ -25,6 +25,8 @@ const AddActivityUnitPage = ({
       />
       <br /><br />
       <CategoryUpdateForm
+        categories={categories}
+        categoryOptions={categoryOptions}
         onDeleteSubCategory={onDeleteSubCategory}
         onUpdateCategory={onUpdateCategory}
       />
