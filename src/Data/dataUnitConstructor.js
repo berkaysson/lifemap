@@ -2,7 +2,7 @@ const dataUnitConstructor = async (date, db) => {
   const categoriesObj = {};
 
   try {
-    const allCategories = await db.Categories.toArray();
+    const allCategories = await db.categoriesData.toArray();
 
     allCategories.forEach((category) => {
       const subCategoriesObj = {};

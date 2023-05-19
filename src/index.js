@@ -21,7 +21,7 @@ const openDB = async () => {
 
   db.version(DB_VERSION).stores({
     ...STORES.reduce((acc, store) => ({ ...acc, [store]: "date" }), {}),
-    Categories: "id",
+    categoriesData: "id",
     userData:"id"
   });
 
@@ -31,8 +31,8 @@ const openDB = async () => {
     await db.userData.put({ id: "creationDate", creationDate:CURRENT_DATE });
   }
 
-  if ((await db.Categories.count()) === 0) {
-    await db.Categories.bulkPut(
+  if ((await db.categoriesData.count()) === 0) {
+    await db.categoriesData.bulkPut(
       Object.values(categoryData).map((category) => ({
         id: category.id,
         name: category.name,

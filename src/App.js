@@ -84,7 +84,7 @@ function App({ db, STORES }) {
 
   const getAllCategories = async () => {
     try {
-      const dbCategoriesStore = await db.Categories.toArray();
+      const dbCategoriesStore = await db.categoriesData.toArray();
       return dbCategoriesStore;
     } catch (error) {
       console.log(`getAllCategories: ${error}`);
@@ -154,7 +154,7 @@ function App({ db, STORES }) {
 
   const updateCategory = async (category, subCategory) => {
     try {
-      const categoryData = await db.Categories.get(category);
+      const categoryData = await db.categoriesData.get(category);
       if (categoryData) {
         if (!categoryData.hasOwnProperty("subCategories")) {
           categoryData.subCategories = [subCategory];
@@ -166,7 +166,7 @@ function App({ db, STORES }) {
           categoryData.subCategories.push(subCategory);
         }
 
-        await db.Categories.put(categoryData);
+        await db.categoriesData.put(categoryData);
         await fetchCategories();
       }
     } catch (error) {
@@ -183,12 +183,12 @@ function App({ db, STORES }) {
     }
 
     try {
-      const categoryData = await db.Categories.get(categoryID);
+      const categoryData = await db.categoriesData.get(categoryID);
       if (categoryData) {
         const subCategories = categoryData.subCategories.filter(
           (s) => s !== subCategory
         );
-        await db.Categories.update(categoryID, { subCategories });
+        await db.categoriesData.update(categoryID, { subCategories });
         await fetchCategories();
       }
     } catch (error) {
