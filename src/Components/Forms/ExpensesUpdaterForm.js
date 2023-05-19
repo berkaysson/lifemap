@@ -4,7 +4,7 @@ import SubCategorySelect from "../../Interfaces/SubCategorySelect";
 
 import styled from "styled-components";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Wrapper = styled.div`
   border: 1px solid red;
@@ -20,16 +20,32 @@ const ExpensesUpdaterForm = ({
 
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [dateInputActive, setDateInputActive] = useState(false);
+  const [subCategories, setSubCategories] = useState([]);
+  const [subCategoryOptions, setSubCategoryOptions] = useState([]);
   const [formMode, setFormMode] = useState("add");
 
   let toBeUpdatedData = {};
 
-  const expenseSubCategoryOptions = expenseCategory.subCategories.map(
-    (subCategory) => ({
-      label: subCategory,
-      value: subCategory,
-    })
-  );
+    // Fetch the list of categories on mount and update the select dropdown options
+    async function fetchCategories() {
+      setSubCategories(expenseCategory?.subCategories ?? []);
+    }
+  
+    useEffect(() => {
+      fetchCategories();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+  
+    // Update the select dropdown options when the subCategories change
+    useEffect(() => {
+      setSubCategoryOptions(() =>
+        subCategories.map((subCategory) => ({
+          label: subCategory,
+          value: subCategory,
+          subCategory: subCategory,
+        }))
+      );
+    }, [expenseCategory, subCategories]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -79,7 +95,7 @@ const ExpensesUpdaterForm = ({
       />
       <form onSubmit={submitHandler}>
         <SubCategorySelect
-          options={expenseSubCategoryOptions}
+          options={subCategoryOptions}
           placeholder="--Select a expense category--"
           value={selectedSubCategory}
           onChange={subCategorySelectHandler}
