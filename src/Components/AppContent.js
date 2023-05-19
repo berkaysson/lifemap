@@ -12,6 +12,7 @@ import ViewActivityUnitsPage from "../Pages/ViewActivitUnitsPage";
 import ChartsPage from "../Pages/ChartsPage";
 import SettingsPage from "../Pages/SettingsPage";
 import RootLayout from "../Layout/RootLayout";
+import ExpensesPage from "../Pages/ExpensesPage";
 
 const AppContent = ({
   onCreateToday,
@@ -51,6 +52,7 @@ const AppContent = ({
           }
         />
         <Route path="tasks-habits" element={<TasksHabitsPage />} />
+        <Route path="expenses" element={<ExpensesPage />} />
         <Route
           path="view-activity-units"
           element={
