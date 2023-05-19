@@ -52,7 +52,16 @@ const AppContent = ({
           }
         />
         <Route path="tasks-habits" element={<TasksHabitsPage />} />
-        <Route path="expenses" element={<ExpensesPage />} />
+        <Route
+          path="expenses"
+          element={
+            <ExpensesPage
+            onUpdateData={onUpdateData}
+            onDeleteSubCategory={onDeleteSubCategory}
+            expenseCategory={categories.find(obj => obj.id === "expenseCategories")}
+            />
+          }
+        />
         <Route
           path="view-activity-units"
           element={
