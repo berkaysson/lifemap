@@ -84,18 +84,6 @@ const CategoryUpdateForm = ({
   };
 
   //Handle formMode changes
-  const updateClickHandler = () => {
-    setFormMode("update");
-  };
-
-  const deleteClickHandler = () => {
-    setFormMode("delete");
-  };
-
-  const cancelClickHandler = () => {
-    setFormMode(null);
-  };
-
   const formModeChangeHandler = (mode) => {
     setFormMode(mode);
   };
@@ -116,6 +104,7 @@ const CategoryUpdateForm = ({
       case null:
         return (
           <>
+          <span>Something Wrong</span>
           </>
         );
       case "update":
