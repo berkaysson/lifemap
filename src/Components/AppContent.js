@@ -25,6 +25,7 @@ const AppContent = ({
   categoryOptions,
   onExport,
   onImport,
+  onUpdateFinancialData,
 }) => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -59,6 +60,8 @@ const AppContent = ({
             onUpdateData={onUpdateData}
             onDeleteSubCategory={onDeleteSubCategory}
             expenseCategory={categories.find(obj => obj.id === "expenseCategories")}
+            incomeCategory={categories.find(obj => obj.id === "incomeCategories")}
+            onUpdateFinancialData={onUpdateFinancialData}
             />
           }
         />

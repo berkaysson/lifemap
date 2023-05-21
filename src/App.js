@@ -49,6 +49,16 @@ function App({ db, STORES }) {
     }
   };
 
+  const createFinancialDataUnit = async (
+    date = new Date().toISOString().slice(0, 10)
+  ) => {
+    try {
+      await db.financialData.add({ date: date, financeDatas: [] });
+    } catch (error) {
+      console.error("Error adding Finance data unit:", error);
+    }
+  };
+
   const createMissingDataUnits = async () => {
     const creationDate = await db.userData.get("creationDate");
 
@@ -62,6 +72,8 @@ function App({ db, STORES }) {
       if (!(await db[year].get(date))) {
         await createDataUnit(date);
       }
+      if (!(await db.financialData.get(date)))
+        await createFinancialDataUnit(date);
     }
   };
 
@@ -174,6 +186,20 @@ function App({ db, STORES }) {
     }
   };
 
+  const addFinancialData = async (toBeUpdatedData) => {
+    try{
+      const financeData = await db.financialData.get(toBeUpdatedData.date);
+      if(financeData){
+        financeData.financeDatas.push(toBeUpdatedData);
+        await db.financialData.put(financeData);
+        console.log("Data unit updated successfully");
+      }
+    }
+    catch(error){
+      console.error("Error getting category data:", error);
+    }
+  }
+
   const deleteSubCategory = async (categoryName, categoryID, subCategory) => {
     const allDataUnits = await getAllDataUnits();
     if (
@@ -232,6 +258,7 @@ function App({ db, STORES }) {
         categoryOptions={categoryOptions}
         onExport={exportHandler}
         onImport={importHandler}
+        onUpdateFinancialData={addFinancialData}
       />
     </div>
   );

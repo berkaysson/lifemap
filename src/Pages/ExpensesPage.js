@@ -7,7 +7,13 @@ const Wrapper = styled.section`
   padding: 1rem;
 `;
 
-const ExpensesPage = ({onUpdateData, onDeleteSubCategory, expenseCategory, onUpdateFinancialData}) => {
+const ExpensesPage = ({
+  onUpdateData,
+  onDeleteSubCategory,
+  expenseCategory,
+  incomeCategory,
+  onUpdateFinancialData,
+}) => {
   return (
     <Wrapper>
       <h1>ExpensesPage</h1>
@@ -15,9 +21,13 @@ const ExpensesPage = ({onUpdateData, onDeleteSubCategory, expenseCategory, onUpd
         onUpdateData={onUpdateData}
         onDeleteSubCategory={onDeleteSubCategory}
         expenseCategory={expenseCategory}
+        incomeCategory={incomeCategory}
         onUpdateFinancialData={onUpdateFinancialData}
       />
-      <div>A LIST OF EXPENSES OF THAT DATE, EACH EXPENSE ITEM WILL HAVE EDIT BUTTON TO EDIT THAT EXPENSE DATA</div>
+      <div>
+        A LIST OF EXPENSES OF THAT DATE, EACH EXPENSE ITEM WILL HAVE EDIT BUTTON
+        TO EDIT THAT EXPENSE DATA
+      </div>
       <div>A TEMPLATE FOR EXPENSES, LIKE WAGE = 10000</div>
       <div>A COMPONENT TO EDIT EXPENSE CATEGORIES</div>
     </Wrapper>

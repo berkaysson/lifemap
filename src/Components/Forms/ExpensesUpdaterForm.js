@@ -14,6 +14,7 @@ const Wrapper = styled.div`
 
 const ExpensesUpdaterForm = ({
   expenseCategory,
+  incomeCategory,
   onUpdateFinancialData,
 }) => {
   const date = new Date().toISOString().slice(0, 10);
@@ -42,6 +43,8 @@ const ExpensesUpdaterForm = ({
 
   // Update the select dropdown options when the subCategories change
   useEffect(() => {
+    if(formMode === "expense") setSubCategories(expenseCategory?.subCategories ?? []);
+    if(formMode === "income") setSubCategories(incomeCategory?.subCategories ?? [])
     setSubCategoryOptions(() =>
       subCategories.map((subCategory) => ({
         label: subCategory,
@@ -49,7 +52,7 @@ const ExpensesUpdaterForm = ({
         subCategory: subCategory,
       }))
     );
-  }, [expenseCategory, subCategories]);
+  }, [expenseCategory, subCategories, incomeCategory, formMode]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -69,6 +72,7 @@ const ExpensesUpdaterForm = ({
       id: uuidv4(),
     };
     onUpdateFinancialData(toBeUpdatedData);
+    setSelectedSubCategory(null);
   };
 
   const subCategorySelectHandler = (selectedSubCategory) => {
@@ -81,6 +85,7 @@ const ExpensesUpdaterForm = ({
 
   const formModeChangeHandler = (mode) => {
     setFormMode(mode);
+    setSelectedSubCategory(null);
   };
 
   return (
@@ -101,7 +106,7 @@ const ExpensesUpdaterForm = ({
         />
         <SubCategorySelect
           options={subCategoryOptions}
-          placeholder="--Select a expense category--"
+          placeholder={`--Select a ${formMode} category--`}
           value={selectedSubCategory}
           onChange={subCategorySelectHandler}
         />
