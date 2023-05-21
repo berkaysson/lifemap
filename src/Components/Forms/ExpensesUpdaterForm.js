@@ -6,50 +6,54 @@ import styled from "styled-components";
 
 import { useState, useEffect } from "react";
 
+import { v4 as uuidv4 } from "uuid";
+
 const Wrapper = styled.div`
   border: 1px solid red;
 `;
 
 const ExpensesUpdaterForm = ({
-  onUpdateData,
-  onDeleteData,
   expenseCategory,
+  onUpdateFinancialData,
 }) => {
   const date = new Date().toISOString().slice(0, 10);
-  const time = new Date().getHours() + ":" + new Date().getMinutes();
+  const time =
+    new Date().getHours().toString().padStart(2, "0") +
+    ":" +
+    new Date().getMinutes().toString().padStart(2, "0");
 
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [dateInputActive, setDateInputActive] = useState(false);
   const [subCategories, setSubCategories] = useState([]);
   const [subCategoryOptions, setSubCategoryOptions] = useState([]);
-  const [formMode, setFormMode] = useState("add");
+  const [formMode, setFormMode] = useState("expense");
 
   let toBeUpdatedData = {};
 
-    // Fetch the list of categories on mount and update the select dropdown options
-    async function fetchCategories() {
-      setSubCategories(expenseCategory?.subCategories ?? []);
-    }
-  
-    useEffect(() => {
-      fetchCategories();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-  
-    // Update the select dropdown options when the subCategories change
-    useEffect(() => {
-      setSubCategoryOptions(() =>
-        subCategories.map((subCategory) => ({
-          label: subCategory,
-          value: subCategory,
-          subCategory: subCategory,
-        }))
-      );
-    }, [expenseCategory, subCategories]);
+  // Fetch the list of categories on mount and update the select dropdown options
+  async function fetchCategories() {
+    setSubCategories(expenseCategory?.subCategories ?? []);
+  }
+
+  useEffect(() => {
+    fetchCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Update the select dropdown options when the subCategories change
+  useEffect(() => {
+    setSubCategoryOptions(() =>
+      subCategories.map((subCategory) => ({
+        label: subCategory,
+        value: subCategory,
+        subCategory: subCategory,
+      }))
+    );
+  }, [expenseCategory, subCategories]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const dateInput = dateInputActive ? e.target["dateInput"].value : date;
+    const dateInput = dateInputActive ? e.target.dateInput.value : date;
     const valueInput = e.target.expenseValue.value;
     if (valueInput < 0) {
       alert("Value can not be smaller than 0");
@@ -57,13 +61,14 @@ const ExpensesUpdaterForm = ({
     }
     toBeUpdatedData = {
       date: dateInput,
+      time: time,
       category: "Expense",
       subCategory: selectedSubCategory.value,
       value: valueInput,
       formMode: formMode,
+      id: uuidv4(),
     };
-    console.log(toBeUpdatedData)
-    onUpdateData(toBeUpdatedData);
+    onUpdateFinancialData(toBeUpdatedData);
   };
 
   const subCategorySelectHandler = (selectedSubCategory) => {
@@ -75,25 +80,25 @@ const ExpensesUpdaterForm = ({
   };
 
   const formModeChangeHandler = (mode) => {
-    setFormMode(mode)
-  }
+    setFormMode(mode);
+  };
 
   return (
     <Wrapper>
-      <label>Date:</label>
-      {dateInputActive ? (
-        <input type="date" name="dateInput" defaultValue={date}></input>
-      ) : (
-        date
-      )}
-      <ToggleButton
-        onClick={dateChangeHandler}
-        options={[
-          { value: "today", label: "Today" },
-          { value: "other", label: "Select Date" },
-        ]}
-      />
       <form onSubmit={submitHandler}>
+        <label>Date:</label>
+        {dateInputActive ? (
+          <input type="date" name="dateInput" defaultValue={date}></input>
+        ) : (
+          date
+        )}
+        <ToggleButton
+          onClick={dateChangeHandler}
+          options={[
+            { value: "today", label: "Today" },
+            { value: "other", label: "Select Date" },
+          ]}
+        />
         <SubCategorySelect
           options={subCategoryOptions}
           placeholder="--Select a expense category--"
@@ -104,8 +109,8 @@ const ExpensesUpdaterForm = ({
         <ToggleButton
           onClick={formModeChangeHandler}
           options={[
-            { value: "add", label: "Income" },
-            { value: "delete", label: "Expense" },
+            { value: "expense", label: "Expense" },
+            { value: "income", label: "Income" },
           ]}
         />
         <input type="number" name="expenseValue" />
