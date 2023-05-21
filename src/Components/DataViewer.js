@@ -41,7 +41,7 @@ const DataViewer = ({ selectedDateDataUnit, categories }) => {
 
   categories.forEach((category) => {
     category["subCategories"].forEach((subCategory) => {
-      let tableValue = selectedDateDataUnit[category.name][subCategory] || 0;
+      let tableValue = selectedDateDataUnit[category.name]?.[subCategory] || 0;
       tableRow.push(tableValue);
     });
   });
