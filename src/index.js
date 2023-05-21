@@ -8,6 +8,7 @@ import "./index.css";
 import App from "./App";
 
 import categoryData from "./Data/categoryData.json";
+import financeCategoryData from "./Data/financeCategoryData.json";
 
 const STORES = ["2020", "2021", "2022", "2023", "2024", "2025"];
 const DB_VERSION = 1;
@@ -22,6 +23,7 @@ const openDB = async () => {
   db.version(DB_VERSION).stores({
     ...STORES.reduce((acc, store) => ({ ...acc, [store]: "date" }), {}),
     categoriesData: "id",
+    financialData: "date",
     userData:"id"
   });
 
@@ -34,6 +36,13 @@ const openDB = async () => {
   if ((await db.categoriesData.count()) === 0) {
     await db.categoriesData.bulkPut(
       Object.values(categoryData).map((category) => ({
+        id: category.id,
+        name: category.name,
+        subCategories: category.subCategories,
+      }))
+    );
+    await db.categoriesData.bulkPut(
+      Object.values(financeCategoryData).map((category) => ({
         id: category.id,
         name: category.name,
         subCategories: category.subCategories,
