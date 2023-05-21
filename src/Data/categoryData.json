@@ -35,22 +35,5 @@
     "subCategories": [
       "Other"
     ]
-  },
-  "expenseCategories": {
-    "name": "Expense",
-    "id": "expenseCategories",
-    "subCategories": [
-      "Rent",
-      "Utilities",
-      "Groceries",
-      "Dining Out",
-      "Entertainment",
-      "Transportation",
-      "Clothing",
-      "Personal Care",
-      "Travel",
-      "Gifts",
-      "Other"
-    ]
   }
 }

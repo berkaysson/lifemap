@@ -1,0 +1,32 @@
+{
+  "expenseCategories": {
+    "name": "Expense",
+    "id": "expenseCategories",
+    "subCategories": [
+      "Rent",
+      "Utilities",
+      "Groceries",
+      "Dining Out",
+      "Entertainment",
+      "Transportation",
+      "Clothing",
+      "Personal Care",
+      "Travel",
+      "Gifts",
+      "Other"
+    ]
+  },
+  "incomeCategories": {
+    "name": "Income",
+    "id": "incomeCategories",
+    "subCategories": [
+      "Salary",
+      "Freelance",
+      "Investments",
+      "Rentals",
+      "Business",
+      "Gifts",
+      "Other"
+    ]
+  }
+}
