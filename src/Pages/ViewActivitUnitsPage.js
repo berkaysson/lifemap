@@ -11,7 +11,7 @@ const Wrapper = styled.section`
 const ViewActivityUnitsPage = ({
   onDateSelection,
   selectedDateDataUnit,
-  categories,
+  activityCategories,
 }) => {
   return (
     <Wrapper>
@@ -20,7 +20,7 @@ const ViewActivityUnitsPage = ({
       <h3>{selectedDateDataUnit ? selectedDateDataUnit.date : "date"}</h3>
       <DataViewer
         selectedDateDataUnit={selectedDateDataUnit}
-        categories={categories}
+        activityCategories={activityCategories}
       />
       <div>
         A LIST OF ACTIVITY-DATA UNITS, CAN BE TABLE WITH FEATURE OF SORTING AND

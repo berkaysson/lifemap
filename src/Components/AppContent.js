@@ -26,6 +26,8 @@ const AppContent = ({
   onExport,
   onImport,
   onUpdateFinancialData,
+  activityCategories,
+  financeCategories
 }) => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -36,7 +38,7 @@ const AppContent = ({
           element={
             <HomePage
               selectedDateDataUnit={selectedDateDataUnit}
-              categories={categories}
+              activityCategories={activityCategories}
             />
           }
         />
@@ -46,6 +48,7 @@ const AppContent = ({
             <AddActivityUnitPage
               onUpdateData={onUpdateData}
               categories={categories}
+              activityCategories={activityCategories}
               categoryOptions={categoryOptions}
               onUpdateCategory={onUpdateCategory}
               onDeleteSubCategory={onDeleteSubCategory}
@@ -59,8 +62,7 @@ const AppContent = ({
             <ExpensesPage
             onUpdateData={onUpdateData}
             onDeleteSubCategory={onDeleteSubCategory}
-            expenseCategory={categories.find(obj => obj.id === "expenseCategories")}
-            incomeCategory={categories.find(obj => obj.id === "incomeCategories")}
+            financeCategories={financeCategories}
             onUpdateFinancialData={onUpdateFinancialData}
             />
           }
@@ -71,7 +73,7 @@ const AppContent = ({
             <ViewActivityUnitsPage
               onDateSelection={onGetDataByDate}
               selectedDateDataUnit={selectedDateDataUnit}
-              categories={categories}
+              activityCategories={activityCategories}
             />
           }
         />

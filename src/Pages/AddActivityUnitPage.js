@@ -14,13 +14,14 @@ const AddActivityUnitPage = ({
   categoryOptions,
   onUpdateCategory,
   onDeleteSubCategory,
+  activityCategories
 }) => {
   return (
     <AddActivityUnitPageWrapper>
       <h1> TODAY'S ACTIVITY UNIT</h1>
       <DataUpdaterForm
         onUpdateData={onUpdateData}
-        categories={categories}
+        activityCategories={activityCategories}
         categoryOptions={categoryOptions}
       />
       <br /><br />

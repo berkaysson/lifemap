@@ -10,6 +10,8 @@ const CURRENT_DATE = new Date().toISOString().slice(0, 10);
 
 function App({ db, STORES }) {
   const [categories, setCategories] = useState([]);
+  const [activityCategories, setActivityCategories] = useState([]);
+  const [financeCategories, setFinanceCategories] = useState([]);
   const [categoryOptions, setCategoryOptions] = useState([]);
 
   const [selectedDateDataUnit, setSelectedDateDataUnit] = useState(null);
@@ -17,6 +19,18 @@ function App({ db, STORES }) {
   async function fetchCategories() {
     const newCategories = await getAllCategories();
     setCategories(newCategories);
+    setActivityCategories(() =>
+      newCategories.filter(
+        (item) =>
+          item.id !== "expenseCategories" && item.id !== "incomeCategories"
+      )
+    );
+    setFinanceCategories(() =>
+      newCategories.filter(
+        (item) =>
+          item.id === "expenseCategories" || item.id === "incomeCategories"
+      )
+    );
   }
 
   useEffect(() => {
@@ -255,6 +269,8 @@ function App({ db, STORES }) {
         onUpdateCategory={updateCategory}
         onDeleteSubCategory={deleteSubCategory}
         categories={categories}
+        activityCategories={activityCategories}
+        financeCategories={financeCategories}
         categoryOptions={categoryOptions}
         onExport={exportHandler}
         onImport={importHandler}

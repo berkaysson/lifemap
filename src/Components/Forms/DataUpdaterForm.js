@@ -20,7 +20,7 @@ const ActiveButton = styled.button`
   }
 `;
 
-const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
+const DataUpdaterForm = ({ onUpdateData, activityCategories, categoryOptions }) => {
   const selectedDate = new Date().toISOString().slice(0, 10);
   const [dateInputActive, setDateInputActive] = useState(false);
 
@@ -35,7 +35,7 @@ const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
   // Fetch the list of categories on mount and update the select dropdown options
   async function fetchCategories() {
     const selectedCategoryName = selectedCategory?.name;
-    const category = categories.find(
+    const category = activityCategories.find(
       (item) => item.name === selectedCategoryName
     );
     setSubCategories(category?.subCategories ?? []);
@@ -55,7 +55,7 @@ const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
         subCategory: subCategory,
       }))
     );
-  }, [categories, subCategories]);
+  }, [activityCategories, subCategories]);
 
   // Handle form submission to update data with toBeUpdatedData object
   const submitHandler = async (e) => {
@@ -83,7 +83,7 @@ const DataUpdaterForm = ({ onUpdateData, categories, categoryOptions }) => {
     setSelectedCategory(selectedCategory);
     setSelectedSubCategory(null);
 
-    const category = categories.find(
+    const category = activityCategories.find(
       (item) => item.id === selectedCategory.value
     );
     setSubCategories(category.subCategories);

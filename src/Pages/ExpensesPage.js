@@ -13,6 +13,7 @@ const ExpensesPage = ({
   expenseCategory,
   incomeCategory,
   onUpdateFinancialData,
+  financeCategories
 }) => {
   return (
     <Wrapper>
@@ -20,8 +21,8 @@ const ExpensesPage = ({
       <ExpensesUpdaterForm
         onUpdateData={onUpdateData}
         onDeleteSubCategory={onDeleteSubCategory}
-        expenseCategory={expenseCategory}
-        incomeCategory={incomeCategory}
+        expenseCategory={financeCategories.find(obj => obj.id === "expenseCategories")}
+        incomeCategory={financeCategories.find(obj => obj.id === "incomeCategories")}
         onUpdateFinancialData={onUpdateFinancialData}
       />
       <div>

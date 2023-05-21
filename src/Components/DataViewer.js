@@ -26,10 +26,10 @@ const TableCell = styled.td`
   text-align: left;
 `;
 
-const DataViewer = ({ selectedDateDataUnit, categories }) => {
-  if (!selectedDateDataUnit || !categories) return <p>No Data</p>;
+const DataViewer = ({ selectedDateDataUnit, activityCategories }) => {
+  if (!selectedDateDataUnit || !activityCategories) return <p>No Data</p>;
 
-  const tableHeaders = categories.map((category) =>
+  const tableHeaders = activityCategories.map((category) =>
     category.subCategories.map((subCategory) => (
       <TableHeader key={`${category.name}-${subCategory}`}>
         {subCategory}
@@ -39,7 +39,7 @@ const DataViewer = ({ selectedDateDataUnit, categories }) => {
 
   let tableRow = [];
 
-  categories.forEach((category) => {
+  activityCategories.forEach((category) => {
     category["subCategories"].forEach((subCategory) => {
       let tableValue = selectedDateDataUnit[category.name]?.[subCategory] || 0;
       tableRow.push(tableValue);
@@ -49,7 +49,7 @@ const DataViewer = ({ selectedDateDataUnit, categories }) => {
   return (
     <Table>
       <TableHead>
-        {categories.map((category) => (
+        {activityCategories.map((category) => (
           <th
             key={`${category.name}-header`}
             colSpan={category.subCategories.length}
