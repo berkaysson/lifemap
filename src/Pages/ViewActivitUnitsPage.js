@@ -17,7 +17,7 @@ const ViewActivityUnitsPage = ({
     <Wrapper>
       <h1>ViewActivityUnitsPage</h1>
       <DataViewerForm onDateSelection={onDateSelection} />
-      <h3>{selectedDateDataUnit.date}</h3>
+      <h3>{selectedDateDataUnit ? selectedDateDataUnit.date : "date"}</h3>
       <DataViewer
         selectedDateDataUnit={selectedDateDataUnit}
         categories={categories}
