@@ -14,6 +14,8 @@ function App({ db, STORES }) {
   const [financeCategories, setFinanceCategories] = useState([]);
   const [categoryOptions, setCategoryOptions] = useState([]);
 
+  const [financeDatas, setFinanceDatas] = useState([]);
+
   const [selectedDateDataUnit, setSelectedDateDataUnit] = useState(null);
 
   async function fetchCategories() {
@@ -33,6 +35,15 @@ function App({ db, STORES }) {
     );
   }
 
+  async function fetchFinanceDatas(){
+    try {
+      const allFinanceDataUnits = await getAllFinancialDataUnits();
+      setFinanceDatas(allFinanceDataUnits);
+    } catch (error) {
+      console.error("Error getting all financial datas:", error);
+    }
+  }
+
   useEffect(() => {
     setCategoryOptions(() =>
       categories.map((category) => ({
@@ -47,6 +58,7 @@ function App({ db, STORES }) {
     fetchCategories();
     createMissingDataUnits();
     setDataUnit(CURRENT_DATE);
+    fetchFinanceDatas()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -89,6 +101,7 @@ function App({ db, STORES }) {
       if (!(await db.financialData.get(date)))
         await createFinancialDataUnit(date);
     }
+    setSelectedDateDataUnit(()=>getDataUnit(CURRENT_DATE)); // if the date was not created, it is creates and assignes
   };
 
   const getDataUnit = async (dateID) => {
@@ -131,6 +144,16 @@ function App({ db, STORES }) {
       throw error;
     }
   };
+
+  const getAllFinancialDataUnits = async () => {
+    try{
+      const allFinanceDataUnits = await db.financialData.toArray();
+      return allFinanceDataUnits;
+    }
+    catch(error){
+      console.error("Error to getting all financial datas:", error);
+    }
+  }
 
   const setDataUnit = async (date) => {
     try {
@@ -208,6 +231,7 @@ function App({ db, STORES }) {
         await db.financialData.put(financeData);
         console.log("Data unit updated successfully");
       }
+      fetchFinanceDatas();
     }
     catch(error){
       console.error("Error getting category data:", error);
@@ -275,6 +299,7 @@ function App({ db, STORES }) {
         onExport={exportHandler}
         onImport={importHandler}
         onUpdateFinancialData={addFinancialData}
+        financeDatas={financeDatas}
       />
     </div>
   );

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import ExpensesUpdaterForm from "../Components/Forms/ExpensesUpdaterForm";
+import FinanceDataList from "../Components/FinanceDataList";
 
 const Wrapper = styled.section`
   border: 2px solid aqua;
@@ -13,7 +14,8 @@ const ExpensesPage = ({
   expenseCategory,
   incomeCategory,
   onUpdateFinancialData,
-  financeCategories
+  financeCategories,
+  financeDatas
 }) => {
   return (
     <Wrapper>
@@ -25,10 +27,7 @@ const ExpensesPage = ({
         incomeCategory={financeCategories.find(obj => obj.id === "incomeCategories")}
         onUpdateFinancialData={onUpdateFinancialData}
       />
-      <div>
-        A LIST OF EXPENSES OF THAT DATE, EACH EXPENSE ITEM WILL HAVE EDIT BUTTON
-        TO EDIT THAT EXPENSE DATA
-      </div>
+      <FinanceDataList financeDatas={financeDatas} />
       <div>A TEMPLATE FOR EXPENSES, LIKE WAGE = 10000</div>
       <div>A COMPONENT TO EDIT EXPENSE CATEGORIES</div>
     </Wrapper>

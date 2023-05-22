@@ -27,7 +27,8 @@ const AppContent = ({
   onImport,
   onUpdateFinancialData,
   activityCategories,
-  financeCategories
+  financeCategories,
+  financeDatas
 }) => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -64,6 +65,7 @@ const AppContent = ({
             onDeleteSubCategory={onDeleteSubCategory}
             financeCategories={financeCategories}
             onUpdateFinancialData={onUpdateFinancialData}
+            financeDatas={financeDatas}
             />
           }
         />
