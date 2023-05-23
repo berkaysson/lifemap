@@ -229,14 +229,51 @@ function App({ db, STORES }) {
       if(financeData){
         financeData.financeDatas.push(toBeUpdatedData);
         await db.financialData.put(financeData);
-        console.log("Data unit updated successfully");
+        console.log("Data unit added successfully");
       }
       fetchFinanceDatas();
     }
     catch(error){
-      console.error("Error getting category data:", error);
+      console.error("Error getting finance data:", error);
     }
   }
+
+  const updateFinancialData = async (dateID, dataUnitID, toBeUpdatedData) => {
+    try {
+      const financeData = await db.financialData.get(dateID);
+      if (financeData) {
+        const oldDataUnitIndex = financeData.financeDatas.findIndex(
+          (obj) => obj.id === dataUnitID
+        );
+        if (oldDataUnitIndex !== -1) {
+          const oldDataUnit = financeData.financeDatas[oldDataUnitIndex];
+          const updatedDataUnit = { ...oldDataUnit, ...toBeUpdatedData };
+          financeData.financeDatas[oldDataUnitIndex] = updatedDataUnit;
+          await db.financialData.put(financeData);
+          console.log("Data unit updated successfully");
+        }
+      }
+      fetchFinanceDatas();
+    } catch (error) {
+      console.error("Error updating finance data:", error);
+    }
+  };
+
+  const deleteFinancialData = async (dateID, dataUnitID) => {
+    try {
+      const financeData = await db.financialData.get(dateID);
+      if (financeData) {
+        financeData.financeDatas = financeData.financeDatas.filter(
+          (obj) => obj.id !== dataUnitID
+        );
+        await db.financialData.put(financeData);
+        console.log("Data unit deleted successfully");
+      }
+      fetchFinanceDatas();
+    } catch (error) {
+      console.error("Error deleting finance data:", error);
+    }
+  };
 
   const deleteSubCategory = async (categoryName, categoryID, subCategory) => {
     const allDataUnits = await getAllDataUnits();
@@ -298,7 +335,9 @@ function App({ db, STORES }) {
         categoryOptions={categoryOptions}
         onExport={exportHandler}
         onImport={importHandler}
-        onUpdateFinancialData={addFinancialData}
+        onAddFinancialData={addFinancialData}
+        onDeleteFinancialData={deleteFinancialData}
+        onUpdateFinancialData={updateFinancialData}
         financeDatas={financeDatas}
       />
     </div>

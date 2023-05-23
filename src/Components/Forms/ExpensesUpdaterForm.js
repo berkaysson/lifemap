@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 const ExpensesUpdaterForm = ({
   expenseCategory,
   incomeCategory,
-  onUpdateFinancialData,
+  onAddFinancialData,
 }) => {
   const date = new Date().toISOString().slice(0, 10);
   const time =
@@ -71,7 +71,7 @@ const ExpensesUpdaterForm = ({
       formMode: formMode,
       id: uuidv4(),
     };
-    onUpdateFinancialData(toBeUpdatedData);
+    onAddFinancialData(toBeUpdatedData);
     setSelectedSubCategory(null);
   };
 

@@ -11,11 +11,11 @@ const Wrapper = styled.section`
 const ExpensesPage = ({
   onUpdateData,
   onDeleteSubCategory,
-  expenseCategory,
-  incomeCategory,
+  onAddFinancialData,
   onUpdateFinancialData,
+  onDeleteFinancialData,
   financeCategories,
-  financeDatas
+  financeDatas,
 }) => {
   return (
     <Wrapper>
@@ -25,9 +25,13 @@ const ExpensesPage = ({
         onDeleteSubCategory={onDeleteSubCategory}
         expenseCategory={financeCategories.find(obj => obj.id === "expenseCategories")}
         incomeCategory={financeCategories.find(obj => obj.id === "incomeCategories")}
+        onAddFinancialData={onAddFinancialData}
+      />
+      <FinanceDataList 
+        financeDatas={financeDatas}
+        onDeleteFinancialData={onDeleteFinancialData}
         onUpdateFinancialData={onUpdateFinancialData}
       />
-      <FinanceDataList financeDatas={financeDatas} />
       <div>A TEMPLATE FOR EXPENSES, LIKE WAGE = 10000</div>
       <div>A COMPONENT TO EDIT EXPENSE CATEGORIES</div>
     </Wrapper>

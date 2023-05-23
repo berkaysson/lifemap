@@ -25,7 +25,9 @@ const AppContent = ({
   categoryOptions,
   onExport,
   onImport,
+  onAddFinancialData,
   onUpdateFinancialData,
+  onDeleteFinancialData,
   activityCategories,
   financeCategories,
   financeDatas
@@ -64,8 +66,10 @@ const AppContent = ({
             onUpdateData={onUpdateData}
             onDeleteSubCategory={onDeleteSubCategory}
             financeCategories={financeCategories}
-            onUpdateFinancialData={onUpdateFinancialData}
+            onAddFinancialData={onAddFinancialData}
             financeDatas={financeDatas}
+            onDeleteFinancialData={onDeleteFinancialData}
+            onUpdateFinancialData={onUpdateFinancialData}
             />
           }
         />

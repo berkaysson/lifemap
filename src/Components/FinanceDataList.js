@@ -10,7 +10,11 @@ const Wrapper = styled.div`
   border: 1px solid blue;
 `;
 
-const FinanceDataList = ({ financeDatas }) => {
+const FinanceDataList = ({
+  financeDatas,
+  onDeleteFinancialData,
+  onUpdateFinancialData,
+}) => {
   const [selectedDate, setSelectedDate] = useState(CURRENT_DATE);
   const [filteredFinanceDatas, setFilteredFinanceDatas] = useState([]);
 
@@ -39,10 +43,18 @@ const FinanceDataList = ({ financeDatas }) => {
       <div>a filter for time range</div>
       <input type="date" value={selectedDate} onChange={dateInputHandler} />
       <ul>
-        {" "}
-        {filteredFinanceDatas.map((item) => (
-          <FinanceDataListItem key={item.id} item={item} />
-        ))}
+        {filteredFinanceDatas.length === 0 ? (
+          <p>No Finance Data</p>
+        ) : (
+          filteredFinanceDatas.map((item) => (
+            <FinanceDataListItem
+              key={item.id}
+              item={item}
+              onDeleteFinancialData={onDeleteFinancialData}
+              onUpdateFinancialData={onUpdateFinancialData}
+            />
+          ))
+        )}
       </ul>
     </Wrapper>
   );
