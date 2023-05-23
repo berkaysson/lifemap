@@ -1,6 +1,6 @@
-import Button from "../../Interfaces/Button";
-import ToggleButton from "../../Interfaces/ToggleButton";
-import SubCategorySelect from "../../Interfaces/SubCategorySelect";
+import Button from "../UI/Button";
+import ToggleButton from "../UI/ToggleButton";
+import SubCategorySelect from "../UI/SubCategorySelect";
 
 import styled from "styled-components";
 
@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   border: 1px solid red;
 `;
 
-const ExpensesUpdaterForm = ({
+const FinancesForm = ({
   expenseCategory,
   incomeCategory,
   onAddFinancialData,
@@ -43,8 +43,10 @@ const ExpensesUpdaterForm = ({
 
   // Update the select dropdown options when the subCategories change
   useEffect(() => {
-    if(formMode === "expense") setSubCategories(expenseCategory?.subCategories ?? []);
-    if(formMode === "income") setSubCategories(incomeCategory?.subCategories ?? [])
+    if (formMode === "expense")
+      setSubCategories(expenseCategory?.subCategories ?? []);
+    if (formMode === "income")
+      setSubCategories(incomeCategory?.subCategories ?? []);
     setSubCategoryOptions(() =>
       subCategories.map((subCategory) => ({
         label: subCategory,
@@ -125,4 +127,4 @@ const ExpensesUpdaterForm = ({
   );
 };
 
-export default ExpensesUpdaterForm;
+export default FinancesForm;

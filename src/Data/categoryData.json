@@ -15,7 +15,7 @@
       "Other"
     ]
   },
-"sportCategories": {
+  "sportCategories": {
     "name": "Sport",
     "id": "sportCategories",
     "subCategories": [
@@ -32,8 +32,6 @@
   "gameCategories": {
     "name": "Game",
     "id": "gameCategories",
-    "subCategories": [
-      "Other"
-    ]
+    "subCategories": ["Other"]
   }
 }

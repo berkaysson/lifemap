@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 
 import Dexie from "dexie";
 
-import "./index.css";
+import "./Style/index.css";
 
 import App from "./App";
 
@@ -24,13 +24,13 @@ const openDB = async () => {
     ...STORES.reduce((acc, store) => ({ ...acc, [store]: "date" }), {}),
     categoriesData: "id",
     financialData: "date",
-    userData:"id"
+    userData: "id",
   });
 
   await db.open();
 
   if (!(await db.userData.get("creationDate"))) {
-    await db.userData.put({ id: "creationDate", creationDate:CURRENT_DATE });
+    await db.userData.put({ id: "creationDate", creationDate: CURRENT_DATE });
   }
 
   if ((await db.categoriesData.count()) === 0) {

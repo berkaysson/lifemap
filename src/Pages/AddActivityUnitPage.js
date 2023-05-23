@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import DataUpdaterForm from "../Components/Forms/DataUpdaterForm";
-import CategoryUpdateForm from "../Components/Forms/CategoryUpdateForm";
+import ActivityForm from "../Components/Forms/ActivityForm";
+import CategoriesForm from "../Components/Forms/CategoriesForm";
 
 const AddActivityUnitPageWrapper = styled.section`
   border: 2px solid orange;
@@ -14,18 +14,19 @@ const AddActivityUnitPage = ({
   categoryOptions,
   onUpdateCategory,
   onDeleteSubCategory,
-  activityCategories
+  activityCategories,
 }) => {
   return (
     <AddActivityUnitPageWrapper>
       <h1> TODAY'S ACTIVITY UNIT</h1>
-      <DataUpdaterForm
+      <ActivityForm
         onUpdateData={onUpdateData}
         activityCategories={activityCategories}
         categoryOptions={categoryOptions}
       />
-      <br /><br />
-      <CategoryUpdateForm
+      <br />
+      <br />
+      <CategoriesForm
         categories={categories}
         categoryOptions={categoryOptions}
         onDeleteSubCategory={onDeleteSubCategory}

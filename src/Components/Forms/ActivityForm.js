@@ -1,26 +1,20 @@
 import styled from "styled-components";
 
 import Select from "react-select";
-import SubCategorySelect from "../../Interfaces/SubCategorySelect";
+import SubCategorySelect from "../UI/SubCategorySelect";
 
 import { useEffect, useState } from "react";
 
-import Button from "../../Interfaces/Button";
-import ToggleButton from "../../Interfaces/ToggleButton";
+import Button from "../UI/Button";
+import ToggleButton from "../UI/ToggleButton";
 
-const DataUpdaterFormWrapper = styled.div`
-`;
+const DataUpdaterFormWrapper = styled.div``;
 
-const ActiveButton = styled.button`
-  opacity: 0.8;
-  &.active {
-    background-color: #000000;
-    color: #ffffff;
-    opacity: 1;
-  }
-`;
-
-const DataUpdaterForm = ({ onUpdateData, activityCategories, categoryOptions }) => {
+const ActivityForm = ({
+  onUpdateData,
+  activityCategories,
+  categoryOptions,
+}) => {
   const selectedDate = new Date().toISOString().slice(0, 10);
   const [dateInputActive, setDateInputActive] = useState(false);
 
@@ -125,7 +119,11 @@ const DataUpdaterForm = ({ onUpdateData, activityCategories, categoryOptions }) 
         <label>Select Updated Category</label>
         <Select
           onChange={categorySelectionHandler}
-          options={categoryOptions.filter(obj => obj.value !== "expenseCategories" && obj.value !== "incomeCategories" )}
+          options={categoryOptions.filter(
+            (obj) =>
+              obj.value !== "expenseCategories" &&
+              obj.value !== "incomeCategories"
+          )}
           placeholder="--Select a category--"
           value={selectedCategory}
         />
@@ -139,7 +137,7 @@ const DataUpdaterForm = ({ onUpdateData, activityCategories, categoryOptions }) 
         <label>Enter the value</label>
         <input type="number" name="valueInput"></input>
         <div>
-        <label>Do you want to add the value or delete</label>
+          <label>Do you want to add the value or delete</label>
           <ToggleButton
             onClick={formModeChangeHandler}
             options={[
@@ -154,4 +152,4 @@ const DataUpdaterForm = ({ onUpdateData, activityCategories, categoryOptions }) 
   );
 };
 
-export default DataUpdaterForm;
+export default ActivityForm;

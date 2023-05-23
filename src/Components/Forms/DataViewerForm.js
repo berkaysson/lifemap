@@ -1,10 +1,8 @@
 import styled from "styled-components";
 
-import Button from "../../Interfaces/Button";
+import Button from "../UI/Button";
 
-const DataViewerFormWrapper = styled.div`
-
-`;
+const DataViewerFormWrapper = styled.div``;
 
 const DataViewerForm = ({ onDateSelection }) => {
   const clickHandler = (e) => {

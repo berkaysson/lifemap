@@ -12,10 +12,9 @@ import ViewActivityUnitsPage from "../Pages/ViewActivitUnitsPage";
 import ChartsPage from "../Pages/ChartsPage";
 import SettingsPage from "../Pages/SettingsPage";
 import RootLayout from "../Layout/RootLayout";
-import ExpensesPage from "../Pages/ExpensesPage";
+import FinancePage from "../Pages/FinancePage";
 
 const AppContent = ({
-  onCreateToday,
   onGetDataByDate,
   onUpdateData,
   selectedDateDataUnit,
@@ -30,7 +29,7 @@ const AppContent = ({
   onDeleteFinancialData,
   activityCategories,
   financeCategories,
-  financeDatas
+  financeDatas,
 }) => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -60,16 +59,16 @@ const AppContent = ({
         />
         <Route path="tasks-habits" element={<TasksHabitsPage />} />
         <Route
-          path="expenses"
+          path="finances"
           element={
-            <ExpensesPage
-            onUpdateData={onUpdateData}
-            onDeleteSubCategory={onDeleteSubCategory}
-            financeCategories={financeCategories}
-            onAddFinancialData={onAddFinancialData}
-            financeDatas={financeDatas}
-            onDeleteFinancialData={onDeleteFinancialData}
-            onUpdateFinancialData={onUpdateFinancialData}
+            <FinancePage
+              onUpdateData={onUpdateData}
+              onDeleteSubCategory={onDeleteSubCategory}
+              financeCategories={financeCategories}
+              onAddFinancialData={onAddFinancialData}
+              financeDatas={financeDatas}
+              onDeleteFinancialData={onDeleteFinancialData}
+              onUpdateFinancialData={onUpdateFinancialData}
             />
           }
         />

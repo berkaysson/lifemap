@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import ExpensesUpdaterForm from "../Components/Forms/ExpensesUpdaterForm";
+import FinancesForm from "../Components/Forms/FinancesForm";
 import FinanceDataList from "../Components/FinanceDataList";
 
 const Wrapper = styled.section`
@@ -8,7 +8,7 @@ const Wrapper = styled.section`
   padding: 1rem;
 `;
 
-const ExpensesPage = ({
+const FinancePage = ({
   onUpdateData,
   onDeleteSubCategory,
   onAddFinancialData,
@@ -19,15 +19,19 @@ const ExpensesPage = ({
 }) => {
   return (
     <Wrapper>
-      <h1>ExpensesPage</h1>
-      <ExpensesUpdaterForm
+      <h1>FinancePage</h1>
+      <FinancesForm
         onUpdateData={onUpdateData}
         onDeleteSubCategory={onDeleteSubCategory}
-        expenseCategory={financeCategories.find(obj => obj.id === "expenseCategories")}
-        incomeCategory={financeCategories.find(obj => obj.id === "incomeCategories")}
+        expenseCategory={financeCategories.find(
+          (obj) => obj.id === "expenseCategories"
+        )}
+        incomeCategory={financeCategories.find(
+          (obj) => obj.id === "incomeCategories"
+        )}
         onAddFinancialData={onAddFinancialData}
       />
-      <FinanceDataList 
+      <FinanceDataList
         financeDatas={financeDatas}
         onDeleteFinancialData={onDeleteFinancialData}
         onUpdateFinancialData={onUpdateFinancialData}
@@ -38,4 +42,4 @@ const ExpensesPage = ({
   );
 };
 
-export default ExpensesPage;
+export default FinancePage;

@@ -1,14 +1,12 @@
 import { useState } from "react";
 
-import Button from "../Interfaces/Button";
+import Button from "./UI/Button";
 
 import styled from "styled-components";
 
-const DexieImportExportWrapper = styled.div`
+const DexieImportExportWrapper = styled.div``;
 
-`;
-
-const DexieImportExport = ({ onExport, onImport }) => {
+const ImportExport = ({ onExport, onImport }) => {
   const [file, setFile] = useState(null);
 
   const handleImport = async () => {
@@ -40,4 +38,4 @@ const DexieImportExport = ({ onExport, onImport }) => {
   );
 };
 
-export default DexieImportExport;
+export default ImportExport;

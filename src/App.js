@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { exportDB } from "dexie-export-import";
-import moment from 'moment';
+import moment from "moment";
 
 import dataUnitConstructor from "./Data/dataUnitConstructor";
 import AppContent from "./Components/AppContent";
@@ -35,7 +35,7 @@ function App({ db, STORES }) {
     );
   }
 
-  async function fetchFinanceDatas(){
+  async function fetchFinanceDatas() {
     try {
       const allFinanceDataUnits = await getAllFinancialDataUnits();
       setFinanceDatas(allFinanceDataUnits);
@@ -58,7 +58,7 @@ function App({ db, STORES }) {
     fetchCategories();
     createMissingDataUnits();
     setDataUnit(CURRENT_DATE);
-    fetchFinanceDatas()
+    fetchFinanceDatas();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -101,7 +101,7 @@ function App({ db, STORES }) {
       if (!(await db.financialData.get(date)))
         await createFinancialDataUnit(date);
     }
-    setSelectedDateDataUnit(()=>getDataUnit(CURRENT_DATE)); // if the date was not created, it is creates and assignes
+    setSelectedDateDataUnit(() => getDataUnit(CURRENT_DATE)); // if the date was not created, it is creates and assignes
   };
 
   const getDataUnit = async (dateID) => {
@@ -146,14 +146,13 @@ function App({ db, STORES }) {
   };
 
   const getAllFinancialDataUnits = async () => {
-    try{
+    try {
       const allFinanceDataUnits = await db.financialData.toArray();
       return allFinanceDataUnits;
-    }
-    catch(error){
+    } catch (error) {
       console.error("Error to getting all financial datas:", error);
     }
-  }
+  };
 
   const setDataUnit = async (date) => {
     try {
@@ -181,7 +180,10 @@ function App({ db, STORES }) {
           ? +currentValue + +newValue
           : +currentValue - +newValue
       ).toString();
-      if (calculatedValue < 0 && toBeUpdatedData.category !== "expenseCategories") {
+      if (
+        calculatedValue < 0 &&
+        toBeUpdatedData.category !== "expenseCategories"
+      ) {
         return alert(
           "Value is negative, it must be bigger than zero, value after change:" +
             calculatedValue
@@ -224,19 +226,18 @@ function App({ db, STORES }) {
   };
 
   const addFinancialData = async (toBeUpdatedData) => {
-    try{
+    try {
       const financeData = await db.financialData.get(toBeUpdatedData.date);
-      if(financeData){
+      if (financeData) {
         financeData.financeDatas.push(toBeUpdatedData);
         await db.financialData.put(financeData);
         console.log("Data unit added successfully");
       }
       fetchFinanceDatas();
-    }
-    catch(error){
+    } catch (error) {
       console.error("Error getting finance data:", error);
     }
-  }
+  };
 
   const updateFinancialData = async (dateID, dataUnitID, toBeUpdatedData) => {
     try {

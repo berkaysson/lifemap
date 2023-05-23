@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 
 import Select from "react-select";
-import SubCategorySelect from "../../Interfaces/SubCategorySelect";
+import SubCategorySelect from "../UI/SubCategorySelect";
 
-import Button from "../../Interfaces/Button";
+import Button from "../UI/Button";
 
 import styled from "styled-components";
-import ToggleButton from "../../Interfaces/ToggleButton";
+import ToggleButton from "../UI/ToggleButton";
 
-const CategoryUpdateFormWrapper = styled.div`
-`;
+const CategoryUpdateFormWrapper = styled.div``;
 
-const CategoryUpdateForm = ({
+const CategoriesForm = ({
   onUpdateCategory,
   onDeleteSubCategory,
   categories,
@@ -104,7 +103,7 @@ const CategoryUpdateForm = ({
       case null:
         return (
           <>
-          <span>Something Wrong</span>
+            <span>Something Wrong</span>
           </>
         );
       case "update":
@@ -165,4 +164,4 @@ const CategoryUpdateForm = ({
   );
 };
 
-export default CategoryUpdateForm;
+export default CategoriesForm;

@@ -35,8 +35,8 @@ const NavBar = () => {
       <NavItem to="tasks-habits" activeClassName="active">
         Tasks & Habits
       </NavItem>
-      <NavItem to="expenses" activeClassName="active">
-        Expenses
+      <NavItem to="finances" activeClassName="active">
+        Finances
       </NavItem>
       <NavItem to="view-activity-units" activeClassName="active">
         View Activity Units

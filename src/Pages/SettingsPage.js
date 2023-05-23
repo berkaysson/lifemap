@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import DexieImportExport from "../Components/DexieImportExport";
+import ImportExport from "../Components/ImportExport";
 
 const Wrapper = styled.section`
   border: 2px solid black;
@@ -12,7 +12,7 @@ const SettingsPage = ({ onExport, onImport }) => {
     <Wrapper>
       <h1>SettingsPage</h1>
       <div>USERNAME</div>
-      <DexieImportExport onExport={onExport} onImport={onImport} />
+      <ImportExport onExport={onExport} onImport={onImport} />
       <div>THEME???</div>
       <div>RESET DB</div>
     </Wrapper>
