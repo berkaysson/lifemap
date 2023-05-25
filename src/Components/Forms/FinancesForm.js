@@ -112,7 +112,6 @@ const FinancesForm = ({
           value={selectedSubCategory}
           onChange={subCategorySelectHandler}
         />
-        <label>Do you want to add the value or delete</label>
         <ToggleButton
           onClick={formModeChangeHandler}
           options={[
