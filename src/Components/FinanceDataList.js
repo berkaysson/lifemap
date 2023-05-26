@@ -4,7 +4,6 @@ import styled from "styled-components";
 import moment from "moment";
 
 import FinanceDataListItem from "./FinanceDataListItem";
-import TimeRangeSelector from "./Forms/DateRangeSelector";
 import ToggleButton from "./UI/ToggleButton";
 import DateRangeSelector from "./Forms/DateRangeSelector";
 
@@ -62,13 +61,12 @@ const FinanceDataList = ({
   };
 
   const dateRangeInputHandler = (start, end) => {
-    console.log(start);
-    console.log(end);
     setSelectedDateRange({ startDate: start, endDate: end });
   };
 
   useEffect(() => {
     updateFilteredFinanceData();
+    console.log(filteredFinanceDatas);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [financeDatas, selectedDate, selectedDateRange, isDateRangeSelected]);
 
@@ -87,7 +85,7 @@ const FinanceDataList = ({
         <input type="date" value={selectedDate} onChange={dateInputHandler} />
       )}
       <ul>
-        {filteredFinanceDatas.length === 0 ? (
+        {!filteredFinanceDatas || filteredFinanceDatas.length === 0 ? (
           <p>No Finance Data</p>
         ) : (
           filteredFinanceDatas.map((item) => (
