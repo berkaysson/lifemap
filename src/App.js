@@ -15,6 +15,7 @@ function App({ db, STORES }) {
   const [categoryOptions, setCategoryOptions] = useState([]);
 
   const [financeDatas, setFinanceDatas] = useState([]);
+  const [activityDatas, setActivityDatas] = useState([]);
 
   const [selectedDateDataUnit, setSelectedDateDataUnit] = useState(null);
 
@@ -44,6 +45,15 @@ function App({ db, STORES }) {
     }
   }
 
+  async function fetchActivityDatas() {
+    try {
+      const allActivityDataUnits = await getAllActivityDataUnits();
+      setActivityDatas(allActivityDataUnits);
+    } catch (error) {
+      console.error("Error getting all activity datas:", error);
+    }
+  }
+
   useEffect(() => {
     setCategoryOptions(() =>
       categories.map((category) => ({
@@ -59,6 +69,7 @@ function App({ db, STORES }) {
     createMissingDataUnits();
     setDataUnit(CURRENT_DATE);
     fetchFinanceDatas();
+    fetchActivityDatas();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -130,7 +141,7 @@ function App({ db, STORES }) {
     }
   };
 
-  const getAllDataUnits = async () => {
+  const getAllActivityDataUnits = async () => {
     const allDataUnits = [];
     try {
       for (const year of STORES) {
@@ -277,7 +288,7 @@ function App({ db, STORES }) {
   };
 
   const deleteSubCategory = async (categoryName, categoryID, subCategory) => {
-    const allDataUnits = await getAllDataUnits();
+    const allDataUnits = await getAllActivityDataUnits();
     if (
       allDataUnits.some((dataUnit) => dataUnit[categoryName]?.[subCategory] > 0)
     ) {
@@ -340,6 +351,7 @@ function App({ db, STORES }) {
         onDeleteFinancialData={deleteFinancialData}
         onUpdateFinancialData={updateFinancialData}
         financeDatas={financeDatas}
+        activityDatas={activityDatas}
       />
     </div>
   );

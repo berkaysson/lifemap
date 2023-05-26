@@ -47,6 +47,8 @@ const DataViewer = ({ selectedDateDataUnit, activityCategories }) => {
   });
 
   return (
+    <>
+    <h3>{selectedDateDataUnit.date}</h3>
     <Table>
       <TableHead>
         {activityCategories.map((category) => (
@@ -67,6 +69,7 @@ const DataViewer = ({ selectedDateDataUnit, activityCategories }) => {
         </TableRow>
       </tbody>
     </Table>
+    </>
   );
 };
 

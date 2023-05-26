@@ -30,6 +30,7 @@ const AppContent = ({
   activityCategories,
   financeCategories,
   financeDatas,
+  activityDatas
 }) => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -79,6 +80,7 @@ const AppContent = ({
               onDateSelection={onGetDataByDate}
               selectedDateDataUnit={selectedDateDataUnit}
               activityCategories={activityCategories}
+              activityDatas={activityDatas}
             />
           }
         />
