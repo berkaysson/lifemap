@@ -85,7 +85,7 @@ const ViewActivityUnitsPage = ({
         />
       ) : (
         <div>
-          {filteredActivityDataUnits.length > 0 ? (
+          {!filteredActivityDataUnits || filteredActivityDataUnits.length > 0 ? (
             filteredActivityDataUnits.map((item) => (
               <DataViewer
                 key={item.id}
