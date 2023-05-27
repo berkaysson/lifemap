@@ -25,6 +25,8 @@ const openDB = async () => {
     categoriesData: "id",
     financialData: "date",
     userData: "id",
+    tasksData: "id",
+    habitsData:"id"
   });
 
   await db.open();

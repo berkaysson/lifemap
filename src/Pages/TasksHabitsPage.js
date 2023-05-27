@@ -1,15 +1,24 @@
 import styled from "styled-components";
+import TasksHabitsWrapper from "../Components/TasksHabits";
 
 const Wrapper = styled.section`
   border: 2px solid blue;
   padding: 1rem;
 `;
 
-const TasksHabitsPage = () => {
+const TasksHabitsPage = ({
+  onUpdateData,
+  activityCategories,
+  categoryOptions,
+}) => {
   return (
     <Wrapper>
       <h1>AddTasksHabitsPage</h1>
-      <div>A FORM COMPONENT TO CREATE TASKS-HABITS</div>
+      <TasksHabitsWrapper
+        onUpdateData={onUpdateData}
+        activityCategories={activityCategories}
+        categoryOptions={categoryOptions}
+      />
       <div>
         A COMPONENT TO LIST ALL TASKS AND HABITS
         <div>

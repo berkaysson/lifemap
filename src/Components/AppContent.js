@@ -30,7 +30,7 @@ const AppContent = ({
   activityCategories,
   financeCategories,
   financeDatas,
-  activityDatas
+  activityDatas,
 }) => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -58,7 +58,16 @@ const AppContent = ({
             />
           }
         />
-        <Route path="tasks-habits" element={<TasksHabitsPage />} />
+        <Route
+          path="tasks-habits"
+          element={
+            <TasksHabitsPage
+              onUpdateData={onUpdateData}
+              activityCategories={activityCategories}
+              categoryOptions={categoryOptions}
+            />
+          }
+        />
         <Route
           path="finances"
           element={
