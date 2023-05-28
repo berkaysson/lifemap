@@ -3,73 +3,17 @@ import { exportDB } from "dexie-export-import";
 import moment from "moment";
 
 import dataUnitConstructor from "../Data/dataUnitConstructor";
-import AppContent from "./AppContent";
 import Dexie from "dexie";
+import AppFetch from "./AppFetch";
 
 const CURRENT_DATE = new Date().toISOString().slice(0, 10);
 
 function App({ db, STORES }) {
-  const [categories, setCategories] = useState([]);
-  const [activityCategories, setActivityCategories] = useState([]);
-  const [financeCategories, setFinanceCategories] = useState([]);
-  const [categoryOptions, setCategoryOptions] = useState([]);
-
-  const [financeDatas, setFinanceDatas] = useState([]);
-  const [activityDatas, setActivityDatas] = useState([]);
-
   const [selectedDateDataUnit, setSelectedDateDataUnit] = useState(null);
 
-  async function fetchCategories() {
-    const newCategories = await getAllCategories();
-    setCategories(newCategories);
-    setActivityCategories(() =>
-      newCategories.filter(
-        (item) =>
-          item.id !== "expenseCategories" && item.id !== "incomeCategories"
-      )
-    );
-    setFinanceCategories(() =>
-      newCategories.filter(
-        (item) =>
-          item.id === "expenseCategories" || item.id === "incomeCategories"
-      )
-    );
-  }
-
-  async function fetchFinanceDatas() {
-    try {
-      const allFinanceDataUnits = await getAllFinancialDataUnits();
-      setFinanceDatas(allFinanceDataUnits);
-    } catch (error) {
-      console.error("Error getting all financial datas:", error);
-    }
-  }
-
-  async function fetchActivityDatas() {
-    try {
-      const allActivityDataUnits = await getAllActivityDataUnits();
-      setActivityDatas(allActivityDataUnits);
-    } catch (error) {
-      console.error("Error getting all activity datas:", error);
-    }
-  }
-
   useEffect(() => {
-    setCategoryOptions(() =>
-      categories.map((category) => ({
-        value: category.id,
-        label: category.name,
-        subCategories: category.subCategories,
-      }))
-    );
-  }, [categories]);
-
-  useEffect(() => {
-    fetchCategories();
     createMissingDataUnits();
     setDataUnit(CURRENT_DATE);
-    fetchFinanceDatas();
-    fetchActivityDatas();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -229,7 +173,6 @@ function App({ db, STORES }) {
         }
 
         await db.categoriesData.put(categoryData);
-        await fetchCategories();
       }
     } catch (error) {
       console.error("Error getting category data:", error);
@@ -244,7 +187,6 @@ function App({ db, STORES }) {
         await db.financialData.put(financeData);
         console.log("Data unit added successfully");
       }
-      fetchFinanceDatas();
     } catch (error) {
       console.error("Error getting finance data:", error);
     }
@@ -265,7 +207,6 @@ function App({ db, STORES }) {
           console.log("Data unit updated successfully");
         }
       }
-      fetchFinanceDatas();
     } catch (error) {
       console.error("Error updating finance data:", error);
     }
@@ -281,7 +222,6 @@ function App({ db, STORES }) {
         await db.financialData.put(financeData);
         console.log("Data unit deleted successfully");
       }
-      fetchFinanceDatas();
     } catch (error) {
       console.error("Error deleting finance data:", error);
     }
@@ -302,7 +242,6 @@ function App({ db, STORES }) {
           (s) => s !== subCategory
         );
         await db.categoriesData.update(categoryID, { subCategories });
-        await fetchCategories();
       }
     } catch (error) {
       console.error("Error getting category data:", error);
@@ -332,27 +271,29 @@ function App({ db, STORES }) {
     }
   };
 
+  const fetchProps = {
+    onGetAllCategories:getAllCategories,
+    onGetAllFinancialUnits:getAllFinancialDataUnits,
+    onGetAllActivityUnits:getAllActivityDataUnits,
+  };
+
+  const contentProps = {
+    onCreateToday: createDataUnit,
+    onGetDataByDate: setDataUnit,
+    onUpdateData: updateDataUnit,
+    selectedDateDataUnit: selectedDateDataUnit,
+    onUpdateCategory: updateCategory,
+    onDeleteSubCategory: deleteSubCategory,
+    onExport: exportHandler,
+    onImport: importHandler,
+    onAddFinancialData: addFinancialData,
+    onDeleteFinancialData: deleteFinancialData,
+    onUpdateFinancialData: updateFinancialData,
+  }
+
   return (
     <div className="App">
-      <AppContent
-        onCreateToday={createDataUnit}
-        onGetDataByDate={setDataUnit}
-        onUpdateData={updateDataUnit}
-        selectedDateDataUnit={selectedDateDataUnit}
-        onUpdateCategory={updateCategory}
-        onDeleteSubCategory={deleteSubCategory}
-        categories={categories}
-        activityCategories={activityCategories}
-        financeCategories={financeCategories}
-        categoryOptions={categoryOptions}
-        onExport={exportHandler}
-        onImport={importHandler}
-        onAddFinancialData={addFinancialData}
-        onDeleteFinancialData={deleteFinancialData}
-        onUpdateFinancialData={updateFinancialData}
-        financeDatas={financeDatas}
-        activityDatas={activityDatas}
-      />
+      <AppFetch {...fetchProps} contentProps={contentProps} />
     </div>
   );
 }
