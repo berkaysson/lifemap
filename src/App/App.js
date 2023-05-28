@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { exportDB } from "dexie-export-import";
 import moment from "moment";
 
-import dataUnitConstructor from "./Data/dataUnitConstructor";
-import AppContent from "./Components/AppContent";
+import dataUnitConstructor from "../Data/dataUnitConstructor";
+import AppContent from "./AppContent";
 import Dexie from "dexie";
 
 const CURRENT_DATE = new Date().toISOString().slice(0, 10);
@@ -112,7 +112,7 @@ function App({ db, STORES }) {
       if (!(await db.financialData.get(date)))
         await createFinancialDataUnit(date);
     }
-    setSelectedDateDataUnit(() => getDataUnit(CURRENT_DATE)); // if the date was not created, it is creates and assignes
+    setSelectedDateDataUnit(() => getDataUnit(CURRENT_DATE));
   };
 
   const getDataUnit = async (dateID) => {

@@ -5,7 +5,7 @@ import Dexie from "dexie";
 
 import "./Style/index.css";
 
-import App from "./App";
+import App from "./App/App";
 
 import categoryData from "./Data/categoryData.json";
 import financeCategoryData from "./Data/financeCategoryData.json";
