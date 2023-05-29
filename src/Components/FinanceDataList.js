@@ -44,14 +44,14 @@ const FinanceDataList = ({
         const newFinanceDataUnit = await financeDatas.find(
           (obj) => obj.date === date
         );
-  
+
         if (newFinanceDataUnit) {
           filteredData.push(...newFinanceDataUnit.financeDatas);
         }
-  
+
         startDate.add(1, "days");
       }
-  
+
       setFilteredFinanceDatas(filteredData);
     }
   };
@@ -66,7 +66,6 @@ const FinanceDataList = ({
 
   useEffect(() => {
     updateFilteredFinanceData();
-    console.log(filteredFinanceDatas);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [financeDatas, selectedDate, selectedDateRange, isDateRangeSelected]);
 
