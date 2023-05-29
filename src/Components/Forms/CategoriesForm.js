@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import styled from "styled-components";
 
 import Select from "react-select";
-import SubCategorySelect from "../UI/SubCategorySelect";
-
 import Button from "../UI/Button";
-
-import styled from "styled-components";
 import ToggleButton from "../UI/ToggleButton";
+import CategorySubCategorySelect from "./CategorySubCategorySelect";
 
 const CategoryUpdateFormWrapper = styled.div``;
 
@@ -19,34 +17,6 @@ const CategoriesForm = ({
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [formMode, setFormMode] = useState("update");
-  const [subCategories, setSubCategories] = useState([]);
-
-  const [subCategoryOptions, setSubCategoryOptions] = useState();
-
-  // Fetch the list of categories on mount and update the select dropdown options
-  async function fetchCategories() {
-    const selectedCategoryName = selectedCategory?.name;
-    const category = categories.find(
-      (item) => item.name === selectedCategoryName
-    );
-    setSubCategories(category?.subCategories ?? []);
-  }
-
-  useEffect(() => {
-    fetchCategories();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // Update the select dropdown options when the subCategories change
-  useEffect(() => {
-    setSubCategoryOptions(() =>
-      subCategories.map((subCategory) => ({
-        label: subCategory,
-        value: subCategory,
-        subCategory: subCategory,
-      }))
-    );
-  }, [categories, subCategories]);
 
   // Handle form submission to update the category with a new subcategory
   const submitHandler = async (event) => {
@@ -63,23 +33,12 @@ const CategoriesForm = ({
     }
 
     await onUpdateCategory(selectedCategory.value, subCategoryInput);
-    fetchCategories();
   };
 
   // Handle selection of a category from the dropdown
   const categorySelectHandler = (selectedOption) => {
     setSelectedCategory(selectedOption);
     setSelectedSubCategory(null);
-
-    const category = categories.find(
-      (item) => item.id === selectedOption.value
-    );
-    setSubCategories(category.subCategories);
-  };
-
-  // Handle selection of a subcategory from the dropdown
-  const subCategorySelectHandler = (selectedSubCategory) => {
-    setSelectedSubCategory(selectedSubCategory);
   };
 
   //Handle formMode changes
@@ -94,7 +53,11 @@ const CategoriesForm = ({
       selectedCategory.value,
       selectedSubCategory.label
     );
-    fetchCategories();
+  };
+
+  const subCategorySelectionHandler = (category, subCategory) => {
+    categorySelectHandler(category);
+    setSelectedSubCategory(subCategory);
   };
 
   //render the appropriate form content based on the formMode state variable.
@@ -124,20 +87,13 @@ const CategoriesForm = ({
       case "delete":
         return (
           <>
-            <form onSubmit={submitHandler}>
-              <Select
-                value={selectedCategory}
-                options={categoryOptions}
-                onChange={categorySelectHandler}
-                placeholder="--Select a category--"
+            <form>
+              <CategorySubCategorySelect
+                categories={categories}
+                categoryOptions={categoryOptions}
+                onSubCategorySelect={subCategorySelectionHandler}
               />
             </form>
-            <SubCategorySelect
-              onChange={subCategorySelectHandler}
-              options={subCategoryOptions}
-              placeholder={"Select a subCategory"}
-              category={selectedCategory}
-            />
             <Button
               text={"Delete"}
               type={"button"}
