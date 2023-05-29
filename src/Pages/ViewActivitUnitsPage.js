@@ -13,22 +13,32 @@ const Wrapper = styled.section`
 `;
 
 const ViewActivityUnitsPage = ({
-  onDateSelection,
-  selectedDateDataUnit,
   activityCategories,
   activityDatas,
+  onGetActivityDataUnit,
 }) => {
   const [isDateRangeSelected, setIsDateRangeSelected] = useState(false);
   const [selectedDateRange, setSelectedDateRange] = useState({
     startDate: null,
     endDate: null,
   });
+  const [selectedDateActivityUnit, setSelectedDateActivityUnit] = useState(null);
   const [filteredActivityDataUnits, setFilteredActivityDataUnits] = useState(
     []
   );
 
   const dateRangeInputHandler = (start, end) => {
     setSelectedDateRange({ startDate: start, endDate: end });
+  };
+
+  const dateInputHandler = async (dateID) => {
+    try {
+      const newDate = await onGetActivityDataUnit(dateID);
+      setSelectedDateActivityUnit(newDate);
+      console.log("dateInputHandler successful");
+    } catch (error) {
+      console.error("dateInputHandler:", error);
+    }
   };
 
   const updateFilteredActivityDataUnits = async () => {
@@ -68,24 +78,21 @@ const ViewActivityUnitsPage = ({
       ) : (
         <>
           <DataViewerForm
-            onDateSelection={onDateSelection}
-            selectedDate={selectedDateDataUnit.date}
+            onDateSelection={dateInputHandler}
+            selectedDate={selectedDateActivityUnit}
           />
-          <h3>
-            {selectedDateDataUnit
-              ? selectedDateDataUnit.date
-              : "No date selected"}
-          </h3>
+          <h3>{selectedDateActivityUnit ? selectedDateActivityUnit.date : "No date selected"}</h3>
         </>
       )}
       {!isDateRangeSelected ? (
         <DataViewer
-          selectedDateDataUnit={selectedDateDataUnit}
+          selectedDateDataUnit={selectedDateActivityUnit}
           activityCategories={activityCategories}
         />
       ) : (
         <div>
-          {!filteredActivityDataUnits || filteredActivityDataUnits.length > 0 ? (
+          {!filteredActivityDataUnits ||
+          filteredActivityDataUnits.length > 0 ? (
             filteredActivityDataUnits.map((item) => (
               <DataViewer
                 key={item.id}

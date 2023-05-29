@@ -9,12 +9,10 @@ import AppFetch from "./AppFetch";
 const CURRENT_DATE = new Date().toISOString().slice(0, 10);
 
 function App({ db, STORES }) {
-  const [selectedDateDataUnit, setSelectedDateDataUnit] = useState(null);
   const [isNeedFetchUpdate, setIsNeedFetchUpdate] = useState(false);
 
   useEffect(() => {
     createMissingDataUnits();
-    setDataUnit(CURRENT_DATE);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -61,7 +59,6 @@ function App({ db, STORES }) {
       if (!(await db.financialData.get(date)))
         await createFinancialDataUnit(date);
     }
-    setSelectedDateDataUnit(() => getDataUnit(CURRENT_DATE));
   };
 
   const getDataUnit = async (dateID) => {
@@ -114,16 +111,6 @@ function App({ db, STORES }) {
     }
   };
 
-  const setDataUnit = async (date) => {
-    try {
-      const dataUnit = await getDataUnit(date);
-      setSelectedDateDataUnit(dataUnit);
-      console.log("Data unit assigned successfully");
-    } catch (error) {
-      console.error("Failed to get data unit:", error);
-    }
-  };
-
   const updateDataUnit = async (toBeUpdatedData) => {
     try {
       const dataUnit = await getDataUnit(toBeUpdatedData.date);
@@ -154,9 +141,6 @@ function App({ db, STORES }) {
 
       await db[selectedYear].put(dataUnit);
 
-      if (dataUnit.date === selectedDateDataUnit.date) {
-        setSelectedDateDataUnit(dataUnit);
-      }
       fetchUpdateHandler(true);
       console.log("Data unit updated successfully");
     } catch (error) {
@@ -293,9 +277,7 @@ function App({ db, STORES }) {
 
   const contentProps = {
     onCreateToday: createDataUnit,
-    onGetDataByDate: setDataUnit,
     onUpdateData: updateDataUnit,
-    selectedDateDataUnit: selectedDateDataUnit,
     onUpdateCategory: updateCategory,
     onDeleteSubCategory: deleteSubCategory,
     onExport: exportHandler,
@@ -303,6 +285,7 @@ function App({ db, STORES }) {
     onAddFinancialData: addFinancialData,
     onDeleteFinancialData: deleteFinancialData,
     onUpdateFinancialData: updateFinancialData,
+    onGetActivityDataUnit:getDataUnit,
   }
 
   return (

@@ -9,14 +9,14 @@ const HomeWrapper = styled.section`
 
 const CURRENT_DATE = new Date().toISOString().slice(0, 10);
 
-const HomePage = ({ selectedDateDataUnit, activityCategories }) => {
+const HomePage = ({ activityCategories, todaysActivityDataUnit }) => {
   return (
     <HomeWrapper>
       <h1>HOME</h1>
       <div>Welcome USER_NAME</div>
       <div>{CURRENT_DATE}</div>
       <DataViewer
-        selectedDateDataUnit={selectedDateDataUnit}
+        selectedDateDataUnit={todaysActivityDataUnit}
         activityCategories={activityCategories}
       />
       <div>A COMPONENT TO VIEW TO ACTIVE TASKS-HABITS</div>

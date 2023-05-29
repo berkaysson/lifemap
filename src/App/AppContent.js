@@ -15,9 +15,7 @@ import RootLayout from "../Layout/RootLayout";
 import FinancePage from "../Pages/FinancePage";
 
 const AppContent = ({
-  onGetDataByDate,
   onUpdateData,
-  selectedDateDataUnit,
   onUpdateCategory,
   onDeleteSubCategory,
   categories,
@@ -31,6 +29,8 @@ const AppContent = ({
   financeCategories,
   financeDatas,
   activityDatas,
+  onGetActivityDataUnit,
+  todaysActivityDataUnit
 }) => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -40,8 +40,8 @@ const AppContent = ({
           path="/"
           element={
             <HomePage
-              selectedDateDataUnit={selectedDateDataUnit}
               activityCategories={activityCategories}
+              todaysActivityDataUnit={todaysActivityDataUnit}
             />
           }
         />
@@ -86,8 +86,7 @@ const AppContent = ({
           path="view-activity-units"
           element={
             <ViewActivityUnitsPage
-              onDateSelection={onGetDataByDate}
-              selectedDateDataUnit={selectedDateDataUnit}
+              onGetActivityDataUnit={onGetActivityDataUnit}
               activityCategories={activityCategories}
               activityDatas={activityDatas}
             />
