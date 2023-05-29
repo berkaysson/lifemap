@@ -10,12 +10,17 @@ const CURRENT_DATE = new Date().toISOString().slice(0, 10);
 
 function App({ db, STORES }) {
   const [selectedDateDataUnit, setSelectedDateDataUnit] = useState(null);
+  const [isNeedFetchUpdate, setIsNeedFetchUpdate] = useState(false);
 
   useEffect(() => {
     createMissingDataUnits();
     setDataUnit(CURRENT_DATE);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const fetchUpdateHandler = (boolean) => {
+    setIsNeedFetchUpdate(boolean);
+  }
 
   const createDataUnit = async (
     date = new Date().toISOString().slice(0, 10)
@@ -152,6 +157,7 @@ function App({ db, STORES }) {
       if (dataUnit.date === selectedDateDataUnit.date) {
         setSelectedDateDataUnit(dataUnit);
       }
+      fetchUpdateHandler(true);
       console.log("Data unit updated successfully");
     } catch (error) {
       console.error("Failed to get data unit:", error);
@@ -174,6 +180,7 @@ function App({ db, STORES }) {
 
         await db.categoriesData.put(categoryData);
       }
+      fetchUpdateHandler(true);
     } catch (error) {
       console.error("Error getting category data:", error);
     }
@@ -187,6 +194,7 @@ function App({ db, STORES }) {
         await db.financialData.put(financeData);
         console.log("Data unit added successfully");
       }
+      fetchUpdateHandler(true);
     } catch (error) {
       console.error("Error getting finance data:", error);
     }
@@ -207,6 +215,7 @@ function App({ db, STORES }) {
           console.log("Data unit updated successfully");
         }
       }
+      fetchUpdateHandler(true);
     } catch (error) {
       console.error("Error updating finance data:", error);
     }
@@ -222,6 +231,7 @@ function App({ db, STORES }) {
         await db.financialData.put(financeData);
         console.log("Data unit deleted successfully");
       }
+      fetchUpdateHandler(true);
     } catch (error) {
       console.error("Error deleting finance data:", error);
     }
@@ -243,6 +253,7 @@ function App({ db, STORES }) {
         );
         await db.categoriesData.update(categoryID, { subCategories });
       }
+      fetchUpdateHandler(true);
     } catch (error) {
       console.error("Error getting category data:", error);
     }
@@ -275,6 +286,9 @@ function App({ db, STORES }) {
     onGetAllCategories:getAllCategories,
     onGetAllFinancialUnits:getAllFinancialDataUnits,
     onGetAllActivityUnits:getAllActivityDataUnits,
+    onGetActivityDataUnit:getDataUnit,
+    onFetchUpdate:fetchUpdateHandler,
+    isNeedFetchUpdate:isNeedFetchUpdate
   };
 
   const contentProps = {

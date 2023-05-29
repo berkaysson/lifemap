@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
 import AppContent from "./AppContent";
 
+const CURRENT_DATE = new Date().toISOString().slice(0, 10);
+
 const AppFetch = ({
   onGetAllCategories,
   onGetAllFinancialUnits,
   onGetAllActivityUnits,
+  onGetActivityDataUnit,
   contentProps,
+  onFetchUpdate,
+  isNeedFetchUpdate
 }) => {
   const [categories, setCategories] = useState([]);
   const [activityCategories, setActivityCategories] = useState([]);
@@ -14,6 +19,7 @@ const AppFetch = ({
 
   const [financeDatas, setFinanceDatas] = useState([]);
   const [activityDatas, setActivityDatas] = useState([]);
+  const [todaysActivityDataUnit, setTodaysActivityDataUnit] = useState(null);
 
   const [isLoading, setIsLoading] = useState(true); // Loading state
 
@@ -59,6 +65,30 @@ const AppFetch = ({
     }
   }
 
+  async function fetchTodaysActivityDataUnit(){
+    try{
+      const newTodaysActivityDataUnit = await onGetActivityDataUnit(CURRENT_DATE);
+      setTodaysActivityDataUnit(newTodaysActivityDataUnit);
+      console.log("Today's activity data fetched successfully");
+    }
+    catch (error) {
+      console.error("Error fetching today's activity data:", error);
+    }
+  }
+
+  useEffect(() => {
+    (async () => {
+      await fetchCategories();
+      await fetchFinanceDatas();
+      await fetchActivityDatas();
+      await fetchTodaysActivityDataUnit();
+      setIsLoading(false);
+      onFetchUpdate(false);
+      console.log("Fetch Updated");
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isNeedFetchUpdate]);
+
   useEffect(() => {
     setCategoryOptions(() =>
       categories.map((category) => ({
@@ -76,6 +106,7 @@ const AppFetch = ({
       await fetchCategories();
       await fetchFinanceDatas();
       await fetchActivityDatas();
+      await fetchTodaysActivityDataUnit();
       setIsLoading(false);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -89,6 +120,7 @@ const AppFetch = ({
     categoryOptions,
     financeDatas,
     activityDatas,
+    todaysActivityDataUnit
   };
 
   return (
