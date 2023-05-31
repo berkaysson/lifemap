@@ -5,6 +5,7 @@ import { DateRangePicker } from "react-date-range";
 import addDays from "date-fns/addDays";
 import { useState } from "react";
 import styled from "styled-components";
+import { enGB } from "date-fns/locale";
 
 const Wrapper = styled.div`
   border: 1px solid red;
@@ -35,6 +36,7 @@ const DateRangeSelector = ({ onSubmit }) => {
         months={1}
         ranges={state}
         direction="vertical"
+        locale={enGB}
       />
       <button onClick={onDateRangeSelection}>Show</button>
     </Wrapper>
