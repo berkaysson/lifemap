@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import Select from "react-select";
@@ -12,11 +12,11 @@ const CategoriesForm = ({
   onUpdateCategory,
   onDeleteSubCategory,
   categories,
-  categoryOptions,
 }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [formMode, setFormMode] = useState("update");
+  const [categoryOptions, setCategoryOptions] = useState([]);
 
   // Handle form submission to update the category with a new subcategory
   const submitHandler = async (event) => {
@@ -34,6 +34,22 @@ const CategoriesForm = ({
 
     await onUpdateCategory(selectedCategory.value, subCategoryInput);
   };
+
+  async function fetchCategoryOptions() {
+    setCategoryOptions(() =>
+      categories.map((category) => ({
+        value: category.id,
+        label: category.name,
+        subCategories: category.subCategories,
+      }))
+    );
+    console.log("Category options assigned successfully");
+  }
+
+  useEffect(() => {
+    fetchCategoryOptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Handle selection of a category from the dropdown
   const categorySelectHandler = (selectedOption) => {
@@ -90,7 +106,6 @@ const CategoriesForm = ({
             <form>
               <CategorySubCategorySelect
                 categories={categories}
-                categoryOptions={categoryOptions}
                 onSubCategorySelect={subCategorySelectionHandler}
               />
             </form>

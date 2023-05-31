@@ -4,9 +4,7 @@ import TasksForm from "./Forms/TasksForm";
 import HabitsForm from "./Forms/HabitsForm";
 
 const TasksHabitsWrapper = ({
-  onUpdateData,
   activityCategories,
-  categoryOptions,
 }) => {
   const [selectedOption, setSelectedOption] = useState("tasks");
 
@@ -25,9 +23,7 @@ const TasksHabitsWrapper = ({
       />
       {selectedOption === "tasks" ? (
         <TasksForm
-          onUpdateData={onUpdateData}
           activityCategories={activityCategories}
-          categoryOptions={categoryOptions}
         />
       ) : (
         <HabitsForm />

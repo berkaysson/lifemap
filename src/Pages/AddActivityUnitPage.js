@@ -11,7 +11,6 @@ const AddActivityUnitPageWrapper = styled.section`
 const AddActivityUnitPage = ({
   onUpdateData,
   categories,
-  categoryOptions,
   onUpdateCategory,
   onDeleteSubCategory,
   activityCategories,
@@ -22,13 +21,11 @@ const AddActivityUnitPage = ({
       <ActivityForm
         onUpdateData={onUpdateData}
         activityCategories={activityCategories}
-        categoryOptions={categoryOptions}
       />
       <br />
       <br />
       <CategoriesForm
         categories={categories}
-        categoryOptions={categoryOptions}
         onDeleteSubCategory={onDeleteSubCategory}
         onUpdateCategory={onUpdateCategory}
       />

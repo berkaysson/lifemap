@@ -7,17 +7,13 @@ const Wrapper = styled.section`
 `;
 
 const TasksHabitsPage = ({
-  onUpdateData,
   activityCategories,
-  categoryOptions,
 }) => {
   return (
     <Wrapper>
       <h1>AddTasksHabitsPage</h1>
       <TasksHabitsWrapper
-        onUpdateData={onUpdateData}
         activityCategories={activityCategories}
-        categoryOptions={categoryOptions}
       />
       <div>
         A COMPONENT TO LIST ALL TASKS AND HABITS
