@@ -38,7 +38,7 @@ const DateRangeSelector = ({ onSubmit }) => {
         direction="vertical"
         locale={enGB}
       />
-      <button onClick={onDateRangeSelection}>Show</button>
+      <button type="button" onClick={onDateRangeSelection}>Show</button>
     </Wrapper>
   );
 };
