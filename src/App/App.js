@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { exportDB } from "dexie-export-import";
 import moment from "moment";
-
-import dataUnitConstructor from "../Data/dataUnitConstructor";
 import Dexie from "dexie";
+
+import activityDataUnitConstructor from "../Data/activityDataUnitConstructor";
+
 import AppFetch from "./AppFetch";
 
 const CURRENT_DATE = new Date().toISOString().slice(0, 10);
@@ -18,18 +19,18 @@ function App({ db, STORES }) {
 
   const fetchUpdateHandler = (boolean) => {
     setIsNeedFetchUpdate(boolean);
-  }
+  };
 
-  const createDataUnit = async (
+  const createActivityDataUnit = async (
     date = new Date().toISOString().slice(0, 10)
   ) => {
-    const dataUnit = await dataUnitConstructor(date, db);
+    const activityDataUnit = await activityDataUnitConstructor(date, db);
     const year = date.slice(0, 4);
     try {
-      await db[year].add(dataUnit);
-      console.log("Data unit added successfully");
+      await db[year].add(activityDataUnit);
+      console.log("Activity Data unit added successfully");
     } catch (error) {
-      console.error("Error adding data unit:", error);
+      console.error("Error adding activity data unit:", error);
     }
   };
 
@@ -54,26 +55,26 @@ function App({ db, STORES }) {
       const date = startDate.format("YYYY-MM-DD");
       const year = date.slice(0, 4);
       if (!(await db[year].get(date))) {
-        await createDataUnit(date);
+        await createActivityDataUnit(date);
       }
       if (!(await db.financialData.get(date)))
         await createFinancialDataUnit(date);
     }
   };
 
-  const getDataUnit = async (dateID) => {
+  const getActivityDataUnit = async (dateID) => {
     try {
       const selectedYear = dateID.slice(0, 4).toString();
-      const dataUnit = await db[selectedYear].get(dateID);
-      if (dataUnit) {
-        console.log("Data unit retrieved successfully");
-        return dataUnit;
+      const activityDataUnit = await db[selectedYear].get(dateID);
+      if (activityDataUnit) {
+        console.log("Activity Data unit retrieved successfully");
+        return activityDataUnit;
       } else {
-        console.error("Data unit not found");
+        console.error("Acitivty Data unit not found");
         return null;
       }
     } catch (error) {
-      console.error("Error getting data unit:", error);
+      console.error("Error getting activity data unit:", error);
       throw error;
     }
   };
@@ -88,16 +89,16 @@ function App({ db, STORES }) {
   };
 
   const getAllActivityDataUnits = async () => {
-    const allDataUnits = [];
+    const allActivityDataUnits = [];
     try {
       for (const year of STORES) {
         const newDataUnits = await db[year].toArray();
-        allDataUnits.push(...newDataUnits);
+        allActivityDataUnits.push(...newDataUnits);
       }
-      console.log("All data units retrieved successfully");
-      return allDataUnits;
+      console.log("All activity data units retrieved successfully");
+      return allActivityDataUnits;
     } catch (error) {
-      console.error("Error getting all data units:", error);
+      console.error("Error getting all activity data units:", error);
       throw error;
     }
   };
@@ -111,40 +112,44 @@ function App({ db, STORES }) {
     }
   };
 
-  const updateDataUnit = async (toBeUpdatedData) => {
+  const updateActivityDataUnit = async (toBeUpdatedActivityData) => {
     try {
-      const dataUnit = await getDataUnit(toBeUpdatedData.date);
-      console.log("Data to be updated retrieved successfully");
-      console.log(dataUnit);
-      const selectedYear = toBeUpdatedData.date.slice(0, 4).toString();
+      const activityDataUnit = await getActivityDataUnit(
+        toBeUpdatedActivityData.date
+      );
+      console.log("Activty Data unit to be updated retrieved successfully");
+      const selectedYear = toBeUpdatedActivityData.date.slice(0, 4).toString();
       const currentValue =
         parseInt(
-          dataUnit[toBeUpdatedData.category][toBeUpdatedData.subCategory]
+          activityDataUnit[toBeUpdatedActivityData.category][
+            toBeUpdatedActivityData.subCategory
+          ]
         ) || 0;
-      const newValue = parseInt(toBeUpdatedData.value) || 0;
+      const newValue = parseInt(toBeUpdatedActivityData.value) || 0;
       const calculatedValue = (
-        toBeUpdatedData.formMode === "add"
+        toBeUpdatedActivityData.formMode === "add"
           ? +currentValue + +newValue
           : +currentValue - +newValue
       ).toString();
       if (
         calculatedValue < 0 &&
-        toBeUpdatedData.category !== "expenseCategories"
+        toBeUpdatedActivityData.category !== "expenseCategories"
       ) {
         return alert(
           "Value is negative, it must be bigger than zero, value after change:" +
             calculatedValue
         );
       }
-      dataUnit[toBeUpdatedData.category][toBeUpdatedData.subCategory] =
-        calculatedValue;
+      activityDataUnit[toBeUpdatedActivityData.category][
+        toBeUpdatedActivityData.subCategory
+      ] = calculatedValue;
 
-      await db[selectedYear].put(dataUnit);
+      await db[selectedYear].put(activityDataUnit);
 
       fetchUpdateHandler(true);
-      console.log("Data unit updated successfully");
+      console.log("Activity Data unit updated successfully");
     } catch (error) {
-      console.error("Failed to get data unit:", error);
+      console.error("Failed to get activity data unit:", error);
     }
   };
 
@@ -170,61 +175,69 @@ function App({ db, STORES }) {
     }
   };
 
-  const addFinancialData = async (toBeUpdatedData) => {
+  const addFinancialDataUnit = async (toBeUpdatedData) => {
     try {
-      const financeData = await db.financialData.get(toBeUpdatedData.date);
-      if (financeData) {
-        financeData.financeDatas.push(toBeUpdatedData);
-        await db.financialData.put(financeData);
-        console.log("Data unit added successfully");
+      const financialDataUnit = await db.financialData.get(
+        toBeUpdatedData.date
+      );
+      if (financialDataUnit) {
+        financialDataUnit.financeDatas.push(toBeUpdatedData);
+        await db.financialData.put(financialDataUnit);
+        console.log("Financial Data unit added successfully");
       }
       fetchUpdateHandler(true);
     } catch (error) {
-      console.error("Error getting finance data:", error);
+      console.error("Error getting Financial data:", error);
     }
   };
 
-  const updateFinancialData = async (dateID, dataUnitID, toBeUpdatedData) => {
+  const updateFinancialDataUnit = async (
+    dateID,
+    dataUnitID,
+    toBeUpdatedData
+  ) => {
     try {
-      const financeData = await db.financialData.get(dateID);
-      if (financeData) {
-        const oldDataUnitIndex = financeData.financeDatas.findIndex(
+      const financialDataUnit = await db.financialData.get(dateID);
+      if (financialDataUnit) {
+        const oldDataUnitIndex = financialDataUnit.financeDatas.findIndex(
           (obj) => obj.id === dataUnitID
         );
         if (oldDataUnitIndex !== -1) {
-          const oldDataUnit = financeData.financeDatas[oldDataUnitIndex];
+          const oldDataUnit = financialDataUnit.financeDatas[oldDataUnitIndex];
           const updatedDataUnit = { ...oldDataUnit, ...toBeUpdatedData };
-          financeData.financeDatas[oldDataUnitIndex] = updatedDataUnit;
-          await db.financialData.put(financeData);
-          console.log("Data unit updated successfully");
+          financialDataUnit.financeDatas[oldDataUnitIndex] = updatedDataUnit;
+          await db.financialData.put(financialDataUnit);
+          console.log("Financial Data unit updated successfully");
         }
       }
       fetchUpdateHandler(true);
     } catch (error) {
-      console.error("Error updating finance data:", error);
+      console.error("Error updating Financial data:", error);
     }
   };
 
-  const deleteFinancialData = async (dateID, dataUnitID) => {
+  const deleteFinancialDataUnit = async (dateID, dataUnitID) => {
     try {
-      const financeData = await db.financialData.get(dateID);
-      if (financeData) {
-        financeData.financeDatas = financeData.financeDatas.filter(
+      const financialDataUnit = await db.financialData.get(dateID);
+      if (financialDataUnit) {
+        financialDataUnit.financeDatas = financialDataUnit.financeDatas.filter(
           (obj) => obj.id !== dataUnitID
         );
-        await db.financialData.put(financeData);
-        console.log("Data unit deleted successfully");
+        await db.financialData.put(financialDataUnit);
+        console.log("Financial Data unit deleted successfully");
       }
       fetchUpdateHandler(true);
     } catch (error) {
-      console.error("Error deleting finance data:", error);
+      console.error("Error deleting Financial data:", error);
     }
   };
 
   const deleteSubCategory = async (categoryName, categoryID, subCategory) => {
-    const allDataUnits = await getAllActivityDataUnits();
+    const allActivityDataUnits = await getAllActivityDataUnits();
     if (
-      allDataUnits.some((dataUnit) => dataUnit[categoryName]?.[subCategory] > 0)
+      allActivityDataUnits.some(
+        (activityDataUnit) => activityDataUnit[categoryName]?.[subCategory] > 0
+      )
     ) {
       return alert(`This category has been used before, can not be deleted`);
     }
@@ -267,26 +280,26 @@ function App({ db, STORES }) {
   };
 
   const fetchProps = {
-    onGetAllCategories:getAllCategories,
-    onGetAllFinancialUnits:getAllFinancialDataUnits,
-    onGetAllActivityUnits:getAllActivityDataUnits,
-    onGetActivityDataUnit:getDataUnit,
-    onFetchUpdate:fetchUpdateHandler,
-    isNeedFetchUpdate:isNeedFetchUpdate
+    onGetAllCategories: getAllCategories,
+    onGetAllFinancialDataUnits: getAllFinancialDataUnits,
+    onGetAllActivityDataUnits: getAllActivityDataUnits,
+    onGetActivityDataUnit: getActivityDataUnit,
+    onFetchUpdate: fetchUpdateHandler,
+    isNeedFetchUpdate: isNeedFetchUpdate,
   };
 
   const contentProps = {
-    onCreateToday: createDataUnit,
-    onUpdateData: updateDataUnit,
+    onCreateToday: createActivityDataUnit,
+    onUpdateActivityDataUnit: updateActivityDataUnit,
     onUpdateCategory: updateCategory,
     onDeleteSubCategory: deleteSubCategory,
     onExport: exportHandler,
     onImport: importHandler,
-    onAddFinancialData: addFinancialData,
-    onDeleteFinancialData: deleteFinancialData,
-    onUpdateFinancialData: updateFinancialData,
-    onGetActivityDataUnit:getDataUnit,
-  }
+    onAddFinancialDataUnit: addFinancialDataUnit,
+    onDeleteFinancialDataUnit: deleteFinancialDataUnit,
+    onUpdateFinancialDataUnit: updateFinancialDataUnit,
+    onGetActivityDataUnit: getActivityDataUnit,
+  };
 
   return (
     <div className="App">

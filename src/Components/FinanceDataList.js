@@ -14,9 +14,9 @@ const Wrapper = styled.div`
 `;
 
 const FinanceDataList = ({
-  financeDatas,
-  onDeleteFinancialData,
-  onUpdateFinancialData,
+  financeDataUnits,
+  onDeleteFinancialDataUnit,
+  onUpdateFinancialDataUnit,
 }) => {
   const [selectedDate, setSelectedDate] = useState(CURRENT_DATE);
   const [selectedDateRange, setSelectedDateRange] = useState({
@@ -29,7 +29,7 @@ const FinanceDataList = ({
 
   const updateFilteredFinanceData = async () => {
     if (!isDateRangeSelected) {
-      const newFinanceDataUnit = await financeDatas.find(
+      const newFinanceDataUnit = await financeDataUnits.find(
         (obj) => obj.date === selectedDate
       );
       setFilteredFinanceDatas(
@@ -41,7 +41,7 @@ const FinanceDataList = ({
       const endDate = moment(selectedDateRange.endDate);
       while (startDate <= endDate) {
         const date = startDate.format("YYYY-MM-DD");
-        const newFinanceDataUnit = await financeDatas.find(
+        const newFinanceDataUnit = await financeDataUnits.find(
           (obj) => obj.date === date
         );
 
@@ -67,7 +67,7 @@ const FinanceDataList = ({
   useEffect(() => {
     updateFilteredFinanceData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [financeDatas, selectedDate, selectedDateRange, isDateRangeSelected]);
+  }, [financeDataUnits, selectedDate, selectedDateRange, isDateRangeSelected]);
 
   return (
     <Wrapper>
@@ -91,8 +91,8 @@ const FinanceDataList = ({
             <FinanceDataListItem
               key={item.id}
               item={item}
-              onDeleteFinancialData={onDeleteFinancialData}
-              onUpdateFinancialData={onUpdateFinancialData}
+              onDeleteFinancialDataUnit={onDeleteFinancialDataUnit}
+              onUpdateFinancialDataUnit={onUpdateFinancialDataUnit}
             />
           ))
         )}

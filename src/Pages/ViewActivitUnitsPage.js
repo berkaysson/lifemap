@@ -14,7 +14,7 @@ const Wrapper = styled.section`
 
 const ViewActivityUnitsPage = ({
   activityCategories,
-  activityDatas,
+  activityDataUnits,
   onGetActivityDataUnit,
 }) => {
   const [isDateRangeSelected, setIsDateRangeSelected] = useState(false);
@@ -47,7 +47,7 @@ const ViewActivityUnitsPage = ({
     const endDate = moment(selectedDateRange.endDate);
     while (startDate <= endDate) {
       const date = startDate.format("YYYY-MM-DD");
-      const newActivityDataUnit = await activityDatas.find(
+      const newActivityDataUnit = await activityDataUnits.find(
         (obj) => obj.date === date
       );
 
@@ -61,7 +61,7 @@ const ViewActivityUnitsPage = ({
   useEffect(() => {
     updateFilteredActivityDataUnits();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activityDatas, selectedDateRange, isDateRangeSelected]);
+  }, [activityDataUnits, selectedDateRange, isDateRangeSelected]);
 
   return (
     <Wrapper>

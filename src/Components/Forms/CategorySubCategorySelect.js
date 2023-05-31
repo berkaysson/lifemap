@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import Select from "react-select";
 import SubCategorySelect from "../UI/SubCategorySelect";
 
@@ -44,7 +45,7 @@ const CategorySubCategorySelect = ({ categories, onSubCategorySelect }) => {
       }))
     );
   }, [categories, subCategories]);
-  
+
   const categorySelectionHandler = (selectedCategory) => {
     setSelectedCategory(selectedCategory);
     setSelectedSubCategory(null);
@@ -59,7 +60,7 @@ const CategorySubCategorySelect = ({ categories, onSubCategorySelect }) => {
     setSelectedSubCategory(selectedSubCategory);
     onSubCategorySelect(selectedCategory, selectedSubCategory);
   };
-  
+
   return (
     <div>
       <label>Select Category</label>

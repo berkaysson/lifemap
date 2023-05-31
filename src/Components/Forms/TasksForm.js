@@ -4,7 +4,7 @@ const TasksForm = ({ activityCategories }) => {
   const subCategorySelectionHandler = (category, subCategory) => {
     console.log(category);
     console.log(subCategory);
-  }
+  };
   return (
     <div>
       <CategorySubCategorySelect

@@ -2,12 +2,18 @@ import { useEffect } from "react";
 import { useState } from "react";
 import Select from "react-select";
 
-const SubCategorySelect = ({ options, onChange, placeholder, category, value = null }) => {
+const SubCategorySelect = ({
+  options,
+  onChange,
+  placeholder,
+  category,
+  value = null,
+}) => {
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
 
   const handleSelectChange = (selectedOption) => {
-    if(value) onChange(selectedOption);
-    else{
+    if (value) onChange(selectedOption);
+    else {
       setSelectedSubCategory(selectedOption);
       onChange(selectedOption);
     }

@@ -8,10 +8,7 @@ import CategorySubCategorySelect from "./CategorySubCategorySelect";
 
 const DataUpdaterFormWrapper = styled.div``;
 
-const ActivityForm = ({
-  onUpdateData,
-  activityCategories,
-}) => {
+const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
   const selectedDate = new Date().toISOString().slice(0, 10);
   const [dateInputActive, setDateInputActive] = useState(false);
 
@@ -19,6 +16,7 @@ const ActivityForm = ({
   const [subCategories, setSubCategories] = useState([]);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [formMode, setFormMode] = useState("add");
+  // eslint-disable-next-line no-unused-vars
   const [subCategoryOptions, setSubCategoryOptions] = useState();
 
   let toBeUpdatedData = {};
@@ -66,7 +64,7 @@ const ActivityForm = ({
       value: valueInput,
       formMode: formMode,
     };
-    onUpdateData(toBeUpdatedData);
+    onUpdateActivityDataUnit(toBeUpdatedData);
   };
 
   // Handle selection of a category from the dropdown
@@ -113,7 +111,7 @@ const ActivityForm = ({
             { value: "other", label: "Select Date" },
           ]}
         />
-        <CategorySubCategorySelect 
+        <CategorySubCategorySelect
           categories={activityCategories}
           onSubCategorySelect={subCategorySelectHandler}
         />

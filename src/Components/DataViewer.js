@@ -48,27 +48,27 @@ const DataViewer = ({ selectedDateDataUnit, activityCategories }) => {
 
   return (
     <>
-    <h3>{selectedDateDataUnit.date}</h3>
-    <Table>
-      <TableHead>
-        {activityCategories.map((category) => (
-          <th
-            key={`${category.name}-header`}
-            colSpan={category.subCategories.length}
-          >
-            {category.name}
-          </th>
-        ))}
-        <TableRow>{tableHeaders}</TableRow>
-      </TableHead>
-      <tbody>
-        <TableRow>
-          {tableRow.map((column, index) => (
-            <TableCell key={`cell-${index}`}>{column}</TableCell>
+      <h3>{selectedDateDataUnit.date}</h3>
+      <Table>
+        <TableHead>
+          {activityCategories.map((category) => (
+            <th
+              key={`${category.name}-header`}
+              colSpan={category.subCategories.length}
+            >
+              {category.name}
+            </th>
           ))}
-        </TableRow>
-      </tbody>
-    </Table>
+          <TableRow>{tableHeaders}</TableRow>
+        </TableHead>
+        <tbody>
+          <TableRow>
+            {tableRow.map((column, index) => (
+              <TableCell key={`cell-${index}`}>{column}</TableCell>
+            ))}
+          </TableRow>
+        </tbody>
+      </Table>
     </>
   );
 };

@@ -2,18 +2,18 @@ import { useState } from "react";
 
 const FinanceDataListItem = ({
   item,
-  onDeleteFinancialData,
-  onUpdateFinancialData,
+  onDeleteFinancialDataUnit,
+  onUpdateFinancialDataUnit,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(item.value);
 
   const onDeleteItem = (date, dataID) => {
-    onDeleteFinancialData(date, dataID);
+    onDeleteFinancialDataUnit(date, dataID);
   };
 
   const onUpdateItem = (dateID, dataUnitID, toBeUpdatedData) => {
-    onUpdateFinancialData(dateID, dataUnitID, toBeUpdatedData);
+    onUpdateFinancialDataUnit(dateID, dataUnitID, toBeUpdatedData);
   };
 
   const handleEditButton = () => {

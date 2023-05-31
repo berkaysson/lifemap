@@ -9,7 +9,7 @@ const AddActivityUnitPageWrapper = styled.section`
 `;
 
 const AddActivityUnitPage = ({
-  onUpdateData,
+  onUpdateActivityDataUnit,
   categories,
   onUpdateCategory,
   onDeleteSubCategory,
@@ -19,7 +19,7 @@ const AddActivityUnitPage = ({
     <AddActivityUnitPageWrapper>
       <h1> TODAY'S ACTIVITY UNIT</h1>
       <ActivityForm
-        onUpdateData={onUpdateData}
+        onUpdateActivityDataUnit={onUpdateActivityDataUnit}
         activityCategories={activityCategories}
       />
       <br />

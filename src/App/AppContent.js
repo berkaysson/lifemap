@@ -15,21 +15,21 @@ import RootLayout from "../Layout/RootLayout";
 import FinancePage from "../Pages/FinancePage";
 
 const AppContent = ({
-  onUpdateData,
+  onUpdateActivityDataUnit,
   onUpdateCategory,
   onDeleteSubCategory,
+  onAddFinancialDataUnit,
+  onUpdateFinancialDataUnit,
+  onDeleteFinancialDataUnit,
   categories,
+  activityCategories,
+  financialCategories,
+  financeDataUnits,
+  activityDataUnits,
+  onGetActivityDataUnit,
+  todaysActivityDataUnit,
   onExport,
   onImport,
-  onAddFinancialData,
-  onUpdateFinancialData,
-  onDeleteFinancialData,
-  activityCategories,
-  financeCategories,
-  financeDatas,
-  activityDatas,
-  onGetActivityDataUnit,
-  todaysActivityDataUnit
 }) => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -48,7 +48,7 @@ const AppContent = ({
           path="edit-activity-unit"
           element={
             <AddActivityUnitPage
-              onUpdateData={onUpdateData}
+              onUpdateActivityDataUnit={onUpdateActivityDataUnit}
               categories={categories}
               activityCategories={activityCategories}
               onUpdateCategory={onUpdateCategory}
@@ -58,23 +58,17 @@ const AppContent = ({
         />
         <Route
           path="tasks-habits"
-          element={
-            <TasksHabitsPage
-              activityCategories={activityCategories}
-            />
-          }
+          element={<TasksHabitsPage activityCategories={activityCategories} />}
         />
         <Route
           path="finances"
           element={
             <FinancePage
-              onUpdateData={onUpdateData}
-              onDeleteSubCategory={onDeleteSubCategory}
-              financeCategories={financeCategories}
-              onAddFinancialData={onAddFinancialData}
-              financeDatas={financeDatas}
-              onDeleteFinancialData={onDeleteFinancialData}
-              onUpdateFinancialData={onUpdateFinancialData}
+              financialCategories={financialCategories}
+              onAddFinancialDataUnit={onAddFinancialDataUnit}
+              financeDataUnits={financeDataUnits}
+              onDeleteFinancialDataUnit={onDeleteFinancialDataUnit}
+              onUpdateFinancialDataUnit={onUpdateFinancialDataUnit}
             />
           }
         />
@@ -84,7 +78,7 @@ const AppContent = ({
             <ViewActivityUnitsPage
               onGetActivityDataUnit={onGetActivityDataUnit}
               activityCategories={activityCategories}
-              activityDatas={activityDatas}
+              activityDataUnits={activityDataUnits}
             />
           }
         />

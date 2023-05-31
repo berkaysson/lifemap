@@ -1,12 +1,10 @@
+import styled from "styled-components";
+import { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
+
 import Button from "../UI/Button";
 import ToggleButton from "../UI/ToggleButton";
 import SubCategorySelect from "../UI/SubCategorySelect";
-
-import styled from "styled-components";
-
-import { useState, useEffect } from "react";
-
-import { v4 as uuidv4 } from "uuid";
 
 const Wrapper = styled.div`
   border: 1px solid red;
@@ -15,7 +13,7 @@ const Wrapper = styled.div`
 const FinancesForm = ({
   expenseCategory,
   incomeCategory,
-  onAddFinancialData,
+  onAddFinancialDataUnit,
 }) => {
   const date = new Date().toISOString().slice(0, 10);
   const time =
@@ -31,7 +29,6 @@ const FinancesForm = ({
 
   let toBeUpdatedData = {};
 
-  // Fetch the list of categories on mount and update the select dropdown options
   async function fetchCategories() {
     setSubCategories(expenseCategory?.subCategories ?? []);
   }
@@ -41,7 +38,6 @@ const FinancesForm = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Update the select dropdown options when the subCategories change
   useEffect(() => {
     if (formMode === "expense")
       setSubCategories(expenseCategory?.subCategories ?? []);
@@ -73,7 +69,7 @@ const FinancesForm = ({
       formMode: formMode,
       id: uuidv4(),
     };
-    onAddFinancialData(toBeUpdatedData);
+    onAddFinancialDataUnit(toBeUpdatedData);
     setSelectedSubCategory(null);
   };
 

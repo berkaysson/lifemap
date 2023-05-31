@@ -9,32 +9,28 @@ const Wrapper = styled.section`
 `;
 
 const FinancePage = ({
-  onUpdateData,
-  onDeleteSubCategory,
-  onAddFinancialData,
-  onUpdateFinancialData,
-  onDeleteFinancialData,
-  financeCategories,
-  financeDatas,
+  onAddFinancialDataUnit,
+  onUpdateFinancialDataUnit,
+  onDeleteFinancialDataUnit,
+  financialCategories,
+  financeDataUnits,
 }) => {
   return (
     <Wrapper>
       <h1>FinancePage</h1>
       <FinancesForm
-        onUpdateData={onUpdateData}
-        onDeleteSubCategory={onDeleteSubCategory}
-        expenseCategory={financeCategories.find(
+        expenseCategory={financialCategories.find(
           (obj) => obj.id === "expenseCategories"
         )}
-        incomeCategory={financeCategories.find(
+        incomeCategory={financialCategories.find(
           (obj) => obj.id === "incomeCategories"
         )}
-        onAddFinancialData={onAddFinancialData}
+        onAddFinancialDataUnit={onAddFinancialDataUnit}
       />
       <FinanceDataList
-        financeDatas={financeDatas}
-        onDeleteFinancialData={onDeleteFinancialData}
-        onUpdateFinancialData={onUpdateFinancialData}
+        financeDataUnits={financeDataUnits}
+        onDeleteFinancialDataUnit={onDeleteFinancialDataUnit}
+        onUpdateFinancialDataUnit={onUpdateFinancialDataUnit}
       />
       <div>A TEMPLATE FOR EXPENSES, LIKE WAGE = 10000</div>
       <div>A COMPONENT TO EDIT EXPENSE CATEGORIES</div>

@@ -1,14 +1,12 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-
 import Dexie from "dexie";
 
 import "./Style/index.css";
-
 import App from "./App/App";
 
-import categoryData from "./Data/categoryData.json";
-import financeCategoryData from "./Data/financeCategoryData.json";
+import activityCategoryData from "./Data/activityCategoryData.json";
+import financialCategoryData from "./Data/financialCategoryData.json";
 
 const STORES = ["2020", "2021", "2022", "2023", "2024", "2025"];
 const DB_VERSION = 1;
@@ -26,7 +24,7 @@ const openDB = async () => {
     financialData: "date",
     userData: "id",
     tasksData: "id",
-    habitsData:"id"
+    habitsData: "id",
   });
 
   await db.open();
@@ -37,14 +35,14 @@ const openDB = async () => {
 
   if ((await db.categoriesData.count()) === 0) {
     await db.categoriesData.bulkPut(
-      Object.values(categoryData).map((category) => ({
+      Object.values(activityCategoryData).map((category) => ({
         id: category.id,
         name: category.name,
         subCategories: category.subCategories,
       }))
     );
     await db.categoriesData.bulkPut(
-      Object.values(financeCategoryData).map((category) => ({
+      Object.values(financialCategoryData).map((category) => ({
         id: category.id,
         name: category.name,
         subCategories: category.subCategories,
