@@ -1,19 +1,16 @@
 import styled from "styled-components";
 
-import Select from "react-select";
-import SubCategorySelect from "../UI/SubCategorySelect";
-
 import { useEffect, useState } from "react";
 
 import Button from "../UI/Button";
 import ToggleButton from "../UI/ToggleButton";
+import CategorySubCategorySelect from "./CategorySubCategorySelect";
 
 const DataUpdaterFormWrapper = styled.div``;
 
 const ActivityForm = ({
   onUpdateData,
   activityCategories,
-  categoryOptions,
 }) => {
   const selectedDate = new Date().toISOString().slice(0, 10);
   const [dateInputActive, setDateInputActive] = useState(false);
@@ -75,7 +72,6 @@ const ActivityForm = ({
   // Handle selection of a category from the dropdown
   const categorySelectionHandler = (selectedCategory) => {
     setSelectedCategory(selectedCategory);
-    setSelectedSubCategory(null);
 
     const category = activityCategories.find(
       (item) => item.id === selectedCategory.value
@@ -84,8 +80,9 @@ const ActivityForm = ({
   };
 
   // Handle selection of a subcategory from the dropdown
-  const subCategorySelectHandler = (selectedSubCategory) => {
-    setSelectedSubCategory(selectedSubCategory);
+  const subCategorySelectHandler = (category, subCategory) => {
+    setSelectedSubCategory(subCategory);
+    categorySelectionHandler(category);
   };
 
   const dateChangeHandler = () => {
@@ -116,23 +113,9 @@ const ActivityForm = ({
             { value: "other", label: "Select Date" },
           ]}
         />
-        <label>Select Updated Category</label>
-        <Select
-          onChange={categorySelectionHandler}
-          options={categoryOptions.filter(
-            (obj) =>
-              obj.value !== "expenseCategories" &&
-              obj.value !== "incomeCategories"
-          )}
-          placeholder="--Select a category--"
-          value={selectedCategory}
-        />
-        <label>Select SubCategory</label>
-        <SubCategorySelect
-          placeholder={"--Select a subCategory--"}
-          onChange={subCategorySelectHandler}
-          options={subCategoryOptions}
-          category={selectedCategory}
+        <CategorySubCategorySelect 
+          categories={activityCategories}
+          onSubCategorySelect={subCategorySelectHandler}
         />
         <label>Enter the value</label>
         <input type="number" name="valueInput"></input>

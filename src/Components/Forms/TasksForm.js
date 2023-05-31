@@ -1,9 +1,16 @@
-import CategoriesForm from "./CategoriesForm";
+import CategorySubCategorySelect from "./CategorySubCategorySelect";
 
-const TasksForm = ({ onUpdateData, activityCategories, categoryOptions }) => {
+const TasksForm = ({ activityCategories }) => {
+  const subCategorySelectionHandler = (category, subCategory) => {
+    console.log(category);
+    console.log(subCategory);
+  }
   return (
     <div>
-      Tasks
+      <CategorySubCategorySelect
+        categories={activityCategories}
+        onSubCategorySelect={subCategorySelectionHandler}
+      />
     </div>
   );
 };
