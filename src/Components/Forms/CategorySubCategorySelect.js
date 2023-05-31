@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import Select from "react-select";
 import SubCategorySelect from "../UI/SubCategorySelect";
 
-const CategorySubCategorySelect = ({ categories, categoryOptions, onSubCategorySelect }) => {
+const CategorySubCategorySelect = ({ categories, onSubCategorySelect }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [subCategories, setSubCategories] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [subCategoryOptions, setSubCategoryOptions] = useState();
+  const [categoryOptions, setCategoryOptions] = useState([]);
 
   async function fetchCategories() {
     const selectedCategoryName = selectedCategory?.name;
@@ -17,8 +18,20 @@ const CategorySubCategorySelect = ({ categories, categoryOptions, onSubCategoryS
     setSubCategories(category?.subCategories ?? []);
   }
 
+  async function fetchCategoryOptions() {
+    setCategoryOptions(() =>
+      categories.map((category) => ({
+        value: category.id,
+        label: category.name,
+        subCategories: category.subCategories,
+      }))
+    );
+    console.log("Category options assigned successfully");
+  }
+
   useEffect(() => {
     fetchCategories();
+    fetchCategoryOptions();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -52,11 +65,7 @@ const CategorySubCategorySelect = ({ categories, categoryOptions, onSubCategoryS
       <label>Select Category</label>
       <Select
         onChange={categorySelectionHandler}
-        options={categoryOptions.filter(
-          (obj) =>
-            obj.value !== "expenseCategories" &&
-            obj.value !== "incomeCategories"
-        )}
+        options={categoryOptions}
         placeholder="--Select a category--"
         value={selectedCategory}
       />

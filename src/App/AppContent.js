@@ -19,7 +19,6 @@ const AppContent = ({
   onUpdateCategory,
   onDeleteSubCategory,
   categories,
-  categoryOptions,
   onExport,
   onImport,
   onAddFinancialData,
@@ -52,7 +51,6 @@ const AppContent = ({
               onUpdateData={onUpdateData}
               categories={categories}
               activityCategories={activityCategories}
-              categoryOptions={categoryOptions}
               onUpdateCategory={onUpdateCategory}
               onDeleteSubCategory={onDeleteSubCategory}
             />
@@ -62,9 +60,7 @@ const AppContent = ({
           path="tasks-habits"
           element={
             <TasksHabitsPage
-              onUpdateData={onUpdateData}
               activityCategories={activityCategories}
-              categoryOptions={categoryOptions}
             />
           }
         />

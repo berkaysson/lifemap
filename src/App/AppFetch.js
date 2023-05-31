@@ -15,7 +15,6 @@ const AppFetch = ({
   const [categories, setCategories] = useState([]);
   const [activityCategories, setActivityCategories] = useState([]);
   const [financeCategories, setFinanceCategories] = useState([]);
-  const [categoryOptions, setCategoryOptions] = useState([]);
 
   const [financeDatas, setFinanceDatas] = useState([]);
   const [activityDatas, setActivityDatas] = useState([]);
@@ -90,18 +89,6 @@ const AppFetch = ({
   }, [isNeedFetchUpdate]);
 
   useEffect(() => {
-    setCategoryOptions(() =>
-      categories.map((category) => ({
-        value: category.id,
-        label: category.name,
-        subCategories: category.subCategories,
-      }))
-    );
-    console.log("Category options assigned successfully");
-
-  }, [categories]);
-
-  useEffect(() => {
     (async () => {
       await fetchCategories();
       await fetchFinanceDatas();
@@ -117,7 +104,6 @@ const AppFetch = ({
     categories,
     activityCategories,
     financeCategories,
-    categoryOptions,
     financeDatas,
     activityDatas,
     todaysActivityDataUnit
