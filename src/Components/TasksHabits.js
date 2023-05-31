@@ -22,7 +22,7 @@ const TasksHabitsWrapper = ({ activityCategories }) => {
       {selectedOption === "tasks" ? (
         <TasksForm activityCategories={activityCategories} />
       ) : (
-        <HabitsForm />
+        <HabitsForm activityCategories={activityCategories} />
       )}
     </div>
   );
