@@ -1,7 +1,7 @@
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 
-import { DateRangePicker } from "react-date-range";
+import { DateRange } from "react-date-range";
 import addDays from "date-fns/addDays";
 import { useState } from "react";
 import styled from "styled-components";
@@ -22,14 +22,14 @@ const DateRangeSelector = ({ onSubmit }) => {
 
   const onDateRangeSelection = () => {
     onSubmit(
-      new Date(state[0].startDate).toISOString().slice(0, 10),
-      new Date(state[0].endDate).toISOString().slice(0, 10)
+      addDays(new Date(state[0].startDate), 1).toISOString().slice(0, 10),
+      addDays(new Date(state[0].endDate), 1).toISOString().slice(0, 10)
     );
   };
 
   return (
     <Wrapper>
-      <DateRangePicker
+      <DateRange
         onChange={(item) => setState([item.selection])}
         showSelectionPreview={true}
         moveRangeOnFirstSelection={false}
