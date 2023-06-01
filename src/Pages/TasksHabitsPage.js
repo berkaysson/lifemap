@@ -8,12 +8,14 @@ const Wrapper = styled.section`
 
 const TasksHabitsPage = ({
   activityCategories,
+  onAddTaskUnit
 }) => {
   return (
     <Wrapper>
       <h1>AddTasksHabitsPage</h1>
       <TasksHabitsWrapper
         activityCategories={activityCategories}
+        onAddTaskUnit={onAddTaskUnit}
       />
       <div>
         A COMPONENT TO LIST ALL TASKS AND HABITS

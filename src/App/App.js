@@ -256,6 +256,16 @@ function App({ db, STORES }) {
     }
   };
 
+  const addTaskUnit = async (taskUnit) => {
+    try{
+      await db.tasksData.put(taskUnit);
+      console.log("Task unit added successfully");
+    }
+    catch(error){
+      console.log("Error to create task unit:", error);
+    }
+  }
+
   const exportHandler = async () => {
     try {
       const blob = await exportDB(db, { prettyJson: true });
@@ -299,6 +309,7 @@ function App({ db, STORES }) {
     onDeleteFinancialDataUnit: deleteFinancialDataUnit,
     onUpdateFinancialDataUnit: updateFinancialDataUnit,
     onGetActivityDataUnit: getActivityDataUnit,
+    onAddTaskUnit: addTaskUnit,
   };
 
   return (
