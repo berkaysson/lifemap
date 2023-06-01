@@ -52,7 +52,7 @@ const HabitsForm = ({ activityCategories }) => {
           categories={activityCategories}
           onSubCategorySelect={subCategorySelectionHandler}
         />
-        <DateRangeSelector onSubmit={dateRangeHandler} />
+        
         <label>Enter minute:</label>
         <input type="number" name="timeValue" onChange={timeValueHandler} />
         <label>

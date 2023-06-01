@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 
-const TaskDurationInput = ({ onChange, frequency = "daily" }) => {
+const HabitDurationInput = ({ onChange, frequency = "daily" }) => {
   const [dateRange, setDateRange] = useState(null);
   const [duration, setDuration] = useState(null);
   const [query, setQuery] = useState("");
@@ -50,7 +50,7 @@ const TaskDurationInput = ({ onChange, frequency = "daily" }) => {
 
   return (
     <>
-      <label>Task Period:</label>
+      <label>Habit Period:</label>
       <input
         type="number"
         placeholder="Enter task period"
@@ -66,4 +66,4 @@ const TaskDurationInput = ({ onChange, frequency = "daily" }) => {
   );
 };
 
-export default TaskDurationInput;
+export default HabitDurationInput;

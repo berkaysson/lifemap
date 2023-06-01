@@ -8,7 +8,7 @@ const frequencyOptions = [
   { value: 'yearly', label: 'Yearly' },
 ];
 
-const TaskFrequencySelector = ({ onSelect }) => {
+const HabitFrequencySelector = ({ onSelect }) => {
   const [showMoreOptions, setShowMoreOptions] = useState(false);
   const [selectedOption, setSelectedOption] = useState('daily');
 
@@ -28,7 +28,7 @@ const TaskFrequencySelector = ({ onSelect }) => {
   return (
     <div>
       <label>
-        Task Frequency:
+        Habit Frequency:
         {optionsToRender.map((option) => (
           <div key={option.value}>
             <label>
@@ -51,4 +51,4 @@ const TaskFrequencySelector = ({ onSelect }) => {
   );
 };
 
-export default TaskFrequencySelector;
+export default HabitFrequencySelector;
