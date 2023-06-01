@@ -4,14 +4,13 @@ const frequencyOptions = [
   { value: 'daily', label: 'Daily' },
   { value: 'weekly', label: 'Weekly' },
   { value: 'monthly', label: 'Monthly' },
-  { value: 'biweekly', label: 'Biweekly' },
-  { value: 'quarterly', label: 'Quarterly' },
+  { value: 'semi-year', label: 'Semi -Yearly' },
   { value: 'yearly', label: 'Yearly' },
 ];
 
 const TaskFrequencySelector = ({ onSelect }) => {
   const [showMoreOptions, setShowMoreOptions] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState('daily');
 
   const handleOptionChange = (event) => {
     const { value } = event.target;
@@ -21,7 +20,7 @@ const TaskFrequencySelector = ({ onSelect }) => {
 
   const handleToggleOptions = () => {
     setShowMoreOptions(!showMoreOptions);
-    setSelectedOption('');
+    setSelectedOption('daily');
   };
 
   const optionsToRender = showMoreOptions ? frequencyOptions : frequencyOptions.slice(0, 3);
