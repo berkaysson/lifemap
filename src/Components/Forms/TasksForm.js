@@ -2,8 +2,8 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import CategorySubCategorySelect from "./CategorySubCategorySelect";
-import DateRangeSelector from "./DateRangeSelector";
 import TaskFrequencySelector from "./TaskFrequencySelector";
+import TaskDurationInput from "./TaskDurationInput";
 
 const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
   const [task, setTask] = useState({
@@ -20,13 +20,13 @@ const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
     setTask({ ...task, category: category, subCategory: subCategory });
   };
 
-  const dateRangeHandler = (start, end) => {
-    setTask({ ...task, startDate: start, endDate: end });
-  };
-
   const frequencySelectionHandler = (frequency) => {
     setTask({ ...task, taskFrequency: frequency });
   };
+
+  const taskDurationHandler = (value) => {
+    console.log(value);
+  }
 
   const timeValueHandler = (event) => {
     setTask({ ...task, timeValue: event.target.value });
@@ -49,8 +49,8 @@ const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
           categories={activityCategories}
           onSubCategorySelect={subCategorySelectionHandler}
         />
-        <DateRangeSelector onSubmit={dateRangeHandler} />
         <TaskFrequencySelector onSelect={frequencySelectionHandler} />
+        <TaskDurationInput onChange={taskDurationHandler} frequency={task.taskFrequency} />
         <label>Enter minute:</label>
         <input type="number" name="timeValue" onChange={timeValueHandler} />
         <label>
