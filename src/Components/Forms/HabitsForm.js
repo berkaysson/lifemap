@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+
 import CategorySubCategorySelect from "./CategorySubCategorySelect";
 import DateRangeSelector from "./DateRangeSelector";
 
@@ -10,11 +12,6 @@ const HabitsForm = ({ activityCategories }) => {
     endDate: null,
     timeValue: null,
   });
-
-  const submitHandler = (event) => {
-    event.preventDefault();
-    console.log(habit);
-  }
 
   const subCategorySelectionHandler = (category, subCategory) => {
     setHabit({
@@ -39,9 +36,18 @@ const HabitsForm = ({ activityCategories }) => {
     });
   };
 
+  const nameValueHandler = (event) => {
+    setHabit({ ...habit, nameValue: event.target.value });
+  };
+
+  const formSubmitHandler = (event) => {
+    event.preventDefault();
+    const habitUnit = { ...habit, id: uuidv4() };
+  };
+
   return (
     <div>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={formSubmitHandler}>
         <CategorySubCategorySelect
           categories={activityCategories}
           onSubCategorySelect={subCategorySelectionHandler}
@@ -49,6 +55,10 @@ const HabitsForm = ({ activityCategories }) => {
         <DateRangeSelector onSubmit={dateRangeHandler} />
         <label>Enter minute:</label>
         <input type="number" name="timeValue" onChange={timeValueHandler} />
+        <label>
+          Enter Name of the habit
+          <input type="text" name="nameValue" onChange={nameValueHandler}  />
+        </label>
         <button type="submit">Submit</button>
       </form>
     </div>

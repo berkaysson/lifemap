@@ -9,7 +9,7 @@ const TaskDurationInput = ({ onChange, frequency = "daily" }) => {
   useEffect(() => {
     const range = calculateDateRange(duration);
     setDateRange(range);
-    onChange(duration);
+    onChange(dateRange.startDate, dateRange.endDate);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [frequency, duration]);
 
