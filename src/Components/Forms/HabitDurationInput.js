@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 
-const HabitDurationInput = ({ onChange, frequency = "daily" }) => {
+const HabitDurationInput = ({ onChange, frequency }) => {
   const [dateRange, setDateRange] = useState(null);
   const [duration, setDuration] = useState(null);
-  const [query, setQuery] = useState("");
 
   useEffect(() => {
     const range = calculateDateRange(duration);
     setDateRange(range);
-    onChange(dateRange.startDate, dateRange.endDate);
+    onChange(range.startDate, range.endDate);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [frequency, duration]);
-
-  useEffect(() => {
-    const timeOutId = setTimeout(() => setDuration(query), 300);
-    return () => clearTimeout(timeOutId);
-  }, [query]);
 
   const calculateDateRange = (value) => {
     const today = moment();
@@ -54,10 +48,10 @@ const HabitDurationInput = ({ onChange, frequency = "daily" }) => {
       <input
         type="number"
         placeholder="Enter task period"
-        value={query}
-        onChange={event => setQuery(event.target.value)}
+        value={duration || ""}
+        onChange={(event) => setDuration(event.target.value)}
       />
-      {dateRange && (
+      {dateRange && frequency && (
         <p>
           Start Date: {dateRange.startDate}, End Date: {dateRange.endDate}
         </p>

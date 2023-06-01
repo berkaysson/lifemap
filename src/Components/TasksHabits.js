@@ -3,7 +3,11 @@ import ToggleButton from "./UI/ToggleButton";
 import TasksForm from "./Forms/TasksForm";
 import HabitsForm from "./Forms/HabitsForm";
 
-const TasksHabitsWrapper = ({ activityCategories, onAddTaskUnit }) => {
+const TasksHabitsWrapper = ({
+  activityCategories,
+  onAddTaskUnit,
+  onAddHabitUnit,
+}) => {
   const [selectedOption, setSelectedOption] = useState("tasks");
 
   const toggleTasksHabitsHandler = (mode) => {
@@ -25,7 +29,10 @@ const TasksHabitsWrapper = ({ activityCategories, onAddTaskUnit }) => {
           onAddTaskUnit={onAddTaskUnit}
         />
       ) : (
-        <HabitsForm activityCategories={activityCategories} />
+        <HabitsForm
+          activityCategories={activityCategories}
+          onAddHabitUnit={onAddHabitUnit}
+        />
       )}
     </div>
   );

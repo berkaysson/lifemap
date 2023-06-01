@@ -266,6 +266,16 @@ function App({ db, STORES }) {
     }
   }
 
+  const addHabitUnit = async (habitUnit) => {
+    try{
+      await db.habitsData.put(habitUnit);
+      console.log("Habit unit added successfully");
+    }
+    catch(error){
+      console.log("Error to create Habit unit:", error);
+    }
+  }
+
   const exportHandler = async () => {
     try {
       const blob = await exportDB(db, { prettyJson: true });
@@ -310,6 +320,7 @@ function App({ db, STORES }) {
     onUpdateFinancialDataUnit: updateFinancialDataUnit,
     onGetActivityDataUnit: getActivityDataUnit,
     onAddTaskUnit: addTaskUnit,
+    onAddHabitUnit:addHabitUnit, 
   };
 
   return (

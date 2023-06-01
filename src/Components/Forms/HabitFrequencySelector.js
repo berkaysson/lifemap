@@ -4,13 +4,13 @@ const frequencyOptions = [
   { value: 'daily', label: 'Daily' },
   { value: 'weekly', label: 'Weekly' },
   { value: 'monthly', label: 'Monthly' },
-  { value: 'semi-year', label: 'Semi -Yearly' },
+  { value: 'semi-year', label: 'Semi-Yearly' },
   { value: 'yearly', label: 'Yearly' },
 ];
 
 const HabitFrequencySelector = ({ onSelect }) => {
   const [showMoreOptions, setShowMoreOptions] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('daily');
+  const [selectedOption, setSelectedOption] = useState('');
 
   const handleOptionChange = (event) => {
     const { value } = event.target;
@@ -20,7 +20,7 @@ const HabitFrequencySelector = ({ onSelect }) => {
 
   const handleToggleOptions = () => {
     setShowMoreOptions(!showMoreOptions);
-    setSelectedOption('daily');
+    setSelectedOption('');
   };
 
   const optionsToRender = showMoreOptions ? frequencyOptions : frequencyOptions.slice(0, 3);
