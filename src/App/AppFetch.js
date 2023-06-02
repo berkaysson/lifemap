@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import moment from "moment";
 
 import AppContent from "./AppContent";
 
@@ -14,6 +15,7 @@ const AppFetch = ({
   contentProps,
   onFetchUpdate,
   isNeedFetchUpdate,
+  onEditTaskDataUnitFulfilled
 }) => {
   const [categories, setCategories] = useState([]);
   const [activityCategories, setActivityCategories] = useState([]);
@@ -101,7 +103,39 @@ const AppFetch = ({
     }
   }
 
+  const calculateCurrentTimeValue = (taskUnit) => {
+    const category = taskUnit.category.label;
+    const subCategory = taskUnit.subCategory.value;
+    let currentTimeValue = 0;
+  
+    for (
+      let startDate = moment(taskUnit.startDate);
+      startDate <= moment(taskUnit.endDate);
+      startDate.add(1, 'days')
+    ) {
+      const date = startDate.format('YYYY-MM-DD');
+      const dataUnit = activityDataUnits.find((dataUnit) => dataUnit.date === date);
+      if (dataUnit) {
+        currentTimeValue += dataUnit[category][subCategory] * 1;
+      }
+    }
+  
+    return currentTimeValue;
+  };
+
+  const checkTasks = async () => {
+    const allTaskDataUnits = await onGetAllTaskDataUnits();
+    if (allTaskDataUnits) {
+      allTaskDataUnits.forEach(async (taskUnit) => {
+        let currentTimeValue = calculateCurrentTimeValue(taskUnit)
+        if(currentTimeValue >= taskUnit.timeValue) await onEditTaskDataUnitFulfilled(true, taskUnit.id);
+        else await onEditTaskDataUnitFulfilled(false, taskUnit.id);
+      });
+    }
+  };
+
   async function fetchAll() {
+    await checkTasks();
     await fetchCategories();
     await fetchFinanceDataUnits();
     await fetchActivityDataUnits();

@@ -14,6 +14,7 @@ function App({ db, STORES }) {
 
   useEffect(() => {
     createMissingDataUnits();
+    fetchUpdateHandler(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -262,9 +263,22 @@ function App({ db, STORES }) {
       fetchUpdateHandler(true);
       console.log("Task unit added successfully");
     } catch (error) {
-      console.log("Error to create task unit:", error);
+      console.error("Error to create task unit:", error);
     }
   };
+
+  const editTaskDataUnitFulfilled = async (isFulfilled, dataID) => {
+    try{
+      console.log(isFulfilled, dataID);
+      const taskDataUnit = await db.tasksData.get(dataID);
+      taskDataUnit.fulfilled = isFulfilled;
+      await db.tasksData.put(taskDataUnit);
+      console.log("Task unit editted successfully");
+    }
+    catch(error){
+      console.error("Error to edit task unit:", error);
+    }
+  }
 
   const deleteTaskDataUnit = async (dataID) => {
     try {
@@ -355,6 +369,7 @@ function App({ db, STORES }) {
     onGetAllTaskDataUnits: getAllTaskDataUnits,
     onGetAllHabitDataUnits: getAllHabitDataUnits,
     onFetchUpdate: fetchUpdateHandler,
+    onEditTaskDataUnitFulfilled: editTaskDataUnitFulfilled,
     isNeedFetchUpdate: isNeedFetchUpdate,
   };
 
