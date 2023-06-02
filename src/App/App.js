@@ -256,25 +256,43 @@ function App({ db, STORES }) {
     }
   };
 
-  const addTaskUnit = async (taskUnit) => {
-    try{
+  const addTaskDataUnit = async (taskUnit) => {
+    try {
       await db.tasksData.put(taskUnit);
+      fetchUpdateHandler(true);
       console.log("Task unit added successfully");
-    }
-    catch(error){
+    } catch (error) {
       console.log("Error to create task unit:", error);
     }
-  }
+  };
 
-  const addHabitUnit = async (habitUnit) => {
-    try{
-      await db.habitsData.put(habitUnit);
-      console.log("Habit unit added successfully");
+  const getAllTaskDataUnits = async () => {
+    try {
+      const allTaskDataUnits = await db.tasksData.toArray();
+      return allTaskDataUnits;
+    } catch (error) {
+      console.error("Error to fetting all task units: ", error);
     }
-    catch(error){
+  };
+
+  const addHabitDataUnit = async (habitUnit) => {
+    try {
+      await db.habitsData.put(habitUnit);
+      fetchUpdateHandler(true);
+      console.log("Habit unit added successfully");
+    } catch (error) {
       console.log("Error to create Habit unit:", error);
     }
-  }
+  };
+
+  const getAllHabitDataUnits = async () => {
+    try {
+      const allHabitDataUnits = await db.habitsData.toArray();
+      return allHabitDataUnits;
+    } catch (error) {
+      console.error("Error to fetting all task units: ", error);
+    }
+  };
 
   const exportHandler = async () => {
     try {
@@ -304,6 +322,8 @@ function App({ db, STORES }) {
     onGetAllFinancialDataUnits: getAllFinancialDataUnits,
     onGetAllActivityDataUnits: getAllActivityDataUnits,
     onGetActivityDataUnit: getActivityDataUnit,
+    onGetAllTaskDataUnits: getAllTaskDataUnits,
+    onGetAllHabitDataUnits: getAllHabitDataUnits,
     onFetchUpdate: fetchUpdateHandler,
     isNeedFetchUpdate: isNeedFetchUpdate,
   };
@@ -319,8 +339,8 @@ function App({ db, STORES }) {
     onDeleteFinancialDataUnit: deleteFinancialDataUnit,
     onUpdateFinancialDataUnit: updateFinancialDataUnit,
     onGetActivityDataUnit: getActivityDataUnit,
-    onAddTaskUnit: addTaskUnit,
-    onAddHabitUnit:addHabitUnit, 
+    onAddTaskUnit: addTaskDataUnit,
+    onAddHabitUnit: addHabitDataUnit,
   };
 
   return (

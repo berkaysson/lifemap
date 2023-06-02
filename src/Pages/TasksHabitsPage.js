@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import TasksHabitsWrapper from "../Components/TasksHabits";
+import TasksHabitsList from "../Components/TasksHabitsList";
 
 const Wrapper = styled.section`
   border: 2px solid blue;
@@ -9,7 +10,9 @@ const Wrapper = styled.section`
 const TasksHabitsPage = ({
   activityCategories,
   onAddTaskUnit,
-  onAddHabitUnit
+  onAddHabitUnit,
+  taskDataUnits,
+  habitDataUnits,
 }) => {
   return (
     <Wrapper>
@@ -20,7 +23,10 @@ const TasksHabitsPage = ({
         onAddHabitUnit={onAddHabitUnit}
       />
       <div>
-        A COMPONENT TO LIST ALL TASKS AND HABITS
+        <TasksHabitsList
+          taskDataUnits={taskDataUnits}
+          habitDataUnits={habitDataUnits}
+        />
         <div>
           A COMPONENT TO VIEW TASKS HABITS, AND MAKE A BUTTON TO OPEN A MODAL
           FORM TO EDIT TAKS-HABITS

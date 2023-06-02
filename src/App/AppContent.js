@@ -31,7 +31,9 @@ const AppContent = ({
   onExport,
   onImport,
   onAddTaskUnit,
-  onAddHabitUnit
+  onAddHabitUnit,
+  taskDataUnits,
+  habitDataUnits,
 }) => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -65,6 +67,8 @@ const AppContent = ({
               activityCategories={activityCategories}
               onAddTaskUnit={onAddTaskUnit}
               onAddHabitUnit={onAddHabitUnit}
+              taskDataUnits={taskDataUnits}
+              habitDataUnits={habitDataUnits}
             />
           }
         />
