@@ -258,7 +258,7 @@ function App({ db, STORES }) {
 
   const addTaskDataUnit = async (taskUnit) => {
     try {
-      await db.tasksData.put(taskUnit);
+      await db.tasksData.put({...taskUnit, fulfilled:false});
       fetchUpdateHandler(true);
       console.log("Task unit added successfully");
     } catch (error) {
@@ -292,7 +292,7 @@ function App({ db, STORES }) {
 
   const addHabitDataUnit = async (habitUnit) => {
     try {
-      await db.habitsData.put(habitUnit);
+      await db.habitsData.put({...habitUnit, fulfilled:false});
       fetchUpdateHandler(true);
       console.log("Habit unit added successfully");
     } catch (error) {
