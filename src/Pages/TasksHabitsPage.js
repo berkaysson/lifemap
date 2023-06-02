@@ -13,6 +13,8 @@ const TasksHabitsPage = ({
   onAddHabitUnit,
   taskDataUnits,
   habitDataUnits,
+  onDeleteTaskDataUnit,
+  onDeleteHabitDataUnit,
 }) => {
   return (
     <Wrapper>
@@ -26,11 +28,9 @@ const TasksHabitsPage = ({
         <TasksHabitsList
           taskDataUnits={taskDataUnits}
           habitDataUnits={habitDataUnits}
+          onDeleteTaskDataUnit={onDeleteTaskDataUnit}
+          onDeleteHabitDataUnit={onDeleteHabitDataUnit}
         />
-        <div>
-          A COMPONENT TO VIEW TASKS HABITS, AND MAKE A BUTTON TO OPEN A MODAL
-          FORM TO EDIT TAKS-HABITS
-        </div>
       </div>
     </Wrapper>
   );

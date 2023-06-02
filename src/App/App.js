@@ -266,6 +266,21 @@ function App({ db, STORES }) {
     }
   };
 
+  const deleteTaskDataUnit = async (dataID) => {
+    try {
+      if(await db.tasksData.get(dataID)){
+        await db.tasksData.delete(dataID);
+      }
+      else{
+        console.log("Can't find the task data unit");
+      }
+      fetchUpdateHandler(true);
+      console.log("Task Units deleted succesfully");
+    } catch (error) {
+      console.error("Error to deleting task unit: ", error);
+    }
+  }
+
   const getAllTaskDataUnits = async () => {
     try {
       const allTaskDataUnits = await db.tasksData.toArray();
@@ -284,6 +299,21 @@ function App({ db, STORES }) {
       console.log("Error to create Habit unit:", error);
     }
   };
+
+  const deleteHabitDataUnit = async (dataID) => {
+    try {
+      if(await db.habitsData.get(dataID)){
+        await db.habitsData.delete(dataID);
+      }
+      else{
+        console.log("Can't find the Habit data unit");
+      }
+      fetchUpdateHandler(true);
+      console.log("Habit Units deleted succesfully");
+    } catch (error) {
+      console.error("Error to deleting Habit unit: ", error);
+    }
+  }
 
   const getAllHabitDataUnits = async () => {
     try {
@@ -341,6 +371,8 @@ function App({ db, STORES }) {
     onGetActivityDataUnit: getActivityDataUnit,
     onAddTaskUnit: addTaskDataUnit,
     onAddHabitUnit: addHabitDataUnit,
+    onDeleteTaskDataUnit: deleteTaskDataUnit,
+    onDeleteHabitDataUnit: deleteHabitDataUnit,
   };
 
   return (

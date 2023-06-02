@@ -1,6 +1,10 @@
-import React from 'react';
+import React from "react";
 
-const TaskItem = ({ task }) => {
+const TaskItem = ({ task, onDeleteTaskDataUnit }) => {
+  const deleteHandler = () => {
+    onDeleteTaskDataUnit(task.id)
+  }
+
   return (
     <li id={task?.id}>
       <h3>{task?.nameValue}</h3>
@@ -9,6 +13,7 @@ const TaskItem = ({ task }) => {
       <p>Start Date: {task?.startDate}</p>
       <p>End Date: {task?.endDate}</p>
       <p>Time Value: {task?.timeValue}</p>
+      <button type="button" onClick={deleteHandler}>Delete</button>
     </li>
   );
 };

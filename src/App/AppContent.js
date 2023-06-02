@@ -34,6 +34,8 @@ const AppContent = ({
   onAddHabitUnit,
   taskDataUnits,
   habitDataUnits,
+  onDeleteTaskDataUnit,
+  onDeleteHabitDataUnit
 }) => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -69,6 +71,8 @@ const AppContent = ({
               onAddHabitUnit={onAddHabitUnit}
               taskDataUnits={taskDataUnits}
               habitDataUnits={habitDataUnits}
+              onDeleteTaskDataUnit={onDeleteTaskDataUnit}
+              onDeleteHabitDataUnit={onDeleteHabitDataUnit}
             />
           }
         />
