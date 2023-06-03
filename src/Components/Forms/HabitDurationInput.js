@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
+import { calculateFrequencyDateValue } from "../../Utilities/formatDate";
 
 const HabitDurationInput = ({ onChange, frequency }) => {
   const [dateRange, setDateRange] = useState(null);
@@ -14,27 +15,8 @@ const HabitDurationInput = ({ onChange, frequency }) => {
 
   const calculateDateRange = (value) => {
     const today = moment();
-    let endDate = moment(today);
-
-    switch (frequency) {
-      case "daily":
-        endDate.add(value, "days");
-        break;
-      case "weekly":
-        endDate.add(value, "weeks");
-        break;
-      case "monthly":
-        endDate.add(value, "months");
-        break;
-      case "semi-year":
-        endDate.add(value * 6, "months");
-        break;
-      case "yearly":
-        endDate.add(value, "years");
-        break;
-      default:
-        break;
-    }
+    const { coefficient, dateType } = calculateFrequencyDateValue(frequency);
+    let endDate = moment(today).add(value * coefficient, dateType);
 
     return {
       startDate: today.format("YYYY-MM-DD"),
