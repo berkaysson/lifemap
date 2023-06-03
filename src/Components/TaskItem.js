@@ -6,8 +6,8 @@ const TaskItem = ({ task, onDeleteTaskDataUnit }) => {
   };
   return (
     <li id={task?.id}>
-      <h3 style={{ color: task?.fulfilled ? "green" : "red" }}>
-        {task?.nameValue}
+      <h3 style={{ color: task?.isFulfilled ? "green" : "red" }}>
+        {task?.nameValue} {task?.isClosed ? "(Closed)":""}
       </h3>
       <p>Category: {task?.category.label}</p>
       <p>Subcategory: {task?.subCategory.label}</p>
