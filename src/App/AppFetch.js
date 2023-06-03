@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import moment from "moment";
 
 import AppContent from "./AppContent";
+import { formatDate } from "../Utilities/formatDate";
 
-const CURRENT_DATE = new Date().toISOString().slice(0, 10);
+const CURRENT_DATE = formatDate(new Date());
 
 const AppFetch = ({
   onGetAllCategories,

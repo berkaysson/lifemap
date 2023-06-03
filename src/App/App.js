@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import { exportDB } from "dexie-export-import";
 import moment from "moment";
-import Dexie from "dexie";
+import { formatDate } from "../Utilities/formatDate";
+import { exportHandler, importHandler } from "../Utilities/exportAndImport";
 
 import activityDataUnitConstructor from "../Data/activityDataUnitConstructor";
 
 import AppFetch from "./AppFetch";
+import { addTaskOrHabitDataUnit, deleteTaskOrHabitDataUnit, getAllTaskOrHabitDataUnits } from "../Utilities/tasksAndHabits";
 
-const CURRENT_DATE = new Date().toISOString().slice(0, 10);
+
+const CURRENT_DATE = formatDate(new Date());
 
 function App({ db, STORES }) {
   const [isNeedFetchUpdate, setIsNeedFetchUpdate] = useState(false);
@@ -23,7 +25,7 @@ function App({ db, STORES }) {
   };
 
   const createActivityDataUnit = async (
-    date = new Date().toISOString().slice(0, 10)
+    date = CURRENT_DATE
   ) => {
     const activityDataUnit = await activityDataUnitConstructor(date, db);
     const year = date.slice(0, 4);
@@ -36,7 +38,7 @@ function App({ db, STORES }) {
   };
 
   const createFinancialDataUnit = async (
-    date = new Date().toISOString().slice(0, 10)
+    date = CURRENT_DATE
   ) => {
     try {
       await db.financialData.add({ date: date, financeDatas: [] });
@@ -258,18 +260,35 @@ function App({ db, STORES }) {
   };
 
   const addTaskDataUnit = async (taskUnit) => {
-    try {
-      await db.tasksData.put({...taskUnit, fulfilled:false});
-      fetchUpdateHandler(true);
-      console.log("Task unit added successfully");
-    } catch (error) {
-      console.error("Error to create task unit:", error);
-    }
+    await addTaskOrHabitDataUnit(db, taskUnit, "task");
+    fetchUpdateHandler(true);
+  };
+
+  const addHabitDataUnit = async (habitUnit) => {
+    await addTaskOrHabitDataUnit(db, habitUnit, "habit");
+    fetchUpdateHandler(true);
+  };
+
+  const deleteTaskDataUnit = async (dataID) => {
+    await deleteTaskOrHabitDataUnit(db, dataID, "task");
+    fetchUpdateHandler(true);
+  }
+
+  const deleteHabitDataUnit = async (dataID) => {
+    await deleteTaskOrHabitDataUnit(db, dataID, "habit");
+    fetchUpdateHandler(true);
+  }
+
+  const getAllTaskDataUnits = async () => {
+    return await getAllTaskOrHabitDataUnits(db, "task");
+  };
+
+  const getAllHabitDataUnits = async () => {
+    return await getAllTaskOrHabitDataUnits(db, "habit");
   };
 
   const editTaskDataUnitFulfilled = async (isFulfilled, dataID) => {
     try{
-      console.log(isFulfilled, dataID);
       const taskDataUnit = await db.tasksData.get(dataID);
       taskDataUnit.fulfilled = isFulfilled;
       await db.tasksData.put(taskDataUnit);
@@ -280,85 +299,12 @@ function App({ db, STORES }) {
     }
   }
 
-  const deleteTaskDataUnit = async (dataID) => {
-    try {
-      if(await db.tasksData.get(dataID)){
-        await db.tasksData.delete(dataID);
-      }
-      else{
-        console.log("Can't find the task data unit");
-      }
-      fetchUpdateHandler(true);
-      console.log("Task Units deleted succesfully");
-    } catch (error) {
-      console.error("Error to deleting task unit: ", error);
-    }
-  }
-
-  const getAllTaskDataUnits = async () => {
-    try {
-      const allTaskDataUnits = await db.tasksData.toArray();
-      return allTaskDataUnits;
-    } catch (error) {
-      console.error("Error to fetting all task units: ", error);
-    }
+  const handleExport = async () => {
+    await exportHandler(db);
   };
-
-  const addHabitDataUnit = async (habitUnit) => {
-    try {
-      await db.habitsData.put({...habitUnit, fulfilled:false});
-      fetchUpdateHandler(true);
-      console.log("Habit unit added successfully");
-    } catch (error) {
-      console.log("Error to create Habit unit:", error);
-    }
-  };
-
-  const deleteHabitDataUnit = async (dataID) => {
-    try {
-      if(await db.habitsData.get(dataID)){
-        await db.habitsData.delete(dataID);
-      }
-      else{
-        console.log("Can't find the Habit data unit");
-      }
-      fetchUpdateHandler(true);
-      console.log("Habit Units deleted succesfully");
-    } catch (error) {
-      console.error("Error to deleting Habit unit: ", error);
-    }
-  }
-
-  const getAllHabitDataUnits = async () => {
-    try {
-      const allHabitDataUnits = await db.habitsData.toArray();
-      return allHabitDataUnits;
-    } catch (error) {
-      console.error("Error to fetting all task units: ", error);
-    }
-  };
-
-  const exportHandler = async () => {
-    try {
-      const blob = await exportDB(db, { prettyJson: true });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "lifemap-data.json";
-      link.click();
-    } catch (error) {
-      console.error("Failed to export database:", error);
-    }
-  };
-
-  const importHandler = async (blob) => {
-    try {
-      await db.delete();
-      db = await Dexie.import(blob);
-      console.log("Imported data successfully!");
-    } catch (error) {
-      console.error("Failed to import data:", error);
-    }
+  
+  const handleImport = async (blob) => {
+    await importHandler(db, blob);
   };
 
   const fetchProps = {
@@ -378,8 +324,8 @@ function App({ db, STORES }) {
     onUpdateActivityDataUnit: updateActivityDataUnit,
     onUpdateCategory: updateCategory,
     onDeleteSubCategory: deleteSubCategory,
-    onExport: exportHandler,
-    onImport: importHandler,
+    onExport: handleExport,
+    onImport: handleImport,
     onAddFinancialDataUnit: addFinancialDataUnit,
     onDeleteFinancialDataUnit: deleteFinancialDataUnit,
     onUpdateFinancialDataUnit: updateFinancialDataUnit,
