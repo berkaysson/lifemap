@@ -4,7 +4,6 @@ const TaskItem = ({ task, onDeleteTaskDataUnit }) => {
   const deleteHandler = () => {
     onDeleteTaskDataUnit(task.id);
   };
-  console.log(task);
   return (
     <li id={task?.id}>
       <h3 style={{ color: task?.fulfilled ? "green" : "red" }}>
