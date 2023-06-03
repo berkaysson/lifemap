@@ -290,7 +290,19 @@ function App({ db, STORES }) {
   const editTaskDataUnitFulfilled = async (isFulfilled, dataID) => {
     try{
       const taskDataUnit = await db.tasksData.get(dataID);
-      taskDataUnit.fulfilled = isFulfilled;
+      taskDataUnit.isFulfilled = isFulfilled;
+      await db.tasksData.put(taskDataUnit);
+      console.log("Task unit editted successfully");
+    }
+    catch(error){
+      console.error("Error to edit task unit:", error);
+    }
+  }
+
+  const editTaskDataUnitClosed = async (isClosed, dataID) => {
+    try{
+      const taskDataUnit = await db.tasksData.get(dataID);
+      taskDataUnit.isClosed = isClosed;
       await db.tasksData.put(taskDataUnit);
       console.log("Task unit editted successfully");
     }
@@ -316,6 +328,7 @@ function App({ db, STORES }) {
     onGetAllHabitDataUnits: getAllHabitDataUnits,
     onFetchUpdate: fetchUpdateHandler,
     onEditTaskDataUnitFulfilled: editTaskDataUnitFulfilled,
+    onEditTaskDataUnitClosed: editTaskDataUnitClosed,
     isNeedFetchUpdate: isNeedFetchUpdate,
   };
 
