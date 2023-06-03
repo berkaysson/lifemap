@@ -6,7 +6,7 @@ const HabitItem = ({ habit, onDeleteHabitDataUnit }) => {
   };
   return (
     <li id={habit?.id}>
-      <h3 style={{ color: habit?.fulfilled ? "green" : "red" }}>
+      <h3 style={{ color: habit?.isFulfilled ? "green" : "red" }}>
         {habit?.nameValue}
       </h3>
       <p>Category: {habit?.category.label}</p>
