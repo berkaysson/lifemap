@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import { calculateFrequencyDateValue } from "../../Utilities/formatDate";
+import { calculateFrequencyDateValue, formatDate } from "../../Utilities/formatDate";
 
 const HabitDurationInput = ({ onChange, frequency }) => {
   const [dateRange, setDateRange] = useState(null);
   const [duration, setDuration] = useState(null);
+  const [startDate, setStartDate] = useState(null);
 
   useEffect(() => {
     const range = calculateDateRange(duration);
@@ -19,9 +20,17 @@ const HabitDurationInput = ({ onChange, frequency }) => {
     let endDate = moment(today).add(value * coefficient, dateType);
 
     return {
-      startDate: today.format("YYYY-MM-DD"),
+      startDate: startDate ||  today.format("YYYY-MM-DD"),
       endDate: endDate.format("YYYY-MM-DD"),
     };
+  };
+
+  const handleStartDateChange = (event) => {
+    const newStartDate = event.target.value;
+    setStartDate(newStartDate);
+    const range = calculateDateRange(duration);
+    setDateRange(range);
+    onChange(range.startDate, range.endDate);
   };
 
   return (
@@ -35,8 +44,14 @@ const HabitDurationInput = ({ onChange, frequency }) => {
       />
       {dateRange && frequency && (
         <p>
-          Start Date: {dateRange.startDate}, End Date: {dateRange.endDate}
-        </p>
+        Start Date:{" "}
+        <input
+          type="date"
+          value={startDate || formatDate(new Date())}
+          onChange={handleStartDateChange}
+        />
+        , End Date: {dateRange.endDate}
+      </p>
       )}
     </>
   );
