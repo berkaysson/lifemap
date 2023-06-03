@@ -15,12 +15,12 @@ const HabitDurationInput = ({ onChange, frequency }) => {
   }, [frequency, duration]);
 
   const calculateDateRange = (value) => {
-    const today = moment();
+    const firstDay = startDate ? moment(startDate) : moment();
     const { coefficient, dateType } = calculateFrequencyDateValue(frequency);
-    let endDate = moment(today).add(value * coefficient, dateType);
+    let endDate = moment(firstDay).add(value * coefficient, dateType);
 
     return {
-      startDate: startDate ||  today.format("YYYY-MM-DD"),
+      startDate: firstDay.format("YYYY-MM-DD"),
       endDate: endDate.format("YYYY-MM-DD"),
     };
   };
