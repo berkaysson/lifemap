@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 const HabitItem = ({ habit, onDeleteHabitDataUnit }) => {
   const deleteHandler = () => {
@@ -7,12 +8,13 @@ const HabitItem = ({ habit, onDeleteHabitDataUnit }) => {
   return (
     <li id={habit?.id}>
       <h3 style={{ color: habit?.isFulfilled ? "green" : "red" }}>
-        {habit?.nameValue}
+        {habit?.nameValue} {habit?.isClosed ? "(Closed)":""}
       </h3>
       <p>Category: {habit?.category.label}</p>
       <p>Subcategory: {habit?.subCategory.label}</p>
       <p>Start Date: {habit?.startDate}</p>
-      <p>End Date: {habit?.endDate}</p>
+      <p>End Date: {moment(new Date(habit?.endDate))
+              .subtract(1, 'day').format("YYYY-MM-DD")}</p>
       <p>Time Value: {habit?.timeValue}</p>
       <p>Check Frequency: {habit?.frequency}</p>
       <button type="button" onClick={deleteHandler}>
