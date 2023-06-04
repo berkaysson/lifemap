@@ -50,7 +50,8 @@ const HabitDurationInput = ({ onChange, frequency }) => {
           value={startDate || formatDate(new Date())}
           onChange={handleStartDateChange}
         />
-        , End Date: {dateRange.endDate}
+        , End Date: {moment(new Date(dateRange?.endDate))
+              .subtract(1, 'day').format("YYYY-MM-DD")}
       </p>
       )}
     </>
