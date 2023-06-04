@@ -1,5 +1,6 @@
 import { addDays } from "date-fns";
 import moment from "moment";
+import { calculateFrequencyDateValue } from "./formatDate";
 
 export const addTaskOrHabitDataUnit = async (db, unit, dataType) => {
   try {
@@ -7,12 +8,37 @@ export const addTaskOrHabitDataUnit = async (db, unit, dataType) => {
       await db.tasksData.put({ ...unit, isFulfilled: false, isClosed: false });
       console.log("Task unit added successfully");
     } else if (dataType === "habit") {
-      await db.habitsData.put({ ...unit, isFulfilled: false, isClosed: false });
+      await db.habitsData.put({
+        ...unit,
+        isFulfilled: false,
+        isClosed: false,
+        checkpoints: createCheckpointsHabit(unit),
+      });
       console.log("Habit unit added successfully");
     }
   } catch (error) {
     console.error("Error creating data unit:", error);
   }
+};
+
+export const createCheckpointsHabit = (habitUnit) => {
+  const frequency = habitUnit.frequency;
+  const startDate = moment(new Date(habitUnit.startDate));
+  const endDate = moment(new Date(habitUnit.endDate));
+  let checkpoints = [];
+
+  const { coefficient, dateType } = calculateFrequencyDateValue(frequency);
+
+  let currentDate = moment(startDate);
+
+  while (currentDate.isSameOrBefore(endDate)) {
+    checkpoints.push(currentDate.format("YYYY-MM-DD"));
+    currentDate.add(coefficient, dateType);
+  }
+  
+  checkpoints.push(endDate.format("YYYY-MM-DD"));
+
+  return checkpoints;
 };
 
 export const deleteTaskOrHabitDataUnit = async (db, dataID, dataType) => {
@@ -54,7 +80,6 @@ const calculateCurrentTimeValue = (taskUnit, activityDataUnits) => {
   const category = taskUnit.category.label;
   const subCategory = taskUnit.subCategory.value;
   let currentTimeValue = 0;
-
   for (
     let startDate = moment(taskUnit.startDate);
     startDate <= moment(taskUnit.endDate);
@@ -73,8 +98,8 @@ const calculateCurrentTimeValue = (taskUnit, activityDataUnits) => {
 };
 
 export const checkDueDate = (unit) => {
-  const today = moment(addDays(new Date(), -1));
-  const dueDate = moment(new Date(unit.endDate));
+  const today = moment(addDays(new Date(), -1));  //should check current day after the day
+  const dueDate = moment(addDays(new Date(unit.endDate), -1));
   return dueDate.isBefore(today);
 };
 
