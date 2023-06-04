@@ -13,8 +13,8 @@ const HabitItem = ({ habit, onDeleteHabitDataUnit }) => {
       <p>Category: {habit?.category.label}</p>
       <p>Subcategory: {habit?.subCategory.label}</p>
       <p>Start Date: {habit?.startDate}</p>
-      <p>End Date: {moment(new Date(habit?.endDate))
-              .subtract(1, 'day').format("YYYY-MM-DD")}</p>
+      <p>End Date: {habit ? moment(new Date(habit?.endDate))
+              .subtract(1, 'day').format("YYYY-MM-DD") : "no end date"}</p>
       <p>Time Value: {habit?.timeValue}</p>
       <p>Check Frequency: {habit?.frequency}</p>
       <button type="button" onClick={deleteHandler}>
