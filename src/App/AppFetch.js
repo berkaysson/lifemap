@@ -7,7 +7,7 @@ import {
   checkDueDate,
   checkIsFulfilled,
   checkIsFulfilledCheckpoint,
-} from "../Utilities/task&habitDBHelpers";
+} from "../Utilities/task&habitCheckHelpers";
 
 const CURRENT_DATE = formatDate(new Date());
 
