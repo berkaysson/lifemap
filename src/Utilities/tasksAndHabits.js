@@ -107,3 +107,14 @@ export const checkIsFulfilled = (taskUnit, activityDataUnits) => {
   let currentTimeValue = calculateCurrentTimeValue(taskUnit, activityDataUnits);
   return currentTimeValue >= taskUnit.timeValue;
 };
+
+export const checkIsFulfilledCheckpoint = (startDate, endDate, unit, activityDataUnits) => {
+  const formattedUnit = {
+    category:unit.category,
+    subCategory:unit.subCategory,
+    startDate:startDate,
+    endDate:endDate,
+    timeValue:unit.timeValue
+  }
+  return checkIsFulfilled(formattedUnit, activityDataUnits);
+}
