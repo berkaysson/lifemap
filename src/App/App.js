@@ -8,6 +8,7 @@ import activityDataUnitConstructor from "../Data/activityDataUnitConstructor";
 import AppFetch from "./AppFetch";
 import { addTaskOrHabitDataUnit, deleteTaskOrHabitDataUnit, editTaskOrHabitSituation, getAllTaskOrHabitDataUnits } from "../Utilities/task&habitDBHelpers";
 import { addFinancialDataUnitHelper, deleteFinancialDataUnitHelper, updateFinancialDataUnitHelper } from "../Utilities/financialDataHelpers";
+import { deleteSubCategoryHelper, updateCategoryHelper } from "../Utilities/categotyHelpers";
 
 
 const CURRENT_DATE = formatDate(new Date());
@@ -158,29 +159,18 @@ function App({ db, STORES }) {
   };
 
   const updateCategory = async (category, subCategory) => {
-    try {
-      const categoryData = await db.categoriesData.get(category);
-      if (categoryData) {
-        if (!categoryData.hasOwnProperty("subCategories")) {
-          categoryData.subCategories = [subCategory];
-        } else {
-          if (categoryData.subCategories.includes(subCategory)) {
-            alert(`${subCategory} already exists in ${category}`);
-            return;
-          }
-          categoryData.subCategories.push(subCategory);
-        }
+    await updateCategoryHelper(db, category, subCategory);
+    fetchUpdateHandler(true);
+  };
 
-        await db.categoriesData.put(categoryData);
-      }
-      fetchUpdateHandler(true);
-    } catch (error) {
-      console.error("Error getting category data:", error);
-    }
+  const deleteSubCategory = async (categoryName, categoryID, subCategory) => {
+    const allActivityDataUnits = await getAllActivityDataUnits();
+    await deleteSubCategoryHelper(db, categoryName, categoryID, subCategory, allActivityDataUnits)
+    fetchUpdateHandler(true);
   };
 
   const addFinancialDataUnit = async (toBeUpdatedData) => {
-    addFinancialDataUnitHelper(db, toBeUpdatedData);
+    await addFinancialDataUnitHelper(db, toBeUpdatedData);
     fetchUpdateHandler(true);
   };
 
@@ -189,37 +179,13 @@ function App({ db, STORES }) {
     dataUnitID,
     toBeUpdatedData
   ) => {
-    updateFinancialDataUnitHelper(db, dateID, dataUnitID, toBeUpdatedData);
+    await updateFinancialDataUnitHelper(db, dateID, dataUnitID, toBeUpdatedData);
     fetchUpdateHandler(true);
   };
 
   const deleteFinancialDataUnit = async (dateID, dataUnitID) => {
-    deleteFinancialDataUnitHelper(db, dateID, dataUnitID);
+    await deleteFinancialDataUnitHelper(db, dateID, dataUnitID);
     fetchUpdateHandler(true);
-  };
-
-  const deleteSubCategory = async (categoryName, categoryID, subCategory) => {
-    const allActivityDataUnits = await getAllActivityDataUnits();
-    if (
-      allActivityDataUnits.some(
-        (activityDataUnit) => activityDataUnit[categoryName]?.[subCategory] > 0
-      )
-    ) {
-      return alert(`This category has been used before, can not be deleted`);
-    }
-
-    try {
-      const categoryData = await db.categoriesData.get(categoryID);
-      if (categoryData) {
-        const subCategories = categoryData.subCategories.filter(
-          (s) => s !== subCategory
-        );
-        await db.categoriesData.update(categoryID, { subCategories });
-      }
-      fetchUpdateHandler(true);
-    } catch (error) {
-      console.error("Error getting category data:", error);
-    }
   };
 
   const addTaskDataUnit = async (taskUnit) => {
