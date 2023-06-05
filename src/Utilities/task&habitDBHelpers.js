@@ -76,13 +76,13 @@ export const getAllTaskOrHabitDataUnits = async (db, dataType) => {
   }
 };
 
-const calculateCurrentTimeValue = (taskUnit, activityDataUnits) => {
-  const category = taskUnit.category.label;
-  const subCategory = taskUnit.subCategory.value;
+const calculateCurrentTimeValue = (unit, activityDataUnits) => {
+  const category = unit.category.label;
+  const subCategory = unit.subCategory.value;
   let currentTimeValue = 0;
   for (
-    let startDate = moment(taskUnit.startDate);
-    startDate <= moment(taskUnit.endDate);
+    let startDate = moment(unit.startDate);
+    startDate <= moment(unit.endDate);
     startDate.add(1, "days")
   ) {
     const date = startDate.format("YYYY-MM-DD");
@@ -103,9 +103,9 @@ export const checkDueDate = (unit) => {
   return dueDate.isBefore(today);
 };
 
-export const checkIsFulfilled = (taskUnit, activityDataUnits) => {
-  let currentTimeValue = calculateCurrentTimeValue(taskUnit, activityDataUnits);
-  return currentTimeValue >= taskUnit.timeValue;
+export const checkIsFulfilled = (unit, activityDataUnits) => {
+  let currentTimeValue = calculateCurrentTimeValue(unit, activityDataUnits);
+  return currentTimeValue >= unit.timeValue;
 };
 
 export const checkIsFulfilledCheckpoint = (startDate, endDate, unit, activityDataUnits) => {
