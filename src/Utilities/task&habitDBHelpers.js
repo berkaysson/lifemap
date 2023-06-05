@@ -1,6 +1,6 @@
 import { addDays } from "date-fns";
 import moment from "moment";
-import { calculateFrequencyDateValue } from "./formatDate";
+import { calculateFrequencyDateValue } from "./dateHelpers";
 
 export const addTaskOrHabitDataUnit = async (db, unit, dataType) => {
   try {

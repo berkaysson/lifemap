@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import moment from "moment";
 
 import AppContent from "./AppContent";
-import { formatDate } from "../Utilities/formatDate";
+import { formatDate } from "../Utilities/dateHelpers";
 import {
   checkDueDate,
   checkIsFulfilled,
   checkIsFulfilledCheckpoint,
-} from "../Utilities/tasksAndHabits";
+} from "../Utilities/task&habitDBHelpers";
 
 const CURRENT_DATE = formatDate(new Date());
 
