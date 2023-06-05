@@ -35,7 +35,7 @@ export const createCheckpointsHabit = (habitUnit) => {
     checkpoints.push(currentDate.format("YYYY-MM-DD"));
     currentDate.add(coefficient, dateType);
   }
-  
+
   checkpoints.push(endDate.format("YYYY-MM-DD"));
 
   return checkpoints;
@@ -98,7 +98,7 @@ const calculateCurrentTimeValue = (unit, activityDataUnits) => {
 };
 
 export const checkDueDate = (unit) => {
-  const today = moment(addDays(new Date(), -1));  //should check current day after the day
+  const today = moment(addDays(new Date(), -1));
   const dueDate = moment(addDays(new Date(unit.endDate), -1));
   return dueDate.isBefore(today);
 };
@@ -108,13 +108,18 @@ export const checkIsFulfilled = (unit, activityDataUnits) => {
   return currentTimeValue >= unit.timeValue;
 };
 
-export const checkIsFulfilledCheckpoint = (startDate, endDate, unit, activityDataUnits) => {
+export const checkIsFulfilledCheckpoint = (
+  startDate,
+  endDate,
+  unit,
+  activityDataUnits
+) => {
   const formattedUnit = {
-    category:unit.category,
-    subCategory:unit.subCategory,
-    startDate:startDate,
-    endDate:endDate,
-    timeValue:unit.timeValue
-  }
+    category: unit.category,
+    subCategory: unit.subCategory,
+    startDate: startDate,
+    endDate: endDate,
+    timeValue: unit.timeValue,
+  };
   return checkIsFulfilled(formattedUnit, activityDataUnits);
-}
+};
