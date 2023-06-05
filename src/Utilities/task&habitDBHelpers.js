@@ -74,3 +74,14 @@ export const getAllTaskOrHabitDataUnits = async (db, dataType) => {
     console.error("Error getting all data units:", error);
   }
 };
+
+export const editTaskOrHabitSituation = async (db, dataType, prop, value, dataID) => {
+  try {
+    const dataUnit = await db[`${dataType}sData`].get(dataID);
+    dataUnit[prop] = value;
+    await db[`${dataType}sData`].put(dataUnit);
+    console.log(`${dataType} unit edited successfully`);
+  } catch (error) {
+    console.error(`Error editing ${dataType} unit:`, error);
+  }
+};

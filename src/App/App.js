@@ -6,7 +6,7 @@ import { exportHandler, importHandler } from "../Utilities/export&importHelpers"
 import activityDataUnitConstructor from "../Data/activityDataUnitConstructor";
 
 import AppFetch from "./AppFetch";
-import { addTaskOrHabitDataUnit, deleteTaskOrHabitDataUnit, getAllTaskOrHabitDataUnits } from "../Utilities/task&habitDBHelpers";
+import { addTaskOrHabitDataUnit, deleteTaskOrHabitDataUnit, editTaskOrHabitSituation, getAllTaskOrHabitDataUnits } from "../Utilities/task&habitDBHelpers";
 
 
 const CURRENT_DATE = formatDate(new Date());
@@ -288,53 +288,21 @@ function App({ db, STORES }) {
   };
 
   const editTaskDataUnitFulfilled = async (isFulfilled, dataID) => {
-    try{
-      const taskDataUnit = await db.tasksData.get(dataID);
-      taskDataUnit.isFulfilled = isFulfilled;
-      await db.tasksData.put(taskDataUnit);
-      console.log("Task unit editted successfully");
-    }
-    catch(error){
-      console.error("Error to edit task unit:", error);
-    }
+    await editTaskOrHabitSituation(db, "task", "isFulfilled", isFulfilled, dataID);
   }
 
   const editTaskDataUnitClosed = async (isClosed, dataID) => {
-    try{
-      const taskDataUnit = await db.tasksData.get(dataID);
-      taskDataUnit.isClosed = isClosed;
-      await db.tasksData.put(taskDataUnit);
-      console.log("Task unit editted successfully");
-    }
-    catch(error){
-      console.error("Error to edit task unit:", error);
-    }
-  }
-
+    await editTaskOrHabitSituation(db, 'task', 'isClosed', isClosed, dataID);
+  };
+  
   const editHabitDataUnitFulfilled = async (isFulfilled, dataID) => {
-    try{
-      const habitDataUnit = await db.habitsData.get(dataID);
-      habitDataUnit.isFulfilled = isFulfilled;
-      await db.habitsData.put(habitDataUnit);
-      console.log("Habit unit editted successfully");
-    }
-    catch(error){
-      console.error("Error to edit Habit unit:", error);
-    }
-  }
-
+    await editTaskOrHabitSituation(db, 'habit', 'isFulfilled', isFulfilled, dataID);
+  };
+  
   const editHabitDataUnitClosed = async (isClosed, dataID) => {
-    try{
-      const habitDataUnit = await db.habitsData.get(dataID);
-      habitDataUnit.isClosed = isClosed;
-      await db.habitsData.put(habitDataUnit);
-      console.log("Habit unit editted successfully");
-    }
-    catch(error){
-      console.error("Error to edit Habit unit:", error);
-    }
-  }
-
+    await editTaskOrHabitSituation(db, 'habit', 'isClosed', isClosed, dataID);
+  };
+  
   const handleExport = async () => {
     await exportHandler(db);
   };
