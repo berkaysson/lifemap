@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react";
+import moment from "moment";
 
 import AppContent from "./AppContent";
 import { formatDate } from "../Utilities/formatDate";
-import { checkDueDate, checkIsFulfilled } from "../Utilities/tasksAndHabits";
+import {
+  checkDueDate,
+  checkIsFulfilled,
+  checkIsFulfilledCheckpoint,
+} from "../Utilities/tasksAndHabits";
 
 const CURRENT_DATE = formatDate(new Date());
 
@@ -18,6 +23,8 @@ const AppFetch = ({
   isNeedFetchUpdate,
   onEditTaskDataUnitFulfilled,
   onEditTaskDataUnitClosed,
+  onEditHabitDataUnitClosed,
+  onEditHabitDataUnitFulfilled
 }) => {
   const [categories, setCategories] = useState([]);
   const [activityCategories, setActivityCategories] = useState([]);
@@ -123,8 +130,71 @@ const AppFetch = ({
     }
   };
 
+  const checkHabits = async () => {
+    const allHabitDataUnits = await onGetAllHabitDataUnits();
+
+    if (allHabitDataUnits) {
+      for (const habitUnit of allHabitDataUnits) {
+        // Check for due date
+        await onEditHabitDataUnitClosed(checkDueDate(habitUnit), habitUnit.id);
+
+        if (!habitUnit.isClosed) {
+          if (habitUnit.frequency !== "daily") {
+            checkCheckpointsForFulfillment(habitUnit);
+          }
+          else {
+            checkDailyForFulfillment(habitUnit);
+          }
+        }
+      }
+    }
+  };
+
+  const checkDailyForFulfillment = async (habitUnit) => {
+    let allCheckpointsFulfilled = true;
+
+    for (let i = 0; i < habitUnit.checkpoints.length - 2; i++) {
+      const checkpointDate = habitUnit.checkpoints[i];
+      if(!checkIsFulfilledCheckpoint(checkpointDate, checkpointDate, habitUnit, activityDataUnits)){
+        allCheckpointsFulfilled = false;
+        await onEditHabitDataUnitFulfilled(false, habitUnit.id);
+      }
+    }
+    if (allCheckpointsFulfilled) {
+      await onEditHabitDataUnitFulfilled(true, habitUnit.id);
+    }
+  }
+
+  const checkCheckpointsForFulfillment = async (habitUnit) => {
+    let allCheckpointsFulfilled = true;
+
+    for (let i = 0; i < habitUnit.checkpoints.length - 2; i++) {
+      const startDate = habitUnit.checkpoints[i];
+      const endDate = moment(new Date(habitUnit.checkpoints[i + 1]))
+        .subtract(1, "day")
+        .format("YYYY-MM-DD");
+      console.log(startDate, endDate);
+      console.log(checkIsFulfilledCheckpoint(startDate, endDate, habitUnit, activityDataUnits));
+      if (!checkIsFulfilledCheckpoint(startDate, endDate, habitUnit, activityDataUnits)) {
+      allCheckpointsFulfilled = false;
+      await onEditHabitDataUnitFulfilled(false, habitUnit.id);
+      }
+    }
+
+    if (allCheckpointsFulfilled) {
+      await onEditHabitDataUnitFulfilled(true, habitUnit.id);
+    }
+  };
+
   async function fetchAll() {
+    await fetchCategories();
+    await fetchFinanceDataUnits();
+    await fetchActivityDataUnits();
+    await fetchTaskDataUnits();
+    await fetchHabitDataUnits();
+    await fetchTodaysActivityDataUnit();
     await checkTasks();
+    await checkHabits();
     await fetchCategories();
     await fetchFinanceDataUnits();
     await fetchActivityDataUnits();
