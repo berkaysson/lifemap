@@ -7,6 +7,7 @@ import activityDataUnitConstructor from "../Data/activityDataUnitConstructor";
 
 import AppFetch from "./AppFetch";
 import { addTaskOrHabitDataUnit, deleteTaskOrHabitDataUnit, editTaskOrHabitSituation, getAllTaskOrHabitDataUnits } from "../Utilities/task&habitDBHelpers";
+import { addFinancialDataUnitHelper, deleteFinancialDataUnitHelper, updateFinancialDataUnitHelper } from "../Utilities/financialDataHelpers";
 
 
 const CURRENT_DATE = formatDate(new Date());
@@ -179,19 +180,8 @@ function App({ db, STORES }) {
   };
 
   const addFinancialDataUnit = async (toBeUpdatedData) => {
-    try {
-      const financialDataUnit = await db.financialData.get(
-        toBeUpdatedData.date
-      );
-      if (financialDataUnit) {
-        financialDataUnit.financeDatas.push(toBeUpdatedData);
-        await db.financialData.put(financialDataUnit);
-        console.log("Financial Data unit added successfully");
-      }
-      fetchUpdateHandler(true);
-    } catch (error) {
-      console.error("Error getting Financial data:", error);
-    }
+    addFinancialDataUnitHelper(db, toBeUpdatedData);
+    fetchUpdateHandler(true);
   };
 
   const updateFinancialDataUnit = async (
@@ -199,40 +189,13 @@ function App({ db, STORES }) {
     dataUnitID,
     toBeUpdatedData
   ) => {
-    try {
-      const financialDataUnit = await db.financialData.get(dateID);
-      if (financialDataUnit) {
-        const oldDataUnitIndex = financialDataUnit.financeDatas.findIndex(
-          (obj) => obj.id === dataUnitID
-        );
-        if (oldDataUnitIndex !== -1) {
-          const oldDataUnit = financialDataUnit.financeDatas[oldDataUnitIndex];
-          const updatedDataUnit = { ...oldDataUnit, ...toBeUpdatedData };
-          financialDataUnit.financeDatas[oldDataUnitIndex] = updatedDataUnit;
-          await db.financialData.put(financialDataUnit);
-          console.log("Financial Data unit updated successfully");
-        }
-      }
-      fetchUpdateHandler(true);
-    } catch (error) {
-      console.error("Error updating Financial data:", error);
-    }
+    updateFinancialDataUnitHelper(db, dateID, dataUnitID, toBeUpdatedData);
+    fetchUpdateHandler(true);
   };
 
   const deleteFinancialDataUnit = async (dateID, dataUnitID) => {
-    try {
-      const financialDataUnit = await db.financialData.get(dateID);
-      if (financialDataUnit) {
-        financialDataUnit.financeDatas = financialDataUnit.financeDatas.filter(
-          (obj) => obj.id !== dataUnitID
-        );
-        await db.financialData.put(financialDataUnit);
-        console.log("Financial Data unit deleted successfully");
-      }
-      fetchUpdateHandler(true);
-    } catch (error) {
-      console.error("Error deleting Financial data:", error);
-    }
+    deleteFinancialDataUnitHelper(db, dateID, dataUnitID);
+    fetchUpdateHandler(true);
   };
 
   const deleteSubCategory = async (categoryName, categoryID, subCategory) => {
