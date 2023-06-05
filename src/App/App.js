@@ -311,6 +311,18 @@ function App({ db, STORES }) {
     }
   }
 
+  const editHabitDataUnitFulfilled = async (isFulfilled, dataID) => {
+    try{
+      const habitDataUnit = await db.habitsData.get(dataID);
+      habitDataUnit.isFulfilled = isFulfilled;
+      await db.habitsData.put(habitDataUnit);
+      console.log("Habit unit editted successfully");
+    }
+    catch(error){
+      console.error("Error to edit Habit unit:", error);
+    }
+  }
+
   const editHabitDataUnitClosed = async (isClosed, dataID) => {
     try{
       const habitDataUnit = await db.habitsData.get(dataID);
@@ -342,6 +354,7 @@ function App({ db, STORES }) {
     onEditTaskDataUnitFulfilled: editTaskDataUnitFulfilled,
     onEditTaskDataUnitClosed: editTaskDataUnitClosed,
     onEditHabitDataUnitClosed: editHabitDataUnitClosed,
+    onEditHabitDataUnitFulfilled:editHabitDataUnitFulfilled,
     isNeedFetchUpdate: isNeedFetchUpdate,
   };
 
