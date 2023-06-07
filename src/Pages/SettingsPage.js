@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import ImportExport from "../Components/ImportExport";
+import ImportExport from "../Components/Others/ImportExport";
 
 const Wrapper = styled.section`
   border: 2px solid black;

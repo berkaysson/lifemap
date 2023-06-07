@@ -1,7 +1,7 @@
 import React from "react";
 
-import TaskItem from "./TaskItem";
-import HabitItem from "./HabitItem";
+import TaskItem from "./Tasks/TaskItem";
+import HabitItem from "./Habits/HabitItem";
 
 const TasksHabitsList = ({
   taskDataUnits,

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import Button from "./Wrappers/UI/Button";
+import Button from "../Wrappers/UI/Button";
 
 import styled from "styled-components";
 

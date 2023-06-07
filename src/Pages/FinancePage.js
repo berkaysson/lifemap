@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import FinancesForm from "../Components/Forms/FinancesForm";
-import FinanceDataList from "../Components/FinanceDataList";
+import FinancesForm from "../Components/Finances/FinancesForm";
+import FinanceDataList from "../Components/Finances/FinanceDataList";
 
 const Wrapper = styled.section`
   border: 2px solid aqua;

@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import moment from "moment";
 
-import DataViewer from "../Components/DataViewer";
-import DataViewerForm from "../Components/Forms/DataViewerForm";
+import DataViewer from "../Components/DataViewer/DataViewer.js";
+import DataViewerForm from "../Components/DataViewer/DataViewerForm";
 import ToggleButton from "../Components/Wrappers/UI/ToggleButton";
 import DateRangeSelector from "../Components/Wrappers/DateRangeSelector";
 

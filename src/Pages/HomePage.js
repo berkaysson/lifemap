@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import DataViewer from "../Components/DataViewer";
+import DataViewer from "../Components/DataViewer/DataViewer.js";
 
 const HomeWrapper = styled.section`
   border: 2px solid red;

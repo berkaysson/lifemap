@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import ActivityForm from "../Components/Forms/ActivityForm";
-import CategoriesForm from "../Components/Forms/CategoriesForm";
+import ActivityForm from "../Components/Others/ActivityForm";
+import CategoriesForm from "../Components/Categories/CategoriesForm";
 
 const AddActivityUnitPageWrapper = styled.section`
   border: 2px solid orange;

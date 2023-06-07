@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import { calculateFrequencyDateValue, formatDate } from "../../Utilities/dateHelpers";
+import { calculateFrequencyDateValue, formatDate } from "../../../Utilities/dateHelpers";
 
 const HabitDurationInput = ({ onChange, frequency }) => {
   const [dateRange, setDateRange] = useState(null);

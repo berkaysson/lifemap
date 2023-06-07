@@ -1,7 +1,7 @@
 import { useState } from "react";
-import ToggleButton from "./Wrappers/UI/ToggleButton";
-import TasksForm from "./Forms/TasksForm";
-import HabitsForm from "./Forms/HabitsForm";
+import ToggleButton from "../Wrappers/UI/ToggleButton";
+import TasksForm from "./Tasks/TasksForm";
+import HabitsForm from "./Habits/HabitsForm";
 
 const TasksHabitsWrapper = ({
   activityCategories,

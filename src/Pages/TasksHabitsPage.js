@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import TasksHabitsWrapper from "../Components/TasksHabits";
-import TasksHabitsList from "../Components/TasksHabitsList";
+import TasksHabitsWrapper from "../Components/Tasks&Habits/TasksHabits";
+import TasksHabitsList from "../Components/Tasks&Habits/TasksHabitsList";
 
 const Wrapper = styled.section`
   border: 2px solid blue;
