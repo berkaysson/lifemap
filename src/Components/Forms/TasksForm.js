@@ -2,7 +2,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import CategorySubCategorySelect from "./CategorySubCategorySelect";
-import DateRangeSelector from "./DateRangeSelector";
+import DateRangeSelector from "../Wrappers/DateRangeSelector";
 
 const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
   const [task, setTask] = useState({

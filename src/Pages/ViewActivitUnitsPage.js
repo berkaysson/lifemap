@@ -4,8 +4,8 @@ import moment from "moment";
 
 import DataViewer from "../Components/DataViewer";
 import DataViewerForm from "../Components/Forms/DataViewerForm";
-import ToggleButton from "../Components/UI/ToggleButton";
-import DateRangeSelector from "../Components/Forms/DateRangeSelector";
+import ToggleButton from "../Components/Wrappers/UI/ToggleButton";
+import DateRangeSelector from "../Components/Wrappers/DateRangeSelector";
 
 const Wrapper = styled.section`
   border: 2px solid green;

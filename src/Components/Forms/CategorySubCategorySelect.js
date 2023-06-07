@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import Select from "react-select";
-import SubCategorySelect from "../UI/SubCategorySelect";
+import SubCategorySelect from "../Wrappers/SubCategorySelect";
 
 const CategorySubCategorySelect = ({ categories, onSubCategorySelect }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);

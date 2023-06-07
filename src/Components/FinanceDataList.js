@@ -4,8 +4,8 @@ import styled from "styled-components";
 import moment from "moment";
 
 import FinanceDataListItem from "./FinanceDataListItem";
-import ToggleButton from "./UI/ToggleButton";
-import DateRangeSelector from "./Forms/DateRangeSelector";
+import ToggleButton from "./Wrappers/UI/ToggleButton";
+import DateRangeSelector from "./Wrappers/DateRangeSelector";
 
 const CURRENT_DATE = new Date().toISOString().slice(0, 10);
 
