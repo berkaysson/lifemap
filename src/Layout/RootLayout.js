@@ -1,20 +1,24 @@
 import NavBar from "./NavBar";
+import {theme} from "../Style/theme"
 
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import { ThemeProvider } from "styled-components";
 
 const RootContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 100vh;
+  color: ${({theme}) => theme.colors.primary};
+  background-color: ${({theme}) => theme.colors.secondary};
+  font-size: ${({theme}) => theme.sizes.medium};
 `;
 
 const Sidebar = styled.aside`
-  background-color: #f5f5f5;
 `;
 
 const MainContent = styled.main`
-  padding: 20px;
+  padding: ${({theme}) => theme.sizes.large} ;
 `;
 
 const NavBarWrapper = styled(NavBar)`
@@ -23,15 +27,17 @@ const NavBarWrapper = styled(NavBar)`
 
 const RootLayout = () => {
   return (
-    <RootContainer>
-      <Sidebar>
-        <NavBarWrapper />
-      </Sidebar>
+    <ThemeProvider theme={theme}>
+      <RootContainer>
+        <Sidebar>
+          <NavBarWrapper />
+        </Sidebar>
 
-      <MainContent>
-        <Outlet />
-      </MainContent>
-    </RootContainer>
+        <MainContent>
+          <Outlet />
+        </MainContent>
+      </RootContainer>
+    </ThemeProvider>
   );
 };
 
