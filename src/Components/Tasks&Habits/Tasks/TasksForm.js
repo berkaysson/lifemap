@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import CategorySubCategorySelect from "../../Categories/CategorySubCategorySelect";
 import DateRangeSelector from "../../Wrappers/DateRangeSelector";
+import FormWrapper from "../../Wrappers/FormWrapper";
 
 const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
   const [task, setTask] = useState({
@@ -38,7 +39,7 @@ const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
 
   return (
     <div>
-      <form onSubmit={formSubmitHandler}>
+      <FormWrapper onSubmit={formSubmitHandler}>
         <CategorySubCategorySelect
           categories={activityCategories}
           onSubCategorySelect={subCategorySelectionHandler}
@@ -51,7 +52,7 @@ const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
           <input type="text" name="nameValue" onChange={nameValueHandler} />
         </label>
         <button type="submit">Submit</button>
-      </form>
+      </FormWrapper>
     </div>
   );
 };

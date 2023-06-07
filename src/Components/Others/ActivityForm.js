@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Button from "../Wrappers/Styled-UI/Button";
 import ToggleButton from "../Wrappers/Styled-UI/ToggleButton";
 import CategorySubCategorySelect from "../Categories/CategorySubCategorySelect";
+import FormWrapper from "../Wrappers/FormWrapper";
 
 const DataUpdaterFormWrapper = styled.div``;
 
@@ -93,7 +94,7 @@ const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
 
   return (
     <DataUpdaterFormWrapper>
-      <form onSubmit={submitHandler}>
+      <FormWrapper onSubmit={submitHandler}>
         <label>Date:</label>
         {dateInputActive ? (
           <input
@@ -128,7 +129,7 @@ const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
           />
         </div>
         <Button text={"Submit"} type={"submit"} />
-      </form>
+      </FormWrapper>
     </DataUpdaterFormWrapper>
   );
 };

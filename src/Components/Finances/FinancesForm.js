@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import Button from "../Wrappers/Styled-UI/Button";
 import ToggleButton from "../Wrappers/Styled-UI/ToggleButton";
 import SubCategorySelect from "../Wrappers/SubCategorySelect";
+import FormWrapper from "../Wrappers/FormWrapper";
 
 const Wrapper = styled.div`
   border: 1px solid red;
@@ -88,7 +89,7 @@ const FinancesForm = ({
 
   return (
     <Wrapper>
-      <form onSubmit={submitHandler}>
+      <FormWrapper onSubmit={submitHandler}>
         <label>Date:</label>
         {dateInputActive ? (
           <input type="date" name="dateInput" defaultValue={date}></input>
@@ -117,7 +118,7 @@ const FinancesForm = ({
         />
         <input type="number" name="expenseValue" />
         <Button text={"Submit"} type={"submit"} />
-      </form>
+      </FormWrapper>
     </Wrapper>
   );
 };

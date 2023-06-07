@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import Select from "react-select";
-import Button from "../Wrappers/Styled-UI/Button";
-import ToggleButton from "../Wrappers/Styled-UI/ToggleButton";
-import CategorySubCategorySelect from "./CategorySubCategorySelect";
+import Button from "../Wrappers/UI/Button";
+import ToggleButton from "../Wrappers/UI/ToggleButton";
+import CategorySubCategorySelect from "./CategorySubCategorySelect.js";
+import FormWrapper from "../Wrappers/FormWrapper";
 
 const CategoryUpdateFormWrapper = styled.div``;
 
@@ -88,7 +89,7 @@ const CategoriesForm = ({
       case "update":
         return (
           <>
-            <form onSubmit={submitHandler}>
+            <FormWrapper onSubmit={submitHandler}>
               <Select
                 value={selectedCategory}
                 options={categoryOptions}
@@ -97,7 +98,7 @@ const CategoriesForm = ({
               />
               <input type="text" name="subCategoryInput"></input>
               <Button text={"Submit"} type={"submit"} />
-            </form>
+            </FormWrapper>
           </>
         );
       case "delete":

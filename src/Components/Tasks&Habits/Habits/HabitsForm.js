@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import CategorySubCategorySelect from "../../Categories/CategorySubCategorySelect";
 import HabitFrequencySelector from "./HabitFrequencySelector";
 import HabitDurationInput from "./HabitDurationInput";
+import FormWrapper from "../../Wrappers/FormWrapper";
 
 const HabitsForm = ({ onAddHabitUnit, activityCategories }) => {
   const [habit, setHabit] = useState({
@@ -54,7 +55,7 @@ const HabitsForm = ({ onAddHabitUnit, activityCategories }) => {
 
   return (
     <div>
-      <form onSubmit={formSubmitHandler}>
+      <FormWrapper onSubmit={formSubmitHandler}>
         <CategorySubCategorySelect
           categories={activityCategories}
           onSubCategorySelect={subCategorySelectionHandler}
@@ -68,7 +69,7 @@ const HabitsForm = ({ onAddHabitUnit, activityCategories }) => {
           <input type="text" name="nameValue" onChange={nameValueHandler} />
         </label>
         <button type="submit">Submit</button>
-      </form>
+      </FormWrapper>
     </div>
   );
 };
