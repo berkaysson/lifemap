@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import Select from "react-select";
-import Button from "../Wrappers/UI/Button";
-import ToggleButton from "../Wrappers/UI/ToggleButton";
+import Button from "../Wrappers/Styled-UI/Button";
+import ToggleButton from "../Wrappers/Styled-UI/ToggleButton";
 import CategorySubCategorySelect from "./CategorySubCategorySelect";
 
 const CategoryUpdateFormWrapper = styled.div``;

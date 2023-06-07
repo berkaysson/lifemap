@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import Button from "../Wrappers/UI/Button";
-import ToggleButton from "../Wrappers/UI/ToggleButton";
+import Button from "../Wrappers/Styled-UI/Button";
+import ToggleButton from "../Wrappers/Styled-UI/ToggleButton";
 import SubCategorySelect from "../Wrappers/SubCategorySelect";
 
 const Wrapper = styled.div`
