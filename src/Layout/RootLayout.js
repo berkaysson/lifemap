@@ -12,13 +12,13 @@ const RootContainer = styled.div`
   color: ${({theme}) => theme.colors.primary};
   background-color: ${({theme}) => theme.colors.secondary};
   font-size: ${({theme}) => theme.sizes.medium};
+  padding: ${({theme}) => theme.sizes.medium};
 `;
 
 const Sidebar = styled.aside`
 `;
 
 const MainContent = styled.main`
-  padding: ${({theme}) => theme.sizes.large} ;
 `;
 
 const NavBarWrapper = styled(NavBar)`
