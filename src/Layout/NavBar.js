@@ -6,30 +6,32 @@ import { useState } from "react";
 const NavWrapper = styled.nav`
   display: flex;
   flex-direction: column;
-  background-color: #f2f2f2;
-  padding: 10px;
+  background-color: ${({theme}) => theme.colors.primary};
+  color:${({theme}) => theme.colors.secondary} ;
+  padding: ${({theme}) => theme.sizes.medium};
   height: 100%;
-  border: 1px red solid;
   width: ${({ isOpen }) => (isOpen ? "240px" : "60px")};
 `;
 
 const NavItemsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  border: 3px solid green;
 `;
 
 const NavItem = styled(NavLink)`
+  font-size: ${({theme}) => theme.sizes.medium};
+  padding: ${({theme}) => theme.sizes.small};
   text-decoration: none;
-  color: #333;
-  font-weight: bold;
   cursor: pointer;
-  text-decoration: none;
-  border: 1px black solid;
+  color:${({theme}) => theme.colors.secondary};
+
+  &:hover{
+    color:${({theme}) => theme.colors.theme};
+  }
 
   &.active {
-    text-decoration: underline;
-    font-style: italic;
+    background-color: ${({theme}) => theme.colors.alternative};
+    color:${({theme}) => theme.colors.theme};
   }
 `;
 
@@ -42,7 +44,7 @@ const NavBar = () => {
 
   return (
     <NavWrapper isOpen={isOpen}>
-      <button onClick={toggleIsOpen}>Toggle</button>
+      <button onClick={toggleIsOpen}>T</button>
       <NavItemsWrapper>
         <NavItem to="/" activeClassName="active">
           <i>H</i>
