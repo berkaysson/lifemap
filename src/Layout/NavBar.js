@@ -23,7 +23,7 @@ const NavItemsWrapper = styled.div`
 `;
 
 const NavBar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const toggleIsOpen = () => {
     setIsOpen(!isOpen);
