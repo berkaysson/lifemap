@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import NavToggleButton from "../Components/Wrappers/Styled-UI/NavToggleButton";
 
 const NavWrapper = styled.nav`
   display: flex;
@@ -44,7 +45,7 @@ const NavBar = () => {
 
   return (
     <NavWrapper isOpen={isOpen}>
-      <button onClick={toggleIsOpen}>T</button>
+      <NavToggleButton onClick={toggleIsOpen} isOpen={isOpen} />
       <NavItemsWrapper>
         <NavItem to="/" activeClassName="active">
           <i>H</i>
