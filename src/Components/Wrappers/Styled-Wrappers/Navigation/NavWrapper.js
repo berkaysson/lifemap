@@ -8,7 +8,7 @@ export const NavWrapper = styled.nav`
   position: relative;
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.secondary};
-  padding: 1rem;
+  padding: 10px;
   height: 100%;
   width: ${({ isOpen }) => (isOpen ? "240px" : "60px")};
   border-radius: ${({ theme }) => theme.radius.medium};
