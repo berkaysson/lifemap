@@ -10,8 +10,8 @@ import TocIcon from "@mui/icons-material/Toc";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import SettingsIcon from "@mui/icons-material/Settings";
 
-import NavToggleButton from "../Components/Wrappers/Styled-UI/NavToggleButton";
-import { NavWrapper } from "../Components/Wrappers/NavWrapper";
+import NavToggleButton from "../Components/Wrappers/Styled-Elements/NavToggleButton";
+import { NavWrapper } from "../Components/Wrappers/Styled-Wrappers/NavWrapper";
 
 const NavItemsWrapper = styled.div`
   display: flex;

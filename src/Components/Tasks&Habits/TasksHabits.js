@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ToggleButton from "../Wrappers/Styled-UI/ToggleButton";
+import ToggleButton from "../Wrappers/Styled-Elements/ToggleButton";
 import TasksForm from "./Tasks/TasksForm";
 import HabitsForm from "./Habits/HabitsForm";
 

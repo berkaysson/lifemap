@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import Button from "../Wrappers/Styled-UI/Button";
-import ToggleButton from "../Wrappers/Styled-UI/ToggleButton";
+import Button from "../Wrappers/Styled-Elements/Button";
+import ToggleButton from "../Wrappers/Styled-Elements/ToggleButton";
 import SubCategorySelect from "../Wrappers/SubCategorySelect";
-import FormWrapper from "../Wrappers/FormWrapper";
+import FormWrapper from "../Wrappers/Styled-Wrappers/FormWrapper";
 
 const Wrapper = styled.div`
   border: 1px solid red;

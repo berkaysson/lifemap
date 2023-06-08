@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import CategorySubCategorySelect from "../../Categories/CategorySubCategorySelect";
 import HabitFrequencySelector from "./HabitFrequencySelector";
 import HabitDurationInput from "./HabitDurationInput";
-import FormWrapper from "../../Wrappers/FormWrapper";
+import FormWrapper from "../../Wrappers/Styled-Wrappers/FormWrapper";
 
 const HabitsForm = ({ onAddHabitUnit, activityCategories }) => {
   const [habit, setHabit] = useState({

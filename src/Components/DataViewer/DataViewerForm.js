@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import Button from "../Wrappers/Styled-UI/Button";
-import FormWrapper from "../Wrappers/FormWrapper";
+import Button from "../Wrappers/Styled-Elements/Button";
+import FormWrapper from "../Wrappers/Styled-Wrappers/FormWrapper";
 
 const DataViewerFormWrapper = styled.div``;
 
