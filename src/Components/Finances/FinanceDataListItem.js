@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import Button from "../Wrappers/Styled-Elements/Button";
+
 const FinanceDataListItem = ({
   item,
   onDeleteFinancialDataUnit,
@@ -44,8 +46,8 @@ const FinanceDataListItem = ({
             value={editValue}
             onChange={(e) => setEditValue(e.target.value)}
           />
-          <button onClick={handleSaveEdit}>Save</button>
-          <button onClick={handleCancelEdit}>Cancel</button>
+          <Button type="button" text={"Save"} onClick={handleSaveEdit} />
+          <Button type="button" text={"Cancel"} onClick={handleCancelEdit} />
         </>
       ) : (
         <>
@@ -56,10 +58,8 @@ const FinanceDataListItem = ({
           <div>
             {item.formMode === "income" ? "+" : "-"} {item.value}
           </div>
-          <button onClick={handleEditButton}>Edit</button>
-          <button onClick={() => onDeleteItem(item.date, item.id)}>
-            Delete
-          </button>
+          <Button type="button" text={"Edit"} onClick={handleEditButton} />
+          <Button type="button" text={"Delete"} onClick={() => onDeleteItem(item.date, item.id)} />
         </>
       )}
     </li>
