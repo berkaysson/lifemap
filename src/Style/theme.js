@@ -1,4 +1,4 @@
-const themeColors = "#fca311"
+const themeColors = "#fca311";
 
 export const theme = {
   colors: {
@@ -13,9 +13,14 @@ export const theme = {
     large: "24px",
   },
   radius: {
-    medium: "20px",
+    small: "6px",
+    medium: "16px",
+    large: "30px",
   },
   boxShadows: {
     themeShadow: `0 0 6px 0px ${themeColors}`,
-  }
-}
+    largeCardShadow:
+      "rgba(0, 0, 0, 0.5) 0px 20px 20px 5px",
+    innerShadow: "rgba(0, 0, 0, 0.4) 0px -30px 30px -20px inset",
+  },
+};
