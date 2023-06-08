@@ -3,7 +3,7 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 
 import { DateRange } from "react-date-range";
 import addDays from "date-fns/addDays";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { enGB } from "date-fns/locale";
 
@@ -27,6 +27,9 @@ const DateRangeSelector = ({ onSubmit }) => {
     );
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(()=>{onDateRangeSelection()}, [state]);
+
   return (
     <Wrapper>
       <DateRange
@@ -38,7 +41,6 @@ const DateRangeSelector = ({ onSubmit }) => {
         direction="vertical"
         locale={enGB}
       />
-      <button type="button" onClick={onDateRangeSelection}>Show</button>
     </Wrapper>
   );
 };
