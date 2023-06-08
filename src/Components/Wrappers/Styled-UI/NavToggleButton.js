@@ -12,8 +12,10 @@ const Button = styled.button`
   border: none;
   border-radius: 50%;
   padding: ${({theme}) => theme.sizes.small};
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
 
-  transition: transform 0.1s ease;
   transform: ${({isOpen}) => !isOpen ? "rotate(180deg) translateX(-50%)": "rotate(0) translateX(-50%)"};
 
   &:hover {
