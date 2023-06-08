@@ -16,6 +16,7 @@ import { NavItemWrapper } from "../Components/Wrappers/Styled-Wrappers/Navigatio
 const NavItemsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
   gap: 1rem;
   margin-top: 1rem;
   width: 100%;
@@ -33,31 +34,45 @@ const NavBar = () => {
       <NavItemsWrapper>
         <NavItemWrapper to="/" activeClassName="active">
           <HomeIcon />
-          {isOpen ? "Home" : ""}
+          <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
+            Home
+          </span>
         </NavItemWrapper>
         <NavItemWrapper to="edit-activity-unit" activeClassName="active">
           <AddCircleIcon />
-          {isOpen ? "Add Activity Unit" : ""}
+          <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
+            Add Activity Unit
+          </span>
         </NavItemWrapper>
         <NavItemWrapper to="tasks-habits" activeClassName="active">
           <AssignmentIcon />
-          {isOpen ? "Tasks & Habits" : ""}
+          <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
+            Tasks & Habits
+          </span>
         </NavItemWrapper>
         <NavItemWrapper to="finances" activeClassName="active">
           <MonetizationOnIcon />
-          {isOpen ? "Finances" : ""}
+          <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
+            Finances
+          </span>
         </NavItemWrapper>
         <NavItemWrapper to="view-activity-units" activeClassName="active">
           <TocIcon />
-          {isOpen ? "View Activity Units" : ""}
+          <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
+            View Activity Units
+          </span>
         </NavItemWrapper>
         <NavItemWrapper to="charts" activeClassName="active">
           <BarChartIcon />
-          {isOpen ? "Charts" : ""}
+          <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
+            Charts
+          </span>
         </NavItemWrapper>
         <NavItemWrapper to="settings" activeClassName="active">
           <SettingsIcon />
-          {isOpen ? "Settings" : ""}
+          <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
+            Settings
+          </span>
         </NavItemWrapper>
       </NavItemsWrapper>
       <NavToggleButton
