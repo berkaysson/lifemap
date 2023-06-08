@@ -14,7 +14,7 @@ const SwitchWrapper = styled.div`
 
 const Button = styled.button`
   font-size: ${({theme}) => theme.sizes.medium};
-  transition: background-color 0.3s;
+  transition: background-color 0.2s;
   flex: 1;
   border: none;
   padding: 5px;
@@ -26,6 +26,10 @@ const Button = styled.button`
 
   &:hover{
     font-weight: bold;
+  }
+
+  &:active{
+    background-color:${({theme}) => theme.colors.theme};
   }
   
   &:first-child {
