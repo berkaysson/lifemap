@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
 import HomeIcon from "@mui/icons-material/Home";
@@ -11,33 +10,13 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 import NavToggleButton from "../Components/Wrappers/Styled-Elements/NavToggleButton";
-import { NavWrapper } from "../Components/Wrappers/Styled-Wrappers/NavWrapper";
+import { NavWrapper } from "../Components/Wrappers/Styled-Wrappers/Navigation/NavWrapper";
+import { NavItemWrapper } from "../Components/Wrappers/Styled-Wrappers/Navigation/NavItemWrapper";
 
 const NavItemsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-`;
-
-const NavItem = styled(NavLink)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  font-size: ${({ theme }) => theme.sizes.medium};
-  padding: ${({ theme }) => theme.sizes.small};
-  text-decoration: none;
-  cursor: pointer;
-  color: ${({ theme }) => theme.colors.secondary};
-  border-radius: ${({ theme }) => theme.radius.medium};
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.theme};
-  }
-
-  &.active {
-    background-color: ${({ theme }) => theme.colors.alternative};
-    color: ${({ theme }) => theme.colors.theme};
-  }
 `;
 
 const NavBar = () => {
@@ -50,34 +29,34 @@ const NavBar = () => {
   return (
     <NavWrapper isOpen={isOpen}>
       <NavItemsWrapper>
-        <NavItem to="/" activeClassName="active">
+        <NavItemWrapper to="/" activeClassName="active">
           <HomeIcon />
           {isOpen ? "Home" : ""}
-        </NavItem>
-        <NavItem to="edit-activity-unit" activeClassName="active">
+        </NavItemWrapper>
+        <NavItemWrapper to="edit-activity-unit" activeClassName="active">
           <AddCircleIcon />
           {isOpen ? "Add Activity Unit" : ""}
-        </NavItem>
-        <NavItem to="tasks-habits" activeClassName="active">
+        </NavItemWrapper>
+        <NavItemWrapper to="tasks-habits" activeClassName="active">
           <AssignmentIcon />
           {isOpen ? "Tasks & Habits" : ""}
-        </NavItem>
-        <NavItem to="finances" activeClassName="active">
+        </NavItemWrapper>
+        <NavItemWrapper to="finances" activeClassName="active">
           <MonetizationOnIcon />
           {isOpen ? "Finances" : ""}
-        </NavItem>
-        <NavItem to="view-activity-units" activeClassName="active">
+        </NavItemWrapper>
+        <NavItemWrapper to="view-activity-units" activeClassName="active">
           <TocIcon />
           {isOpen ? "View Activity Units" : ""}
-        </NavItem>
-        <NavItem to="charts" activeClassName="active">
+        </NavItemWrapper>
+        <NavItemWrapper to="charts" activeClassName="active">
           <BarChartIcon />
           {isOpen ? "Charts" : ""}
-        </NavItem>
-        <NavItem to="settings" activeClassName="active">
+        </NavItemWrapper>
+        <NavItemWrapper to="settings" activeClassName="active">
           <SettingsIcon />
           {isOpen ? "Settings" : ""}
-        </NavItem>
+        </NavItemWrapper>
       </NavItemsWrapper>
       <NavToggleButton
         onClick={toggleIsOpen}
