@@ -5,6 +5,7 @@ import CategorySubCategorySelect from "../../Categories/CategorySubCategorySelec
 import HabitFrequencySelector from "./HabitFrequencySelector";
 import HabitDurationInput from "./HabitDurationInput";
 import FormWrapper from "../../Wrappers/Styled-Wrappers/FormWrapper";
+import Button from "../../Wrappers/Styled-Elements/Button";
 
 const HabitsForm = ({ onAddHabitUnit, activityCategories }) => {
   const [habit, setHabit] = useState({
@@ -68,7 +69,7 @@ const HabitsForm = ({ onAddHabitUnit, activityCategories }) => {
           Enter Name of the habit
           <input type="text" name="nameValue" onChange={nameValueHandler} />
         </label>
-        <button type="submit">Submit</button>
+        <Button type={"submit"} text={"Submit"} />
       </FormWrapper>
     </div>
   );

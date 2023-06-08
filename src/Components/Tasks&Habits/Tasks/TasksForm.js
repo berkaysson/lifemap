@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import CategorySubCategorySelect from "../../Categories/CategorySubCategorySelect";
 import DateRangeSelector from "../../Wrappers/DateRangeSelector";
 import FormWrapper from "../../Wrappers/Styled-Wrappers/FormWrapper";
+import Button from "../../Wrappers/Styled-Elements/Button";
 
 const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
   const [task, setTask] = useState({
@@ -51,7 +52,8 @@ const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
           Enter Name of the task
           <input type="text" name="nameValue" onChange={nameValueHandler} />
         </label>
-        <button type="submit">Submit</button>
+
+        <Button type={"submit"} text={"Submit"} />
       </FormWrapper>
     </div>
   );

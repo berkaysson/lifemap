@@ -1,5 +1,7 @@
 import React from "react";
 
+import Button from "../../Wrappers/Styled-Elements/Button";
+
 const TaskItem = ({ task, onDeleteTaskDataUnit }) => {
   const deleteHandler = () => {
     onDeleteTaskDataUnit(task.id);
@@ -14,9 +16,7 @@ const TaskItem = ({ task, onDeleteTaskDataUnit }) => {
       <p>Start Date: {task?.startDate}</p>
       <p>End Date: {task?.endDate}</p>
       <p>Time Value: {task?.timeValue}</p>
-      <button type="button" onClick={deleteHandler}>
-        Delete
-      </button>
+      <Button type={"button"} text={"Delete"} onClick={deleteHandler} />
     </li>
   );
 };

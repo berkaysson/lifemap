@@ -1,6 +1,8 @@
 import React from "react";
 import moment from "moment";
 
+import Button from "../../Wrappers/Styled-Elements/Button";
+
 const HabitItem = ({ habit, onDeleteHabitDataUnit }) => {
   const deleteHandler = () => {
     onDeleteHabitDataUnit(habit.id);
@@ -17,9 +19,7 @@ const HabitItem = ({ habit, onDeleteHabitDataUnit }) => {
               .subtract(1, 'day').format("YYYY-MM-DD") : "no end date"}</p>
       <p>Time Value: {habit?.timeValue}</p>
       <p>Check Frequency: {habit?.frequency}</p>
-      <button type="button" onClick={deleteHandler}>
-        Delete
-      </button>
+      <Button type={"button"} text={"Delete"} onClick={deleteHandler} />
     </li>
   );
 };
