@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledButton = styled.button`
+  transition: background-color 0.2s;
   background-color: ${({theme}) => theme.colors.secondary};
   color: ${({theme}) => theme.colors.primary};
   border: 1px solid ${({theme}) => theme.colors.alternative};
