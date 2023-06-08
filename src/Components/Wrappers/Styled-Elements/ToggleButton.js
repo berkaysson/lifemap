@@ -7,20 +7,27 @@ const SwitchWrapper = styled.div`
   justify-content: center;
   max-width: 250px;
   margin: 0;
+  padding: 1px;
+  border-radius: ${({theme}) => theme.radius.small};
+  box-shadow: ${({theme}) => theme.boxShadows.smallCardShadow};
 `;
 
 const Button = styled.button`
-  transition: all 0.3s ease;
+  font-size: ${({theme}) => theme.sizes.medium};
+  transition: background-color 0.3s;
   flex: 1;
   border: none;
   padding: 5px;
-  background-color: ${({ active }) => (active ? "#2ecc71" : "gray")};
-  color: white;
-  font-weight: bold;
+  background-color: ${({ active, theme }) => (active ? `${theme.colors.primary}` : `${theme.colors.alternative}`)};
+  color: ${({ active, theme }) => (active ? `${theme.colors.secondary}` : `${theme.colors.primary}`)};
   cursor: pointer;
-  letter-spacing: ${({ active }) => (active ? "3px" : "normal")};
-  border-radius: 1rem;
+  border-radius: ${({theme}) => theme.radius.small};
+  white-space: nowrap;
 
+  &:hover{
+    font-weight: bold;
+  }
+  
   &:first-child {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
