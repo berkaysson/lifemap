@@ -3,7 +3,8 @@ import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 
 const Button = styled.button`
   position: absolute;
-  right: -2.5rem;
+  top: 30px;
+  right: -2.7rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,12 +16,14 @@ const Button = styled.button`
   opacity: 0;
   pointer-events: none;
   transition: all 0.2s ease;
+  border: 1px solid black;
 
   transform: ${({isOpen}) => !isOpen ? "rotate(180deg) translateX(-50%)": "rotate(0) translateX(-50%)"};
 
   &:hover {
-    color: ${({theme}) => theme.colors.theme};
-    box-shadow: ${({theme}) => theme.boxShadows.themeShadow};
+    background-color: ${({theme}) => theme.colors.secondary};
+    color: ${({theme}) => theme.colors.primary};
+    box-shadow: ${({theme}) => theme.boxShadows.innerShadow};
   }
 `;
 
