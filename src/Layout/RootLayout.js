@@ -18,7 +18,7 @@ const Sidebar = styled.aside`
   position: sticky;
   top: 0;
   left: 0;
-  height: 100vh;
+  height: 100%;
   padding: ${({theme}) => theme.sizes.medium};
 `;
 
