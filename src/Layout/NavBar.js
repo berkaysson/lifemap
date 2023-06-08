@@ -2,13 +2,13 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
-import HomeIcon from '@mui/icons-material/Home';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
-import TocIcon from '@mui/icons-material/Toc';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import SettingsIcon from '@mui/icons-material/Settings';
+import HomeIcon from "@mui/icons-material/Home";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import TocIcon from "@mui/icons-material/Toc";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 import NavToggleButton from "../Components/Wrappers/Styled-UI/NavToggleButton";
 
@@ -17,14 +17,39 @@ const NavWrapper = styled.nav`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background-color: ${({theme}) => theme.colors.primary};
-  color:${({theme}) => theme.colors.secondary} ;
-  padding: ${({theme, isOpen}) => isOpen ?  theme.sizes.medium : theme.sizes.small};
+  position: relative;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.secondary};
+  padding: ${({ theme, isOpen }) =>
+    isOpen ? theme.sizes.medium : theme.sizes.small};
   height: 100%;
   width: ${({ isOpen }) => (isOpen ? "240px" : "60px")};
-  border-radius: ${({theme}) => theme.radius.medium};
+  border-radius: ${({ theme }) => theme.radius.medium};
 
   transition: width 0.4s ease;
+
+  //Toggle button visibility
+  &::before {
+    content: "";
+    position: absolute;
+    width: 2.4rem;
+    height: 100%;
+    top: 0;
+    left: 100%;
+  }
+
+  & #NavToggleButton {
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+  }
+
+  &:hover #NavToggleButton {
+    opacity: 1;
+    pointer-events: auto;
+    transform: ${({ isOpen }) =>
+      !isOpen ? "rotate(180deg) translateX(0)" : "rotate(0) translateX(0)"};
+  }
 `;
 
 const NavItemsWrapper = styled.div`
@@ -37,20 +62,20 @@ const NavItem = styled(NavLink)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-size: ${({theme}) => theme.sizes.medium};
-  padding: ${({theme}) => theme.sizes.small};
+  font-size: ${({ theme }) => theme.sizes.medium};
+  padding: ${({ theme }) => theme.sizes.small};
   text-decoration: none;
   cursor: pointer;
-  color:${({theme}) => theme.colors.secondary};
-  border-radius: ${({theme}) => theme.radius.medium};
+  color: ${({ theme }) => theme.colors.secondary};
+  border-radius: ${({ theme }) => theme.radius.medium};
 
-  &:hover{
-    color:${({theme}) => theme.colors.theme};
+  &:hover {
+    color: ${({ theme }) => theme.colors.theme};
   }
 
   &.active {
-    background-color: ${({theme}) => theme.colors.alternative};
-    color:${({theme}) => theme.colors.theme};
+    background-color: ${({ theme }) => theme.colors.alternative};
+    color: ${({ theme }) => theme.colors.theme};
   }
 `;
 
@@ -93,7 +118,11 @@ const NavBar = () => {
           {isOpen ? "Settings" : ""}
         </NavItem>
       </NavItemsWrapper>
-      <NavToggleButton onClick={toggleIsOpen} isOpen={isOpen} />
+      <NavToggleButton
+        onClick={toggleIsOpen}
+        isOpen={isOpen}
+        id={"NavToggleButton"}
+      />
     </NavWrapper>
   );
 };
