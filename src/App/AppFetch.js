@@ -235,9 +235,9 @@ const AppFetch = ({
   };
 
   return (
-    <div>
+    <>
       {isLoading ? <p>Loading...</p> : <AppContent {...updatedContentProps} />}
-    </div>
+    </>
   );
 };
 
