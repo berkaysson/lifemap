@@ -13,7 +13,7 @@ text-decoration: none;
 cursor: pointer;
 color: ${({ theme }) => theme.colors.secondary};
 border-radius: ${({ theme }) => theme.radius.medium};
-transition: 0.4s;
+transition: background-color 0.4s, color 0.4s;
 height: 45px;
 box-shadow: ${({ theme }) => theme.boxShadows.innerShadow};
 
@@ -21,13 +21,12 @@ text-overflow:clip;
 white-space: nowrap;
 
 &:hover {
-  color: ${({ theme }) => theme.colors.theme};
+  font-weight: bold;
 }
 
 &.active {
-  background-color: ${({ theme }) => theme.colors.secondary};
+  background-color: ${({ theme }) => theme.colors.theme};
   color: ${({ theme }) => theme.colors.primary};
-  font-weight: bold;
 }
 
 @keyframes fade-in-out {
