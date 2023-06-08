@@ -17,6 +17,7 @@ body {
   font-family: 'Quicksand', sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  position: relative;
 }
 
 img, picture, video, canvas, svg {
