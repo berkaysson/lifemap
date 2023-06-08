@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import Select from "react-select";
+import { StyledSelect } from "./Styled-Elements/StyledSelect";
 
 const SubCategorySelect = ({
   options,
@@ -31,7 +32,7 @@ const SubCategorySelect = ({
     <>
       {options && options.length > 0 ? (
         <>
-          <Select
+          <StyledSelect
             onChange={handleSelectChange}
             options={options}
             placeholder={placeholder}

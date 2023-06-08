@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import Select from "react-select";
 import SubCategorySelect from "../Wrappers/SubCategorySelect";
+import { StyledSelect } from "../Wrappers/Styled-Elements/StyledSelect";
 
 const CategorySubCategorySelect = ({ categories, onSubCategorySelect }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -64,7 +65,7 @@ const CategorySubCategorySelect = ({ categories, onSubCategorySelect }) => {
   return (
     <div>
       <label>Select Category</label>
-      <Select
+      <StyledSelect
         onChange={categorySelectionHandler}
         options={categoryOptions}
         placeholder="--Select a category--"
