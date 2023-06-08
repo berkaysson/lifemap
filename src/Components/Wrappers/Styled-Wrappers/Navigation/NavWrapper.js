@@ -8,10 +8,11 @@ export const NavWrapper = styled.nav`
   position: relative;
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.secondary};
-  padding: 10px;
+  padding: 1rem;
   height: 100%;
   width: ${({ isOpen }) => (isOpen ? "240px" : "60px")};
   border-radius: ${({ theme }) => theme.radius.medium};
+  box-shadow: ${({ theme }) => theme.boxShadows.largeCardShadow};
 
   transition: width 0.4s ease;
 
