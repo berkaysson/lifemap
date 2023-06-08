@@ -15,6 +15,7 @@ color: ${({ theme }) => theme.colors.secondary};
 border-radius: ${({ theme }) => theme.radius.medium};
 transition: 0.4s;
 height: 45px;
+box-shadow: ${({ theme }) => theme.boxShadows.innerShadow};
 
 text-overflow:clip;
 white-space: nowrap;
