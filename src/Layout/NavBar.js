@@ -11,46 +11,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 import NavToggleButton from "../Components/Wrappers/Styled-UI/NavToggleButton";
-
-const NavWrapper = styled.nav`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  position: relative;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.secondary};
-  padding: ${({ theme, isOpen }) =>
-    isOpen ? theme.sizes.medium : theme.sizes.small};
-  height: 100%;
-  width: ${({ isOpen }) => (isOpen ? "240px" : "60px")};
-  border-radius: ${({ theme }) => theme.radius.medium};
-
-  transition: width 0.4s ease;
-
-  //Toggle button visibility
-  &::before {
-    content: "";
-    position: absolute;
-    width: 2.4rem;
-    height: 100%;
-    top: 0;
-    left: 100%;
-  }
-
-  & #NavToggleButton {
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.2s ease;
-  }
-
-  &:hover #NavToggleButton {
-    opacity: 1;
-    pointer-events: auto;
-    transform: ${({ isOpen }) =>
-      !isOpen ? "rotate(180deg) translateX(0)" : "rotate(0) translateX(0)"};
-  }
-`;
+import { NavWrapper } from "../Components/Wrappers/NavWrapper";
 
 const NavItemsWrapper = styled.div`
   display: flex;
