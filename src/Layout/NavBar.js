@@ -16,6 +16,8 @@ import { NavItemWrapper } from "../Components/Wrappers/Styled-Wrappers/Navigatio
 const NavItemsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
   width: 100%;
 `;
 
