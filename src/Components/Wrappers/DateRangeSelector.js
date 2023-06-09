@@ -14,7 +14,7 @@ const Wrapper = styled.div`
 const DateRangeSelector = ({ onSubmit }) => {
   const [state, setState] = useState([
     {
-      endDate: new Date(),
+      endDate: addDays(new Date(), -1),
       startDate: addDays(new Date(), -7),
       key: "selection",
     },
