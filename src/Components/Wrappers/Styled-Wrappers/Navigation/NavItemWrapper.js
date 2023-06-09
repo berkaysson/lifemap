@@ -22,6 +22,7 @@ white-space: nowrap;
 
 &:hover {
   font-weight: bold;
+  color: ${({ theme }) => theme.colors.theme};
 }
 
 &.active {
