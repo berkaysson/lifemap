@@ -6,6 +6,7 @@ import DataViewer from "../Components/DataViewer/DataViewer.js";
 import DataViewerForm from "../Components/DataViewer/DataViewerForm";
 import ToggleButton from "../Components/Wrappers/Styled-Elements/ToggleButton.js";
 import DateRangeSelector from "../Components/Wrappers/DateRangeSelector";
+import Button from "../Components/Wrappers/Styled-Elements/Button.js";
 
 const Wrapper = styled.section`
   border: 2px solid green;
@@ -50,7 +51,6 @@ const ViewActivityUnitsPage = ({
       const newActivityDataUnit = await activityDataUnits.find(
         (obj) => obj.date === date
       );
-
       filteredData.push(newActivityDataUnit);
       startDate.add(1, "days");
     }
@@ -58,10 +58,14 @@ const ViewActivityUnitsPage = ({
     setFilteredActivityDataUnits(filteredData);
   };
 
+  const dateRangeButtonHandler = () => {
+    updateFilteredActivityDataUnits();
+  }
+
   useEffect(() => {
     updateFilteredActivityDataUnits();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activityDataUnits, selectedDateRange, isDateRangeSelected]);
+  }, [activityDataUnits, isDateRangeSelected]);
 
   return (
     <Wrapper>
@@ -74,7 +78,10 @@ const ViewActivityUnitsPage = ({
         ]}
       />
       {isDateRangeSelected ? (
-        <DateRangeSelector onSubmit={dateRangeInputHandler} />
+        <>
+          <DateRangeSelector onSubmit={dateRangeInputHandler} />
+          <Button type="button" text="Show" onClick={dateRangeButtonHandler} />
+        </>
       ) : (
         <>
           <DataViewerForm
