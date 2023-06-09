@@ -1,39 +1,20 @@
-import styled from "styled-components";
-
-const Table = styled.table`
-  border-collapse: collapse;
-  margin: 20px 0;
-`;
-
-const TableHead = styled.thead`
-  background-color: #eee;
-`;
-
-const TableHeader = styled.th`
-  padding: 10px;
-  text-align: left;
-`;
-
-const TableRow = styled.tr`
-  &:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-`;
-
-const TableCell = styled.td`
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
-`;
-
 const DataViewer = ({ selectedDateDataUnit, activityCategories }) => {
   if (!selectedDateDataUnit || !activityCategories) return <p>No Data</p>;
 
-  const tableHeaders = activityCategories.map((category) =>
+  const categoryHeaders = activityCategories.map((category) => (
+    <th
+      key={`${category.name}-header`}
+      colSpan={category.subCategories.length}
+    >
+      {category.name}
+    </th>
+  ));
+
+  const subCategoryHeaders = activityCategories.map((category) =>
     category.subCategories.map((subCategory) => (
-      <TableHeader key={`${category.name}-${subCategory}`}>
+      <th key={`${category.name}-${subCategory}`}>
         {subCategory}
-      </TableHeader>
+      </th>
     ))
   );
 
@@ -46,29 +27,24 @@ const DataViewer = ({ selectedDateDataUnit, activityCategories }) => {
     });
   });
 
+  const subCategoryValues = tableRow.map((column, index) => (
+    <td key={`cell-${index}`}>{column}</td>
+  ));
+
   return (
     <>
       <h3>{selectedDateDataUnit.date}</h3>
-      <Table>
-        <TableHead>
-          {activityCategories.map((category) => (
-            <th
-              key={`${category.name}-header`}
-              colSpan={category.subCategories.length}
-            >
-              {category.name}
-            </th>
-          ))}
-          <TableRow>{tableHeaders}</TableRow>
-        </TableHead>
+      <table>
+        <thead>
+          {categoryHeaders}
+          <tr>{subCategoryHeaders}</tr>
+        </thead>
         <tbody>
-          <TableRow>
-            {tableRow.map((column, index) => (
-              <TableCell key={`cell-${index}`}>{column}</TableCell>
-            ))}
-          </TableRow>
+          <tr>
+            {subCategoryValues}
+          </tr>
         </tbody>
-      </Table>
+      </table>
     </>
   );
 };
