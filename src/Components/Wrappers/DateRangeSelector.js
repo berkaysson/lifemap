@@ -6,10 +6,29 @@ import addDays from "date-fns/addDays";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { enGB } from "date-fns/locale";
+import { theme } from "../../Style/theme";
 
 const Wrapper = styled.div`
-  border: 1px solid red;
+  width: fit-content;
+  padding: ${({theme}) => theme.sizes.small};
+  box-shadow: ${({theme}) => theme.boxShadows.smallCardShadow};
+  border: 1px solid ${({theme}) => theme.colors.alternative};
+  border-radius: ${({theme}) => theme.radius.small};
 `;
+
+const DateRangeWrapper = styled(DateRange)`
+ & .rdrMonth {
+  & .rdrWeekDays >*{
+    color: ${({theme}) => theme.colors.primary};
+  }
+
+  & .rdrDays >* {
+    &.rdrDayToday >.rdrDayNumber>span::after{
+      background-color: ${({theme}) => theme.colors.primary};
+    }
+  }
+ }
+`
 
 const DateRangeSelector = ({ onSubmit }) => {
   const [state, setState] = useState([
@@ -32,7 +51,7 @@ const DateRangeSelector = ({ onSubmit }) => {
 
   return (
     <Wrapper>
-      <DateRange
+      <DateRangeWrapper
         onChange={(item) => setState([item.selection])}
         showSelectionPreview={true}
         moveRangeOnFirstSelection={false}
@@ -40,6 +59,7 @@ const DateRangeSelector = ({ onSubmit }) => {
         ranges={state}
         direction="vertical"
         locale={enGB}
+        rangeColors={[`${theme.colors.theme}`]}
       />
     </Wrapper>
   );
