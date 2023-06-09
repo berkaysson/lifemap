@@ -7,6 +7,7 @@ import ToggleButton from "../Wrappers/Styled-Elements/ToggleButton";
 import CategorySubCategorySelect from "./CategorySubCategorySelect.js";
 import FormWrapper from "../Wrappers/Styled-Wrappers/FormWrapper";
 import { StyledSelect } from "../Wrappers/Styled-Elements/StyledSelect";
+import StyledInput from "../Wrappers/Styled-Elements/StyledInput";
 
 const CategoryUpdateFormWrapper = styled.div``;
 
@@ -97,7 +98,7 @@ const CategoriesForm = ({
                 onChange={categorySelectHandler}
                 placeholder="--Select a category--"
               />
-              <input type="text" name="subCategoryInput"></input>
+              <StyledInput type="text" name="subCategoryInput" />
               <Button text={"Submit"} type={"submit"} />
             </FormWrapper>
           </>

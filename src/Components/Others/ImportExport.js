@@ -3,6 +3,7 @@ import { useState } from "react";
 import Button from "../Wrappers/Styled-Elements/Button";
 
 import styled from "styled-components";
+import StyledInput from "../Wrappers/Styled-Elements/StyledInput";
 
 const DexieImportExportWrapper = styled.div``;
 

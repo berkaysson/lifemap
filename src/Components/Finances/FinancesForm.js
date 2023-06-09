@@ -6,6 +6,7 @@ import Button from "../Wrappers/Styled-Elements/Button";
 import ToggleButton from "../Wrappers/Styled-Elements/ToggleButton";
 import SubCategorySelect from "../Wrappers/SubCategorySelect";
 import FormWrapper from "../Wrappers/Styled-Wrappers/FormWrapper";
+import StyledInput from "../Wrappers/Styled-Elements/StyledInput";
 
 const Wrapper = styled.div`
   border: 1px solid red;
@@ -92,7 +93,7 @@ const FinancesForm = ({
       <FormWrapper onSubmit={submitHandler}>
         <label>Date:</label>
         {dateInputActive ? (
-          <input type="date" name="dateInput" defaultValue={date}></input>
+          <StyledInput type="date" name="dateInput" defaultValue={date} />
         ) : (
           date
         )}
@@ -116,7 +117,7 @@ const FinancesForm = ({
             { value: "income", label: "Income" },
           ]}
         />
-        <input type="number" name="expenseValue" />
+        <StyledInput type="number" name="expenseValue" />
         <Button text={"Submit"} type={"submit"} />
       </FormWrapper>
     </Wrapper>

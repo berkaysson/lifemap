@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import Button from "../Wrappers/Styled-Elements/Button";
 import FormWrapper from "../Wrappers/Styled-Wrappers/FormWrapper";
+import StyledInput from "../Wrappers/Styled-Elements/StyledInput";
 
 const DataViewerFormWrapper = styled.div``;
 
@@ -14,7 +15,7 @@ const DataViewerForm = ({ onDateSelection }) => {
   return (
     <DataViewerFormWrapper>
       <FormWrapper onSubmit={clickHandler}>
-        <input type="date" />
+        <StyledInput type="date" />
         <Button text={"Display the Date"} type={"submit"} />
       </FormWrapper>
     </DataViewerFormWrapper>

@@ -6,6 +6,7 @@ import moment from "moment";
 import FinanceDataListItem from "./FinanceDataListItem";
 import ToggleButton from "../Wrappers/Styled-Elements/ToggleButton";
 import DateRangeSelector from "../Wrappers/DateRangeSelector";
+import StyledInput from "../Wrappers/Styled-Elements/StyledInput";
 
 const CURRENT_DATE = new Date().toISOString().slice(0, 10);
 
@@ -81,7 +82,7 @@ const FinanceDataList = ({
       {isDateRangeSelected ? (
         <DateRangeSelector onSubmit={dateRangeInputHandler} />
       ) : (
-        <input type="date" value={selectedDate} onChange={dateInputHandler} />
+        <StyledInput type="date" value={selectedDate} onChange={dateInputHandler} />
       )}
       <ul>
         {!filteredFinanceDatas || filteredFinanceDatas.length === 0 ? (

@@ -6,6 +6,7 @@ import Button from "../Wrappers/Styled-Elements/Button";
 import ToggleButton from "../Wrappers/Styled-Elements/ToggleButton";
 import CategorySubCategorySelect from "../Categories/CategorySubCategorySelect";
 import FormWrapper from "../Wrappers/Styled-Wrappers/FormWrapper";
+import StyledInput from "../Wrappers/Styled-Elements/StyledInput";
 
 const DataUpdaterFormWrapper = styled.div``;
 
@@ -97,11 +98,11 @@ const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
       <FormWrapper onSubmit={submitHandler}>
         <label>Date:</label>
         {dateInputActive ? (
-          <input
+          <StyledInput
             type="date"
             name="dateInput"
             defaultValue={selectedDate}
-          ></input>
+          />
         ) : (
           selectedDate
         )}
@@ -117,7 +118,7 @@ const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
           onSubCategorySelect={subCategorySelectHandler}
         />
         <label>Enter the value</label>
-        <input type="number" name="valueInput"></input>
+        <StyledInput type="number" name="valueInput" />
         <div>
           <label>Do you want to add the value or delete</label>
           <ToggleButton

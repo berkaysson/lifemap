@@ -5,6 +5,7 @@ import CategorySubCategorySelect from "../../Categories/CategorySubCategorySelec
 import DateRangeSelector from "../../Wrappers/DateRangeSelector";
 import FormWrapper from "../../Wrappers/Styled-Wrappers/FormWrapper";
 import Button from "../../Wrappers/Styled-Elements/Button";
+import StyledInput from "../../Wrappers/Styled-Elements/StyledInput";
 
 const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
   const [task, setTask] = useState({
@@ -47,10 +48,10 @@ const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
         />
         <DateRangeSelector onSubmit={dateRangeHandler} />
         <label>Enter minute:</label>
-        <input type="number" name="timeValue" onChange={timeValueHandler} />
+        <StyledInput type="number" name="timeValue" onChange={timeValueHandler} />
         <label>
           Enter Name of the task
-          <input type="text" name="nameValue" onChange={nameValueHandler} />
+          <StyledInput type="text" name="nameValue" onChange={nameValueHandler} />
         </label>
 
         <Button type={"submit"} text={"Submit"} />

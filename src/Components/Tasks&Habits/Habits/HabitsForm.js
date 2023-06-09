@@ -6,6 +6,7 @@ import HabitFrequencySelector from "./HabitFrequencySelector";
 import HabitDurationInput from "./HabitDurationInput";
 import FormWrapper from "../../Wrappers/Styled-Wrappers/FormWrapper";
 import Button from "../../Wrappers/Styled-Elements/Button";
+import StyledInput from "../../Wrappers/Styled-Elements/StyledInput";
 
 const HabitsForm = ({ onAddHabitUnit, activityCategories }) => {
   const [habit, setHabit] = useState({
@@ -64,10 +65,10 @@ const HabitsForm = ({ onAddHabitUnit, activityCategories }) => {
         <HabitFrequencySelector onSelect={frequencyHandler} />
         <HabitDurationInput onChange={durationHandler} frequency={habit.frequency} />
         <label>Enter minute:</label>
-        <input type="number" name="timeValue" onChange={timeValueHandler} />
+        <StyledInput type="number" name="timeValue" onChange={timeValueHandler} />
         <label>
           Enter Name of the habit
-          <input type="text" name="nameValue" onChange={nameValueHandler} />
+          <StyledInput type="text" name="nameValue" onChange={nameValueHandler} />
         </label>
         <Button type={"submit"} text={"Submit"} />
       </FormWrapper>

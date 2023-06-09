@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { calculateFrequencyDateValue, formatDate } from "../../../Utilities/dateHelpers";
+import StyledInput from "../../Wrappers/Styled-Elements/StyledInput";
 
 const HabitDurationInput = ({ onChange, frequency }) => {
   const [dateRange, setDateRange] = useState(null);
@@ -36,7 +37,7 @@ const HabitDurationInput = ({ onChange, frequency }) => {
   return (
     <>
       <label>Habit Period:</label>
-      <input
+      <StyledInput
         type="number"
         placeholder="Enter task period"
         value={duration || ""}
@@ -44,15 +45,17 @@ const HabitDurationInput = ({ onChange, frequency }) => {
       />
       {dateRange && frequency && (
         <p>
-        Start Date:{" "}
-        <input
-          type="date"
-          value={startDate || formatDate(new Date())}
-          onChange={handleStartDateChange}
-        />
-        , End Date: {moment(new Date(dateRange?.endDate))
-              .subtract(1, 'day').format("YYYY-MM-DD")}
-      </p>
+          Start Date:{" "}
+          <StyledInput
+            type="date"
+            value={startDate || formatDate(new Date())}
+            onChange={handleStartDateChange}
+          />
+          , End Date:{" "}
+          {moment(new Date(dateRange?.endDate))
+            .subtract(1, "day")
+            .format("YYYY-MM-DD")}
+        </p>
       )}
     </>
   );
