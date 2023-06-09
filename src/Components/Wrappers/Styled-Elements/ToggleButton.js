@@ -14,7 +14,7 @@ const SwitchWrapper = styled.div`
 
 const Button = styled.button`
   font-size: ${({theme}) => theme.sizes.medium};
-  transition: background-color 0.2s;
+  transition: background-color 0.4s, color 0.4s;
   flex: 1;
   border: none;
   padding: 5px;
