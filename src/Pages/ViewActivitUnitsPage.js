@@ -51,7 +51,7 @@ const ViewActivityUnitsPage = ({
       const newActivityDataUnit = await activityDataUnits.find(
         (obj) => obj.date === date
       );
-      filteredData.push(newActivityDataUnit);
+      if(newActivityDataUnit) filteredData.push(newActivityDataUnit);
       startDate.add(1, "days");
     }
 
