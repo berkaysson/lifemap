@@ -13,7 +13,7 @@ const HabitDurationInput = ({ onChange, frequency }) => {
     setDateRange(range);
     onChange(range.startDate, range.endDate);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [frequency, duration]);
+  }, [frequency, duration, startDate]);
 
   const calculateDateRange = (value) => {
     const firstDay = startDate ? moment(startDate) : moment();
