@@ -1,4 +1,5 @@
 import TableWrapper from "../Wrappers/TableWrapper";
+
 import styled from "styled-components";
 
 const DataViewerWrapper = styled.div`
@@ -6,18 +7,18 @@ const DataViewerWrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  gap: ${({theme}) => theme.sizes.medium};
+  gap: ${({ theme }) => theme.sizes.medium};
   width: fit-content;
   border: 1px solid black;
-  padding: ${({theme}) => theme.sizes.small};
+  padding: ${({ theme }) => theme.sizes.small};
 `;
 
 const TablesWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: ${({theme}) => theme.sizes.large};
-`
+  gap: ${({ theme }) => theme.sizes.large};
+`;
 
 const DataViewer = ({ selectedDateDataUnit, activityCategories }) => {
   if (!selectedDateDataUnit || !activityCategories) return <p>No Data</p>;
