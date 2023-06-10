@@ -6,6 +6,7 @@ const SwitchWrapper = styled.div`
   align-items: center;
   justify-content: center;
   max-width: 250px;
+  min-width: 250px;
   margin: 0;
   padding: 1px;
   border-radius: ${({theme}) => theme.radius.small};

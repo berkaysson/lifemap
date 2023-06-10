@@ -8,7 +8,42 @@ import CategorySubCategorySelect from "../Categories/CategorySubCategorySelect";
 import FormWrapper from "../Wrappers/Styled-Wrappers/FormWrapper";
 import StyledInput from "../Wrappers/Styled-Elements/StyledInput";
 
-const DataUpdaterFormWrapper = styled.div``;
+const DateFormWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: ${({ theme }) => theme.sizes.medium};
+`;
+
+const DateWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: ${({ theme }) => theme.sizes.small};
+`;
+
+const ValueInputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: ${({ theme }) => theme.sizes.medium};
+
+  & >label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  & > :last-child {
+    margin-top: ${({ theme }) => theme.sizes.large};
+    width: 100%;
+  }
+`;
 
 const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
   const selectedDate = new Date().toISOString().slice(0, 10);
@@ -94,44 +129,46 @@ const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
   };
 
   return (
-    <DataUpdaterFormWrapper>
-      <FormWrapper onSubmit={submitHandler}>
-        <label>Date:</label>
-        {dateInputActive ? (
-          <StyledInput
-            type="date"
-            name="dateInput"
-            defaultValue={selectedDate}
-          />
-        ) : (
-          selectedDate
-        )}
-        <ToggleButton
+    <FormWrapper onSubmit={submitHandler}>
+      <DateFormWrapper>
+      <ToggleButton
           onClick={dateChangeHandler}
           options={[
             { value: "today", label: "Today" },
             { value: "other", label: "Select Date" },
           ]}
         />
-        <CategorySubCategorySelect
-          categories={activityCategories}
-          onSubCategorySelect={subCategorySelectHandler}
-        />
-        <label>Enter the value</label>
-        <StyledInput type="number" name="valueInput" />
-        <div>
-          <label>Do you want to add the value or delete</label>
-          <ToggleButton
-            onClick={formModeChangeHandler}
-            options={[
-              { value: "add", label: "Add" },
-              { value: "delete", label: "Delete" },
-            ]}
-          />
-        </div>
+        <DateWrapper>
+          <label>Date:</label>
+          {dateInputActive ? (
+            <StyledInput
+              type="date"
+              name="dateInput"
+              defaultValue={selectedDate}
+            />
+          ) : (
+            selectedDate
+          )}
+        </DateWrapper>
+      </DateFormWrapper>
+
+      <CategorySubCategorySelect
+        categories={activityCategories}
+        onSubCategorySelect={subCategorySelectHandler}
+      />
+      <ValueInputWrapper>
+      <label>Do you want to add the value or delete
+        <ToggleButton
+          onClick={formModeChangeHandler}
+          options={[
+            { value: "add", label: "Add" },
+            { value: "delete", label: "Delete" },
+          ]}
+        /></label>
+        <StyledInput type="number" name="valueInput" placeholder="Enter the Value" />
         <Button text={"Submit"} type={"submit"} />
-      </FormWrapper>
-    </DataUpdaterFormWrapper>
+      </ValueInputWrapper>
+    </FormWrapper>
   );
 };
 

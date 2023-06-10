@@ -1,8 +1,18 @@
 import { useState, useEffect } from "react";
+import styled from "styled-components";
 
-import Select from "react-select";
 import SubCategorySelect from "../Wrappers/SubCategorySelect";
 import { StyledSelect } from "../Wrappers/Styled-Elements/StyledSelect";
+
+const CategorySubCategorySelectWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  gap:${({theme})=>theme.sizes.medium};
+  text-align: center;
+`
 
 const CategorySubCategorySelect = ({ categories, onSubCategorySelect }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -63,7 +73,8 @@ const CategorySubCategorySelect = ({ categories, onSubCategorySelect }) => {
   };
 
   return (
-    <div>
+    <CategorySubCategorySelectWrapper>
+      <div>
       <label>Select Category</label>
       <StyledSelect
         onChange={categorySelectionHandler}
@@ -71,6 +82,8 @@ const CategorySubCategorySelect = ({ categories, onSubCategorySelect }) => {
         placeholder="--Select a category--"
         value={selectedCategory}
       />
+      </div>
+      <div>
       <label>Select SubCategory</label>
       <SubCategorySelect
         placeholder={"--Select a subCategory--"}
@@ -78,7 +91,8 @@ const CategorySubCategorySelect = ({ categories, onSubCategorySelect }) => {
         options={subCategoryOptions}
         category={selectedCategory}
       />
-    </div>
+      </div>
+    </CategorySubCategorySelectWrapper>
   );
 };
 

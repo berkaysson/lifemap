@@ -8,6 +8,7 @@ const StyledSelectWrapper = styled(Select)`
   border-radius: ${myTheme.radius.small};
   font-weight: bold;
   max-width: 300px;
+  min-width: 250px;
   transition: background-color 0.4s, color 0.4s;
 `
 

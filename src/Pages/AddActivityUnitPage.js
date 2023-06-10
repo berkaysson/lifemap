@@ -2,10 +2,12 @@ import styled from "styled-components";
 
 import ActivityForm from "../Components/Others/ActivityForm";
 import CategoriesForm from "../Components/Categories/CategoriesForm";
+import HeaderContent from "../Components/Contents/HeaderContent.js";
 
 const AddActivityUnitPageWrapper = styled.section`
   border: 2px solid orange;
-  padding: 1rem;
+  height: 100%;
+  width: 100%;
 `;
 
 const AddActivityUnitPage = ({
@@ -17,13 +19,11 @@ const AddActivityUnitPage = ({
 }) => {
   return (
     <AddActivityUnitPageWrapper>
-      <h1> TODAY'S ACTIVITY UNIT</h1>
+      <HeaderContent headerText={"Add Activity Unit"} />
       <ActivityForm
         onUpdateActivityDataUnit={onUpdateActivityDataUnit}
         activityCategories={activityCategories}
       />
-      <br />
-      <br />
       <CategoriesForm
         categories={categories}
         onDeleteSubCategory={onDeleteSubCategory}

@@ -31,7 +31,7 @@ const MainContent = styled.main`
   overflow-x: hidden;
   position: relative;
   border: 1px solid ${({theme}) => theme.colors.alternative};
-  border-radius: ${({ theme }) => theme.radius.medium};
+  border-radius: ${({ theme }) => theme.radius.large};
   box-shadow: ${({ theme }) => theme.boxShadows.largeCardShadow};
 `;
 

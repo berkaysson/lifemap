@@ -8,6 +8,7 @@ const StyledInputWrapper = styled.input`
   box-shadow: ${({theme}) => theme.boxShadows.smallCardShadow};
   max-width: 200px;
   transition: background-color 0.4s, color 0.4s;
+  text-align: center;
 
   &:hover{
     font-weight: bold;
