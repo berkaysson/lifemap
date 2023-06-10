@@ -15,7 +15,7 @@ const Button = styled.button`
   padding: ${({theme}) => theme.sizes.small};
   opacity: 0;
   pointer-events: none;
-  transition: background-color 0.4s, color 0.4s;
+  transition: all 0.4s;
   border: 1px solid black;
 
   transform: ${({isOpen}) => !isOpen ? "rotate(180deg) translateX(-50%)": "rotate(0) translateX(-50%)"};
