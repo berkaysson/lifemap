@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import Select from "react-select";
 import Button from "../Wrappers/Styled-Elements/Button";
 import ToggleButton from "../Wrappers/Styled-Elements/ToggleButton";
 import CategorySubCategorySelect from "./CategorySubCategorySelect.js";
@@ -9,7 +8,37 @@ import FormWrapper from "../Wrappers/Styled-Wrappers/FormWrapper";
 import { StyledSelect } from "../Wrappers/Styled-Elements/StyledSelect";
 import StyledInput from "../Wrappers/Styled-Elements/StyledInput";
 
-const CategoryUpdateFormWrapper = styled.div``;
+const CategoryUpdateFormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: ${({ theme }) => theme.sizes.medium};
+  padding: ${({ theme }) => theme.sizes.large};
+  border: 1px solid ${({ theme }) => theme.colors.alternative};
+  border-radius:${({ theme }) => theme.radius.medium};
+  box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
+
+  & >label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+`;
+
+const DeleteCategoryFormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid ${({ theme }) => theme.colors.alternative};
+  border-radius:${({ theme }) => theme.radius.medium};
+  box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
+  gap: ${({ theme }) => theme.sizes.medium};
+  padding: ${({ theme }) => theme.sizes.large};
+`
 
 const CategoriesForm = ({
   onUpdateCategory,
@@ -92,20 +121,21 @@ const CategoriesForm = ({
         return (
           <>
             <FormWrapper onSubmit={submitHandler}>
+              <label>Select the type of Activity you want to add
               <StyledSelect
                 value={selectedCategory}
                 options={categoryOptions}
                 onChange={categorySelectHandler}
                 placeholder="--Select a category--"
-              />
-              <StyledInput type="text" name="subCategoryInput" />
+              /></label>
+              <StyledInput type="text" name="subCategoryInput" placeholder="Enter the name of the category" />
               <Button text={"Submit"} type={"submit"} />
             </FormWrapper>
           </>
         );
       case "delete":
         return (
-          <>
+          <DeleteCategoryFormWrapper>
             <form>
               <CategorySubCategorySelect
                 categories={categories}
@@ -117,7 +147,7 @@ const CategoriesForm = ({
               type={"button"}
               onClick={deleteSubCategory}
             />
-          </>
+          </DeleteCategoryFormWrapper>
         );
       default:
         return null;
@@ -126,13 +156,14 @@ const CategoriesForm = ({
 
   return (
     <CategoryUpdateFormWrapper>
+      <label>Do you want to Add or Delete a Category
       <ToggleButton
         onClick={formModeChangeHandler}
         options={[
-          { label: "Update", value: "update" },
+          { label: "Add", value: "update" },
           { label: "Delete", value: "delete" },
         ]}
-      />
+      /></label>
       {getFormContent()}
     </CategoryUpdateFormWrapper>
   );
