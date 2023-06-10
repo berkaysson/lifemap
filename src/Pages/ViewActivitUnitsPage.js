@@ -7,6 +7,7 @@ import DataViewerForm from "../Components/DataViewer/DataViewerForm";
 import ToggleButton from "../Components/Wrappers/Styled-Elements/ToggleButton.js";
 import DateRangeSelector from "../Components/Wrappers/DateRangeSelector";
 import Button from "../Components/Wrappers/Styled-Elements/Button.js";
+import DataRangeTableViewer from "../Components/Wrappers/Styled-Wrappers/DataRangeTableViewer.js";
 
 const Wrapper = styled.section`
   border: 2px solid green;
@@ -23,10 +24,13 @@ const ViewActivityUnitsPage = ({
     startDate: null,
     endDate: null,
   });
-  const [selectedDateActivityUnit, setSelectedDateActivityUnit] = useState(null);
+  const [selectedDateActivityUnit, setSelectedDateActivityUnit] =
+    useState(null);
   const [filteredActivityDataUnits, setFilteredActivityDataUnits] = useState(
     []
   );
+  const [isTableViewOfUnitsActive, setIsTableViewOfUnitsActive] =
+    useState(false);
 
   const dateRangeInputHandler = (start, end) => {
     setSelectedDateRange({ startDate: start, endDate: end });
@@ -51,7 +55,7 @@ const ViewActivityUnitsPage = ({
       const newActivityDataUnit = await activityDataUnits.find(
         (obj) => obj.date === date
       );
-      if(newActivityDataUnit) filteredData.push(newActivityDataUnit);
+      if (newActivityDataUnit) filteredData.push(newActivityDataUnit);
       startDate.add(1, "days");
     }
 
@@ -60,7 +64,7 @@ const ViewActivityUnitsPage = ({
 
   const dateRangeButtonHandler = () => {
     updateFilteredActivityDataUnits();
-  }
+  };
 
   useEffect(() => {
     updateFilteredActivityDataUnits();
@@ -88,7 +92,11 @@ const ViewActivityUnitsPage = ({
             onDateSelection={dateInputHandler}
             selectedDate={selectedDateActivityUnit}
           />
-          <h3>{selectedDateActivityUnit ? selectedDateActivityUnit.date : "No date selected"}</h3>
+          <h3>
+            {selectedDateActivityUnit
+              ? selectedDateActivityUnit.date
+              : "No date selected"}
+          </h3>
         </>
       )}
       {!isDateRangeSelected ? (
@@ -98,17 +106,33 @@ const ViewActivityUnitsPage = ({
         />
       ) : (
         <div>
+          <ToggleButton
+            onClick={() =>
+              setIsTableViewOfUnitsActive(!isTableViewOfUnitsActive)
+            }
+            options={[
+              { label: "Card View", value: "card" },
+              { label: "Table View", value: "table" },
+            ]}
+          />
           {!filteredActivityDataUnits ||
           filteredActivityDataUnits.length > 0 ? (
-            filteredActivityDataUnits.map((item) => (
-              <DataViewer
-                key={item.id}
-                selectedDateDataUnit={item}
+            isTableViewOfUnitsActive ? (
+              <DataRangeTableViewer
+                filteredActivityDataUnits={filteredActivityDataUnits}
                 activityCategories={activityCategories}
               />
-            ))
+            ) : (
+              filteredActivityDataUnits.map((item) => (
+                <DataViewer
+                  key={item.id}
+                  selectedDateDataUnit={item}
+                  activityCategories={activityCategories}
+                />
+              ))
+            )
           ) : (
-            <p>No data available.</p>
+            <p>No data available</p>
           )}
         </div>
       )}
