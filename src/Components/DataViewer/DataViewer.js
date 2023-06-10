@@ -1,4 +1,4 @@
-import TableWrapper from "../Wrappers/TableWrapper";
+import TableWrapper from "../Wrappers/Styled-Wrappers/TableWrapper";
 
 import styled from "styled-components";
 
