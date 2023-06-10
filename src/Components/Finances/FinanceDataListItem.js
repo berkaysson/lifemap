@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 
 import Button from "../Wrappers/Styled-Elements/Button";
+import StyledInput from "../Wrappers/Styled-Elements/StyledInput";
 
 const ListItemWrapper = styled.li`
   display: flex;
@@ -96,14 +97,16 @@ const FinanceDataListItem = ({
       {isEditing ? (
         <>
           <h4>{item.category}</h4>
-          <div>{item.subCategory}</div>
-          <input
+          <h4>{item.subCategory}</h4>
+          <StyledInput
             type="number"
             value={editValue}
             onChange={(e) => setEditValue(e.target.value)}
           />
-          <Button type="button" text={"Save"} onClick={handleSaveEdit} />
-          <Button type="button" text={"Cancel"} onClick={handleCancelEdit} />
+          <ButtonsWrapper>
+            <Button type="button" text={"Save"} onClick={handleSaveEdit} />
+            <Button type="button" text={"Cancel"} onClick={handleCancelEdit} />
+          </ButtonsWrapper>
         </>
       ) : (
         <>
