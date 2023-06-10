@@ -1,5 +1,5 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { theme } from "../../Style/theme";
+import { theme } from "../../../Style/theme";
 import styled from "styled-components";
 
 const TableWrapperWrapper = styled.div`
