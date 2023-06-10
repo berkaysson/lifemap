@@ -7,13 +7,14 @@ import ParagraphContent from "../Components/Contents/ParagraphContent.js";
 const HomeWrapper = styled.section`
   display: grid;
   grid-template-areas:
-    "header header header"
-    "welcome welcome info"
-    "tasks tasks tasks"
-    "viewer viewer reminder";
-  grid-template-rows: auto auto 1fr 1fr;
-  grid-template-columns: auto;
+    "header  header"
+    "welcome  info"
+    "tasks  info"
+    "viewer  reminder";
+  grid-template-rows: auto auto auto auto;
+  grid-template-columns: 60% 39%;
   grid-gap: 10px;
+  width: 100%;
 `;
 
 const Header = styled.header`
@@ -30,7 +31,6 @@ const Viewer = styled(DataViewer)`
 `;
 
 const Info = styled.div`
-  border: 1px black solid;
   grid-area: info;
 `;
 
@@ -61,7 +61,11 @@ const HomePage = ({ activityCategories, todaysActivityDataUnit }) => {
         selectedDateDataUnit={todaysActivityDataUnit}
         activityCategories={activityCategories}
       />
-      <Info>INFO</Info>
+      <Info>
+        <ParagraphContent text={"Activity Tracking: Log your daily activities, categorize them, and set goals to make the most of your time. Lifemap allows you to track activities down to the minute, giving you a comprehensive view of your routines and habits."} />
+        <ParagraphContent text={"Finance Management: Keep your finances in check by recording your expenses and income."} />
+        <ParagraphContent text={"Task and Habit Management: Create tasks and build healthy habits that align with your goals. Lifemap's integration of tasks and habits with activities ensures that you stay focused, motivated, and productive."} />
+      </Info>
       <Tasks>A COMPONENT TO VIEW ACTIVE TASKS-HABITS</Tasks>
       <Reminder>
         A REMINDER COMPONENT FOR TASKS-HABITS WHICH TIME EXPIRES
