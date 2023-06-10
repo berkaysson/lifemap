@@ -13,6 +13,10 @@ const StyledInputWrapper = styled.input`
   &:hover{
     font-weight: bold;
   }
+
+  &::placeholder{
+    font-size: 12px;
+  }
 `
 
 const StyledInput = (props) => {

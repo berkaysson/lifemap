@@ -7,7 +7,6 @@ import { StyledSelect } from "../Wrappers/Styled-Elements/StyledSelect";
 const CategorySubCategorySelectWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
   align-items: center;
   justify-content: flex-start;
   gap:${({theme})=>theme.sizes.medium};
@@ -75,18 +74,18 @@ const CategorySubCategorySelect = ({ categories, onSubCategorySelect }) => {
   return (
     <CategorySubCategorySelectWrapper>
       <div>
-      <label>Select Category</label>
+      <label>Select Activity type</label>
       <StyledSelect
         onChange={categorySelectionHandler}
         options={categoryOptions}
-        placeholder="--Select a category--"
+        placeholder="--Select Activity Type--"
         value={selectedCategory}
       />
       </div>
       <div>
-      <label>Select SubCategory</label>
+      <label>Select Category</label>
       <SubCategorySelect
-        placeholder={"--Select a subCategory--"}
+        placeholder={"--Select a Category--"}
         onChange={subCategorySelectHandler}
         options={subCategoryOptions}
         category={selectedCategory}

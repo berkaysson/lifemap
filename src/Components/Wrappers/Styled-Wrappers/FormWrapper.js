@@ -10,7 +10,7 @@ const StyledFormWrapper = styled.form`
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius:${({ theme }) => theme.radius.medium};
   box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
-  width: fit-content;
+  text-align: center;
 `
 
 const FormWrapper = ({ onSubmit, children }) => {
