@@ -8,8 +8,10 @@ const DataViewerWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: ${({ theme }) => theme.sizes.medium};
-  border: 1px solid black;
-  padding: ${({ theme }) => theme.sizes.small};
+  padding: ${({ theme }) => theme.sizes.large};
+  border: 1px solid ${({ theme }) => theme.colors.alternative};
+  border-radius:${({ theme }) => theme.radius.medium};
+  box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
 `;
 
 const TablesWrapper = styled.div`
