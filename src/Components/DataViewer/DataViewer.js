@@ -8,7 +8,6 @@ const DataViewerWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: ${({ theme }) => theme.sizes.medium};
-  width: fit-content;
   border: 1px solid black;
   padding: ${({ theme }) => theme.sizes.small};
 `;
