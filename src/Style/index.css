@@ -37,3 +37,7 @@ button{
   all: none;
   cursor: pointer;
 }
+
+ul, li {
+  list-style: none;
+}
