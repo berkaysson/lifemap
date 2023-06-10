@@ -11,9 +11,13 @@ const HomeWrapper = styled.section`
     "welcome  info"
     "tasks  info"
     "viewer  reminder";
-  grid-template-rows: auto auto auto auto;
-  grid-template-columns: 60% 39%;
-  grid-gap: 10px;
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-columns: 70% 30%;
+  align-content: start;
+  justify-content: center;
+  align-items: stretch;
+  justify-items: stretch;
+  gap: ${({theme})=>theme.sizes.medium};
   width: 100%;
 `;
 
@@ -31,6 +35,9 @@ const Viewer = styled(DataViewer)`
 `;
 
 const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({theme})=>theme.sizes.small};
   grid-area: info;
 `;
 
