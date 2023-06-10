@@ -20,13 +20,19 @@ const Sidebar = styled.aside`
   left: 0;
   height: 100vh;
   padding: ${({theme}) => theme.sizes.medium};
+  z-index: 2;
 `;
 
 const MainContent = styled.main`
   flex: 1;
-  padding: ${({theme}) => theme.sizes.medium};
+  margin: ${({theme}) => theme.sizes.medium};
+  padding: ${({theme}) => theme.sizes.large};
   background-color: ${({theme}) => theme.colors.secondary};
   overflow-x: hidden;
+  position: relative;
+  border: 1px solid ${({theme}) => theme.colors.alternative};
+  border-radius: ${({ theme }) => theme.radius.medium};
+  box-shadow: ${({ theme }) => theme.boxShadows.largeCardShadow};
 `;
 
 const NavBarWrapper = styled(NavBar)`
