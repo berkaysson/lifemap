@@ -18,6 +18,11 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: #d3d3d3;
 }
 
 img, picture, video, canvas, svg {

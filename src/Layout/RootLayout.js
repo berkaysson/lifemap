@@ -10,9 +10,11 @@ const RootContainer = styled.div`
   grid-template-columns: auto 1fr;
   min-height: 100vh;
   color: ${({theme}) => theme.colors.primary};
-  background-color: ${({theme}) => theme.colors.secondary};
+  background-color: ${({theme}) => theme.colors.alternative};
   font-size: ${({theme}) => theme.sizes.medium};
-`;
+  width: 100%;
+  max-width: 1300px;
+  `;
 
 const Sidebar = styled.aside`
   position: sticky;
