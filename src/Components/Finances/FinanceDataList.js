@@ -11,8 +11,18 @@ import StyledInput from "../Wrappers/Styled-Elements/StyledInput";
 const CURRENT_DATE = new Date().toISOString().slice(0, 10);
 
 const Wrapper = styled.div`
-  border: 1px solid blue;
 `;
+
+const ListWrapper = styled.ul`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: ${({theme}) => theme.sizes.medium};
+  padding: ${({theme}) => theme.sizes.medium};
+  border: 1px solid ${({theme}) => theme.colors.alternative};
+  box-shadow: ${({theme}) => theme.boxShadows.smallCardShadow};
+  border-radius: ${({theme}) => theme.radius.small};
+`
 
 const FinanceDataList = ({
   financeDataUnits,
@@ -84,7 +94,7 @@ const FinanceDataList = ({
       ) : (
         <StyledInput type="date" value={selectedDate} onChange={dateInputHandler} />
       )}
-      <ul>
+      <ListWrapper>
         {!filteredFinanceDatas || filteredFinanceDatas.length === 0 ? (
           <p>No Finance Data</p>
         ) : (
@@ -97,7 +107,7 @@ const FinanceDataList = ({
             />
           ))
         )}
-      </ul>
+      </ListWrapper>
     </Wrapper>
   );
 };
