@@ -15,6 +15,7 @@ const TaskItemWrapper = styled.li`
   box-shadow: ${({ theme }) => theme.boxShadows.innerSmallShadow};
   gap: ${({ theme }) => theme.sizes.medium};
   position: relative;
+  background-color: ${({isClosed, theme}) => isClosed ? theme.colors.alternative : theme.colors.secondary};
 
   & > Button {
     position: absolute;

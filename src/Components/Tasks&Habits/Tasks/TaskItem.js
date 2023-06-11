@@ -14,6 +14,7 @@ const TaskItemWrapper = styled.li`
   box-shadow: ${({ theme }) => theme.boxShadows.innerSmallShadow};
   gap: ${({ theme }) => theme.sizes.medium};
   position: relative;
+  background-color: ${({isClosed, theme}) => isClosed ? theme.colors.alternative : theme.colors.secondary};
 
   &>Button{
     position: absolute;
@@ -46,7 +47,7 @@ const TaskItem = ({ task, onDeleteTaskDataUnit }) => {
     onDeleteTaskDataUnit(task.id);
   };
   return (
-    <TaskItemWrapper id={task?.id}>
+    <TaskItemWrapper id={task?.id} isClosed={task?.isClosed}>
       <HeaderWrapper>
         <HeaderItem headerColor={task?.isFulfilled}>
           {task?.nameValue}  {task?.isClosed ? "(Expired)":""}
