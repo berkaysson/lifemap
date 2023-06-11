@@ -47,12 +47,18 @@ const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
           onSubCategorySelect={subCategorySelectionHandler}
         />
         <DateRangeSelector onSubmit={dateRangeHandler} />
-        <label>Enter minute:</label>
-        <StyledInput type="number" name="timeValue" onChange={timeValueHandler} />
-        <label>
-          Enter Name of the task
-          <StyledInput type="text" name="nameValue" onChange={nameValueHandler} />
-        </label>
+        <StyledInput
+          type="number"
+          name="timeValue"
+          onChange={timeValueHandler}
+          placeholder="Enter minute"
+        />
+        <StyledInput
+          type="text"
+          name="nameValue"
+          onChange={nameValueHandler}
+          placeholder="Enter Name of the task"
+        />
 
         <Button type={"submit"} text={"Submit"} />
       </FormWrapper>
