@@ -1,3 +1,4 @@
+import { CardWrapper } from "../Wrappers/Styled-Wrappers/CardWrapper";
 import TableWrapper from "../Wrappers/Styled-Wrappers/TableWrapper";
 
 import styled from "styled-components";
@@ -9,9 +10,6 @@ const DataViewerWrapper = styled.div`
   align-items: center;
   gap: ${({ theme }) => theme.sizes.medium};
   padding: ${({ theme }) => theme.sizes.large};
-  border: 1px solid ${({ theme }) => theme.colors.alternative};
-  border-radius:${({ theme }) => theme.radius.medium};
-  box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
 `;
 
 const TablesWrapper = styled.div`
@@ -34,14 +32,16 @@ const DataViewer = ({ selectedDateDataUnit, activityCategories }) => {
   }));
 
   return (
-    <DataViewerWrapper>
-      <h3>{selectedDateDataUnit.date}</h3>
-      <TablesWrapper>
-        {tableDatas.map((data, index) => (
-          <TableWrapper data={data} key={index} />
-        ))}
-      </TablesWrapper>
-    </DataViewerWrapper>
+    <CardWrapper>
+      <DataViewerWrapper>
+        <h3>{selectedDateDataUnit.date}</h3>
+        <TablesWrapper>
+          {tableDatas.map((data, index) => (
+            <TableWrapper data={data} key={index} />
+          ))}
+        </TablesWrapper>
+      </DataViewerWrapper>
+    </CardWrapper>
   );
 };
 

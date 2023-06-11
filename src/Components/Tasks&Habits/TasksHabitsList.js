@@ -2,15 +2,16 @@ import React from "react";
 
 import TaskItem from "./Tasks/TaskItem";
 import HabitItem from "./Habits/HabitItem";
+import { CardWrapper } from "../Wrappers/Styled-Wrappers/CardWrapper";
 
 const TasksHabitsList = ({
   taskDataUnits,
   habitDataUnits,
   onDeleteTaskDataUnit,
-  onDeleteHabitDataUnit
+  onDeleteHabitDataUnit,
 }) => {
   return (
-    <div>
+    <CardWrapper>
       <h3>Tasks</h3>
       {taskDataUnits.length > 0 ? (
         <ul>
@@ -40,7 +41,7 @@ const TasksHabitsList = ({
       ) : (
         <p>No habits found.</p>
       )}
-    </div>
+    </CardWrapper>
   );
 };
 

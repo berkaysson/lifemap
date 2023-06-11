@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import {CardWrapper} from "./CardWrapper.js"
+
 const StyledFormWrapper = styled.form`
   display: flex;
   flex-direction: column;
@@ -7,21 +9,21 @@ const StyledFormWrapper = styled.form`
   align-items: center;
   gap: ${({ theme }) => theme.sizes.medium};
   padding: ${({ theme }) => theme.sizes.large};
-  border: 1px solid ${({ theme }) => theme.colors.alternative};
-  border-radius:${({ theme }) => theme.radius.medium};
-  box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
   text-align: center;
 `
 
-const FormWrapper = ({ onSubmit, children }) => {
+const FormWrapper = ({ onSubmit, children, disableBoxShadow=false }) => {
   const submitHandler = (event) => {
     event.preventDefault();
     onSubmit(event);
   }
 
-  return(<StyledFormWrapper onSubmit={submitHandler} id="form">
+  return(
+  <CardWrapper disableBoxShadow={disableBoxShadow}>
+  <StyledFormWrapper disableBoxShadow={disableBoxShadow} onSubmit={submitHandler} id="form">
     {children}
-  </StyledFormWrapper>)
+  </StyledFormWrapper>
+  </CardWrapper>)
 };
 
 export default FormWrapper;

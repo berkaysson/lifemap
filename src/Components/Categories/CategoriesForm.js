@@ -7,6 +7,7 @@ import CategorySubCategorySelect from "./CategorySubCategorySelect.js";
 import FormWrapper from "../Wrappers/Styled-Wrappers/FormWrapper";
 import { StyledSelect } from "../Wrappers/Styled-Elements/StyledSelect";
 import StyledInput from "../Wrappers/Styled-Elements/StyledInput";
+import { CardWrapper } from "../Wrappers/Styled-Wrappers/CardWrapper";
 
 const CategoryUpdateFormWrapper = styled.div`
   display: flex;
@@ -15,11 +16,8 @@ const CategoryUpdateFormWrapper = styled.div`
   align-items: center;
   gap: ${({ theme }) => theme.sizes.medium};
   padding: ${({ theme }) => theme.sizes.large};
-  border: 1px solid ${({ theme }) => theme.colors.alternative};
-  border-radius:${({ theme }) => theme.radius.medium};
-  box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
 
-  & >label {
+  & > label {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,12 +31,9 @@ const DeleteCategoryFormWrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  border: 1px solid ${({ theme }) => theme.colors.alternative};
-  border-radius:${({ theme }) => theme.radius.medium};
-  box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
   gap: ${({ theme }) => theme.sizes.medium};
   padding: ${({ theme }) => theme.sizes.large};
-`
+`;
 
 const CategoriesForm = ({
   onUpdateCategory,
@@ -121,33 +116,41 @@ const CategoriesForm = ({
         return (
           <>
             <FormWrapper onSubmit={submitHandler}>
-              <label>Select the type of Activity you want to add
-              <StyledSelect
-                value={selectedCategory}
-                options={categoryOptions}
-                onChange={categorySelectHandler}
-                placeholder="--Select a category--"
-              /></label>
-              <StyledInput type="text" name="subCategoryInput" placeholder="Enter the name of the category" />
+              <label>
+                Select the type of Activity you want to add
+                <StyledSelect
+                  value={selectedCategory}
+                  options={categoryOptions}
+                  onChange={categorySelectHandler}
+                  placeholder="--Select a category--"
+                />
+              </label>
+              <StyledInput
+                type="text"
+                name="subCategoryInput"
+                placeholder="Enter the name of the category"
+              />
               <Button text={"Submit"} type={"submit"} />
             </FormWrapper>
           </>
         );
       case "delete":
         return (
-          <DeleteCategoryFormWrapper>
-            <form>
-              <CategorySubCategorySelect
-                categories={categories}
-                onSubCategorySelect={subCategorySelectionHandler}
+          <CardWrapper>
+            <DeleteCategoryFormWrapper>
+              <form>
+                <CategorySubCategorySelect
+                  categories={categories}
+                  onSubCategorySelect={subCategorySelectionHandler}
+                />
+              </form>
+              <Button
+                text={"Delete"}
+                type={"button"}
+                onClick={deleteSubCategory}
               />
-            </form>
-            <Button
-              text={"Delete"}
-              type={"button"}
-              onClick={deleteSubCategory}
-            />
-          </DeleteCategoryFormWrapper>
+            </DeleteCategoryFormWrapper>
+          </CardWrapper>
         );
       default:
         return null;
@@ -155,17 +158,21 @@ const CategoriesForm = ({
   };
 
   return (
-    <CategoryUpdateFormWrapper>
-      <label>Do you want to Add or Delete a Category
-      <ToggleButton
-        onClick={formModeChangeHandler}
-        options={[
-          { label: "Add", value: "update" },
-          { label: "Delete", value: "delete" },
-        ]}
-      /></label>
-      {getFormContent()}
-    </CategoryUpdateFormWrapper>
+    <CardWrapper>
+      <CategoryUpdateFormWrapper>
+        <label>
+          Do you want to Add or Delete a Category
+          <ToggleButton
+            onClick={formModeChangeHandler}
+            options={[
+              { label: "Add", value: "update" },
+              { label: "Delete", value: "delete" },
+            ]}
+          />
+        </label>
+        {getFormContent()}
+      </CategoryUpdateFormWrapper>
+    </CardWrapper>
   );
 };
 
