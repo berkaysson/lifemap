@@ -23,10 +23,12 @@ const Header = styled.header`
 
 const Welcome = styled.div`
   grid-area: 2 / 1 / 3 / 2;
+  padding: 0 10px;
 `;
 
 const Viewer = styled(DataViewer)`
   grid-area: 4 / 1 / 5 / 2;
+  padding: 0 10px;
 `;
 
 const Info = styled.div`
@@ -34,16 +36,19 @@ const Info = styled.div`
   flex-direction: column;
   gap: ${({ theme }) => theme.sizes.medium};
   grid-area: 2 / 2 / 4 / 3;
+  padding: 0 10px;
 `;
 
 const Tasks = styled.div`
   border: 1px black solid;
   grid-area: 3 / 1 / 4 / 2;
+  padding: 0 10px;
 `;
 
 const Reminder = styled.div`
   border: 1px black solid;
   grid-area: 4 / 2 / 5 / 3;
+  padding: 0 10px;
 `;
 
 const HomePage = ({ activityCategories, todaysActivityDataUnit }) => {
