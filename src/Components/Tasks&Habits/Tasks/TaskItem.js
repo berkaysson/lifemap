@@ -1,23 +1,64 @@
 import React from "react";
 
 import Button from "../../Wrappers/Styled-Elements/Button";
+import styled from "styled-components";
+
+const TaskItemWrapper = styled.li`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: ${({ theme }) => theme.sizes.medium};
+  border: 1px solid ${({ theme }) => theme.colors.alternative};
+  border-radius: ${({ theme }) => theme.radius.small};
+  box-shadow: ${({ theme }) => theme.boxShadows.innerSmallShadow};
+  gap: ${({ theme }) => theme.sizes.medium};
+  position: relative;
+
+  &>Button{
+    position: absolute;
+    top: ${({ theme }) => theme.sizes.medium};
+    right: ${({ theme }) => theme.sizes.medium};
+  }
+`
+
+const HeaderWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: ${({ theme }) => theme.sizes.medium};
+  font-weight: bold;
+`;
+
+const HeaderItem = styled.h3`
+  color: ${({headerColor,theme})=>headerColor? theme.colors.success:theme.colors.danger};
+`
+
+const DateWrapper = styled.div`
+  width: 100%;
+  text-align: left;
+  margin-left: ${({ theme }) => theme.sizes.medium};
+`
 
 const TaskItem = ({ task, onDeleteTaskDataUnit }) => {
   const deleteHandler = () => {
     onDeleteTaskDataUnit(task.id);
   };
   return (
-    <li id={task?.id}>
-      <h3 style={{ color: task?.isFulfilled ? "green" : "red" }}>
-        {task?.nameValue} {task?.isClosed ? "(Closed)":""}
-      </h3>
-      <p>Category: {task?.category.label}</p>
-      <p>Subcategory: {task?.subCategory.label}</p>
-      <p>Start Date: {task?.startDate}</p>
-      <p>End Date: {task?.endDate}</p>
-      <p>Time Value: {task?.timeValue}</p>
+    <TaskItemWrapper id={task?.id}>
+      <HeaderWrapper>
+        <HeaderItem headerColor={task?.isFulfilled}>
+          {task?.nameValue}  {task?.isClosed ? "(Closed)":""}
+        </HeaderItem>
+        <p>{task?.category.label}</p> <p>{task?.subCategory.label}</p>
+      </HeaderWrapper>
+      <DateWrapper>
+        <p>{task?.startDate} / {task?.endDate}</p>
+        <p>Time Value: {task?.timeValue}</p>
+      </DateWrapper>
       <Button type={"button"} text={"Delete"} onClick={deleteHandler} />
-    </li>
+    </TaskItemWrapper>
   );
 };
 
