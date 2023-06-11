@@ -4,6 +4,7 @@ import TasksHabitsWrapper from "../Components/Tasks&Habits/TasksHabits";
 import TasksHabitsList from "../Components/Tasks&Habits/TasksHabitsList";
 import HeaderContent from "../Components/Contents/HeaderContent";
 import ParagraphContent from "../Components/Contents/ParagraphContent";
+import { useState } from "react";
 
 const TasksHabitsPageWrapper = styled.section`
   display: grid;
@@ -68,6 +69,8 @@ const TasksHabitsPage = ({
   onDeleteTaskDataUnit,
   onDeleteHabitDataUnit,
 }) => {
+  const [selectedForm, setSelectedForm] = useState("tasks");
+
   return (
     <TasksHabitsPageWrapper>
       <Header>
@@ -75,11 +78,9 @@ const TasksHabitsPage = ({
       </Header>
       <Welcome>
         <ParagraphContent>
-          <b>Manage Your Activity Units and Categories with Ease</b> <br />
-          Welcome to the Activity Units Management page. Take control of your
-          daily activities effortlessly using Lifemap's intuitive interface.{" "}
-          <br />
-          You can also edit the activity categories.
+          <b>Effortlessly manage your tasks and habits</b> <br />
+          Customize Lifemap to fit your preferences and take control of your
+          tracking experience.
         </ParagraphContent>
       </Welcome>
       <TaskHabit>
@@ -89,8 +90,24 @@ const TasksHabitsPage = ({
             activityCategories={activityCategories}
             onAddTaskUnit={onAddTaskUnit}
             onAddHabitUnit={onAddHabitUnit}
+            setSelectedForm={setSelectedForm}
           />
-          <ParagraphContent>INTRODUCTION TO FORM</ParagraphContent>
+          <ParagraphContent>
+            {selectedForm === "tasks"
+              ? `Tasks Form, begin by selecting the activity type and category that
+              best represent the task you want to track. Set a specific date
+              range within which the task needs to be completed. Enter the
+              estimated time in minutes required to accomplish the task.
+              Finally, provide a name to easily identify and track the task.
+            `
+              : `Habits Form, select the activity type and category. Choose the
+              frequency of the habit, to establish a consistent practice. Set
+              the habit period, such as 30 times of frequency, and allocate the
+              desired time in minutes for each habit period. By providing a
+              name, you can easily track and monitor your progress.
+              For example, a habit could be Weekly Reading (Personal Growth, Learning) for 4 weeks, allocating 100 minutes per week.
+            `}
+          </ParagraphContent>
         </TaskHabitContainer>
       </TaskHabit>
       <TaskHabitListWrapper>

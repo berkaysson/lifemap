@@ -20,11 +20,13 @@ const TasksHabitsWrapper = ({
   activityCategories,
   onAddTaskUnit,
   onAddHabitUnit,
+  setSelectedForm
 }) => {
   const [selectedOption, setSelectedOption] = useState("tasks");
 
   const toggleTasksHabitsHandler = (mode) => {
     setSelectedOption(mode);
+    setSelectedForm(mode)
   };
 
   return (
