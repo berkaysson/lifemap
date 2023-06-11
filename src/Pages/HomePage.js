@@ -6,49 +6,44 @@ import ParagraphContent from "../Components/Contents/ParagraphContent.js";
 
 const HomeWrapper = styled.section`
   display: grid;
-  grid-template-areas:
-    "header  header"
-    "welcome  info"
-    "tasks  info"
-    "viewer  reminder";
+  grid-template-columns: 70% 29%;
   grid-template-rows: auto auto 1fr auto;
-  grid-template-columns: 70% 30%;
   align-content: start;
   justify-content: center;
   align-items: stretch;
   justify-items: stretch;
-  gap: ${({ theme }) => theme.sizes.medium};
+  gap: ${({ theme }) => theme.sizes.small};
   width: 100%;
   height: 100%;
 `;
 
 const Header = styled.header`
-  grid-area: header;
+  grid-area: 1 / 1 / 2 / 3;
 `;
 
 const Welcome = styled.div`
-  grid-area: welcome;
+  grid-area: 2 / 1 / 3 / 2;
 `;
 
 const Viewer = styled(DataViewer)`
-  grid-area: viewer;
+  grid-area: 4 / 1 / 5 / 2;
 `;
 
 const Info = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.sizes.medium};
-  grid-area: info;
+  grid-area: 2 / 2 / 4 / 3;
 `;
 
 const Tasks = styled.div`
   border: 1px black solid;
-  grid-area: tasks;
+  grid-area: 3 / 1 / 4 / 2;
 `;
 
 const Reminder = styled.div`
   border: 1px black solid;
-  grid-area: reminder;
+  grid-area: 4 / 2 / 5 / 3;
 `;
 
 const HomePage = ({ activityCategories, todaysActivityDataUnit }) => {
