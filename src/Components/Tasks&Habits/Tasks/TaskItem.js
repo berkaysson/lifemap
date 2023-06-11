@@ -49,7 +49,7 @@ const TaskItem = ({ task, onDeleteTaskDataUnit }) => {
     <TaskItemWrapper id={task?.id}>
       <HeaderWrapper>
         <HeaderItem headerColor={task?.isFulfilled}>
-          {task?.nameValue}  {task?.isClosed ? "(Closed)":""}
+          {task?.nameValue}  {task?.isClosed ? "(Expired)":""}
         </HeaderItem>
         <p>{task?.category.label}</p> <p>{task?.subCategory.label}</p>
       </HeaderWrapper>

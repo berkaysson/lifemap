@@ -48,10 +48,10 @@ const HabitItem = ({ habit, onDeleteHabitDataUnit }) => {
     onDeleteHabitDataUnit(habit.id);
   };
   return (
-    <TaskItemWrapper id={habit?.id}>
+    <TaskItemWrapper id={habit?.id} isClosed={habit?.isClosed}>
       <HeaderWrapper>
         <HeaderItem headerColor={habit?.isFulfilled}>
-          {habit?.nameValue} {habit?.isClosed ? "(Closed)" : ""}{" "}
+          {habit?.nameValue} {habit?.isClosed ? "(Expired)" : ""}{" "}
         </HeaderItem>
         <p>{habit?.category.label}</p>
         <p>{habit?.subCategory.label}</p>
