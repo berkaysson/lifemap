@@ -38,11 +38,6 @@ const ValueInputWrapper = styled.div`
     justify-content: center;
     font-size: 14px;
   }
-
-  & > :last-child {
-    margin-top: ${({ theme }) => theme.sizes.large};
-    width: 100%;
-  }
 `;
 
 const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
