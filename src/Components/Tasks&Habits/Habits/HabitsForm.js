@@ -57,19 +57,28 @@ const HabitsForm = ({ onAddHabitUnit, activityCategories }) => {
 
   return (
     <div>
-      <FormWrapper onSubmit={formSubmitHandler}>
+      <FormWrapper onSubmit={formSubmitHandler} disableBoxShadow={true}>
         <CategorySubCategorySelect
           categories={activityCategories}
           onSubCategorySelect={subCategorySelectionHandler}
         />
         <HabitFrequencySelector onSelect={frequencyHandler} />
-        <HabitDurationInput onChange={durationHandler} frequency={habit.frequency} />
-        <label>Enter minute:</label>
-        <StyledInput type="number" name="timeValue" onChange={timeValueHandler} />
-        <label>
-          Enter Name of the habit
-          <StyledInput type="text" name="nameValue" onChange={nameValueHandler} />
-        </label>
+        <HabitDurationInput
+          onChange={durationHandler}
+          frequency={habit.frequency}
+        />
+        <StyledInput
+          type="number"
+          name="timeValue"
+          onChange={timeValueHandler}
+          placeholder="Enter minute"
+        />
+        <StyledInput
+          type="text"
+          name="nameValue"
+          onChange={nameValueHandler}
+          placeholder="Enter Name of the habit"
+        />
         <Button type={"submit"} text={"Submit"} />
       </FormWrapper>
     </div>

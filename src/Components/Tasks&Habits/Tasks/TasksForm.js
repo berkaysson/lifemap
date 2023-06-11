@@ -41,7 +41,7 @@ const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
 
   return (
     <div>
-      <FormWrapper onSubmit={formSubmitHandler}>
+      <FormWrapper onSubmit={formSubmitHandler} disableBoxShadow={true}>
         <CategorySubCategorySelect
           categories={activityCategories}
           onSubCategorySelect={subCategorySelectionHandler}
