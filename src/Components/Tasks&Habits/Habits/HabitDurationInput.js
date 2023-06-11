@@ -47,7 +47,7 @@ const HabitDurationInput = ({ onChange, frequency }) => {
     <DurationWrapper>
       <StyledInput
         type="number"
-        placeholder="Enter task period"
+        placeholder="Enter habit period"
         value={duration || ""}
         onChange={(event) => setDuration(event.target.value)}
       />
