@@ -84,7 +84,7 @@ const TasksHabitsPage = ({
         </ParagraphContent>
       </Welcome>
       <TaskHabit>
-        <FormHeader>Activity Form</FormHeader>
+        <FormHeader>Task and Habit Form</FormHeader>
         <TaskHabitContainer>
           <TasksHabitsWrapper
             activityCategories={activityCategories}
