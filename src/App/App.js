@@ -6,7 +6,7 @@ import { exportHandler, importHandler } from "../Utilities/export&importHelpers"
 import activityDataUnitConstructor from "../Data/activityDataUnitConstructor";
 
 import AppFetch from "./AppFetch";
-import { addTaskOrHabitDataUnit, deleteTaskOrHabitDataUnit, editTaskOrHabitSituation, getAllTaskOrHabitDataUnits } from "../Utilities/task&habitDBHelpers";
+import { addTaskOrHabitDataUnit, createCheckpointsTaskForHabit, deleteTaskOrHabitDataUnit, editTaskOrHabitSituation, getAllTaskOrHabitDataUnits } from "../Utilities/task&habitDBHelpers";
 import { addFinancialDataUnitHelper, deleteFinancialDataUnitHelper, updateFinancialDataUnitHelper } from "../Utilities/financialDataHelpers";
 import { deleteSubCategoryHelper, updateCategoryHelper } from "../Utilities/categotyHelpers";
 
@@ -235,6 +235,10 @@ function App({ db, STORES }) {
   const editHabitDataUnitClosed = async (isClosed, dataID) => {
     await editTaskOrHabitSituation(db, 'habit', 'isClosed', isClosed, dataID);
   };
+
+  const editHabitDataUnitCheckpointObjects = async (arrayOfObjects, dataID) => {
+    await editTaskOrHabitSituation(db, 'habit', 'checkpointObjects', arrayOfObjects, dataID);
+  }
   
   const handleExport = async () => {
     await exportHandler(db);
@@ -257,6 +261,7 @@ function App({ db, STORES }) {
     onEditHabitDataUnitClosed: editHabitDataUnitClosed,
     onEditHabitDataUnitFulfilled:editHabitDataUnitFulfilled,
     onEditTaskDataUnitCompletedValue: editTaskDataUnitCompletedValue,
+    onEditHabitDataUnitCheckpointObjects : editHabitDataUnitCheckpointObjects,
     isNeedFetchUpdate: isNeedFetchUpdate,
   };
 
