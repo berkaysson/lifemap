@@ -2,6 +2,7 @@ import React from "react";
 
 import Button from "../../Wrappers/Styled-Elements/Button";
 import styled from "styled-components";
+import ProgressBar from "../../Others/ProgressBar";
 
 const TaskItemWrapper = styled.li`
   display: flex;
@@ -39,7 +40,11 @@ const HeaderItem = styled.h3`
 const DateWrapper = styled.div`
   width: 100%;
   text-align: left;
-  margin-left: ${({ theme }) => theme.sizes.medium};
+
+  &>p{
+    margin-bottom: 5px;
+    margin-left: ${({ theme }) => theme.sizes.medium};
+  }
 `
 
 const TaskItem = ({ task, onDeleteTaskDataUnit }) => {
@@ -56,7 +61,8 @@ const TaskItem = ({ task, onDeleteTaskDataUnit }) => {
       </HeaderWrapper>
       <DateWrapper>
         <p>{task?.startDate} / {task?.endDate}</p>
-        <p>Time Value: {task?.timeValue}</p>
+        <p>Goal Value: {task?.timeValue}</p>
+        <ProgressBar currentValue={task?.completedValue} goalValue={task?.timeValue} />
       </DateWrapper>
       <Button type={"button"} text={"Delete"} onClick={deleteHandler} />
     </TaskItemWrapper>
