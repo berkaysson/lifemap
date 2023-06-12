@@ -5,9 +5,11 @@ import AppContent from "./AppContent";
 import { formatDate } from "../Utilities/dateHelpers";
 import {
   calculateCurrentTimeValue,
+  checkDailyCheckpoint,
   checkDueDate,
   checkIsFulfilled,
   checkIsFulfilledCheckpoint,
+  checkNonDailyCheckpoint,
 } from "../Utilities/task&habitCheckHelpers";
 
 const CURRENT_DATE = formatDate(new Date());
@@ -26,7 +28,8 @@ const AppFetch = ({
   onEditTaskDataUnitClosed,
   onEditHabitDataUnitClosed,
   onEditHabitDataUnitFulfilled,
-  onEditTaskDataUnitCompletedValue
+  onEditTaskDataUnitCompletedValue,
+  onEditHabitDataUnitCheckpointObjects,
 }) => {
   const [categories, setCategories] = useState([]);
   const [activityCategories, setActivityCategories] = useState([]);
@@ -119,14 +122,14 @@ const AppFetch = ({
 
     if (allTaskDataUnits) {
       for (const taskUnit of allTaskDataUnits) {
-        await onEditTaskDataUnitClosed(
-          checkDueDate(taskUnit),
-          taskUnit.id
-        );
+        await onEditTaskDataUnitClosed(checkDueDate(taskUnit), taskUnit.id);
 
         if (!taskUnit.isClosed) {
           const isFulfilled = checkIsFulfilled(taskUnit, activityDataUnits);
-          const completedValue = calculateCurrentTimeValue(taskUnit, activityDataUnits);
+          const completedValue = calculateCurrentTimeValue(
+            taskUnit,
+            activityDataUnits
+          );
           await onEditTaskDataUnitCompletedValue(completedValue, taskUnit.id);
           await onEditTaskDataUnitFulfilled(isFulfilled, taskUnit.id);
         }
@@ -143,50 +146,24 @@ const AppFetch = ({
         await onEditHabitDataUnitClosed(checkDueDate(habitUnit), habitUnit.id);
 
         if (!habitUnit.isClosed) {
-          if (habitUnit.frequency !== "daily") {
-            checkCheckpointsForFulfillment(habitUnit);
-          }
-          else {
-            checkDailyForFulfillment(habitUnit);
-          }
+          checkCheckpointsOfHabitUnit(habitUnit)
         }
       }
     }
   };
 
-  const checkDailyForFulfillment = async (habitUnit) => {
-    let allCheckpointsFulfilled = true;
-
-    for (let i = 0; i < habitUnit.checkpoints.length - 2; i++) {
-      const checkpointDate = habitUnit.checkpoints[i];
-      if(!checkIsFulfilledCheckpoint(checkpointDate, checkpointDate, habitUnit, activityDataUnits)){
-        allCheckpointsFulfilled = false;
-        await onEditHabitDataUnitFulfilled(false, habitUnit.id);
-      }
+  const checkCheckpointsOfHabitUnit = async (habitUnit) => {
+    if(habitUnit.frequency === "daily"){
+      const isFulfilled = checkDailyCheckpoint(habitUnit, activityDataUnits).isFulfilled;
+      const checkpointObjects = checkDailyCheckpoint(habitUnit, activityDataUnits).checkpointObjects;
+      await onEditHabitDataUnitFulfilled(isFulfilled, habitUnit.id);
+      await onEditHabitDataUnitCheckpointObjects(checkpointObjects, habitUnit.id);
     }
-    if (allCheckpointsFulfilled) {
-      await onEditHabitDataUnitFulfilled(true, habitUnit.id);
-    }
-  }
-
-  const checkCheckpointsForFulfillment = async (habitUnit) => {
-    let allCheckpointsFulfilled = true;
-
-    for (let i = 0; i < habitUnit.checkpoints.length - 2; i++) {
-      const startDate = habitUnit.checkpoints[i];
-      const endDate = moment(new Date(habitUnit.checkpoints[i + 1]))
-        .subtract(1, "day")
-        .format("YYYY-MM-DD");
-      console.log(startDate, endDate);
-      console.log(checkIsFulfilledCheckpoint(startDate, endDate, habitUnit, activityDataUnits));
-      if (!checkIsFulfilledCheckpoint(startDate, endDate, habitUnit, activityDataUnits)) {
-      allCheckpointsFulfilled = false;
-      await onEditHabitDataUnitFulfilled(false, habitUnit.id);
-      }
-    }
-
-    if (allCheckpointsFulfilled) {
-      await onEditHabitDataUnitFulfilled(true, habitUnit.id);
+    else{
+      const isFulfilled = checkNonDailyCheckpoint(habitUnit, activityDataUnits).isFulfilled;
+      const checkpointObjects = checkNonDailyCheckpoint(habitUnit, activityDataUnits).checkpointObjects;
+      await onEditHabitDataUnitFulfilled(isFulfilled, habitUnit.id);
+      await onEditHabitDataUnitCheckpointObjects(checkpointObjects, habitUnit.id);
     }
   };
 

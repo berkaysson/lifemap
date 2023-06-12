@@ -20,7 +20,7 @@ const HabitDurationInput = ({ onChange, frequency }) => {
   useEffect(() => {
     const range = calculateDateRange(duration);
     setDateRange(range);
-    onChange(range.startDate, range.endDate);
+    onChange(range.startDate, range.endDate, duration);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [frequency, duration, startDate]);
 

@@ -33,8 +33,7 @@ export const checkIsFulfilled = (unit, activityDataUnits) => {
   return currentTimeValue >= unit.timeValue;
 };
 
-
-export const checkIsFulfilledCheckpoint = (
+export const checkCheckpointTasks = (
   startDate,
   endDate,
   unit,
@@ -49,3 +48,54 @@ export const checkIsFulfilledCheckpoint = (
   };
   return checkIsFulfilled(formattedUnit, activityDataUnits);
 };
+
+export const checkDailyCheckpoint = (habitUnit, activityDataUnits) => {
+  let allCheckpointsFulfilled = true;
+  let allCheckpointsArray = habitUnit.checkpointObjects;
+
+    for (let i = 0; i < habitUnit.checkpoints.length - 2; i++) {
+      const checkpointDate = habitUnit.checkpoints[i];
+      if (
+        !checkCheckpointTasks(
+          checkpointDate,
+          checkpointDate,
+          habitUnit,
+          activityDataUnits
+        )
+      ) {
+        allCheckpointsFulfilled = false;
+      }
+      else{
+        let checkpointObject = allCheckpointsArray.find((object) => object.id === checkpointDate+"_cp-start");
+        checkpointObject.isFulfilled = true;
+      }
+    }
+    return {isFulfilled: allCheckpointsFulfilled, checkpointObjects:allCheckpointsArray};
+}
+
+export const checkNonDailyCheckpoint = (habitUnit, activityDataUnits) => {
+  let allCheckpointsFulfilled = true;
+  let allCheckpointsArray = habitUnit.checkpointObjects;
+
+    for (let i = 0; i < habitUnit.checkpoints.length - 2; i++) {
+      const startDate = habitUnit.checkpoints[i];
+      const endDate = moment(new Date(habitUnit.checkpoints[i + 1]))
+        .subtract(1, "day")
+        .format("YYYY-MM-DD");
+      if (
+        !checkCheckpointTasks(
+          startDate,
+          endDate,
+          habitUnit,
+          activityDataUnits
+        )
+      ) {
+        allCheckpointsFulfilled = false;
+      }
+      else{
+        let checkpointObject = allCheckpointsArray.find((object) => object.id === startDate+"_cp-start");
+        checkpointObject.isFulfilled = true;
+      }
+    }
+    return {isFulfilled: allCheckpointsFulfilled, checkpointObjects:allCheckpointsArray};
+}

@@ -12,7 +12,7 @@ export const addTaskOrHabitDataUnit = async (db, unit, dataType) => {
         isFulfilled: false,
         isClosed: false,
         checkpoints: createCheckpointsHabit(unit),
-        completedCheckpoint:0,
+        checkpointObjects: createCheckpointsTaskForHabit(unit),
       });
       console.log("Habit unit added successfully");
     }
@@ -39,6 +39,35 @@ export const createCheckpointsHabit = (habitUnit) => {
   checkpoints.push(endDate.format("YYYY-MM-DD"));
 
   return checkpoints;
+};
+
+export const createCheckpointsTaskForHabit = (habitUnit) => {
+  const frequency = habitUnit.frequency;
+  const startDate = moment(new Date(habitUnit.startDate));
+  const endDate = moment(new Date(habitUnit.endDate));
+  let checkpointTasks = [];
+
+  const { coefficient, dateType } = calculateFrequencyDateValue(frequency);
+
+  let currentDate = moment(startDate);
+
+  while (currentDate.isBefore(endDate)) {
+    const startDate = currentDate.format("YYYY-MM-DD");
+    const endDate = currentDate.clone().add(coefficient, dateType).subtract(1, "days").format("YYYY-MM-DD");
+    let taskObject = {
+      startDate: startDate,
+      endDate: endDate,
+      goalValue: habitUnit.timeValue,
+      category: habitUnit.category,
+      subCategory: habitUnit.subCategory,
+      isFulfilled: false,
+      id: startDate + "_cp-start",
+    }
+    checkpointTasks.push(taskObject);
+    currentDate.add(coefficient, dateType);
+  }
+
+  return checkpointTasks;
 };
 
 export const deleteTaskOrHabitDataUnit = async (db, dataID, dataType) => {
