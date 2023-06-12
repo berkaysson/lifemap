@@ -2,7 +2,7 @@ import React from "react";
 
 import Button from "../../Wrappers/Styled-Elements/Button";
 import styled from "styled-components";
-import ProgressBar from "../../Others/ProgressBar";
+import ProgressBar from "../../Wrappers/ProgressBar";
 
 const TaskItemWrapper = styled.li`
   display: flex;
