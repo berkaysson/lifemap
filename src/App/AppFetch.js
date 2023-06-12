@@ -4,6 +4,7 @@ import moment from "moment";
 import AppContent from "./AppContent";
 import { formatDate } from "../Utilities/dateHelpers";
 import {
+  calculateCurrentTimeValue,
   checkDueDate,
   checkIsFulfilled,
   checkIsFulfilledCheckpoint,
@@ -24,7 +25,8 @@ const AppFetch = ({
   onEditTaskDataUnitFulfilled,
   onEditTaskDataUnitClosed,
   onEditHabitDataUnitClosed,
-  onEditHabitDataUnitFulfilled
+  onEditHabitDataUnitFulfilled,
+  onEditTaskDataUnitCompletedValue
 }) => {
   const [categories, setCategories] = useState([]);
   const [activityCategories, setActivityCategories] = useState([]);
@@ -124,6 +126,8 @@ const AppFetch = ({
 
         if (!taskUnit.isClosed) {
           const isFulfilled = checkIsFulfilled(taskUnit, activityDataUnits);
+          const completedValue = calculateCurrentTimeValue(taskUnit, activityDataUnits);
+          await onEditTaskDataUnitCompletedValue(completedValue, taskUnit.id);
           await onEditTaskDataUnitFulfilled(isFulfilled, taskUnit.id);
         }
       }

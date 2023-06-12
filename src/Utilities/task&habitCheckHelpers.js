@@ -1,7 +1,7 @@
 import moment from "moment";
 import addDays from "date-fns/addDays";
 
-const calculateCurrentTimeValue = (unit, activityDataUnits) => {
+export const calculateCurrentTimeValue = (unit, activityDataUnits) => {
   const category = unit.category.label;
   const subCategory = unit.subCategory.value;
   let currentTimeValue = 0;

@@ -4,7 +4,7 @@ import { calculateFrequencyDateValue } from "./dateHelpers";
 export const addTaskOrHabitDataUnit = async (db, unit, dataType) => {
   try {
     if (dataType === "task") {
-      await db.tasksData.put({ ...unit, isFulfilled: false, isClosed: false });
+      await db.tasksData.put({ ...unit, isFulfilled: false, isClosed: false, completedValue:0, });
       console.log("Task unit added successfully");
     } else if (dataType === "habit") {
       await db.habitsData.put({
@@ -12,6 +12,7 @@ export const addTaskOrHabitDataUnit = async (db, unit, dataType) => {
         isFulfilled: false,
         isClosed: false,
         checkpoints: createCheckpointsHabit(unit),
+        completedCheckpoint:0,
       });
       console.log("Habit unit added successfully");
     }

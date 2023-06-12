@@ -220,6 +220,10 @@ function App({ db, STORES }) {
     await editTaskOrHabitSituation(db, "task", "isFulfilled", isFulfilled, dataID);
   }
 
+  const editTaskDataUnitCompletedValue = async (value, dataID) => {
+    await editTaskOrHabitSituation(db, "task", "completedValue", value, dataID);
+  }
+
   const editTaskDataUnitClosed = async (isClosed, dataID) => {
     await editTaskOrHabitSituation(db, 'task', 'isClosed', isClosed, dataID);
   };
@@ -252,6 +256,7 @@ function App({ db, STORES }) {
     onEditTaskDataUnitClosed: editTaskDataUnitClosed,
     onEditHabitDataUnitClosed: editHabitDataUnitClosed,
     onEditHabitDataUnitFulfilled:editHabitDataUnitFulfilled,
+    onEditTaskDataUnitCompletedValue: editTaskDataUnitCompletedValue,
     isNeedFetchUpdate: isNeedFetchUpdate,
   };
 
