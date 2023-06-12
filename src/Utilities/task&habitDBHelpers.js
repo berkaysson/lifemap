@@ -62,6 +62,7 @@ export const createCheckpointsTaskForHabit = (habitUnit) => {
       subCategory: habitUnit.subCategory,
       isFulfilled: false,
       id: startDate + "_cp-start",
+      currentValue:0,
     }
     checkpointTasks.push(taskObject);
     currentDate.add(coefficient, dateType);
