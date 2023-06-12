@@ -3,6 +3,7 @@ import moment from "moment";
 import styled from "styled-components";
 
 import Button from "../../Wrappers/Styled-Elements/Button";
+import ProgressCircle from "../../Wrappers/ProgressCircle";
 
 const TaskItemWrapper = styled.li`
   display: flex;
@@ -15,7 +16,8 @@ const TaskItemWrapper = styled.li`
   box-shadow: ${({ theme }) => theme.boxShadows.innerSmallShadow};
   gap: ${({ theme }) => theme.sizes.medium};
   position: relative;
-  background-color: ${({isClosed, theme}) => isClosed ? theme.colors.alternative : theme.colors.secondary};
+  background-color: ${({ isClosed, theme }) =>
+    isClosed ? theme.colors.alternative : theme.colors.secondary};
 
   & > Button {
     position: absolute;
@@ -44,6 +46,21 @@ const DateWrapper = styled.div`
   margin-left: ${({ theme }) => theme.sizes.medium};
 `;
 
+const ProgressCircleWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  gap: 4px;
+  flex-wrap: wrap;
+  padding: ${({ theme }) => theme.sizes.small};
+  margin-bottom: 1rem;
+  border: 1px solid ${({ theme }) => theme.colors.alternative};
+  border-radius: ${({ theme }) => theme.radius.small};
+`;
+
 const HabitItem = ({ habit, onDeleteHabitDataUnit }) => {
   const deleteHandler = () => {
     onDeleteHabitDataUnit(habit.id);
@@ -69,6 +86,16 @@ const HabitItem = ({ habit, onDeleteHabitDataUnit }) => {
         <p>Time Value: {habit?.timeValue}</p>
         <p>Check Frequency: {habit?.frequency}</p>
       </DateWrapper>
+      <ProgressCircleWrapper>
+        {habit?.checkpointObjects?.map((item, index) => (
+          <ProgressCircle
+            key={index}
+            currentValue={item?.currentValue}
+            goalValue={item?.goalValue}
+            unit={item}
+          />
+        ))}
+      </ProgressCircleWrapper>
       <Button type={"button"} text={"Delete"} onClick={deleteHandler} />
     </TaskItemWrapper>
   );
