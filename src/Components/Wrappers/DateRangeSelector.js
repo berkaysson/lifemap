@@ -48,9 +48,9 @@ const DateRangeSelector = ({ onSubmit }) => {
     );
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     onDateRangeSelection();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
   return (
