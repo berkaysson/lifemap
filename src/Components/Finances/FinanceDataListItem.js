@@ -39,24 +39,30 @@ const DateWrapper = styled.h4`
 `;
 
 const PriceWrapper = styled.div`
+  display: flex;
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.small};
   padding: ${({ theme }) => theme.sizes.small};
-  width: 75px;
   text-align: start;
   white-space: nowrap;
   background-color:${({ formMode, theme }) => formMode === "income" ? 
   theme.colors.success:theme.colors.danger} ;
   color: ${({ theme }) => theme.colors.primary};
+  font-weight: bold;
+
+  &>div{
+    padding-right: 10px;
+    margin-right: 10px;
+    border-right: 1px solid ${({ theme }) => theme.colors.theme};
+  }
 `;
 
 const ButtonsWrapper = styled.div`
   border-left: 1px solid ${({ theme }) => theme.colors.alternative};
-  padding-left: 2rem;
-
+  padding-left: 0.7rem;
   display: flex;
   flex-direction: row;
-  gap: ${({ theme }) => theme.sizes.small};
+  gap: 5px;
 `
 
 const FinanceDataListItem = ({
@@ -114,10 +120,10 @@ const FinanceDataListItem = ({
             <DateWrapper>
               {item.date} {item.time}
             </DateWrapper>
-            <div>{item.subCategory}</div>
           </HeaderWrapper>
           <ContentWrapper>
             <PriceWrapper formMode={item.formMode}>
+            <div>{item.subCategory}</div>
               {item.formMode === "income" ? "+" : "-"} {item.value}
             </PriceWrapper>
             <ButtonsWrapper>

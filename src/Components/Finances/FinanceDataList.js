@@ -11,6 +11,15 @@ import StyledInput from "../Wrappers/Styled-Elements/StyledInput";
 const CURRENT_DATE = new Date().toISOString().slice(0, 10);
 
 const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: ${({theme})=> theme.sizes.medium};
+  width: 100%;
+  padding: ${({theme})=> theme.sizes.medium};
+  border: 1px solid ${({theme})=> theme.colors.alternative};
+  border-radius: ${({theme})=> theme.radius.medium};
 `;
 
 const ListWrapper = styled.ul`
