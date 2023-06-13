@@ -4,7 +4,7 @@ import { theme } from "../../Style/theme";
 import styled from "styled-components";
 import { Tooltip } from "@mui/material";
 
-const CIRCLE_DIAMETER = "30px";
+const CIRCLE_DIAMETER = "27px";
 
 const ProgressCircleWrapper = styled.div`
   position: relative;
@@ -12,10 +12,10 @@ const ProgressCircleWrapper = styled.div`
   height: ${CIRCLE_DIAMETER};
   transform: rotate(-90deg);
   z-index:1;
-  transition: 0.2s ease-in transform;
+  transition: 0.1s ease-in transform;
 
   &:hover{
-    transform: scale(1.4) rotate(-90deg);
+    transform: scale(1.3) rotate(-90deg);
     z-index:2;
   }
 `;
