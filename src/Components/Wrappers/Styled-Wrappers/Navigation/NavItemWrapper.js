@@ -34,6 +34,9 @@ white-space: nowrap;
   0% {
     opacity: 0;
   }
+  33% {
+    opacity: 0;
+  }
   100% {
     opacity: 1;
   }
@@ -42,7 +45,7 @@ white-space: nowrap;
 &>.nav-item-text{
   display: none;
   opacity: 0;
-  animation: fade-in-out 0.4s ease-in-out forwards;
+  animation: fade-in-out 0.5s ease-in-out forwards;
 
   &.active{
     display: inline-block;
