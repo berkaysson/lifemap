@@ -7,7 +7,7 @@ const StyledButton = styled.button`
   color: ${({theme}) => theme.colors.primary};
   border: 1px solid ${({theme}) => theme.colors.alternative};
   border-radius: ${({theme}) => theme.radius.large};
-  font-size: ${({theme}) => theme.sizes.medium};
+  font-size: 0.9em;
   padding: ${({theme}) => theme.sizes.small} ${({theme}) => theme.sizes.medium};
   text-align: center;
   cursor: pointer;
