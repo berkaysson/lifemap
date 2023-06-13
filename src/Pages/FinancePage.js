@@ -4,6 +4,7 @@ import FinancesForm from "../Components/Finances/FinancesForm";
 import FinanceDataList from "../Components/Finances/FinanceDataList";
 import ParagraphContent from "../Components/Contents/ParagraphContent";
 import HeaderContent from "../Components/Contents/HeaderContent";
+import { AnimatedPage } from "../Components/Wrappers/AnimatedPage";
 
 const Wrapper = styled.section`
   display: grid;
@@ -71,48 +72,50 @@ const FinancePage = ({
   financeDataUnits,
 }) => {
   return (
-    <Wrapper>
-      <Header>
-        <HeaderContent headerText={"Finances"} />
-      </Header>
-      <Welcome>
-        <ParagraphContent>
-          <b>Manage your finances effortlessly with Lifemap's Finance page</b>
-          <br />
-          Enter your income and expenses by selecting a category and specifying
-          the amount. Easily track your financial transactions and gain insights
-          into your spending habits. The page provides a lists your incomes and
-          expenses, allowing you to review and analyze your financial
-          activities.
-        </ParagraphContent>
-      </Welcome>
-      <Form>
-        <FormHeader>Finance Form</FormHeader>
-        <Finance>
-          <FinancesForm
-            expenseCategory={financialCategories.find(
-              (obj) => obj.id === "expenseCategories"
-            )}
-            incomeCategory={financialCategories.find(
-              (obj) => obj.id === "incomeCategories"
-            )}
-            onAddFinancialDataUnit={onAddFinancialDataUnit}
-          />
+    <AnimatedPage>
+      <Wrapper>
+        <Header>
+          <HeaderContent headerText={"Finances"} />
+        </Header>
+        <Welcome>
           <ParagraphContent>
-            Easily record your income and expenses by selecting the date,
-            category, specifying the type (income or expense), and entering the
-            amount.
+            <b>Manage your finances effortlessly with Lifemap's Finance page</b>
+            <br />
+            Enter your income and expenses by selecting a category and
+            specifying the amount. Easily track your financial transactions and
+            gain insights into your spending habits. The page provides a lists
+            your incomes and expenses, allowing you to review and analyze your
+            financial activities.
           </ParagraphContent>
-        </Finance>
-      </Form>
-      <List>
-        <FinanceDataList
-          financeDataUnits={financeDataUnits}
-          onDeleteFinancialDataUnit={onDeleteFinancialDataUnit}
-          onUpdateFinancialDataUnit={onUpdateFinancialDataUnit}
-        />
-      </List>
-    </Wrapper>
+        </Welcome>
+        <Form>
+          <FormHeader>Finance Form</FormHeader>
+          <Finance>
+            <FinancesForm
+              expenseCategory={financialCategories.find(
+                (obj) => obj.id === "expenseCategories"
+              )}
+              incomeCategory={financialCategories.find(
+                (obj) => obj.id === "incomeCategories"
+              )}
+              onAddFinancialDataUnit={onAddFinancialDataUnit}
+            />
+            <ParagraphContent>
+              Easily record your income and expenses by selecting the date,
+              category, specifying the type (income or expense), and entering
+              the amount.
+            </ParagraphContent>
+          </Finance>
+        </Form>
+        <List>
+          <FinanceDataList
+            financeDataUnits={financeDataUnits}
+            onDeleteFinancialDataUnit={onDeleteFinancialDataUnit}
+            onUpdateFinancialDataUnit={onUpdateFinancialDataUnit}
+          />
+        </List>
+      </Wrapper>
+    </AnimatedPage>
   );
 };
 

@@ -10,6 +10,7 @@ import Button from "../Components/Wrappers/Styled-Elements/Button.js";
 import DataRangeTableViewer from "../Components/Wrappers/Styled-Wrappers/DataRangeTableViewer.js";
 import HeaderContent from "../Components/Contents/HeaderContent.js";
 import ParagraphContent from "../Components/Contents/ParagraphContent.js";
+import { AnimatedPage } from "../Components/Wrappers/AnimatedPage.js";
 
 const Wrapper = styled.section`
   display: grid;
@@ -128,92 +129,95 @@ const ViewActivityUnitsPage = ({
   }, [activityDataUnits, isDateRangeSelected]);
 
   return (
-    <Wrapper>
-      <Header>
-        <HeaderContent headerText={"View Activity Units"} />
-      </Header>
-      <Welcome>
-        <ParagraphContent>
-          Welcome to the View Activity Units page.where you can conveniently
-          track and analyze your activity units. This dynamic page offers two
-          viewing options: Card View and Table View. In the Card View, activity
-          units are displayed in a visually appealing and compact format,
-          providing a quick overview of your tracked activities. Switching to
-          the Table View presents your activity units in a structured table
-          layout, allowing for detailed analysis and comparison.
-        </ParagraphContent>
-      </Welcome>
-      <Tables>
-        <FormContainer>
-          <ToggleButton
-            onClick={() => setIsDateRangeSelected(!isDateRangeSelected)}
-            options={[
-              { label: "Single Date", value: "date" },
-              { label: "Date Range", value: "range" },
-            ]}
-          />
-          {isDateRangeSelected ? (
-            <>
-              <DateRangeSelector onSubmit={dateRangeInputHandler} />
-              <Button
-                type="button"
-                text="Show"
-                onClick={dateRangeButtonHandler}
-              />
-            </>
-          ) : (
-            <>
-              <DataViewerForm
-                onDateSelection={dateInputHandler}
-                selectedDate={selectedDateActivityUnit}
-              />
-              <h3>{selectedDateActivityUnit ? "" : "No date selected"}</h3>
-            </>
-          )}
-        </FormContainer>
-        <TablesContainer>
-          {!isDateRangeSelected ? (
-            <DataViewer
-              selectedDateDataUnit={selectedDateActivityUnit}
-              activityCategories={activityCategories}
+    <AnimatedPage>
+      <Wrapper>
+        <Header>
+          <HeaderContent headerText={"View Activity Units"} />
+        </Header>
+        <Welcome>
+          <ParagraphContent>
+            Welcome to the View Activity Units page.where you can conveniently
+            track and analyze your activity units. This dynamic page offers two
+            viewing options: Card View and Table View. In the Card View,
+            activity units are displayed in a visually appealing and compact
+            format, providing a quick overview of your tracked activities.
+            Switching to the Table View presents your activity units in a
+            structured table layout, allowing for detailed analysis and
+            comparison.
+          </ParagraphContent>
+        </Welcome>
+        <Tables>
+          <FormContainer>
+            <ToggleButton
+              onClick={() => setIsDateRangeSelected(!isDateRangeSelected)}
+              options={[
+                { label: "Single Date", value: "date" },
+                { label: "Date Range", value: "range" },
+              ]}
             />
-          ) : (
-            <>
-              <ToggleButton
-                onClick={() =>
-                  setIsTableViewOfUnitsActive(!isTableViewOfUnitsActive)
-                }
-                options={[
-                  { label: "Card View", value: "card" },
-                  { label: "Table View", value: "table" },
-                ]}
+            {isDateRangeSelected ? (
+              <>
+                <DateRangeSelector onSubmit={dateRangeInputHandler} />
+                <Button
+                  type="button"
+                  text="Show"
+                  onClick={dateRangeButtonHandler}
+                />
+              </>
+            ) : (
+              <>
+                <DataViewerForm
+                  onDateSelection={dateInputHandler}
+                  selectedDate={selectedDateActivityUnit}
+                />
+                <h3>{selectedDateActivityUnit ? "" : "No date selected"}</h3>
+              </>
+            )}
+          </FormContainer>
+          <TablesContainer>
+            {!isDateRangeSelected ? (
+              <DataViewer
+                selectedDateDataUnit={selectedDateActivityUnit}
+                activityCategories={activityCategories}
               />
-              {!filteredActivityDataUnits ||
-              filteredActivityDataUnits.length > 0 ? (
-                isTableViewOfUnitsActive ? (
-                  <DataRangeTableContainer>
-                    <DataRangeTableViewer
-                      filteredActivityDataUnits={filteredActivityDataUnits}
-                      activityCategories={activityCategories}
-                    />
-                  </DataRangeTableContainer>
+            ) : (
+              <>
+                <ToggleButton
+                  onClick={() =>
+                    setIsTableViewOfUnitsActive(!isTableViewOfUnitsActive)
+                  }
+                  options={[
+                    { label: "Card View", value: "card" },
+                    { label: "Table View", value: "table" },
+                  ]}
+                />
+                {!filteredActivityDataUnits ||
+                filteredActivityDataUnits.length > 0 ? (
+                  isTableViewOfUnitsActive ? (
+                    <DataRangeTableContainer>
+                      <DataRangeTableViewer
+                        filteredActivityDataUnits={filteredActivityDataUnits}
+                        activityCategories={activityCategories}
+                      />
+                    </DataRangeTableContainer>
+                  ) : (
+                    filteredActivityDataUnits.map((item) => (
+                      <DataViewer
+                        key={item.id}
+                        selectedDateDataUnit={item}
+                        activityCategories={activityCategories}
+                      />
+                    ))
+                  )
                 ) : (
-                  filteredActivityDataUnits.map((item) => (
-                    <DataViewer
-                      key={item.id}
-                      selectedDateDataUnit={item}
-                      activityCategories={activityCategories}
-                    />
-                  ))
-                )
-              ) : (
-                <p>No data available</p>
-              )}
-            </>
-          )}
-        </TablesContainer>
-      </Tables>
-    </Wrapper>
+                  <p>No data available</p>
+                )}
+              </>
+            )}
+          </TablesContainer>
+        </Tables>
+      </Wrapper>
+    </AnimatedPage>
   );
 };
 

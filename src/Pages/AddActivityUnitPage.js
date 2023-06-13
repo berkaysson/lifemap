@@ -4,6 +4,7 @@ import ActivityForm from "../Components/Others/ActivityForm";
 import CategoriesForm from "../Components/Categories/CategoriesForm";
 import HeaderContent from "../Components/Contents/HeaderContent.js";
 import ParagraphContent from "../Components/Contents/ParagraphContent.js";
+import { AnimatedPage } from "../Components/Wrappers/AnimatedPage.js";
 
 const AddActivityUnitPageWrapper = styled.section`
   display: grid;
@@ -77,51 +78,53 @@ const AddActivityUnitPage = ({
   activityCategories,
 }) => {
   return (
-    <AddActivityUnitPageWrapper>
-      <Header>
-        <HeaderContent headerText={"Add Activity Unit and Category"} />
-      </Header>
-      <Welcome>
-        <ParagraphContent>
-          <b>Manage Your Activity Units and Categories with Ease</b> <br />
-          Welcome to the Activity Units Management page. Take control of your
-          daily activities effortlessly using Lifemap's intuitive interface.{" "}
-          <br />
-          You can also edit the activity categories.
-        </ParagraphContent>
-      </Welcome>
-      <Activity>
-        <FormHeader>Activity Form</FormHeader>
-        <ActivityContainer>
-          <ActivityForm
-            onUpdateActivityDataUnit={onUpdateActivityDataUnit}
-            activityCategories={activityCategories}
-          />
+    <AnimatedPage>
+      <AddActivityUnitPageWrapper>
+        <Header>
+          <HeaderContent headerText={"Add Activity Unit and Category"} />
+        </Header>
+        <Welcome>
           <ParagraphContent>
-            Welcome to the <b>Activity Form</b>. Select a date or keep today's
-            date, choose an activity type, pick a category, decide whether to
-            add or delete, enter the value, and submit. Use this form to
-            effortlessly track your activities and make necessary changes.
+            <b>Manage Your Activity Units and Categories with Ease</b> <br />
+            Welcome to the Activity Units Management page. Take control of your
+            daily activities effortlessly using Lifemap's intuitive interface.{" "}
+            <br />
+            You can also edit the activity categories.
           </ParagraphContent>
-        </ActivityContainer>
-      </Activity>
-      <Category>
-        <FormHeader>Category Form</FormHeader>
-        <CategoryContainer>
-          <CategoriesForm
-            categories={categories}
-            onDeleteSubCategory={onDeleteSubCategory}
-            onUpdateCategory={onUpdateCategory}
-          />
-          <ParagraphContent>
-            Manage your categories effortlessly with the{" "}
-            <b>Category Update Form</b>. Add or delete categories for activity
-            types and finances. Expand your options by adding new categories
-            with a descriptive name
-          </ParagraphContent>
-        </CategoryContainer>
-      </Category>
-    </AddActivityUnitPageWrapper>
+        </Welcome>
+        <Activity>
+          <FormHeader>Activity Form</FormHeader>
+          <ActivityContainer>
+            <ActivityForm
+              onUpdateActivityDataUnit={onUpdateActivityDataUnit}
+              activityCategories={activityCategories}
+            />
+            <ParagraphContent>
+              Welcome to the <b>Activity Form</b>. Select a date or keep today's
+              date, choose an activity type, pick a category, decide whether to
+              add or delete, enter the value, and submit. Use this form to
+              effortlessly track your activities and make necessary changes.
+            </ParagraphContent>
+          </ActivityContainer>
+        </Activity>
+        <Category>
+          <FormHeader>Category Form</FormHeader>
+          <CategoryContainer>
+            <CategoriesForm
+              categories={categories}
+              onDeleteSubCategory={onDeleteSubCategory}
+              onUpdateCategory={onUpdateCategory}
+            />
+            <ParagraphContent>
+              Manage your categories effortlessly with the{" "}
+              <b>Category Update Form</b>. Add or delete categories for activity
+              types and finances. Expand your options by adding new categories
+              with a descriptive name
+            </ParagraphContent>
+          </CategoryContainer>
+        </Category>
+      </AddActivityUnitPageWrapper>
+    </AnimatedPage>
   );
 };
 

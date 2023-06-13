@@ -5,6 +5,7 @@ import TasksHabitsList from "../Components/Tasks&Habits/TasksHabitsList";
 import HeaderContent from "../Components/Contents/HeaderContent";
 import ParagraphContent from "../Components/Contents/ParagraphContent";
 import { useState } from "react";
+import { AnimatedPage } from "../Components/Wrappers/AnimatedPage";
 
 const TasksHabitsPageWrapper = styled.section`
   display: grid;
@@ -72,56 +73,58 @@ const TasksHabitsPage = ({
   const [selectedForm, setSelectedForm] = useState("tasks");
 
   return (
-    <TasksHabitsPageWrapper>
-      <Header>
-        <HeaderContent headerText={"Tasks and Habits"} />
-      </Header>
-      <Welcome>
-        <ParagraphContent>
-          <b>Effortlessly manage your tasks and habits</b> <br />
-          Create new tasks and habits to stay organized and focused
-          on your goals. The page features a visually appealing and
-          user-friendly interface, allowing you to effortlessly track your
-          progress. Easily view your current tasks and habits and stay motivated
-          as you witness your progress unfold.
-        </ParagraphContent>
-      </Welcome>
-      <TaskHabit>
-        <FormHeader>Task and Habit Form</FormHeader>
-        <TaskHabitContainer>
-          <TasksHabitsWrapper
-            activityCategories={activityCategories}
-            onAddTaskUnit={onAddTaskUnit}
-            onAddHabitUnit={onAddHabitUnit}
-            setSelectedForm={setSelectedForm}
-          />
+    <AnimatedPage>
+      <TasksHabitsPageWrapper>
+        <Header>
+          <HeaderContent headerText={"Tasks and Habits"} />
+        </Header>
+        <Welcome>
           <ParagraphContent>
-            {selectedForm === "tasks"
-              ? `Tasks Form, begin by selecting the activity type and category that
+            <b>Effortlessly manage your tasks and habits</b> <br />
+            Create new tasks and habits to stay organized and focused on your
+            goals. The page features a visually appealing and user-friendly
+            interface, allowing you to effortlessly track your progress. Easily
+            view your current tasks and habits and stay motivated as you witness
+            your progress unfold.
+          </ParagraphContent>
+        </Welcome>
+        <TaskHabit>
+          <FormHeader>Task and Habit Form</FormHeader>
+          <TaskHabitContainer>
+            <TasksHabitsWrapper
+              activityCategories={activityCategories}
+              onAddTaskUnit={onAddTaskUnit}
+              onAddHabitUnit={onAddHabitUnit}
+              setSelectedForm={setSelectedForm}
+            />
+            <ParagraphContent>
+              {selectedForm === "tasks"
+                ? `Tasks Form, begin by selecting the activity type and category that
               best represent the task you want to track. Set a specific date
               range within which the task needs to be completed. Enter the
               estimated time in minutes required to accomplish the task.
               Finally, provide a name to easily identify and track the task.
             `
-              : `Habits Form, select the activity type and category. Choose the
+                : `Habits Form, select the activity type and category. Choose the
               frequency of the habit, to establish a consistent practice. Set
               the habit period, such as 30 times of frequency, and allocate the
               desired time in minutes for each habit period. By providing a
               name, you can easily track and monitor your progress.
               For example, a habit could be Weekly Reading (Personal Growth, Learning) for 4 weeks, allocating 100 minutes per week.
             `}
-          </ParagraphContent>
-        </TaskHabitContainer>
-      </TaskHabit>
-      <TaskHabitListWrapper>
-        <TasksHabitsList
-          taskDataUnits={taskDataUnits}
-          habitDataUnits={habitDataUnits}
-          onDeleteTaskDataUnit={onDeleteTaskDataUnit}
-          onDeleteHabitDataUnit={onDeleteHabitDataUnit}
-        />
-      </TaskHabitListWrapper>
-    </TasksHabitsPageWrapper>
+            </ParagraphContent>
+          </TaskHabitContainer>
+        </TaskHabit>
+        <TaskHabitListWrapper>
+          <TasksHabitsList
+            taskDataUnits={taskDataUnits}
+            habitDataUnits={habitDataUnits}
+            onDeleteTaskDataUnit={onDeleteTaskDataUnit}
+            onDeleteHabitDataUnit={onDeleteHabitDataUnit}
+          />
+        </TaskHabitListWrapper>
+      </TasksHabitsPageWrapper>
+    </AnimatedPage>
   );
 };
 

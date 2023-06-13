@@ -3,6 +3,7 @@ import styled from "styled-components";
 import DataViewer from "../Components/DataViewer/DataViewer.js";
 import HeaderContent from "../Components/Contents/HeaderContent.js";
 import ParagraphContent from "../Components/Contents/ParagraphContent.js";
+import { AnimatedPage } from "../Components/Wrappers/AnimatedPage.js";
 
 const HomeWrapper = styled.section`
   display: grid;
@@ -53,46 +54,49 @@ const Reminder = styled.div`
 
 const HomePage = ({ activityCategories, todaysActivityDataUnit }) => {
   return (
-    <HomeWrapper>
-      <Header>
-        <HeaderContent headerText="HOME" />
-      </Header>
-      <Welcome>
-        <ParagraphContent>
-          Welcome to <b>Lifemap</b>, your personal life tracking tool. Stay
-          organized and achieve your goals by tracking your activities and
-          finances in one place. Take control of your life and make every day
-          count.
-        </ParagraphContent>
-      </Welcome>
-      <Viewer
-        selectedDateDataUnit={todaysActivityDataUnit}
-        activityCategories={activityCategories}
-      />
-      <Info>
-        <ParagraphContent>
-          <b>Activity Tracking:</b> Log your daily activities, categorize them, and set
-          goals to make the most of your time. Lifemap allows you to track
-          activities down to the minute, giving you a comprehensive view of your
-          routines and habits.
-        </ParagraphContent>
+    <AnimatedPage>
+      <HomeWrapper>
+        <Header>
+          <HeaderContent headerText="HOME" />
+        </Header>
+        <Welcome>
+          <ParagraphContent>
+            Welcome to <b>Lifemap</b>, your personal life tracking tool. Stay
+            organized and achieve your goals by tracking your activities and
+            finances in one place. Take control of your life and make every day
+            count.
+          </ParagraphContent>
+        </Welcome>
+        <Viewer
+          selectedDateDataUnit={todaysActivityDataUnit}
+          activityCategories={activityCategories}
+        />
+        <Info>
+          <ParagraphContent>
+            <b>Activity Tracking:</b> Log your daily activities, categorize
+            them, and set goals to make the most of your time. Lifemap allows
+            you to track activities down to the minute, giving you a
+            comprehensive view of your routines and habits.
+          </ParagraphContent>
 
-        <ParagraphContent>
-          <b>Finance Management:</b> Keep your finances in check by recording your
-          expenses and income.
-        </ParagraphContent>
+          <ParagraphContent>
+            <b>Finance Management:</b> Keep your finances in check by recording
+            your expenses and income.
+          </ParagraphContent>
 
-        <ParagraphContent>
-        <b>Task and Habit Management:</b> Create tasks and build healthy habits that
-          align with your goals. Lifemap's integration of tasks and habits with
-          activities ensures that you stay focused, motivated, and productive.
-        </ParagraphContent>
-      </Info>
-      <Tasks>A COMPONENT TO VIEW ACTIVE TASKS-HABITS</Tasks>
-      <Reminder>
-        A REMINDER COMPONENT FOR TASKS-HABITS WHICH TIME EXPIRES
-      </Reminder>
-    </HomeWrapper>
+          <ParagraphContent>
+            <b>Task and Habit Management:</b> Create tasks and build healthy
+            habits that align with your goals. Lifemap's integration of tasks
+            and habits with activities ensures that you stay focused, motivated,
+            and productive.
+          </ParagraphContent>
+        </Info>
+        <Tasks>A COMPONENT TO VIEW ACTIVE TASKS-HABITS</Tasks>
+        <Reminder>
+          A REMINDER COMPONENT FOR TASKS-HABITS WHICH TIME EXPIRES
+        </Reminder>
+      </HomeWrapper>
+    </AnimatedPage>
   );
 };
 
