@@ -63,14 +63,15 @@ const DataRangeTableViewer = ({
         rows={valuesRows}
         disableSelectionOnClick
         rowSelection={false}
-        rowHeight={24}
+        rowHeight={23}
         pageSizeOptions={[5, 20, 50, 100]}
         sx={{
           bgcolor: `${theme.colors.secondary}`,
           color: `${theme.colors.primary}`,
           borderColor: `${theme.colors.alternative}`,
           borderRadius: `${theme.radius.medium}`,
-          p: 1,
+          p: 0.7,
+          fontSize: "14px",
 
           "& .MuiDataGrid-row": {
             borderRadius: `${theme.radius.medium}`,
