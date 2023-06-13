@@ -8,11 +8,12 @@ const DataRangeTableViewerWrapper = styled.div`
   flex-direction: column;
   gap: ${({ theme }) => theme.sizes.small};
   height: auto;
-  width: auto;
+  width: 100%;
   padding: ${({ theme }) => theme.sizes.small};
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.small};
   box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
+  overflow: auto;
 `;
 
 const DataRangeTableViewer = ({
@@ -55,10 +56,6 @@ const DataRangeTableViewer = ({
     return row;
   });
 
-  console.log(filteredActivityDataUnits);
-  console.log(categoriesColumns);
-  console.log("111");
-  console.log(valuesRows);
   return (
     <DataRangeTableViewerWrapper>
       <DataGrid
