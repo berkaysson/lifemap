@@ -1,5 +1,8 @@
+import moment from 'moment';
+
 export function formatDate(date) {
-  return date.toISOString().slice(0, 10);
+  const formattedDate = moment(date).format("YYYY-MM-DD");
+  return formattedDate;
 }
 
 export const calculateFrequencyDateValue = (frequency) => {
