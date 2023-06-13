@@ -12,21 +12,21 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: ${({theme})=>theme.sizes.medium};
-  gap: ${({theme})=>theme.sizes.medium};
-`
+  padding: ${({ theme }) => theme.sizes.medium};
+  gap: ${({ theme }) => theme.sizes.medium};
+`;
 
 const TasksHabitsWrapper = ({
   activityCategories,
   onAddTaskUnit,
   onAddHabitUnit,
-  setSelectedForm
+  setSelectedForm,
 }) => {
   const [selectedOption, setSelectedOption] = useState("tasks");
 
   const toggleTasksHabitsHandler = (mode) => {
     setSelectedOption(mode);
-    setSelectedForm(mode)
+    setSelectedForm(mode);
   };
 
   return (

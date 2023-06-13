@@ -4,7 +4,12 @@ import { calculateFrequencyDateValue } from "./dateHelpers";
 export const addTaskOrHabitDataUnit = async (db, unit, dataType) => {
   try {
     if (dataType === "task") {
-      await db.tasksData.put({ ...unit, isFulfilled: false, isClosed: false, completedValue:0, });
+      await db.tasksData.put({
+        ...unit,
+        isFulfilled: false,
+        isClosed: false,
+        completedValue: 0,
+      });
       console.log("Task unit added successfully");
     } else if (dataType === "habit") {
       await db.habitsData.put({
@@ -53,7 +58,11 @@ export const createCheckpointsTaskForHabit = (habitUnit) => {
 
   while (currentDate.isBefore(endDate)) {
     const startDate = currentDate.format("YYYY-MM-DD");
-    const endDate = currentDate.clone().add(coefficient, dateType).subtract(1, "days").format("YYYY-MM-DD");
+    const endDate = currentDate
+      .clone()
+      .add(coefficient, dateType)
+      .subtract(1, "days")
+      .format("YYYY-MM-DD");
     let taskObject = {
       startDate: startDate,
       endDate: endDate,
@@ -62,8 +71,8 @@ export const createCheckpointsTaskForHabit = (habitUnit) => {
       subCategory: habitUnit.subCategory,
       isFulfilled: false,
       id: startDate + "_cp-start",
-      currentValue:0,
-    }
+      currentValue: 0,
+    };
     checkpointTasks.push(taskObject);
     currentDate.add(coefficient, dateType);
   }
@@ -106,7 +115,13 @@ export const getAllTaskOrHabitDataUnits = async (db, dataType) => {
   }
 };
 
-export const editTaskOrHabitSituation = async (db, dataType, prop, value, dataID) => {
+export const editTaskOrHabitSituation = async (
+  db,
+  dataType,
+  prop,
+  value,
+  dataID
+) => {
   try {
     const dataUnit = await db[`${dataType}sData`].get(dataID);
     dataUnit[prop] = value;

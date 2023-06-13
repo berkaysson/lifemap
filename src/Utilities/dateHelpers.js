@@ -2,7 +2,7 @@ export function formatDate(date) {
   return date.toISOString().slice(0, 10);
 }
 
-export const calculateFrequencyDateValue  = (frequency) => {
+export const calculateFrequencyDateValue = (frequency) => {
   switch (frequency) {
     case "daily":
       return { coefficient: 1, dateType: "days" };
@@ -17,4 +17,4 @@ export const calculateFrequencyDateValue  = (frequency) => {
     default:
       return { coefficient: 0, dateType: "" };
   }
-}
+};

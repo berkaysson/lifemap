@@ -11,12 +11,12 @@ const ProgressCircleWrapper = styled.div`
   width: ${CIRCLE_DIAMETER};
   height: ${CIRCLE_DIAMETER};
   transform: rotate(-90deg);
-  z-index:1;
+  z-index: 1;
   transition: 0.1s ease-in transform;
 
-  &:hover{
+  &:hover {
     transform: scale(1.3) rotate(-90deg);
-    z-index:2;
+    z-index: 2;
   }
 `;
 
@@ -40,7 +40,7 @@ const ProgressCircle = ({ currentValue, goalValue, unit }) => {
             height: `${CIRCLE_DIAMETER}`,
             border: `1px solid ${theme.colors.theme}`,
 
-            "&:hover":{
+            "&:hover": {
               boxShadow: `${theme.boxShadows.themeShadow}`,
             },
 

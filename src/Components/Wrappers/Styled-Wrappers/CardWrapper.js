@@ -10,9 +10,7 @@ const CardWrapperWrapper = styled.div`
 
 export const CardWrapper = ({ children }) => {
   return (
-    <AnimatedCards
-      transition={{duration:0.3,ease: "easeOut"}}
-    >
+    <AnimatedCards transition={{ duration: 0.3, ease: "easeOut" }}>
       <CardWrapperWrapper>{children}</CardWrapperWrapper>
     </AnimatedCards>
   );

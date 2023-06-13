@@ -15,14 +15,15 @@ const TaskItemWrapper = styled.li`
   box-shadow: ${({ theme }) => theme.boxShadows.innerSmallShadow};
   gap: ${({ theme }) => theme.sizes.medium};
   position: relative;
-  background-color: ${({isClosed, theme}) => isClosed ? theme.colors.alternative : theme.colors.secondary};
+  background-color: ${({ isClosed, theme }) =>
+    isClosed ? theme.colors.alternative : theme.colors.secondary};
 
-  &>Button{
+  & > Button {
     position: absolute;
     top: ${({ theme }) => theme.sizes.medium};
     right: ${({ theme }) => theme.sizes.medium};
   }
-`
+`;
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -34,18 +35,19 @@ const HeaderWrapper = styled.div`
 `;
 
 const HeaderItem = styled.h3`
-  color: ${({headerColor,theme})=>headerColor? theme.colors.success:theme.colors.danger};
-`
+  color: ${({ headerColor, theme }) =>
+    headerColor ? theme.colors.success : theme.colors.danger};
+`;
 
 const DateWrapper = styled.div`
   width: 100%;
   text-align: left;
 
-  &>p{
+  & > p {
     margin-bottom: 5px;
     margin-left: ${({ theme }) => theme.sizes.medium};
   }
-`
+`;
 
 const TaskItem = ({ task, onDeleteTaskDataUnit }) => {
   const deleteHandler = () => {
@@ -55,14 +57,19 @@ const TaskItem = ({ task, onDeleteTaskDataUnit }) => {
     <TaskItemWrapper id={task?.id} isClosed={task?.isClosed}>
       <HeaderWrapper>
         <HeaderItem headerColor={task?.isFulfilled}>
-          {task?.nameValue}  {task?.isClosed ? "(Expired)":""}
+          {task?.nameValue} {task?.isClosed ? "(Expired)" : ""}
         </HeaderItem>
         <p>{task?.category.label}</p> <p>{task?.subCategory.label}</p>
       </HeaderWrapper>
       <DateWrapper>
-        <p>{task?.startDate} / {task?.endDate}</p>
+        <p>
+          {task?.startDate} / {task?.endDate}
+        </p>
         <p>Goal Value: {task?.timeValue}</p>
-        <ProgressBar currentValue={task?.completedValue} goalValue={task?.timeValue} />
+        <ProgressBar
+          currentValue={task?.completedValue}
+          goalValue={task?.timeValue}
+        />
       </DateWrapper>
       <Button type={"button"} text={"Delete"} onClick={deleteHandler} />
     </TaskItemWrapper>

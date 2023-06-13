@@ -10,25 +10,25 @@ import { theme } from "../../Style/theme";
 
 const Wrapper = styled.div`
   width: fit-content;
-  padding: ${({theme}) => theme.sizes.small};
-  box-shadow: ${({theme}) => theme.boxShadows.smallCardShadow};
-  border: 1px solid ${({theme}) => theme.colors.alternative};
-  border-radius: ${({theme}) => theme.radius.small};
+  padding: ${({ theme }) => theme.sizes.small};
+  box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
+  border: 1px solid ${({ theme }) => theme.colors.alternative};
+  border-radius: ${({ theme }) => theme.radius.small};
 `;
 
 const DateRangeWrapper = styled(DateRange)`
- & .rdrMonth {
-  & .rdrWeekDays >*{
-    color: ${({theme}) => theme.colors.primary};
-  }
+  & .rdrMonth {
+    & .rdrWeekDays > * {
+      color: ${({ theme }) => theme.colors.primary};
+    }
 
-  & .rdrDays >* {
-    &.rdrDayToday >.rdrDayNumber>span::after{
-      background-color: ${({theme}) => theme.colors.primary};
+    & .rdrDays > * {
+      &.rdrDayToday > .rdrDayNumber > span::after {
+        background-color: ${({ theme }) => theme.colors.primary};
+      }
     }
   }
- }
-`
+`;
 
 const DateRangeSelector = ({ onSubmit }) => {
   const [state, setState] = useState([
@@ -47,7 +47,9 @@ const DateRangeSelector = ({ onSubmit }) => {
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(()=>{onDateRangeSelection()}, [state]);
+  useEffect(() => {
+    onDateRangeSelection();
+  }, [state]);
 
   return (
     <Wrapper>

@@ -25,11 +25,9 @@ const PercantageWrapper = styled.span`
 `;
 
 const ProgressBar = ({ currentValue, goalValue }) => {
-  const calculatedProgressPercentage = (currentValue / goalValue) * 100
+  const calculatedProgressPercentage = (currentValue / goalValue) * 100;
   const progressPercentage =
-  calculatedProgressPercentage > 100
-      ? 100
-      : calculatedProgressPercentage;
+    calculatedProgressPercentage > 100 ? 100 : calculatedProgressPercentage;
 
   return (
     <ProgressBarWrapper>
@@ -43,7 +41,7 @@ const ProgressBar = ({ currentValue, goalValue }) => {
           boxShadow: `${theme.boxShadows.themeShadow}`,
           borderRadius: `${theme.radius.large}`,
           height: `${theme.sizes.large}`,
-          border: `1px solid ${(theme.colors.secondary)}`,
+          border: `1px solid ${theme.colors.secondary}`,
 
           "& .MuiLinearProgress-bar": {
             bgcolor: `${theme.colors.theme}`,

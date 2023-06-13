@@ -1,7 +1,7 @@
 import Select from "react-select";
 import styled from "styled-components";
 
-import {theme as myTheme} from "../../../Style/theme";
+import { theme as myTheme } from "../../../Style/theme";
 
 const StyledSelectWrapper = styled(Select)`
   box-shadow: ${myTheme.boxShadows.smallCardShadow};
@@ -10,22 +10,22 @@ const StyledSelectWrapper = styled(Select)`
   max-width: 300px;
   min-width: 250px;
   transition: background-color 0.4s, color 0.4s;
-`
+`;
 
 export const StyledSelect = (props) => {
   return (
-    <StyledSelectWrapper 
-    {...props}
-    theme={(theme)=>({
-      ...theme,
-      borderRadius:`${myTheme.radius.small}`,
-      colors: {
-        ...theme.colors,
-        primary25: `${myTheme.colors.alternative}`,
-        primary50: `${myTheme.colors.theme}`,
-        primary: `${myTheme.colors.theme}`,
-      },
-    })}
+    <StyledSelectWrapper
+      {...props}
+      theme={(theme) => ({
+        ...theme,
+        borderRadius: `${myTheme.radius.small}`,
+        colors: {
+          ...theme.colors,
+          primary25: `${myTheme.colors.alternative}`,
+          primary50: `${myTheme.colors.theme}`,
+          primary: `${myTheme.colors.theme}`,
+        },
+      })}
     />
-  )
-}
+  );
+};

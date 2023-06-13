@@ -9,30 +9,32 @@ const SwitchWrapper = styled.div`
   min-width: 250px;
   margin: 0;
   padding: 1px;
-  border-radius: ${({theme}) => theme.radius.small};
-  box-shadow: ${({theme}) => theme.boxShadows.smallCardShadow};
+  border-radius: ${({ theme }) => theme.radius.small};
+  box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
 `;
 
 const Button = styled.button`
-  font-size: ${({theme}) => theme.sizes.medium};
+  font-size: ${({ theme }) => theme.sizes.medium};
   transition: background-color 0.4s, color 0.4s;
   flex: 1;
   border: none;
   padding: 5px;
-  background-color: ${({ active, theme }) => (active ? `${theme.colors.primary}` : `${theme.colors.alternative}`)};
-  color: ${({ active, theme }) => (active ? `${theme.colors.secondary}` : `${theme.colors.primary}`)};
+  background-color: ${({ active, theme }) =>
+    active ? `${theme.colors.primary}` : `${theme.colors.alternative}`};
+  color: ${({ active, theme }) =>
+    active ? `${theme.colors.secondary}` : `${theme.colors.primary}`};
   cursor: pointer;
-  border-radius: ${({theme}) => theme.radius.small};
+  border-radius: ${({ theme }) => theme.radius.small};
   white-space: nowrap;
 
-  &:hover{
+  &:hover {
     font-weight: bold;
   }
 
-  &:active{
-    background-color:${({theme}) => theme.colors.theme};
+  &:active {
+    background-color: ${({ theme }) => theme.colors.theme};
   }
-  
+
   &:first-child {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;

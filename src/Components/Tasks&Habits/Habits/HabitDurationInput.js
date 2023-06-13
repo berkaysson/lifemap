@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import { calculateFrequencyDateValue, formatDate } from "../../../Utilities/dateHelpers";
+import {
+  calculateFrequencyDateValue,
+  formatDate,
+} from "../../../Utilities/dateHelpers";
 import StyledInput from "../../Wrappers/Styled-Elements/StyledInput";
 import styled from "styled-components";
 
@@ -9,8 +12,8 @@ const DurationWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: ${({theme})=> theme.sizes.medium};
-`
+  gap: ${({ theme }) => theme.sizes.medium};
+`;
 
 const HabitDurationInput = ({ onChange, frequency }) => {
   const [dateRange, setDateRange] = useState(null);
@@ -21,7 +24,7 @@ const HabitDurationInput = ({ onChange, frequency }) => {
     const range = calculateDateRange(duration);
     setDateRange(range);
     onChange(range.startDate, range.endDate, duration);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [frequency, duration, startDate]);
 
   const calculateDateRange = (value) => {
@@ -53,19 +56,22 @@ const HabitDurationInput = ({ onChange, frequency }) => {
       />
       {dateRange && frequency && (
         <>
-        <span>Start Date:{" "}
-          <StyledInput
-            type="date"
-            value={startDate || formatDate(new Date())}
-            onChange={handleStartDateChange}
-          /></span>
           <span>
-          End Date:{" "}
-          <b>
-          {moment(new Date(dateRange?.endDate))
-            .subtract(1, "day")
-            .format("YYYY-MM-DD")}
-           </b></span>
+            Start Date:{" "}
+            <StyledInput
+              type="date"
+              value={startDate || formatDate(new Date())}
+              onChange={handleStartDateChange}
+            />
+          </span>
+          <span>
+            End Date:{" "}
+            <b>
+              {moment(new Date(dateRange?.endDate))
+                .subtract(1, "day")
+                .format("YYYY-MM-DD")}
+            </b>
+          </span>
         </>
       )}
     </DurationWrapper>

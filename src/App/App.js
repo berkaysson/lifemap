@@ -1,15 +1,29 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { formatDate } from "../Utilities/dateHelpers";
-import { exportHandler, importHandler } from "../Utilities/export&importHelpers";
+import {
+  exportHandler,
+  importHandler,
+} from "../Utilities/export&importHelpers";
 
 import activityDataUnitConstructor from "../Data/activityDataUnitConstructor";
 
 import AppFetch from "./AppFetch";
-import { addTaskOrHabitDataUnit, createCheckpointsTaskForHabit, deleteTaskOrHabitDataUnit, editTaskOrHabitSituation, getAllTaskOrHabitDataUnits } from "../Utilities/task&habitDBHelpers";
-import { addFinancialDataUnitHelper, deleteFinancialDataUnitHelper, updateFinancialDataUnitHelper } from "../Utilities/financialDataHelpers";
-import { deleteSubCategoryHelper, updateCategoryHelper } from "../Utilities/categotyHelpers";
-
+import {
+  addTaskOrHabitDataUnit,
+  deleteTaskOrHabitDataUnit,
+  editTaskOrHabitSituation,
+  getAllTaskOrHabitDataUnits,
+} from "../Utilities/task&habitDBHelpers";
+import {
+  addFinancialDataUnitHelper,
+  deleteFinancialDataUnitHelper,
+  updateFinancialDataUnitHelper,
+} from "../Utilities/financialDataHelpers";
+import {
+  deleteSubCategoryHelper,
+  updateCategoryHelper,
+} from "../Utilities/categotyHelpers";
 
 const CURRENT_DATE = formatDate(new Date());
 
@@ -26,9 +40,7 @@ function App({ db, STORES }) {
     setIsNeedFetchUpdate(boolean);
   };
 
-  const createActivityDataUnit = async (
-    date = CURRENT_DATE
-  ) => {
+  const createActivityDataUnit = async (date = CURRENT_DATE) => {
     const activityDataUnit = await activityDataUnitConstructor(date, db);
     const year = date.slice(0, 4);
     try {
@@ -39,9 +51,7 @@ function App({ db, STORES }) {
     }
   };
 
-  const createFinancialDataUnit = async (
-    date = CURRENT_DATE
-  ) => {
+  const createFinancialDataUnit = async (date = CURRENT_DATE) => {
     try {
       await db.financialData.add({ date: date, financeDatas: [] });
     } catch (error) {
@@ -165,7 +175,13 @@ function App({ db, STORES }) {
 
   const deleteSubCategory = async (categoryName, categoryID, subCategory) => {
     const allActivityDataUnits = await getAllActivityDataUnits();
-    await deleteSubCategoryHelper(db, categoryName, categoryID, subCategory, allActivityDataUnits)
+    await deleteSubCategoryHelper(
+      db,
+      categoryName,
+      categoryID,
+      subCategory,
+      allActivityDataUnits
+    );
     fetchUpdateHandler(true);
   };
 
@@ -179,7 +195,12 @@ function App({ db, STORES }) {
     dataUnitID,
     toBeUpdatedData
   ) => {
-    await updateFinancialDataUnitHelper(db, dateID, dataUnitID, toBeUpdatedData);
+    await updateFinancialDataUnitHelper(
+      db,
+      dateID,
+      dataUnitID,
+      toBeUpdatedData
+    );
     fetchUpdateHandler(true);
   };
 
@@ -201,12 +222,12 @@ function App({ db, STORES }) {
   const deleteTaskDataUnit = async (dataID) => {
     await deleteTaskOrHabitDataUnit(db, dataID, "task");
     fetchUpdateHandler(true);
-  }
+  };
 
   const deleteHabitDataUnit = async (dataID) => {
     await deleteTaskOrHabitDataUnit(db, dataID, "habit");
     fetchUpdateHandler(true);
-  }
+  };
 
   const getAllTaskDataUnits = async () => {
     return await getAllTaskOrHabitDataUnits(db, "task");
@@ -217,33 +238,51 @@ function App({ db, STORES }) {
   };
 
   const editTaskDataUnitFulfilled = async (isFulfilled, dataID) => {
-    await editTaskOrHabitSituation(db, "task", "isFulfilled", isFulfilled, dataID);
-  }
+    await editTaskOrHabitSituation(
+      db,
+      "task",
+      "isFulfilled",
+      isFulfilled,
+      dataID
+    );
+  };
 
   const editTaskDataUnitCompletedValue = async (value, dataID) => {
     await editTaskOrHabitSituation(db, "task", "completedValue", value, dataID);
-  }
+  };
 
   const editTaskDataUnitClosed = async (isClosed, dataID) => {
-    await editTaskOrHabitSituation(db, 'task', 'isClosed', isClosed, dataID);
+    await editTaskOrHabitSituation(db, "task", "isClosed", isClosed, dataID);
   };
-  
+
   const editHabitDataUnitFulfilled = async (isFulfilled, dataID) => {
-    await editTaskOrHabitSituation(db, 'habit', 'isFulfilled', isFulfilled, dataID);
+    await editTaskOrHabitSituation(
+      db,
+      "habit",
+      "isFulfilled",
+      isFulfilled,
+      dataID
+    );
   };
-  
+
   const editHabitDataUnitClosed = async (isClosed, dataID) => {
-    await editTaskOrHabitSituation(db, 'habit', 'isClosed', isClosed, dataID);
+    await editTaskOrHabitSituation(db, "habit", "isClosed", isClosed, dataID);
   };
 
   const editHabitDataUnitCheckpointObjects = async (arrayOfObjects, dataID) => {
-    await editTaskOrHabitSituation(db, 'habit', 'checkpointObjects', arrayOfObjects, dataID);
-  }
-  
+    await editTaskOrHabitSituation(
+      db,
+      "habit",
+      "checkpointObjects",
+      arrayOfObjects,
+      dataID
+    );
+  };
+
   const handleExport = async () => {
     await exportHandler(db);
   };
-  
+
   const handleImport = async (blob) => {
     await importHandler(db, blob);
   };
@@ -259,9 +298,9 @@ function App({ db, STORES }) {
     onEditTaskDataUnitFulfilled: editTaskDataUnitFulfilled,
     onEditTaskDataUnitClosed: editTaskDataUnitClosed,
     onEditHabitDataUnitClosed: editHabitDataUnitClosed,
-    onEditHabitDataUnitFulfilled:editHabitDataUnitFulfilled,
+    onEditHabitDataUnitFulfilled: editHabitDataUnitFulfilled,
     onEditTaskDataUnitCompletedValue: editTaskDataUnitCompletedValue,
-    onEditHabitDataUnitCheckpointObjects : editHabitDataUnitCheckpointObjects,
+    onEditHabitDataUnitCheckpointObjects: editHabitDataUnitCheckpointObjects,
     isNeedFetchUpdate: isNeedFetchUpdate,
   };
 

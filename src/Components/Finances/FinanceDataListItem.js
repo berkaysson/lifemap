@@ -30,7 +30,7 @@ const ContentWrapper = styled.div`
   align-items: center;
   justify-content: center;
   gap: 2rem;
-`
+`;
 
 const DateWrapper = styled.h4`
   border: 1px solid ${({ theme }) => theme.colors.alternative};
@@ -45,12 +45,12 @@ const PriceWrapper = styled.div`
   padding: ${({ theme }) => theme.sizes.small};
   text-align: start;
   white-space: nowrap;
-  background-color:${({ formMode, theme }) => formMode === "income" ? 
-  theme.colors.success:theme.colors.danger} ;
+  background-color: ${({ formMode, theme }) =>
+    formMode === "income" ? theme.colors.success : theme.colors.danger};
   color: ${({ theme }) => theme.colors.primary};
   font-weight: bold;
 
-  &>div{
+  & > div {
     padding-right: 10px;
     margin-right: 10px;
     border-right: 1px solid ${({ theme }) => theme.colors.theme};
@@ -63,7 +63,7 @@ const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: row;
   gap: 5px;
-`
+`;
 
 const FinanceDataListItem = ({
   item,
@@ -123,7 +123,7 @@ const FinanceDataListItem = ({
           </HeaderWrapper>
           <ContentWrapper>
             <PriceWrapper formMode={item.formMode}>
-            <div>{item.subCategory}</div>
+              <div>{item.subCategory}</div>
               {item.formMode === "income" ? "+" : "-"} {item.value}
             </PriceWrapper>
             <ButtonsWrapper>

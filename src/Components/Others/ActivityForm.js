@@ -31,7 +31,7 @@ const ValueInputWrapper = styled.div`
   justify-content: center;
   gap: ${({ theme }) => theme.sizes.medium};
 
-  & >label {
+  & > label {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -126,7 +126,7 @@ const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
   return (
     <FormWrapper onSubmit={submitHandler}>
       <DateFormWrapper>
-      <ToggleButton
+        <ToggleButton
           onClick={dateChangeHandler}
           options={[
             { value: "today", label: "Today" },
@@ -152,15 +152,21 @@ const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
         onSubCategorySelect={subCategorySelectHandler}
       />
       <ValueInputWrapper>
-      <label>Do you want to add the value or delete
-        <ToggleButton
-          onClick={formModeChangeHandler}
-          options={[
-            { value: "add", label: "Add" },
-            { value: "delete", label: "Delete" },
-          ]}
-        /></label>
-        <StyledInput type="number" name="valueInput" placeholder="Enter the Value" />
+        <label>
+          Do you want to add the value or delete
+          <ToggleButton
+            onClick={formModeChangeHandler}
+            options={[
+              { value: "add", label: "Add" },
+              { value: "delete", label: "Delete" },
+            ]}
+          />
+        </label>
+        <StyledInput
+          type="number"
+          name="valueInput"
+          placeholder="Enter the Value"
+        />
         <Button text={"Submit"} type={"submit"} />
       </ValueInputWrapper>
     </FormWrapper>

@@ -9,9 +9,9 @@ const CategorySubCategorySelectWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap:${({theme})=>theme.sizes.medium};
+  gap: ${({ theme }) => theme.sizes.medium};
   text-align: center;
-`
+`;
 
 const CategorySubCategorySelect = ({ categories, onSubCategorySelect }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -74,22 +74,22 @@ const CategorySubCategorySelect = ({ categories, onSubCategorySelect }) => {
   return (
     <CategorySubCategorySelectWrapper>
       <div>
-      <label>Select Activity type</label>
-      <StyledSelect
-        onChange={categorySelectionHandler}
-        options={categoryOptions}
-        placeholder="--Select Activity Type--"
-        value={selectedCategory}
-      />
+        <label>Select Activity type</label>
+        <StyledSelect
+          onChange={categorySelectionHandler}
+          options={categoryOptions}
+          placeholder="--Select Activity Type--"
+          value={selectedCategory}
+        />
       </div>
       <div>
-      <label>Select Category</label>
-      <SubCategorySelect
-        placeholder={"--Select a Category--"}
-        onChange={subCategorySelectHandler}
-        options={subCategoryOptions}
-        category={selectedCategory}
-      />
+        <label>Select Category</label>
+        <SubCategorySelect
+          placeholder={"--Select a Category--"}
+          onChange={subCategorySelectHandler}
+          options={subCategoryOptions}
+          category={selectedCategory}
+        />
       </div>
     </CategorySubCategorySelectWrapper>
   );

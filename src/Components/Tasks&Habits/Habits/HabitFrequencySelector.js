@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 
 const FrequencyWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const FrequencyLabelWrapper = styled.label`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding:0 1rem;
+  padding: 0 1rem;
   margin-top: 8px;
-  border: 1px solid ${({theme})=> theme.colors.alternative};
-  border-radius: ${({theme})=> theme.radius.large};
-  box-shadow: ${({theme})=> theme.boxShadows.innerSmallShadow};
+  border: 1px solid ${({ theme }) => theme.colors.alternative};
+  border-radius: ${({ theme }) => theme.radius.large};
+  box-shadow: ${({ theme }) => theme.boxShadows.innerSmallShadow};
 
-  &:hover{
+  &:hover {
     font-weight: bold;
   }
 
@@ -35,7 +35,7 @@ const FrequencyLabelWrapper = styled.label`
     cursor: pointer;
   }
 
-  > input:checked::before{
+  > input:checked::before {
     content: "";
     position: absolute;
     top: 50%;
@@ -49,20 +49,19 @@ const FrequencyLabelWrapper = styled.label`
 `;
 
 const frequencyOptions = [
-  { value: 'daily', label: 'Daily' },
-  { value: 'weekly', label: 'Weekly' },
-  { value: 'monthly', label: 'Monthly' },
+  { value: "daily", label: "Daily" },
+  { value: "weekly", label: "Weekly" },
+  { value: "monthly", label: "Monthly" },
 ];
 
 const HabitFrequencySelector = ({ onSelect }) => {
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState("");
 
   const handleOptionChange = (event) => {
     const { value } = event.target;
     setSelectedOption(value);
     onSelect(value);
   };
-
 
   const optionsToRender = frequencyOptions;
 

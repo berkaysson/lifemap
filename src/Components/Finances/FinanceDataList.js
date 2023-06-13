@@ -15,23 +15,23 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: ${({theme})=> theme.sizes.medium};
+  gap: ${({ theme }) => theme.sizes.medium};
   width: 100%;
-  padding: ${({theme})=> theme.sizes.medium};
-  border: 1px solid ${({theme})=> theme.colors.alternative};
-  border-radius: ${({theme})=> theme.radius.medium};
+  padding: ${({ theme }) => theme.sizes.medium};
+  border: 1px solid ${({ theme }) => theme.colors.alternative};
+  border-radius: ${({ theme }) => theme.radius.medium};
 `;
 
 const ListWrapper = styled.ul`
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: ${({theme}) => theme.sizes.medium};
-  padding: ${({theme}) => theme.sizes.medium};
-  border: 1px solid ${({theme}) => theme.colors.alternative};
-  box-shadow: ${({theme}) => theme.boxShadows.smallCardShadow};
-  border-radius: ${({theme}) => theme.radius.small};
-`
+  gap: ${({ theme }) => theme.sizes.medium};
+  padding: ${({ theme }) => theme.sizes.medium};
+  border: 1px solid ${({ theme }) => theme.colors.alternative};
+  box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
+  border-radius: ${({ theme }) => theme.radius.small};
+`;
 
 const FinanceDataList = ({
   financeDataUnits,
@@ -101,7 +101,11 @@ const FinanceDataList = ({
       {isDateRangeSelected ? (
         <DateRangeSelector onSubmit={dateRangeInputHandler} />
       ) : (
-        <StyledInput type="date" value={selectedDate} onChange={dateInputHandler} />
+        <StyledInput
+          type="date"
+          value={selectedDate}
+          onChange={dateInputHandler}
+        />
       )}
       <ListWrapper>
         {!filteredFinanceDatas || filteredFinanceDatas.length === 0 ? (

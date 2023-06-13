@@ -16,7 +16,7 @@ const HabitsForm = ({ onAddHabitUnit, activityCategories }) => {
     endDate: null,
     timeValue: null,
     frequency: null,
-    period:null,
+    period: null,
   });
 
   const subCategorySelectionHandler = (category, subCategory) => {
@@ -32,7 +32,7 @@ const HabitsForm = ({ onAddHabitUnit, activityCategories }) => {
       ...habit,
       startDate: start,
       endDate: end,
-      period:duration,
+      period: duration,
     });
   };
 

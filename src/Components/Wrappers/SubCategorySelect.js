@@ -40,7 +40,9 @@ const SubCategorySelect = ({
           />
         </>
       ) : (
-        <p style={{fontSize:"14px", color:"gray"}}>Select Activity Type first</p>
+        <p style={{ fontSize: "14px", color: "gray" }}>
+          Select Activity Type first
+        </p>
       )}
     </>
   );

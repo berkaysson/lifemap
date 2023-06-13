@@ -6,26 +6,25 @@ const TableWrapperWrapper = styled.div`
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: ${({theme}) => theme.sizes.small};
+  gap: ${({ theme }) => theme.sizes.small};
   height: auto;
   width: 273px; // column widths + bordersize + paddings
-  padding: ${({theme}) => theme.sizes.small};
-  border: 1px solid ${({theme}) => theme.colors.alternative};
-  border-radius: ${({theme}) => theme.radius.small};
-  box-shadow: ${({theme}) => theme.boxShadows.smallCardShadow};
-
-`
+  padding: ${({ theme }) => theme.sizes.small};
+  border: 1px solid ${({ theme }) => theme.colors.alternative};
+  border-radius: ${({ theme }) => theme.radius.small};
+  box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
+`;
 
 const TableWrapper = ({ data }) => {
   const columns = [
     { field: "subCategory", headerName: "Activity type", width: 150 },
-    { field: "value", headerName: "Value", width: 100 }
+    { field: "value", headerName: "Value", width: 100 },
   ];
 
   const rows = data.subCategories.map((subCategory, index) => ({
     id: index,
     subCategory: subCategory,
-    value: data.subCategoryValues[index]
+    value: data.subCategoryValues[index],
   }));
 
   return (
@@ -40,7 +39,6 @@ const TableWrapper = ({ data }) => {
         disableColumnMenu
         rowSelection={false}
         rowHeight={30}
-        
         sx={{
           bgcolor: `${theme.colors.secondary}`,
           color: `${theme.colors.primary}`,
