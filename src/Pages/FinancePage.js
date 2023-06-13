@@ -38,7 +38,6 @@ const Form = styled.div`
   box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.medium};
-
 `;
 
 const Finance = styled.div`
@@ -77,21 +76,29 @@ const FinancePage = ({
         <HeaderContent headerText={"Finances"} />
       </Header>
       <Welcome>
-        <ParagraphContent>Definition to page</ParagraphContent>
+        <ParagraphContent>
+          <b>Manage your finances effortlessly with Lifemap's Finance page</b>
+          <br/>
+          Enter your income and expenses by selecting a category and specifying
+          the amount. Easily track your financial transactions and gain insights
+          into your spending habits. The page provides a lists your incomes and
+          expenses, allowing you to review and analyze your financial
+          activities.
+        </ParagraphContent>
       </Welcome>
       <Form>
-      <FormHeader>Finance Form</FormHeader>
-      <Finance>
-        <FinancesForm
-          expenseCategory={financialCategories.find(
-            (obj) => obj.id === "expenseCategories"
-          )}
-          incomeCategory={financialCategories.find(
-            (obj) => obj.id === "incomeCategories"
-          )}
-          onAddFinancialDataUnit={onAddFinancialDataUnit}
-        />
-        <ParagraphContent>Definition to form</ParagraphContent>
+        <FormHeader>Finance Form</FormHeader>
+        <Finance>
+          <FinancesForm
+            expenseCategory={financialCategories.find(
+              (obj) => obj.id === "expenseCategories"
+            )}
+            incomeCategory={financialCategories.find(
+              (obj) => obj.id === "incomeCategories"
+            )}
+            onAddFinancialDataUnit={onAddFinancialDataUnit}
+          />
+          <ParagraphContent>Definition to form</ParagraphContent>
         </Finance>
       </Form>
       <List>
