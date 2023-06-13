@@ -24,7 +24,7 @@ export const calculateCurrentTimeValue = (unit, activityDataUnits) => {
 
 export const checkDueDate = (unit) => {
   const today = moment(addDays(new Date(), -1));
-  const dueDate = moment(addDays(new Date(unit.endDate), -1));
+  const dueDate = moment(new Date(unit.endDate));
   return dueDate.isBefore(today);
 };
 
