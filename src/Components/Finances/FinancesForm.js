@@ -9,7 +9,13 @@ import FormWrapper from "../Wrappers/Styled-Wrappers/FormWrapper";
 import StyledInput from "../Wrappers/Styled-Elements/StyledInput";
 
 const Wrapper = styled.div`
-  border: 1px solid red;
+`;
+
+const DateWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: ${({ theme }) => theme.sizes.small};
 `;
 
 const FinancesForm = ({
@@ -91,12 +97,13 @@ const FinancesForm = ({
   return (
     <Wrapper>
       <FormWrapper onSubmit={submitHandler}>
+        <DateWrapper>
         <label>Date:</label>
         {dateInputActive ? (
           <StyledInput type="date" name="dateInput" defaultValue={date} />
         ) : (
           date
-        )}
+        )}</DateWrapper>
         <ToggleButton
           onClick={dateChangeHandler}
           options={[
@@ -117,7 +124,7 @@ const FinancesForm = ({
             { value: "income", label: "Income" },
           ]}
         />
-        <StyledInput type="number" name="expenseValue" />
+        <StyledInput type="number" name="expenseValue" placeholder="Enter the amount" />
         <Button text={"Submit"} type={"submit"} />
       </FormWrapper>
     </Wrapper>
