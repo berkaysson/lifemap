@@ -35,7 +35,7 @@ const TaskHabit = styled.div`
   justify-content: center;
   align-items: stretch;
   justify-items: stretch;
-  padding: ${({ theme }) => theme.sizes.medium};
+  padding: ${({ theme }) => theme.sizes.large};
   gap: 1px;
   box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
   border: 1px solid ${({ theme }) => theme.colors.alternative};

@@ -41,7 +41,7 @@ const Tables = styled.div`
   align-items: center;
   justify-content: flex-start;
   gap: ${({ theme }) => theme.sizes.large};
-  padding: ${({ theme }) => theme.sizes.medium};
+  padding: ${({ theme }) => theme.sizes.large};
   box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.medium};
@@ -64,7 +64,7 @@ const TablesContainer = styled.div`
   gap: ${({ theme }) => theme.sizes.medium};
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.medium};
-  padding: ${({ theme }) => theme.sizes.medium};
+  padding: ${({ theme }) => theme.sizes.large};
 `;
 
 const DataRangeTableContainer = styled.div`
