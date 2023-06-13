@@ -78,7 +78,7 @@ const FinancePage = ({
       <Welcome>
         <ParagraphContent>
           <b>Manage your finances effortlessly with Lifemap's Finance page</b>
-          <br/>
+          <br />
           Enter your income and expenses by selecting a category and specifying
           the amount. Easily track your financial transactions and gain insights
           into your spending habits. The page provides a lists your incomes and
@@ -98,7 +98,11 @@ const FinancePage = ({
             )}
             onAddFinancialDataUnit={onAddFinancialDataUnit}
           />
-          <ParagraphContent>Definition to form</ParagraphContent>
+          <ParagraphContent>
+            Easily record your income and expenses by selecting the date,
+            category, specifying the type (income or expense), and entering the
+            amount.
+          </ParagraphContent>
         </Finance>
       </Form>
       <List>
