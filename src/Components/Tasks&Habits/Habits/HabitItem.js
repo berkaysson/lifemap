@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import Button from "../../Wrappers/Styled-Elements/Button";
 import ProgressCircle from "../../Wrappers/ProgressCircle";
+import { formatDate } from "../../../Utilities/dateHelpers";
 
 const TaskItemWrapper = styled.li`
   display: flex;
@@ -78,9 +79,7 @@ const HabitItem = ({ habit, onDeleteHabitDataUnit }) => {
         <p>
           {habit?.startDate} /
           {habit
-            ? moment(new Date(habit?.endDate))
-                .subtract(1, "day")
-                .format("YYYY-MM-DD")
+            ? formatDate(moment(habit?.endDate).subtract(1, "day"))
             : "no end date"}
         </p>
         <p>Time Value: {habit?.timeValue}</p>

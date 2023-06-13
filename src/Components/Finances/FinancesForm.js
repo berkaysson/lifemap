@@ -7,6 +7,8 @@ import ToggleButton from "../Wrappers/Styled-Elements/ToggleButton";
 import SubCategorySelect from "../Wrappers/SubCategorySelect";
 import FormWrapper from "../Wrappers/Styled-Wrappers/FormWrapper";
 import StyledInput from "../Wrappers/Styled-Elements/StyledInput";
+import { formatDate } from "../../Utilities/dateHelpers";
+import moment from "moment";
 
 const Wrapper = styled.div``;
 
@@ -22,7 +24,7 @@ const FinancesForm = ({
   incomeCategory,
   onAddFinancialDataUnit,
 }) => {
-  const date = new Date().toISOString().slice(0, 10);
+  const date = formatDate(moment());
   const time =
     new Date().getHours().toString().padStart(2, "0") +
     ":" +

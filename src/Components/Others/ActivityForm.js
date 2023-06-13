@@ -7,6 +7,8 @@ import ToggleButton from "../Wrappers/Styled-Elements/ToggleButton";
 import CategorySubCategorySelect from "../Categories/CategorySubCategorySelect";
 import FormWrapper from "../Wrappers/Styled-Wrappers/FormWrapper";
 import StyledInput from "../Wrappers/Styled-Elements/StyledInput";
+import { formatDate } from "../../Utilities/dateHelpers";
+import moment from "moment";
 
 const DateFormWrapper = styled.div`
   width: 100%;
@@ -41,7 +43,7 @@ const ValueInputWrapper = styled.div`
 `;
 
 const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
-  const selectedDate = new Date().toISOString().slice(0, 10);
+  const selectedDate = formatDate(moment());
   const [dateInputActive, setDateInputActive] = useState(false);
 
   const [selectedCategory, setSelectedCategory] = useState(null);

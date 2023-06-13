@@ -1,5 +1,6 @@
 import moment from "moment";
 import addDays from "date-fns/addDays";
+import { formatDate } from "./dateHelpers";
 
 export const calculateCurrentTimeValue = (unit, activityDataUnits) => {
   const category = unit.category.label;
@@ -23,8 +24,8 @@ export const calculateCurrentTimeValue = (unit, activityDataUnits) => {
 };
 
 export const checkDueDate = (unit) => {
-  const today = moment(addDays(new Date(), -1));
-  const dueDate = moment(new Date(unit.endDate));
+  const today = moment(addDays(moment(), -1));
+  const dueDate = moment(moment(unit.endDate));
   return dueDate.isSameOrBefore(today, "day");
 };
 
@@ -88,9 +89,9 @@ export const checkNonDailyCheckpoint = (habitUnit, activityDataUnits) => {
 
   for (let i = 0; i < habitUnit.checkpoints.length - 2; i++) {
     const startDate = habitUnit.checkpoints[i];
-    const endDate = moment(new Date(habitUnit.checkpoints[i + 1]))
-      .subtract(1, "day")
-      .format("YYYY-MM-DD");
+    const endDate = formatDate(
+      moment(habitUnit.checkpoints[i + 1]).subtract(1, "day")
+    );
     let checkpointObject = allCheckpointsArray.find(
       (object) => object.id === startDate + "_cp-start"
     );

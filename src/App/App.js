@@ -25,7 +25,7 @@ import {
   updateCategoryHelper,
 } from "../Utilities/categotyHelpers";
 
-const CURRENT_DATE = formatDate(new Date());
+const CURRENT_DATE = formatDate(moment());
 
 function App({ db, STORES }) {
   const [isNeedFetchUpdate, setIsNeedFetchUpdate] = useState(false);

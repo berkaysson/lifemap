@@ -9,8 +9,9 @@ import {
   checkIsFulfilled,
   checkNonDailyCheckpoint,
 } from "../Utilities/task&habitCheckHelpers";
+import moment from "moment";
 
-const CURRENT_DATE = formatDate(new Date());
+const CURRENT_DATE = formatDate(moment());
 
 const AppFetch = ({
   onGetAllCategories,

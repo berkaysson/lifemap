@@ -28,8 +28,8 @@ export const addTaskOrHabitDataUnit = async (db, unit, dataType) => {
 
 export const createCheckpointsHabit = (habitUnit) => {
   const frequency = habitUnit.frequency;
-  const startDate = moment(new Date(habitUnit.startDate));
-  const endDate = moment(new Date(habitUnit.endDate));
+  const startDate = moment(habitUnit.startDate);
+  const endDate = moment(habitUnit.endDate);
   let checkpoints = [];
 
   const { coefficient, dateType } = calculateFrequencyDateValue(frequency);
@@ -48,8 +48,8 @@ export const createCheckpointsHabit = (habitUnit) => {
 
 export const createCheckpointsTaskForHabit = (habitUnit) => {
   const frequency = habitUnit.frequency;
-  const startDate = moment(new Date(habitUnit.startDate));
-  const endDate = moment(new Date(habitUnit.endDate));
+  const startDate = moment(habitUnit.startDate);
+  const endDate = moment(habitUnit.endDate);
   let checkpointTasks = [];
 
   const { coefficient, dateType } = calculateFrequencyDateValue(frequency);

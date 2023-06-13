@@ -7,12 +7,14 @@ import App from "./App/App";
 
 import activityCategoryData from "./Data/activityCategoryData.json";
 import financialCategoryData from "./Data/financialCategoryData.json";
+import { formatDate } from "./Utilities/dateHelpers";
+import moment from "moment";
 
 const STORES = ["2020", "2021", "2022", "2023", "2024", "2025"];
 const DB_VERSION = 1;
 const DB_NAME = "lifemap";
 
-const CURRENT_DATE = new Date().toISOString().slice(0, 10);
+const CURRENT_DATE = formatDate(moment());
 
 // Open the database
 const openDB = async () => {

@@ -60,16 +60,16 @@ const HabitDurationInput = ({ onChange, frequency }) => {
             Start Date:{" "}
             <StyledInput
               type="date"
-              value={startDate || formatDate(new Date())}
+              value={startDate || formatDate(moment())}
               onChange={handleStartDateChange}
             />
           </span>
           <span>
             End Date:{" "}
             <b>
-              {moment(new Date(dateRange?.endDate))
-                .subtract(1, "day")
-                .format("YYYY-MM-DD")}
+              {formatDate(moment(dateRange?.endDate)
+                .subtract(1, "day"))
+                }
             </b>
           </span>
         </>
