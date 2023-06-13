@@ -5,6 +5,8 @@ import FinanceDataList from "../Components/Finances/FinanceDataList";
 import ParagraphContent from "../Components/Contents/ParagraphContent";
 import HeaderContent from "../Components/Contents/HeaderContent";
 import { AnimatedPage } from "../Components/Wrappers/AnimatedPage";
+import { motion } from "framer-motion";
+import { animations } from "../Style/animations";
 
 const Wrapper = styled.section`
   display: grid;
@@ -27,7 +29,7 @@ const Welcome = styled.div`
   grid-area: 2 / 2 / 3 / 3;
 `;
 
-const Form = styled.div`
+const Form = styled(motion.div)`
   grid-area: 3 / 2 / 4 / 3;
   display: grid;
   align-content: start;
@@ -47,7 +49,7 @@ const Finance = styled.div`
   grid-template-columns: 70% auto; //change to 1fr responsive design
 `;
 
-const List = styled.div`
+const List = styled(motion.div)`
   grid-area: 4 / 2 / 5 / 3;
   align-content: start;
   justify-content: center;
@@ -88,7 +90,13 @@ const FinancePage = ({
             financial activities.
           </ParagraphContent>
         </Welcome>
-        <Form>
+        <Form
+          variants={animations.cardAnimation}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          transition={{ duration: 0.2 }}
+        >
           <FormHeader>Finance Form</FormHeader>
           <Finance>
             <FinancesForm
@@ -107,7 +115,13 @@ const FinancePage = ({
             </ParagraphContent>
           </Finance>
         </Form>
-        <List>
+        <List
+          variants={animations.cardAnimation}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          transition={{ duration: 0.2 }}
+        >
           <FinanceDataList
             financeDataUnits={financeDataUnits}
             onDeleteFinancialDataUnit={onDeleteFinancialDataUnit}

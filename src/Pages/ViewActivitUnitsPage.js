@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import moment from "moment";
+import { motion } from "framer-motion";
+import { animations } from "../Style/animations";
 
 import DataViewer from "../Components/DataViewer/DataViewer.js";
 import DataViewerForm from "../Components/DataViewer/DataViewerForm";
@@ -47,7 +49,7 @@ const Tables = styled.div`
   border-radius: ${({ theme }) => theme.radius.medium};
 `;
 
-const FormContainer = styled.div`
+const FormContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -147,7 +149,13 @@ const ViewActivityUnitsPage = ({
           </ParagraphContent>
         </Welcome>
         <Tables>
-          <FormContainer>
+          <FormContainer
+            variants={animations.cardAnimation}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={{ duration: 0.2 }}
+          >
             <ToggleButton
               onClick={() => setIsDateRangeSelected(!isDateRangeSelected)}
               options={[

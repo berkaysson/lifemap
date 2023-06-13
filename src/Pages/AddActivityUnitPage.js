@@ -5,6 +5,8 @@ import CategoriesForm from "../Components/Categories/CategoriesForm";
 import HeaderContent from "../Components/Contents/HeaderContent.js";
 import ParagraphContent from "../Components/Contents/ParagraphContent.js";
 import { AnimatedPage } from "../Components/Wrappers/AnimatedPage.js";
+import { motion } from "framer-motion";
+import { animations } from "../Style/animations";
 
 const AddActivityUnitPageWrapper = styled.section`
   display: grid;
@@ -27,7 +29,7 @@ const Welcome = styled.div`
   grid-area: 2 / 2 / 3 / 3;
 `;
 
-const Activity = styled.div`
+const Activity = styled(motion.div)`
   grid-area: 3 / 2 / 4 / 3;
   display: grid;
   align-content: start;
@@ -47,7 +49,7 @@ const ActivityContainer = styled.div`
   grid-template-columns: 70% auto; //change to 1fr responsive design
 `;
 
-const Category = styled.div`
+const Category = styled(motion.div)`
   grid-area: 4 / 2 / 5 / 3;
   align-content: start;
   justify-content: center;
@@ -92,7 +94,13 @@ const AddActivityUnitPage = ({
             You can also edit the activity categories.
           </ParagraphContent>
         </Welcome>
-        <Activity>
+        <Activity
+          variants={animations.cardAnimation}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          transition={{ duration: 0.2 }}
+        >
           <FormHeader>Activity Form</FormHeader>
           <ActivityContainer>
             <ActivityForm
@@ -107,7 +115,13 @@ const AddActivityUnitPage = ({
             </ParagraphContent>
           </ActivityContainer>
         </Activity>
-        <Category>
+        <Category
+          variants={animations.cardAnimation}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          transition={{ duration: 0.2 }}          
+        >
           <FormHeader>Category Form</FormHeader>
           <CategoryContainer>
             <CategoriesForm

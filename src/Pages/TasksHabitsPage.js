@@ -5,6 +5,8 @@ import TasksHabitsList from "../Components/Tasks&Habits/TasksHabitsList";
 import HeaderContent from "../Components/Contents/HeaderContent";
 import ParagraphContent from "../Components/Contents/ParagraphContent";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { animations } from "../Style/animations";
 import { AnimatedPage } from "../Components/Wrappers/AnimatedPage";
 
 const TasksHabitsPageWrapper = styled.section`
@@ -28,7 +30,7 @@ const Welcome = styled.div`
   grid-area: 2 / 2 / 3 / 3;
 `;
 
-const TaskHabit = styled.div`
+const TaskHabit = styled(motion.div)`
   grid-area: 3 / 2 / 4 / 3;
   display: grid;
   align-content: start;
@@ -88,7 +90,13 @@ const TasksHabitsPage = ({
             your progress unfold.
           </ParagraphContent>
         </Welcome>
-        <TaskHabit>
+        <TaskHabit
+          variants={animations.cardAnimation}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          transition={{ duration: 0.2 }}
+        >
           <FormHeader>Task and Habit Form</FormHeader>
           <TaskHabitContainer>
             <TasksHabitsWrapper
