@@ -79,8 +79,11 @@ const TasksHabitsPage = ({
       <Welcome>
         <ParagraphContent>
           <b>Effortlessly manage your tasks and habits</b> <br />
-          Customize Lifemap to fit your preferences and take control of your
-          tracking experience.
+          Create new tasks and habits to stay organized and focused
+          on your goals. The page features a visually appealing and
+          user-friendly interface, allowing you to effortlessly track your
+          progress. Easily view your current tasks and habits and stay motivated
+          as you witness your progress unfold.
         </ParagraphContent>
       </Welcome>
       <TaskHabit>
