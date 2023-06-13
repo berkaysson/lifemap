@@ -8,10 +8,66 @@ import ToggleButton from "../Components/Wrappers/Styled-Elements/ToggleButton.js
 import DateRangeSelector from "../Components/Wrappers/DateRangeSelector";
 import Button from "../Components/Wrappers/Styled-Elements/Button.js";
 import DataRangeTableViewer from "../Components/Wrappers/Styled-Wrappers/DataRangeTableViewer.js";
+import HeaderContent from "../Components/Contents/HeaderContent.js";
+import ParagraphContent from "../Components/Contents/ParagraphContent.js";
 
 const Wrapper = styled.section`
-  border: 2px solid green;
-  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr minmax(550px, 80%) 1fr;
+  grid-template-rows: repeat(3, auto);
+  align-content: start;
+  justify-content: center;
+  align-items: stretch;
+  justify-items: stretch;
+  gap: ${({ theme }) => theme.sizes.large};
+  width: 100%;
+  height: 100%;
+`;
+
+const Header = styled.header`
+  grid-area: 1 / 1 / 2 / 4;
+`;
+
+const Welcome = styled.div`
+  grid-area: 2 / 1 / 3 / 4;
+  margin: 0 2rem;
+`;
+
+const Tables = styled.div`
+  grid-area: 3 / 2 / 4 / 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: ${({ theme }) => theme.sizes.large};
+  padding: ${({ theme }) => theme.sizes.medium};
+  box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
+  border: 1px solid ${({ theme }) => theme.colors.alternative};
+  border-radius: ${({ theme }) => theme.radius.medium};
+`;
+
+const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: ${({ theme }) => theme.sizes.medium};
+  margin-bottom: 1rem;
+`;
+
+const TablesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: ${({ theme }) => theme.sizes.medium};
+  border: 1px solid ${({ theme }) => theme.colors.alternative};
+  border-radius: ${({ theme }) => theme.radius.medium};
+  padding: ${({ theme }) => theme.sizes.medium};
+`;
+
+const DataRangeTableContainer = styled.div`
+  display: grid;
 `;
 
 const ViewActivityUnitsPage = ({
@@ -73,69 +129,90 @@ const ViewActivityUnitsPage = ({
 
   return (
     <Wrapper>
-      <h1>ViewActivityUnitsPage</h1>
-      <ToggleButton
-        onClick={() => setIsDateRangeSelected(!isDateRangeSelected)}
-        options={[
-          { label: "Single Date", value: "date" },
-          { label: "Date Range", value: "range" },
-        ]}
-      />
-      {isDateRangeSelected ? (
-        <>
-          <DateRangeSelector onSubmit={dateRangeInputHandler} />
-          <Button type="button" text="Show" onClick={dateRangeButtonHandler} />
-        </>
-      ) : (
-        <>
-          <DataViewerForm
-            onDateSelection={dateInputHandler}
-            selectedDate={selectedDateActivityUnit}
-          />
-          <h3>
-            {selectedDateActivityUnit
-              ? selectedDateActivityUnit.date
-              : "No date selected"}
-          </h3>
-        </>
-      )}
-      {!isDateRangeSelected ? (
-        <DataViewer
-          selectedDateDataUnit={selectedDateActivityUnit}
-          activityCategories={activityCategories}
-        />
-      ) : (
-        <div>
+      <Header>
+        <HeaderContent headerText={"View Activity Units"} />
+      </Header>
+      <Welcome>
+        <ParagraphContent>
+          Welcome to the View Activity Units page.where you can conveniently
+          track and analyze your activity units. This dynamic page offers two
+          viewing options: Card View and Table View. In the Card View, activity
+          units are displayed in a visually appealing and compact format,
+          providing a quick overview of your tracked activities. Switching to
+          the Table View presents your activity units in a structured table
+          layout, allowing for detailed analysis and comparison.
+        </ParagraphContent>
+      </Welcome>
+      <Tables>
+        <FormContainer>
           <ToggleButton
-            onClick={() =>
-              setIsTableViewOfUnitsActive(!isTableViewOfUnitsActive)
-            }
+            onClick={() => setIsDateRangeSelected(!isDateRangeSelected)}
             options={[
-              { label: "Card View", value: "card" },
-              { label: "Table View", value: "table" },
+              { label: "Single Date", value: "date" },
+              { label: "Date Range", value: "range" },
             ]}
           />
-          {!filteredActivityDataUnits ||
-          filteredActivityDataUnits.length > 0 ? (
-            isTableViewOfUnitsActive ? (
-              <DataRangeTableViewer
-                filteredActivityDataUnits={filteredActivityDataUnits}
-                activityCategories={activityCategories}
+          {isDateRangeSelected ? (
+            <>
+              <DateRangeSelector onSubmit={dateRangeInputHandler} />
+              <Button
+                type="button"
+                text="Show"
+                onClick={dateRangeButtonHandler}
               />
-            ) : (
-              filteredActivityDataUnits.map((item) => (
-                <DataViewer
-                  key={item.id}
-                  selectedDateDataUnit={item}
-                  activityCategories={activityCategories}
-                />
-              ))
-            )
+            </>
           ) : (
-            <p>No data available</p>
+            <>
+              <DataViewerForm
+                onDateSelection={dateInputHandler}
+                selectedDate={selectedDateActivityUnit}
+              />
+              <h3>{selectedDateActivityUnit ? "" : "No date selected"}</h3>
+            </>
           )}
-        </div>
-      )}
+        </FormContainer>
+        <TablesContainer>
+          {!isDateRangeSelected ? (
+            <DataViewer
+              selectedDateDataUnit={selectedDateActivityUnit}
+              activityCategories={activityCategories}
+            />
+          ) : (
+            <>
+              <ToggleButton
+                onClick={() =>
+                  setIsTableViewOfUnitsActive(!isTableViewOfUnitsActive)
+                }
+                options={[
+                  { label: "Card View", value: "card" },
+                  { label: "Table View", value: "table" },
+                ]}
+              />
+              {!filteredActivityDataUnits ||
+              filteredActivityDataUnits.length > 0 ? (
+                isTableViewOfUnitsActive ? (
+                  <DataRangeTableContainer>
+                    <DataRangeTableViewer
+                      filteredActivityDataUnits={filteredActivityDataUnits}
+                      activityCategories={activityCategories}
+                    />
+                  </DataRangeTableContainer>
+                ) : (
+                  filteredActivityDataUnits.map((item) => (
+                    <DataViewer
+                      key={item.id}
+                      selectedDateDataUnit={item}
+                      activityCategories={activityCategories}
+                    />
+                  ))
+                )
+              ) : (
+                <p>No data available</p>
+              )}
+            </>
+          )}
+        </TablesContainer>
+      </Tables>
     </Wrapper>
   );
 };
