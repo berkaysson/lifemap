@@ -4,6 +4,7 @@ import DataViewer from "../Components/DataViewer/DataViewer.js";
 import HeaderContent from "../Components/Contents/HeaderContent.js";
 import ParagraphContent from "../Components/Contents/ParagraphContent.js";
 import { AnimatedPage } from "../Components/Wrappers/AnimatedPage.js";
+import FilteredTasksHabitsList from "../Components/Tasks&Habits/FilteredTasksHabitsList.js";
 
 const HomeWrapper = styled.section`
   display: grid;
@@ -14,6 +15,7 @@ const HomeWrapper = styled.section`
   align-items: stretch;
   justify-items: stretch;
   gap: ${({ theme }) => theme.sizes.small};
+  padding: 0 10px;
   width: 100%;
   height: 100%;
 `;
@@ -24,11 +26,10 @@ const Header = styled.header`
 
 const Welcome = styled.div`
   grid-area: 2 / 1 / 3 / 2;
-  padding: 0 10px;
 `;
 
 const Viewer = styled(DataViewer)`
-  grid-area: 4 / 1 / 5 / 2;
+  grid-area: 3 / 1 / 4 / 2;
   padding: 0 10px;
 `;
 
@@ -40,19 +41,16 @@ const Info = styled.div`
   padding: 0 10px;
 `;
 
-const Tasks = styled.div`
-  border: 1px black solid;
-  grid-area: 3 / 1 / 4 / 2;
-  padding: 0 10px;
-`;
-
 const Reminder = styled.div`
-  border: 1px black solid;
-  grid-area: 4 / 2 / 5 / 3;
-  padding: 0 10px;
+  grid-area: 4 / 1 / 5 / 3;
 `;
 
-const HomePage = ({ activityCategories, todaysActivityDataUnit }) => {
+const HomePage = ({
+  activityCategories,
+  todaysActivityDataUnit,
+  taskDataUnits,
+  habitDataUnits,
+}) => {
   return (
     <AnimatedPage>
       <HomeWrapper>
@@ -91,9 +89,11 @@ const HomePage = ({ activityCategories, todaysActivityDataUnit }) => {
             and productive.
           </ParagraphContent>
         </Info>
-        <Tasks>A COMPONENT TO VIEW ACTIVE TASKS-HABITS</Tasks>
         <Reminder>
-          A REMINDER COMPONENT FOR TASKS-HABITS WHICH TIME EXPIRES
+          <FilteredTasksHabitsList
+            taskDataUnits={taskDataUnits}
+            habitDataUnits={habitDataUnits}
+          />
         </Reminder>
       </HomeWrapper>
     </AnimatedPage>

@@ -47,6 +47,8 @@ const AppContent = ({
             <HomePage
               activityCategories={activityCategories}
               todaysActivityDataUnit={todaysActivityDataUnit}
+              taskDataUnits={taskDataUnits}
+              habitDataUnits={habitDataUnits}
             />
           }
         />
