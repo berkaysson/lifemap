@@ -8,7 +8,6 @@ import styled from "styled-components";
 import { enGB } from "date-fns/locale";
 import { theme } from "../../Style/theme";
 import { formatDate } from "../../Utilities/dateHelpers";
-import moment from "moment";
 
 const Wrapper = styled.div`
   width: fit-content;
@@ -35,16 +34,16 @@ const DateRangeWrapper = styled(DateRange)`
 const DateRangeSelector = ({ onSubmit }) => {
   const [state, setState] = useState([
     {
-      endDate: addDays(moment(), -1),
-      startDate: addDays(moment(), -7),
+      endDate: addDays(new Date(), -1),
+      startDate: addDays(new Date(), -7),
       key: "selection",
     },
   ]);
 
   const onDateRangeSelection = () => {
     onSubmit(
-      formatDate(addDays(moment(state[0].startDate), 1)),
-      formatDate(addDays(moment(state[0].endDate), 1))
+      formatDate(new Date(state[0].startDate)),
+      formatDate(new Date(state[0].endDate))
     );
   };
 
