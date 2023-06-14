@@ -22,6 +22,7 @@ const TaskItemWrapper = styled.li`
     position: absolute;
     top: ${({ theme }) => theme.sizes.medium};
     right: ${({ theme }) => theme.sizes.medium};
+    display: ${({isDeleteActive}) => isDeleteActive ? "block" : "none"};
   }
 `;
 
@@ -49,12 +50,12 @@ const DateWrapper = styled.div`
   }
 `;
 
-const TaskItem = ({ task, onDeleteTaskDataUnit }) => {
+const TaskItem = ({ task, onDeleteTaskDataUnit, isDeleteActive=true }) => {
   const deleteHandler = () => {
     onDeleteTaskDataUnit(task.id);
   };
   return (
-    <TaskItemWrapper id={task?.id} isClosed={task?.isClosed}>
+    <TaskItemWrapper id={task?.id} isClosed={task?.isClosed} isDeleteActive={isDeleteActive}>
       <HeaderWrapper>
         <HeaderItem headerColor={task?.isFulfilled}>
           {task?.nameValue} {task?.isClosed ? "(Expired)" : ""}

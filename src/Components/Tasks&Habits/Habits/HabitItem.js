@@ -24,6 +24,7 @@ const TaskItemWrapper = styled.li`
     position: absolute;
     top: ${({ theme }) => theme.sizes.medium};
     right: ${({ theme }) => theme.sizes.medium};
+    display: ${({isDeleteActive}) => isDeleteActive ? "block" : "none"};
   }
 `;
 
@@ -62,12 +63,12 @@ const ProgressCircleWrapper = styled.div`
   border-radius: ${({ theme }) => theme.radius.small};
 `;
 
-const HabitItem = ({ habit, onDeleteHabitDataUnit }) => {
+const HabitItem = ({ habit, onDeleteHabitDataUnit, isDeleteActive=true }) => {
   const deleteHandler = () => {
     onDeleteHabitDataUnit(habit.id);
   };
   return (
-    <TaskItemWrapper id={habit?.id} isClosed={habit?.isClosed}>
+    <TaskItemWrapper id={habit?.id} isClosed={habit?.isClosed} isDeleteActive={isDeleteActive} >
       <HeaderWrapper>
         <HeaderItem headerColor={habit?.isFulfilled}>
           {habit?.nameValue} {habit?.isClosed ? "(Expired)" : ""}{" "}
