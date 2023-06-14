@@ -32,7 +32,7 @@ const ProgressBar = ({ currentValue, goalValue }) => {
   return (
     <ProgressBarWrapper>
       <CurrentValueWrapper>Done: {currentValue}</CurrentValueWrapper>
-      <PercantageWrapper>{calculatedProgressPercentage}%</PercantageWrapper>
+      <PercantageWrapper>{Math.round(calculatedProgressPercentage)}%</PercantageWrapper>
       <LinearProgress
         variant="determinate"
         value={progressPercentage}
