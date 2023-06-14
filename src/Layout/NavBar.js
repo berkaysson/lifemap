@@ -5,7 +5,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
-import TocIcon from "@mui/icons-material/Toc";
+import GridOnIcon from '@mui/icons-material/GridOn';
 import BarChartIcon from "@mui/icons-material/BarChart";
 import SettingsIcon from "@mui/icons-material/Settings";
 
@@ -57,7 +57,7 @@ const NavBar = () => {
           </span>
         </NavItemWrapper>
         <NavItemWrapper to="view-activity-units" activeClassName="active">
-          <TocIcon />
+          <GridOnIcon />
           <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
             View Activity Units
           </span>
