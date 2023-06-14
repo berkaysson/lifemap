@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 
 import DataViewer from "../Components/DataViewer/DataViewer.js";
 import HeaderContent from "../Components/Contents/HeaderContent.js";
@@ -46,6 +47,17 @@ const Reminder = styled.div`
   margin-top: 1rem;
 `;
 
+const LinkWrapper = styled(Link)`
+  color: ${({theme}) => theme.colors.theme};
+  text-decoration: underline;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px ${({theme}) => theme.colors.alternative};
+
+  &:hover{
+    text-decoration: none;
+  }
+`;
+
 const HomePage = ({
   activityCategories,
   todaysActivityDataUnit,
@@ -77,11 +89,8 @@ const HomePage = ({
             them, and set goals to make the most of your time. Lifemap allows
             you to track activities down to the minute, giving you a
             comprehensive view of your routines and habits.
-          </ParagraphContent>
-
-          <ParagraphContent>
-            <b>Finance Management:</b> Keep your finances in check by recording
-            your expenses and income.
+            <br/>
+            <LinkWrapper to="/edit-activity-unit">Try Now</LinkWrapper>
           </ParagraphContent>
 
           <ParagraphContent>
@@ -89,6 +98,15 @@ const HomePage = ({
             habits that align with your goals. Lifemap's integration of tasks
             and habits with activities ensures that you stay focused, motivated,
             and productive.
+            <br/>
+            <LinkWrapper to="/tasks-habits">Try Now</LinkWrapper>
+          </ParagraphContent>
+
+          <ParagraphContent>
+            <b>Finance Management:</b> Keep your finances in check by recording
+            your expenses and income.
+            <br/>
+            <LinkWrapper to="/finances">Try Now</LinkWrapper>
           </ParagraphContent>
 
           <ParagraphContent>
