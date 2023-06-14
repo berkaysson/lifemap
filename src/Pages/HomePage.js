@@ -90,7 +90,7 @@ const HomePage = ({
             you to track activities down to the minute, giving you a
             comprehensive view of your routines and habits.
             <br/>
-            <LinkWrapper to="/edit-activity-unit">Try Now</LinkWrapper>
+            <LinkWrapper to="/lifemap/edit-activity-unit">Try Now</LinkWrapper>
           </ParagraphContent>
 
           <ParagraphContent>
@@ -99,14 +99,14 @@ const HomePage = ({
             and habits with activities ensures that you stay focused, motivated,
             and productive.
             <br/>
-            <LinkWrapper to="/tasks-habits">Try Now</LinkWrapper>
+            <LinkWrapper to="/lifemap/tasks-habits">Try Now</LinkWrapper>
           </ParagraphContent>
 
           <ParagraphContent>
             <b>Finance Management:</b> Keep your finances in check by recording
             your expenses and income.
             <br/>
-            <LinkWrapper to="/finances">Try Now</LinkWrapper>
+            <LinkWrapper to="/lifemap/finances">Try Now</LinkWrapper>
           </ParagraphContent>
 
           <ParagraphContent>

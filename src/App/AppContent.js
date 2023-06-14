@@ -39,10 +39,10 @@ const AppContent = ({
 }) => {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<RootLayout />}>
+      <Route path="/lifemap/" element={<RootLayout />}>
         <Route
           index
-          path="/"
+          path="/lifemap/"
           element={
             <HomePage
               activityCategories={activityCategories}
@@ -53,7 +53,7 @@ const AppContent = ({
           }
         />
         <Route
-          path="edit-activity-unit"
+          path="/lifemap/edit-activity-unit"
           element={
             <AddActivityUnitPage
               onUpdateActivityDataUnit={onUpdateActivityDataUnit}
@@ -65,7 +65,7 @@ const AppContent = ({
           }
         />
         <Route
-          path="tasks-habits"
+          path="/lifemap/tasks-habits"
           element={
             <TasksHabitsPage
               activityCategories={activityCategories}
@@ -79,7 +79,7 @@ const AppContent = ({
           }
         />
         <Route
-          path="finances"
+          path="/lifemap/finances"
           element={
             <FinancePage
               financialCategories={financialCategories}
@@ -91,7 +91,7 @@ const AppContent = ({
           }
         />
         <Route
-          path="view-activity-units"
+          path="/lifemap/view-activity-units"
           element={
             <ViewActivityUnitsPage
               onGetActivityDataUnit={onGetActivityDataUnit}
@@ -100,9 +100,9 @@ const AppContent = ({
             />
           }
         />
-        <Route path="charts" element={<ChartsPage />} />
+        <Route path="/lifemap/charts" element={<ChartsPage />} />
         <Route
-          path="settings"
+          path="/lifemap/settings"
           element={<SettingsPage onExport={onExport} onImport={onImport} />}
         />
       </Route>

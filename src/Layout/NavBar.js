@@ -32,43 +32,43 @@ const NavBar = () => {
   return (
     <NavWrapper isOpen={isOpen}>
       <NavItemsWrapper>
-        <NavItemWrapper to="/" activeClassName="active">
+        <NavItemWrapper to="/lifemap/" activeClassName="active">
           <HomeIcon />
           <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
             Home
           </span>
         </NavItemWrapper>
-        <NavItemWrapper to="edit-activity-unit" activeClassName="active">
+        <NavItemWrapper to="/lifemap/edit-activity-unit" activeClassName="active">
           <AddCircleIcon />
           <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
             Add Activity Unit
           </span>
         </NavItemWrapper>
-        <NavItemWrapper to="tasks-habits" activeClassName="active">
+        <NavItemWrapper to="/lifemap/tasks-habits" activeClassName="active">
           <AssignmentIcon />
           <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
             Tasks & Habits
           </span>
         </NavItemWrapper>
-        <NavItemWrapper to="finances" activeClassName="active">
+        <NavItemWrapper to="/lifemap/finances" activeClassName="active">
           <MonetizationOnIcon />
           <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
             Finances
           </span>
         </NavItemWrapper>
-        <NavItemWrapper to="view-activity-units" activeClassName="active">
+        <NavItemWrapper to="/lifemap/view-activity-units" activeClassName="active">
           <GridOnIcon />
           <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
             View Activity Units
           </span>
         </NavItemWrapper>
-        <NavItemWrapper to="charts" activeClassName="active">
+        <NavItemWrapper to="/lifemap/charts" activeClassName="active">
           <BarChartIcon />
           <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
             Charts
           </span>
         </NavItemWrapper>
-        <NavItemWrapper to="settings" activeClassName="active">
+        <NavItemWrapper to="/lifemap/settings" activeClassName="active">
           <SettingsIcon />
           <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
             Settings
