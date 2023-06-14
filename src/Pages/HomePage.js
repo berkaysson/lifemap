@@ -14,7 +14,7 @@ const HomeWrapper = styled.section`
   justify-content: center;
   align-items: stretch;
   justify-items: stretch;
-  gap: ${({ theme }) => theme.sizes.small};
+  gap: ${({ theme }) => theme.sizes.large};
   padding: 0 10px;
   width: 100%;
   height: 100%;
@@ -43,6 +43,7 @@ const Info = styled.div`
 
 const Reminder = styled.div`
   grid-area: 4 / 1 / 5 / 3;
+  margin-top: 1rem;
 `;
 
 const HomePage = ({
