@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/lifemap/static/css/main.564dea5c.css",
+    "main.js": "/lifemap/static/js/main.3e5a93f1.js",
+    "index.html": "/lifemap/index.html",
+    "main.564dea5c.css.map": "/lifemap/static/css/main.564dea5c.css.map",
+    "main.3e5a93f1.js.map": "/lifemap/static/js/main.3e5a93f1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.564dea5c.css",
+    "static/js/main.3e5a93f1.js"
+  ]
+}
