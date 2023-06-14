@@ -8,6 +8,7 @@ export const theme = {
     theme: themeColors,
     danger: "#ff758f",
     success: "#ccff33",
+    themeSecondary: "#ff6d00",
   },
   sizes: {
     small: "8px",

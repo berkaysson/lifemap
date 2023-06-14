@@ -22,8 +22,7 @@ const Button = styled.button`
     !isOpen ? "rotate(180deg) translateX(-50%)" : "rotate(0) translateX(-50%)"};
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.secondary};
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.themeSecondary};
     box-shadow: ${({ theme }) => theme.boxShadows.innerShadow};
   }
 `;

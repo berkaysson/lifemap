@@ -48,7 +48,7 @@ const Reminder = styled.div`
 `;
 
 const LinkWrapper = styled(Link)`
-  color: ${({theme}) => theme.colors.theme};
+  color: ${({theme}) => theme.colors.themeSecondary};
   text-decoration: underline;
   font-weight: bold;
   text-shadow: 1px 1px 1px ${({theme}) => theme.colors.alternative};

@@ -29,6 +29,7 @@ const Button = styled.button`
 
   &:hover {
     font-weight: bold;
+    color: ${({ theme }) => theme.colors.themeSecondary};
   }
 
   &:active {

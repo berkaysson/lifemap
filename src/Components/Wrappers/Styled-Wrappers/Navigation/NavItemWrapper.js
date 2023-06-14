@@ -22,7 +22,7 @@ export const NavItemWrapper = styled(NavLink)`
 
   &:hover {
     font-weight: bold;
-    color: ${({ theme }) => theme.colors.theme};
+    color: ${({ theme }) => theme.colors.themeSecondary};
   }
 
   &.active {
