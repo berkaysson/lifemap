@@ -62,8 +62,9 @@ const HomePage = ({
           <ParagraphContent>
             Welcome to <b>Lifemap</b>, your personal life tracking tool. Stay
             organized and achieve your goals by tracking your activities and
-            finances in one place. Take control of your life and make every day
-            count.
+            finances in one place. The Tasks and Habits feature on Lifemap is
+            designed to help you effectively manage your tasks and cultivate
+            positive habits. Take control of your life and make every day count.
           </ParagraphContent>
         </Welcome>
         <Viewer
@@ -88,6 +89,14 @@ const HomePage = ({
             habits that align with your goals. Lifemap's integration of tasks
             and habits with activities ensures that you stay focused, motivated,
             and productive.
+          </ParagraphContent>
+
+          <ParagraphContent>
+            <b>View Your Daily Activities:</b> The View Activity Unit page on
+            Lifemap allows you to effortlessly access and review the activity
+            units you have logged. Whether you prefer a visual representation or
+            a structured table format, this page provides the flexibility to
+            switch between Card View and Table View.
           </ParagraphContent>
         </Info>
         <Reminder>
