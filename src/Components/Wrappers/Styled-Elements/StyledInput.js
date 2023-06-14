@@ -13,6 +13,7 @@ const StyledInputWrapper = styled.input`
 
   &:hover {
     font-weight: bold;
+    color: ${({ theme }) => theme.colors.themeSecondary};
   }
 
   &::placeholder {
