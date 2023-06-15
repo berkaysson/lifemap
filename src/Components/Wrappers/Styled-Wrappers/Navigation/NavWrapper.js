@@ -10,8 +10,9 @@ export const NavWrapper = styled.nav`
   color: ${({ theme }) => theme.colors.secondary};
   padding: 10px;
   height: 100%;
-  width: ${({ isOpen }) => (isOpen ? "240px" : "60px")};
-  border-radius: ${({ theme }) => theme.radius.medium};
+  width: ${({ isOpen }) => (isOpen ? "240px" : "63px")};
+  border: 1px solid ${({ theme }) => theme.colors.theme};
+  border-radius: ${({ theme }) => theme.radius.large};
   box-shadow: ${({ theme }) => theme.boxShadows.largeCardShadow};
 
   transition: width 0.4s ease;

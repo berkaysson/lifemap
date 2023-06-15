@@ -32,7 +32,7 @@ const MainContent = styled.main`
   background-color: ${({ theme }) => theme.colors.secondary};
   overflow-x: hidden;
   position: relative;
-  border: 1px solid ${({ theme }) => theme.colors.alternative};
+  border: 1px solid ${({ theme }) => theme.colors.theme};
   border-radius: ${({ theme }) => theme.radius.large};
   box-shadow: ${({ theme }) => theme.boxShadows.largeCardShadow};
 `;
