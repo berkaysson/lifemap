@@ -10,7 +10,7 @@ const RootContainer = styled.div`
   grid-template-columns: auto 1fr;
   min-height: 100vh;
   color: ${({ theme }) => theme.colors.primary};
-  background-color: ${({ theme }) => theme.colors.alternative};
+  background-color: ${({ theme }) => theme.colors.theme};
   font-size: ${({ theme }) => theme.sizes.medium};
   width: 100%;
   max-width: 1300px;
