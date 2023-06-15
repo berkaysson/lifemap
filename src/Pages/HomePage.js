@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import DataViewer from "../Components/DataViewer/DataViewer.js";
 import HeaderContent from "../Components/Contents/HeaderContent.js";
@@ -9,51 +9,48 @@ import FilteredTasksHabitsList from "../Components/Tasks&Habits/FilteredTasksHab
 
 const HomeWrapper = styled.section`
   display: grid;
-  grid-template-columns: 70% 29%;
+  grid-template-columns: 5% 63% 23% 5%;
   grid-template-rows: auto auto 1fr auto;
   align-content: start;
   justify-content: center;
   align-items: stretch;
   justify-items: stretch;
-  gap: ${({ theme }) => theme.sizes.large};
-  padding: 0 10px;
+  gap: ${({ theme }) => theme.sizes.medium};
   width: 100%;
   height: 100%;
 `;
 
 const Header = styled.header`
-  grid-area: 1 / 1 / 2 / 3;
+  grid-area: 1 / 1 / 2 / 5;
 `;
 
 const Welcome = styled.div`
-  grid-area: 2 / 1 / 3 / 2;
+  grid-area: 2 / 2 / 3 / 3;
 `;
 
-const Viewer = styled(DataViewer)`
-  grid-area: 3 / 1 / 4 / 2;
-  padding: 0 10px;
+const Viewer = styled.div`
+  grid-area: 3 / 2 / 4 / 3;
 `;
 
 const Info = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.sizes.medium};
-  grid-area: 2 / 2 / 4 / 3;
-  padding: 0 10px;
+  grid-area: 2 / 3 / 4 / 4;
 `;
 
 const Reminder = styled.div`
-  grid-area: 4 / 1 / 5 / 3;
+  grid-area: 4 / 2 / 5 / 4;
   margin-top: 1rem;
 `;
 
 const LinkWrapper = styled(Link)`
-  color: ${({theme}) => theme.colors.themeSecondary};
+  color: ${({ theme }) => theme.colors.themeSecondary};
   text-decoration: underline;
   font-weight: bold;
-  text-shadow: 1px 1px 1px ${({theme}) => theme.colors.alternative};
+  text-shadow: 1px 1px 1px ${({ theme }) => theme.colors.alternative};
 
-  &:hover{
+  &:hover {
     text-decoration: none;
   }
 `;
@@ -79,17 +76,20 @@ const HomePage = ({
             positive habits. Take control of your life and make every day count.
           </ParagraphContent>
         </Welcome>
-        <Viewer
-          selectedDateDataUnit={todaysActivityDataUnit}
-          activityCategories={activityCategories}
-        />
+        <Viewer>
+          <DataViewer
+            selectedDateDataUnit={todaysActivityDataUnit}
+            activityCategories={activityCategories}
+          />
+        </Viewer>
+
         <Info>
           <ParagraphContent>
             <b>Activity Tracking:</b> Log your daily activities, categorize
             them, and set goals to make the most of your time. Lifemap allows
             you to track activities down to the minute, giving you a
             comprehensive view of your routines and habits.
-            <br/>
+            <br />
             <LinkWrapper to="/lifemap/edit-activity-unit">Try Now</LinkWrapper>
           </ParagraphContent>
 
@@ -98,14 +98,14 @@ const HomePage = ({
             habits that align with your goals. Lifemap's integration of tasks
             and habits with activities ensures that you stay focused, motivated,
             and productive.
-            <br/>
+            <br />
             <LinkWrapper to="/lifemap/tasks-habits">Try Now</LinkWrapper>
           </ParagraphContent>
 
           <ParagraphContent>
             <b>Finance Management:</b> Keep your finances in check by recording
             your expenses and income.
-            <br/>
+            <br />
             <LinkWrapper to="/lifemap/finances">Try Now</LinkWrapper>
           </ParagraphContent>
 
