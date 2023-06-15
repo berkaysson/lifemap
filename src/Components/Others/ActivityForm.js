@@ -53,6 +53,8 @@ const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
   // eslint-disable-next-line no-unused-vars
   const [subCategoryOptions, setSubCategoryOptions] = useState();
 
+  const [resetDeleteForm, setResetDeleteForm] = useState(false);
+
   let toBeUpdatedData = {};
 
   // Fetch the list of categories on mount and update the select dropdown options
@@ -87,10 +89,22 @@ const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
       ? e.target["dateInput"].value
       : selectedDate;
     const valueInput = e.target.valueInput.value;
+
+    if (!valueInput) {
+      alert("Enter Minute");
+      return;
+    }
+
     if (valueInput < 0) {
       alert("Value can not be smaller than 0");
       return;
     }
+
+    if(!selectedCategory || !selectedSubCategory){
+      alert("Select Activity Type and Category");
+      return;
+    }
+    
     toBeUpdatedData = {
       date: dateInput,
       category: selectedCategory.label,
@@ -99,7 +113,15 @@ const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
       formMode: formMode,
     };
     onUpdateActivityDataUnit(toBeUpdatedData);
+    resetForm();
   };
+  
+  const resetForm = () => {
+    document.getElementById("form").reset();
+    setResetDeleteForm(!resetDeleteForm);
+    setSelectedCategory(null);
+    setSelectedSubCategory(null);
+  }
 
   // Handle selection of a category from the dropdown
   const categorySelectionHandler = (selectedCategory) => {
@@ -126,7 +148,7 @@ const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
   };
 
   return (
-    <FormWrapper onSubmit={submitHandler}>
+    <FormWrapper onSubmit={submitHandler} id="form">
       <DateFormWrapper>
         <ToggleButton
           onClick={dateChangeHandler}
@@ -152,6 +174,7 @@ const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
       <CategorySubCategorySelect
         categories={activityCategories}
         onSubCategorySelect={subCategorySelectHandler}
+        resetDeleteForm={resetDeleteForm}
       />
       <ValueInputWrapper>
         <label>
