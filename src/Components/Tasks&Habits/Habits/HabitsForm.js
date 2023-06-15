@@ -19,6 +19,8 @@ const HabitsForm = ({ onAddHabitUnit, activityCategories }) => {
     period: null,
   });
 
+  const [resetDeleteForm, setResetDeleteForm] = useState(false);
+
   const subCategorySelectionHandler = (category, subCategory) => {
     setHabit({
       ...habit,
@@ -54,8 +56,23 @@ const HabitsForm = ({ onAddHabitUnit, activityCategories }) => {
   const formSubmitHandler = (event) => {
     event.preventDefault();
     const habitUnit = { ...habit, id: uuidv4() };
+
+    for(const key in habitUnit){
+      if(!habitUnit[key]){
+        alert(`Please fill all fields`);
+        return
+      }
+    }
+
     onAddHabitUnit(habitUnit);
+    resetForm();
   };
+  
+  const resetForm = () => {
+    document.getElementById("form").reset();
+    setResetDeleteForm(!resetDeleteForm);
+  }
+
 
   return (
     <div>
@@ -63,11 +80,13 @@ const HabitsForm = ({ onAddHabitUnit, activityCategories }) => {
         <CategorySubCategorySelect
           categories={activityCategories}
           onSubCategorySelect={subCategorySelectionHandler}
+          resetDeleteForm={resetDeleteForm}
         />
-        <HabitFrequencySelector onSelect={frequencyHandler} />
+        <HabitFrequencySelector onSelect={frequencyHandler} resetDeleteForm={resetDeleteForm} />
         <HabitDurationInput
           onChange={durationHandler}
           frequency={habit.frequency}
+          resetDeleteForm={resetDeleteForm}
         />
         <StyledInput
           type="number"

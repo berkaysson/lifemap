@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 
 const FrequencyWrapper = styled.div`
@@ -54,7 +55,7 @@ const frequencyOptions = [
   { value: "monthly", label: "Monthly" },
 ];
 
-const HabitFrequencySelector = ({ onSelect }) => {
+const HabitFrequencySelector = ({ onSelect, resetDeleteForm }) => {
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleOptionChange = (event) => {
@@ -64,6 +65,11 @@ const HabitFrequencySelector = ({ onSelect }) => {
   };
 
   const optionsToRender = frequencyOptions;
+
+  useEffect(()=>{
+    setSelectedOption("");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetDeleteForm]);
 
   return (
     <FrequencyWrapper>

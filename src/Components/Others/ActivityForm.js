@@ -117,7 +117,7 @@ const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
   };
   
   const resetForm = () => {
-    document.getElementById("form").reset();
+    document.getElementById("activityForm").reset();
     setResetDeleteForm(!resetDeleteForm);
     setSelectedCategory(null);
     setSelectedSubCategory(null);
@@ -148,7 +148,7 @@ const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
   };
 
   return (
-    <FormWrapper onSubmit={submitHandler} id="form">
+    <FormWrapper onSubmit={submitHandler} id="activityForm">
       <DateFormWrapper>
         <ToggleButton
           onClick={dateChangeHandler}

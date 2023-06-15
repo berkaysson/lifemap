@@ -17,6 +17,8 @@ const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
     nameValue: null,
   });
 
+  const [resetDeleteForm, setResetDeleteForm] = useState(false);
+
   const subCategorySelectionHandler = (category, subCategory) => {
     setTask({ ...task, category: category, subCategory: subCategory });
   };
@@ -36,8 +38,22 @@ const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
   const formSubmitHandler = (event) => {
     event.preventDefault();
     const taskUnit = { ...task, id: uuidv4() };
+
+    for(const key in taskUnit){
+      if(!taskUnit[key]){
+        alert(`Please fill all fields`);
+        return
+      }
+    }
+
     onAddTaskUnit(taskUnit);
+    resetForm();
   };
+
+  const resetForm = () => {
+    document.getElementById("form").reset();
+    setResetDeleteForm(!resetDeleteForm);
+  }
 
   return (
     <div>
@@ -45,6 +61,7 @@ const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
         <CategorySubCategorySelect
           categories={activityCategories}
           onSubCategorySelect={subCategorySelectionHandler}
+          resetDeleteForm={resetDeleteForm}
         />
         <DateRangeSelector onSubmit={dateRangeHandler} />
         <StyledInput

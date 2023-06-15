@@ -15,7 +15,7 @@ const DurationWrapper = styled.div`
   gap: ${({ theme }) => theme.sizes.medium};
 `;
 
-const HabitDurationInput = ({ onChange, frequency }) => {
+const HabitDurationInput = ({ onChange, frequency, resetDeleteForm }) => {
   const [dateRange, setDateRange] = useState(null);
   const [duration, setDuration] = useState(null);
   const [startDate, setStartDate] = useState(null);
@@ -26,6 +26,13 @@ const HabitDurationInput = ({ onChange, frequency }) => {
     onChange(range.startDate, range.endDate, duration);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [frequency, duration, startDate]);
+
+  useEffect(()=>{
+    setDateRange(null);
+    setDuration(null);
+    setStartDate(null);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetDeleteForm]);
 
   const calculateDateRange = (value) => {
     const firstDay = startDate ? moment(startDate) : moment();
