@@ -94,6 +94,11 @@ const FinanceDataListItem = ({
     const updatedData = {
       value: editValue,
     };
+
+    if(!updatedData.value || updatedData.value<0){
+      alert("Enter a positive value");
+      return;
+    }
     onUpdateItem(item.date, item.id, updatedData);
     setIsEditing(false);
   };
