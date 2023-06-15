@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import HomeIcon from "@mui/icons-material/Home";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -25,12 +25,31 @@ const NavItemsWrapper = styled.div`
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
+  let navRef = useRef()
+
   const toggleIsOpen = () => {
     setIsOpen(!isOpen);
   };
 
+  useEffect(()=>{console.log(isOpen);}, [isOpen])
+
+  useEffect(() => {
+    const handleWindowClick = (event) => {
+      if (window.innerWidth <= 1024 && !navRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener('click', handleWindowClick);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('click', handleWindowClick);
+    };
+  }, []);
+
   return (
-    <NavWrapper isOpen={isOpen}>
+    <NavWrapper isOpen={isOpen} id="nav" ref={navRef}>
       <NavItemsWrapper>
         <NavItemWrapper to="/lifemap/" activeClassName="active">
           <HomeIcon />
