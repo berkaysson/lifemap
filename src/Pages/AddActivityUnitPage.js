@@ -47,6 +47,7 @@ const ActivityContainer = styled.div`
   display: grid;
   grid-template-rows: 1fr; //change to 1fr 1fr responsive design
   grid-template-columns: 70% auto; //change to 1fr responsive design
+  gap: ${({ theme }) => theme.sizes.small};
 `;
 
 const Category = styled(motion.div)`
@@ -65,6 +66,7 @@ const CategoryContainer = styled.div`
   display: grid;
   grid-template-rows: 1fr; //change to 1fr 1fr responsive design
   grid-template-columns: 70% auto; //change to 1fr responsive design
+  gap: ${({ theme }) => theme.sizes.small};
 `;
 
 const FormHeader = styled.h2`

@@ -48,6 +48,7 @@ const Finance = styled.div`
   display: grid;
   grid-template-rows: 1fr; //change to 1fr 1fr responsive design
   grid-template-columns: 70% auto; //change to 1fr responsive design
+  gap: ${({ theme }) => theme.sizes.small};
 `;
 
 const List = styled(motion.div)`

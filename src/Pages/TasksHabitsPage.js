@@ -48,6 +48,7 @@ const TaskHabitContainer = styled.div`
   display: grid;
   grid-template-rows: 1fr; //change to 1fr 1fr responsive design
   grid-template-columns: 70% auto; //change to 1fr responsive design
+  gap: ${({ theme }) => theme.sizes.small};
 `;
 
 const FormHeader = styled.h2`
@@ -105,22 +106,25 @@ const TasksHabitsPage = ({
               onAddHabitUnit={onAddHabitUnit}
               setSelectedForm={setSelectedForm}
             />
-            <ParagraphContent>
-              {selectedForm === "tasks"
-                ? `Tasks Form, begin by selecting the activity type and category that
-              best represent the task you want to track. Set a specific date
-              range within which the task needs to be completed. Enter the
-              estimated time in minutes required to accomplish the task.
-              Finally, provide a name to easily identify and track the task.
-            `
-                : `Habits Form, select the activity type and category. Choose the
-              frequency of the habit, to establish a consistent practice. Set
-              the habit period, such as 30 times of frequency, and allocate the
-              desired time in minutes for each habit period. By providing a
-              name, you can easily track and monitor your progress.
-              For example, a habit could be Weekly Reading (Personal Growth, Learning) for 4 weeks, allocating 100 minutes per week.
-            `}
-            </ParagraphContent>
+            {selectedForm === "tasks" ? (
+              <ParagraphContent>
+                Tasks Form, begin by selecting the activity type and category
+                that best represent the task you want to track. Set a specific
+                date range within which the task needs to be completed. Enter
+                the estimated time in minutes required to accomplish the task.
+                Finally, provide a name to easily identify and track the task.
+              </ParagraphContent>
+            ) : (
+              <ParagraphContent>
+                Habits Form, select the activity type and category. Choose the
+                frequency of the habit, to establish a consistent practice. Set
+                the habit period, such as 30 times of frequency, and allocate
+                the desired time in minutes for each habit period. By providing
+                a name, you can easily track and monitor your progress. For
+                example, a habit could be Weekly Reading (Personal Growth,
+                Learning) for 4 weeks, allocating 100 minutes per week.
+              </ParagraphContent>
+            )}
           </TaskHabitContainer>
         </TaskHabit>
         <TaskHabitListWrapper>
