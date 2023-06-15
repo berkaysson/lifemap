@@ -148,7 +148,7 @@ const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
   };
 
   return (
-    <FormWrapper onSubmit={submitHandler} id="activityForm">
+    <FormWrapper onSubmit={submitHandler} id="form">
       <DateFormWrapper>
         <ToggleButton
           onClick={dateChangeHandler}

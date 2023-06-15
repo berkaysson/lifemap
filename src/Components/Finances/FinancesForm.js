@@ -69,17 +69,29 @@ const FinancesForm = ({
       alert("Value can not be smaller than 0");
       return;
     }
+    
     toBeUpdatedData = {
       date: dateInput,
       time: time,
       category: "Expense",
-      subCategory: selectedSubCategory.value,
+      subCategory: selectedSubCategory?.value,
       value: valueInput,
       formMode: formMode,
       id: uuidv4(),
     };
+
+    for(const key in toBeUpdatedData){
+      if(
+        !toBeUpdatedData[key] ||
+        (key === "value" && toBeUpdatedData[key] <= 0)
+      ) {
+        alert(`Please fill all fields`);
+        return;
+      }
+    }
+
     onAddFinancialDataUnit(toBeUpdatedData);
-    setSelectedSubCategory(null);
+    resetForm();
   };
 
   const subCategorySelectHandler = (selectedSubCategory) => {
@@ -95,9 +107,14 @@ const FinancesForm = ({
     setSelectedSubCategory(null);
   };
 
+  const resetForm = () => {
+    document.getElementById("form").reset();
+    setSelectedSubCategory(null);
+  }
+
   return (
     <Wrapper>
-      <FormWrapper onSubmit={submitHandler}>
+      <FormWrapper onSubmit={submitHandler} id="form">
         <DateWrapper>
           <label>Date:</label>
           {dateInputActive ? (
