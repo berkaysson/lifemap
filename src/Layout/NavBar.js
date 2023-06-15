@@ -18,7 +18,7 @@ const NavItemsWrapper = styled.div`
   flex-direction: column;
   position: relative;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
   width: 100%;
 `;
 

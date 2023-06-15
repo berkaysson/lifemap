@@ -3,7 +3,7 @@ import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 
 const Button = styled.button`
   position: absolute;
-  top: 30px;
+  top: 44px;
   right: -2.7rem;
   display: flex;
   align-items: center;
