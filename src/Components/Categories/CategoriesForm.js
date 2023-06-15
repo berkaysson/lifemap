@@ -43,12 +43,19 @@ const CategoriesForm = ({
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [formMode, setFormMode] = useState("update");
+  const [subCategoryInput, setSubCategoryInput] = useState();
   const [categoryOptions, setCategoryOptions] = useState([]);
+
+  const [resetDeleteForm, setResetDeleteForm] = useState(false);
 
   // Handle form submission to update the category with a new subcategory
   const submitHandler = async (event) => {
     event.preventDefault();
-    const subCategoryInput = event.target["subCategoryInput"].value.trim();
+    if(!selectedCategory){
+      alert("Please Select an Activity Type");
+      return;
+    }
+
     if (!subCategoryInput) {
       alert("Subcategory name cannot be empty");
       return;
@@ -60,7 +67,15 @@ const CategoriesForm = ({
     }
 
     await onUpdateCategory(selectedCategory.value, subCategoryInput);
+    resetForm();
   };
+
+  const resetForm = () => {
+    setSelectedCategory(null);
+    setSelectedSubCategory(null);
+    setSubCategoryInput("");
+    setResetDeleteForm(!resetDeleteForm);
+  }
 
   async function fetchCategoryOptions() {
     setCategoryOptions(() =>
@@ -91,11 +106,23 @@ const CategoriesForm = ({
 
   // Handle deleting a subcategory
   const deleteSubCategory = async () => {
+    if(!selectedCategory){
+      alert("Please Select an Activity Type");
+      return;
+    }
+
+    if(!selectedSubCategory){
+      alert("Please Select an Category");
+      return;
+    }
+
     await onDeleteSubCategory(
       selectedCategory.label,
       selectedCategory.value,
       selectedSubCategory.label
     );
+
+    resetForm();
   };
 
   const subCategorySelectionHandler = (category, subCategory) => {
@@ -128,6 +155,8 @@ const CategoriesForm = ({
               <StyledInput
                 type="text"
                 name="subCategoryInput"
+                value={subCategoryInput}
+                onChange={(event)=>{setSubCategoryInput(event.target.value)}}
                 placeholder="Enter the name of the category"
               />
               <Button text={"Submit"} type={"submit"} />
@@ -142,6 +171,7 @@ const CategoriesForm = ({
                 <CategorySubCategorySelect
                   categories={categories}
                   onSubCategorySelect={subCategorySelectionHandler}
+                  resetDeleteForm={resetDeleteForm}
                 />
               </form>
               <Button

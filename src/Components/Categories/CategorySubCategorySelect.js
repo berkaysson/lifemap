@@ -13,7 +13,7 @@ const CategorySubCategorySelectWrapper = styled.div`
   text-align: center;
 `;
 
-const CategorySubCategorySelect = ({ categories, onSubCategorySelect }) => {
+const CategorySubCategorySelect = ({ categories, onSubCategorySelect, resetDeleteForm=false }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [subCategories, setSubCategories] = useState([]);
   // eslint-disable-next-line no-unused-vars
@@ -55,6 +55,14 @@ const CategorySubCategorySelect = ({ categories, onSubCategorySelect }) => {
       }))
     );
   }, [categories, subCategories]);
+
+  useEffect(()=>{
+    setSelectedCategory(null);
+    setSelectedSubCategory(null);
+    fetchCategories();
+    fetchCategoryOptions();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetDeleteForm]);
 
   const categorySelectionHandler = (selectedCategory) => {
     setSelectedCategory(selectedCategory);
