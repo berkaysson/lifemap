@@ -18,18 +18,27 @@ const HomeWrapper = styled.section`
   gap: ${({ theme }) => theme.sizes.medium};
   width: 100%;
   height: 100%;
+
+  @media (max-width: 1024px){
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, auto);
+  }
 `;
 
 const Header = styled.header`
   grid-area: 1 / 1 / 2 / 5;
+
+  @media (max-width: 1024px){
+    grid-area: 1 / 1 / 2 / 2;
+  }
 `;
 
 const Welcome = styled.div`
   grid-area: 2 / 2 / 3 / 3;
-`;
 
-const Viewer = styled.div`
-  grid-area: 3 / 2 / 4 / 3;
+  @media (max-width: 1024px){
+    grid-area: 2 / 1 / 3 / 2;
+  }
 `;
 
 const Info = styled.div`
@@ -37,11 +46,27 @@ const Info = styled.div`
   flex-direction: column;
   gap: ${({ theme }) => theme.sizes.medium};
   grid-area: 2 / 3 / 4 / 4;
+
+  @media (max-width: 1024px){
+    grid-area: 3 / 1 / 4 / 2;
+  }
+`;
+
+const Viewer = styled.div`
+  grid-area: 3 / 2 / 4 / 3;
+
+  @media (max-width: 1024px){
+    grid-area: 4 / 1 / 5 / 2;
+  }
 `;
 
 const Reminder = styled.div`
   grid-area: 4 / 2 / 5 / 4;
   margin-top: 1rem;
+
+  @media (max-width: 1024px){
+    grid-area: 5 / 1 / 6 / 2;
+  }
 `;
 
 const LinkWrapper = styled(Link)`

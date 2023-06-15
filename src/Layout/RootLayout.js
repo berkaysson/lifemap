@@ -23,6 +23,11 @@ const Sidebar = styled.aside`
   height: 100vh;
   padding: ${({ theme }) => theme.sizes.medium};
   z-index: 2;
+
+  @media (max-width: 1024px) {
+    position: fixed;
+    height: 100%;
+  }
 `;
 
 const MainContent = styled.main`
@@ -35,10 +40,20 @@ const MainContent = styled.main`
   border: 1px solid ${({ theme }) => theme.colors.theme};
   border-radius: ${({ theme }) => theme.radius.large};
   box-shadow: ${({ theme }) => theme.boxShadows.largeCardShadow};
+
+  @media (max-width: 1024px) {
+    grid-column: 1 / 3;
+    margin-left: 7rem;
+  }
 `;
 
 const NavBarWrapper = styled(NavBar)`
   width: 100%;
+
+  @media (max-width: 1024px) {
+    position: sticky;
+    top: 0;
+  }
 `;
 
 const RootLayout = () => {
