@@ -6,12 +6,18 @@ import StyledInput from "../Wrappers/Styled-Elements/StyledInput";
 
 const ListItemWrapper = styled.li`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   box-shadow: ${({ theme }) => theme.boxShadows.innerSmallShadow};
   padding: ${({ theme }) => theme.sizes.medium};
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.small};
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
 `;
 
 const HeaderWrapper = styled.div`
@@ -19,23 +25,29 @@ const HeaderWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  gap: ${({ theme }) => theme.sizes.medium};
   padding: ${({ theme }) => theme.sizes.small};
   font-weight: bold;
-`;
-
-const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
 `;
 
 const DateWrapper = styled.h4`
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.small};
   padding: ${({ theme }) => theme.sizes.small};
+  width: 150px;
+  text-align: center;
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: ${({ theme }) => theme.sizes.small};
+  width: 100%;
+
+  @media (max-width: 1024px) {
+    padding: ${({ theme }) => theme.sizes.small};
+  }
 `;
 
 const PriceWrapper = styled.div`
@@ -54,6 +66,10 @@ const PriceWrapper = styled.div`
     padding-right: 10px;
     margin-right: 10px;
     border-right: 1px solid ${({ theme }) => theme.colors.theme};
+
+    @media (max-width: 1024px) {
+      margin-right: 20px;
+    }
   }
 `;
 
