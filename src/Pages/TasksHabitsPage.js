@@ -11,7 +11,7 @@ import { AnimatedPage } from "../Components/Wrappers/AnimatedPage";
 
 const TasksHabitsPageWrapper = styled.section`
   display: grid;
-  grid-template-columns: 1fr minmax(600px, 80%) 1fr;
+  grid-template-columns: 1fr minmax(550px, 80%) 1fr;
   grid-template-rows: repeat(4, auto);
   align-content: start;
   justify-content: center;
@@ -38,7 +38,6 @@ const TaskHabit = styled(motion.div)`
   align-items: stretch;
   justify-items: stretch;
   padding: ${({ theme }) => theme.sizes.large};
-  gap: 1px;
   box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.medium};
@@ -49,11 +48,16 @@ const TaskHabitContainer = styled.div`
   grid-template-rows: 1fr; //change to 1fr 1fr responsive design
   grid-template-columns: 70% auto; //change to 1fr responsive design
   gap: ${({ theme }) => theme.sizes.small};
+
+  @media (max-width: 1024px) {
+  grid-template-rows: auto auto;
+  grid-template-columns: 1fr;
+  gap: ${({ theme }) => theme.sizes.medium};
+  }
 `;
 
 const FormHeader = styled.h2`
   text-align: center;
-  margin-bottom: ${({ theme }) => theme.sizes.small};
 `;
 
 const TaskHabitListWrapper = styled.div`

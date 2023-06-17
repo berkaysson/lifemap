@@ -45,9 +45,15 @@ const Activity = styled(motion.div)`
 
 const ActivityContainer = styled.div`
   display: grid;
-  grid-template-rows: 1fr; //change to 1fr 1fr responsive design
-  grid-template-columns: 70% auto; //change to 1fr responsive design
+  grid-template-rows: 1fr;
+  grid-template-columns: 70% auto;
   gap: ${({ theme }) => theme.sizes.small};
+
+  @media (max-width: 1024px) {
+  grid-template-rows: auto auto;
+  grid-template-columns: 1fr;
+  gap: ${({ theme }) => theme.sizes.medium};
+  }
 `;
 
 const Category = styled(motion.div)`
@@ -67,6 +73,12 @@ const CategoryContainer = styled.div`
   grid-template-rows: 1fr; //change to 1fr 1fr responsive design
   grid-template-columns: 70% auto; //change to 1fr responsive design
   gap: ${({ theme }) => theme.sizes.small};
+
+  @media (max-width: 1024px) {
+  grid-template-rows: auto auto;
+  grid-template-columns: 1fr;
+  gap: ${({ theme }) => theme.sizes.medium};
+  }
 `;
 
 const FormHeader = styled.h2`

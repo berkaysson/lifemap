@@ -4,7 +4,6 @@ import styled from "styled-components";
 import ToggleButton from "../Wrappers/Styled-Elements/ToggleButton";
 import TasksForm from "./Tasks/TasksForm";
 import HabitsForm from "./Habits/HabitsForm";
-import { CardWrapper } from "../Wrappers/Styled-Wrappers/CardWrapper";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -30,7 +29,6 @@ const TasksHabitsWrapper = ({
   };
 
   return (
-    <CardWrapper>
       <Wrapper>
         <ToggleButton
           onClick={toggleTasksHabitsHandler}
@@ -51,7 +49,6 @@ const TasksHabitsWrapper = ({
           />
         )}
       </Wrapper>
-    </CardWrapper>
   );
 };
 
