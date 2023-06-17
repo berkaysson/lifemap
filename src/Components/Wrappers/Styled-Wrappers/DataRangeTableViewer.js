@@ -23,7 +23,7 @@ const DataRangeTableViewer = ({
   if (!filteredActivityDataUnits || !activityCategories) return <p>No Data</p>;
 
   const categoriesColumns = [
-    { field: "date", headerName: "Date", width: 100 },
+    { field: "date", headerName: "Date", width: 95 },
   ].concat(
     ...activityCategories?.map((category) =>
       category?.subCategories?.map((subCategory) => ({
@@ -33,7 +33,7 @@ const DataRangeTableViewer = ({
         headerName: `${
           subCategory === "Other" ? `Other(${category.name})` : subCategory
         }`,
-        width: 100,
+        width: 95,
         align: "center",
       }))
     )
@@ -84,6 +84,9 @@ const DataRangeTableViewer = ({
           },
           "& .MuiDataGrid-cell:hover": {
             fontWeight: "bold",
+          },
+          "@media (max-width: 1024px)": {
+            p: 0.1,
           },
         }}
       />
