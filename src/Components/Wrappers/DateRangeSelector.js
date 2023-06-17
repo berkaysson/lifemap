@@ -15,6 +15,10 @@ const Wrapper = styled.div`
   box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.small};
+  
+  @media (max-width: 1024px) {
+    width: 85%;
+  }
 `;
 
 const DateRangeWrapper = styled(DateRange)`
@@ -28,6 +32,10 @@ const DateRangeWrapper = styled(DateRange)`
         background-color: ${({ theme }) => theme.colors.primary};
       }
     }
+  }
+  
+  @media (max-width: 1024px) {
+    width: 100%;
   }
 `;
 
@@ -60,7 +68,7 @@ const DateRangeSelector = ({ onSubmit }) => {
         moveRangeOnFirstSelection={false}
         months={1}
         ranges={state}
-        direction="vertical"
+        direction="horizontal"
         locale={enGB}
         rangeColors={[`${theme.colors.theme}`]}
       />
