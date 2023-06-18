@@ -33,4 +33,9 @@ export const NavWrapper = styled.nav`
     transform: ${({ isOpen }) =>
       !isOpen ? "rotate(180deg) translateX(0)" : "rotate(0) translateX(0)"};
   }
+
+  @media (max-width: 768px) {
+    margin-left: 10px;
+    width: 95%;
+  }
 `;
