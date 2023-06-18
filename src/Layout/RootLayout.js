@@ -48,8 +48,9 @@ const Sidebar = styled.aside`
           width: 100%;
           height: 100%;
           background-color: rgba(0, 0, 0, 0.5);
+          backdrop-filter: blur(2px);
           z-index: -1;
-          animation: ${fadeIn} 0.3s ease-in-out forwards;
+          animation: ${fadeIn} 0.1s ease-in-out forwards;
         }
       `}
   }
