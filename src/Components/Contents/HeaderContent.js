@@ -27,7 +27,7 @@ const HeaderContent = ({ headerText }) => {
   return (
     <HeaderContentWrapper>
       <h1>{headerText}</h1>
-      <LinkWrapper to="/">life<span>map</span></LinkWrapper>
+      <LinkWrapper to="/lifemap/">life<span>map</span></LinkWrapper>
     </HeaderContentWrapper>
   );
 };
