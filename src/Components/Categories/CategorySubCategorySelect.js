@@ -82,7 +82,6 @@ const CategorySubCategorySelect = ({ categories, onSubCategorySelect, resetDelet
   return (
     <CategorySubCategorySelectWrapper>
       <div>
-        <label>Select Activity type</label>
         <StyledSelect
           onChange={categorySelectionHandler}
           options={categoryOptions}
@@ -91,7 +90,6 @@ const CategorySubCategorySelect = ({ categories, onSubCategorySelect, resetDelet
         />
       </div>
       <div>
-        <label>Select Category</label>
         <SubCategorySelect
           placeholder={"--Select a Category--"}
           onChange={subCategorySelectHandler}
