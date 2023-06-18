@@ -1,6 +1,9 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-export const NavWrapper = styled.nav`
+import { animations } from "../../../../Style/animations";
+
+const NavWrapperWrapper = styled(motion.nav)`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -39,3 +42,17 @@ export const NavWrapper = styled.nav`
     width: 95%;
   }
 `;
+
+export const NavWrapper = ({ isOpen, children }) => {
+  return (
+    <NavWrapperWrapper
+      variants={animations.cardAnimation}
+      animate="animate"
+      exit="exit"
+      transition={{ duration: 0.2 }}
+      isOpen={isOpen}
+    >
+      {children}
+    </NavWrapperWrapper>
+  );
+};
