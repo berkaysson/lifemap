@@ -2,9 +2,10 @@ import NavBar from "./NavBar";
 import { theme } from "../Style/theme";
 
 import { Outlet } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ThemeProvider } from "styled-components";
 import { useState, useEffect } from "react";
+import { fadeIn } from "../Style/animations";
 
 const RootContainer = styled.div`
   display: grid;
@@ -34,7 +35,23 @@ const Sidebar = styled.aside`
     height: 100%;
   }
   @media (max-width: 768px) {
-    
+    width: 100%;
+
+    ${({ isMobileNavOpen }) =>
+      isMobileNavOpen &&
+      css`
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: -1;
+          animation: ${fadeIn} 0.3s ease-in-out forwards;
+        }
+      `}
   }
 `;
 
@@ -73,6 +90,11 @@ const RootLayout = () => {
     if (window.innerWidth <= 768) return true;
     else return false;
   });
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+
+  const toggleIsMobileNavOpen = () => {
+    setIsMobileNavOpen(!isMobileNavOpen);
+  };
 
   useEffect(() => {
     const handleWindowResize = (event) => {
@@ -93,8 +115,12 @@ const RootLayout = () => {
   return (
     <ThemeProvider theme={theme}>
       <RootContainer>
-        <Sidebar>
-          <NavBarWrapper isMobileNavActive={isMobileNavActive} />
+        <Sidebar isMobileNavOpen={isMobileNavOpen}>
+          <NavBarWrapper
+            isMobileNavActive={isMobileNavActive}
+            onMobileNavChange={toggleIsMobileNavOpen}
+            isMobileNavOpen={isMobileNavOpen}
+          />
         </Sidebar>
 
         <MainContent>
