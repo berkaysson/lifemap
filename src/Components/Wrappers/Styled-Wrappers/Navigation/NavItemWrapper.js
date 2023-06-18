@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { fadeIn } from "../../../../Style/animations";
 
 export const NavItemWrapper = styled(NavLink)`
   display: flex;
@@ -30,22 +31,10 @@ export const NavItemWrapper = styled(NavLink)`
     color: ${({ theme }) => theme.colors.primary};
   }
 
-  @keyframes fade-in-out {
-    0% {
-      opacity: 0;
-    }
-    33% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
   & > .nav-item-text {
     display: none;
     opacity: 0;
-    animation: fade-in-out 0.5s ease-in-out forwards;
+    animation: ${fadeIn} 0.5s ease-in-out forwards;
 
     &.active {
       display: inline-block;
