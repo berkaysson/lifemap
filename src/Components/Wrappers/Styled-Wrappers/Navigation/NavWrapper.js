@@ -17,8 +17,13 @@ const NavWrapperWrapper = styled(motion.nav)`
   border: 1px solid ${({ theme }) => theme.colors.theme};
   border-radius: ${({ theme }) => theme.radius.large};
   box-shadow: ${({ theme }) => theme.boxShadows.largeCardShadow};
-
+  overflow-y: scroll;
+  overflow-x: hidden;
   transition: width 0.4s ease;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
 
   &::before {
     content: "";
