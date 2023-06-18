@@ -39,6 +39,7 @@ const NavBar = ({ isMobileNavActive }) => {
 
   const toggleIsMobileNavOpen = () => {
     setIsMobileNavOpen(!isMobileNavOpen);
+    setIsOpen(true);
   };
 
   useEffect(() => {
@@ -118,11 +119,15 @@ const NavBar = ({ isMobileNavActive }) => {
           </span>
         </NavItemWrapper>
       </NavItemsWrapper>
-      <NavToggleButton
-        onClick={toggleIsOpen}
-        isOpen={isOpen}
-        id={"NavToggleButton"}
-      />
+      {isMobileNavActive ? (
+        ""
+      ) : (
+        <NavToggleButton
+          onClick={toggleIsOpen}
+          isOpen={isOpen}
+          id={"NavToggleButton"}
+        />
+      )}
     </NavWrapper>
   );
 
