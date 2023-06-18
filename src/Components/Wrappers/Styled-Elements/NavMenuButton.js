@@ -8,13 +8,14 @@ const NavMenuButtonWrapper = styled.button`
   justify-content: center;
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.secondary};
-  border: none;
+  border: 1px solid ${({ theme }) => theme.colors.theme};
   border-radius: 50%;
   padding: ${({ theme }) => theme.sizes.small};
-  transition: all 0.4s;
-  border: 1px solid black;
-  margin: 3px 1rem;
-
+  transition: all 0.2s;
+  margin: -${({ theme }) => theme.sizes.small} ${({ theme }) => theme.sizes.medium};
+  position: absolute;
+  right: 0;
+  z-index: 99;
   &:hover {
     color: ${({ theme }) => theme.colors.themeSecondary};
   }
