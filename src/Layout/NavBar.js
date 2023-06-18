@@ -5,13 +5,14 @@ import HomeIcon from "@mui/icons-material/Home";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
-import GridOnIcon from '@mui/icons-material/GridOn';
+import GridOnIcon from "@mui/icons-material/GridOn";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 import NavToggleButton from "../Components/Wrappers/Styled-Elements/NavToggleButton";
 import { NavWrapper } from "../Components/Wrappers/Styled-Wrappers/Navigation/NavWrapper";
 import { NavItemWrapper } from "../Components/Wrappers/Styled-Wrappers/Navigation/NavItemWrapper";
+import NavMenuButton from "../Components/Wrappers/Styled-Elements/NavMenuButton";
 
 const NavItemsWrapper = styled.div`
   display: flex;
@@ -22,34 +23,51 @@ const NavItemsWrapper = styled.div`
   width: 100%;
 `;
 
-const NavBar = () => {
-  const [isOpen, setIsOpen] = useState(true);
+const NavBar = ({ isMobileNavActive }) => {
+  const [isOpen, setIsOpen] = useState(() => {
+    if (window.innerWidth <= 1024) return false;
+    else return true;
+  });
 
-  let navRef = useRef()
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+
+  let navRef = useRef();
 
   const toggleIsOpen = () => {
     setIsOpen(!isOpen);
   };
 
-  useEffect(()=>{console.log(isOpen);}, [isOpen])
+  const toggleIsMobileNavOpen = () => {
+    setIsMobileNavOpen(!isMobileNavOpen);
+  };
 
   useEffect(() => {
     const handleWindowClick = (event) => {
-      if (window.innerWidth <= 1024 && !navRef.current.contains(event.target)) {
-        setIsOpen(false);
+      if (window.innerWidth > 768) {
+        if (
+          window.innerWidth <= 1024 &&
+          !navRef.current.contains(event.target)
+        ) {
+          setIsOpen(false);
+        }
       }
     };
 
-    window.addEventListener('click', handleWindowClick);
+    window.addEventListener("click", handleWindowClick);
 
     // Clean up the event listener when the component unmounts
     return () => {
-      window.removeEventListener('click', handleWindowClick);
+      window.removeEventListener("click", handleWindowClick);
     };
   }, []);
 
-  return (
-    <NavWrapper isOpen={isOpen} id="nav" ref={navRef}>
+  const NavBarContent = (
+    <NavWrapper
+      isOpen={isOpen}
+      id="nav"
+      ref={navRef}
+      isMobileNavActive={isMobileNavActive}
+    >
       <NavItemsWrapper>
         <NavItemWrapper to="/lifemap/" activeClassName="active">
           <HomeIcon />
@@ -57,7 +75,10 @@ const NavBar = () => {
             Home
           </span>
         </NavItemWrapper>
-        <NavItemWrapper to="/lifemap/edit-activity-unit" activeClassName="active">
+        <NavItemWrapper
+          to="/lifemap/edit-activity-unit"
+          activeClassName="active"
+        >
           <AddCircleIcon />
           <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
             Add Activity Unit
@@ -75,7 +96,10 @@ const NavBar = () => {
             Finances
           </span>
         </NavItemWrapper>
-        <NavItemWrapper to="/lifemap/view-activity-units" activeClassName="active">
+        <NavItemWrapper
+          to="/lifemap/view-activity-units"
+          activeClassName="active"
+        >
           <GridOnIcon />
           <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
             View Activity Units
@@ -100,6 +124,19 @@ const NavBar = () => {
         id={"NavToggleButton"}
       />
     </NavWrapper>
+  );
+
+  return (
+    <>
+      {isMobileNavActive ? (
+        <>
+          <NavMenuButton onClick={toggleIsMobileNavOpen} />
+          {isMobileNavOpen ? NavBarContent : ""}
+        </>
+      ) : (
+        NavBarContent
+      )}
+    </>
   );
 };
 

@@ -4,6 +4,7 @@ import { theme } from "../Style/theme";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
+import { useState, useEffect } from "react";
 
 const RootContainer = styled.div`
   display: grid;
@@ -14,6 +15,10 @@ const RootContainer = styled.div`
   font-size: ${({ theme }) => theme.sizes.medium};
   width: 100%;
   max-width: 1300px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const Sidebar = styled.aside`
@@ -27,6 +32,9 @@ const Sidebar = styled.aside`
   @media (max-width: 1024px) {
     position: fixed;
     height: 100%;
+  }
+  @media (max-width: 768px) {
+    
   }
 `;
 
@@ -45,6 +53,10 @@ const MainContent = styled.main`
     grid-column: 1 / 3;
     margin-left: 7rem;
   }
+
+  @media (max-width: 768px) {
+    margin-left: ${({ theme }) => theme.sizes.medium};
+  }
 `;
 
 const NavBarWrapper = styled(NavBar)`
@@ -57,11 +69,32 @@ const NavBarWrapper = styled(NavBar)`
 `;
 
 const RootLayout = () => {
+  const [isMobileNavActive, setIsMobileNavActive] = useState(() => {
+    if (window.innerWidth <= 768) return true;
+    else return false;
+  });
+
+  useEffect(() => {
+    const handleWindowResize = (event) => {
+      if (window.innerWidth <= 768) {
+        setIsMobileNavActive(true);
+      } else {
+        setIsMobileNavActive(false);
+      }
+    };
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <RootContainer>
         <Sidebar>
-          <NavBarWrapper />
+          <NavBarWrapper isMobileNavActive={isMobileNavActive} />
         </Sidebar>
 
         <MainContent>
