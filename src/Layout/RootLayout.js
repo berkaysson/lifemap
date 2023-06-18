@@ -73,7 +73,8 @@ const MainContent = styled.main`
   }
 
   @media (max-width: 768px) {
-    margin-left: ${({ theme }) => theme.sizes.medium};
+    margin: ${({ theme }) => theme.sizes.small};
+    padding: ${({ theme }) => theme.sizes.medium};
   }
 `;
 
