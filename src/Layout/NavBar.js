@@ -24,41 +24,16 @@ const NavItemsWrapper = styled.div`
 `;
 
 const NavBar = ({ isMobileNavActive, onMobileNavChange, isMobileNavOpen }) => {
+  const navRef = useRef(null);
+  
   const [isOpen, setIsOpen] = useState(() => {
     if (window.innerWidth <= 1024) return false;
     else return true;
   });
 
-  let navRef = useRef();
-
   const toggleIsOpen = () => {
     setIsOpen(!isOpen);
   };
-
-  const toggleIsMobileNavOpen = () => {
-    onMobileNavChange();
-    setIsOpen(true);
-  };
-
-  useEffect(() => {
-    const handleWindowClick = (event) => {
-      if (window.innerWidth > 768) {
-        if (
-          window.innerWidth <= 1024 &&
-          !navRef.current.contains(event.target)
-        ) {
-          setIsOpen(false);
-        }
-      }
-    };
-
-    window.addEventListener("click", handleWindowClick);
-
-    // Clean up the event listener when the component unmounts
-    return () => {
-      window.removeEventListener("click", handleWindowClick);
-    };
-  }, []);
 
   const NavBarContent = (
     <NavWrapper
@@ -129,6 +104,31 @@ const NavBar = ({ isMobileNavActive, onMobileNavChange, isMobileNavOpen }) => {
     </NavWrapper>
   );
 
+  const toggleIsMobileNavOpen = () => {
+    onMobileNavChange();
+    setIsOpen(true);
+  };
+
+  useEffect(() => {
+    const handleWindowClick = (event) => {
+      if (window.innerWidth > 768) {
+        if (
+          window.innerWidth <= 1024 && navRef.current &&
+          !navRef.current.contains(event.target)
+        ) {
+          setIsOpen(false);
+        }
+      }
+    };
+
+    window.addEventListener("click", handleWindowClick);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("click", handleWindowClick);
+    };
+  }, []);
+
   return (
     <>
       {isMobileNavActive ? (
@@ -137,7 +137,7 @@ const NavBar = ({ isMobileNavActive, onMobileNavChange, isMobileNavOpen }) => {
           {isMobileNavOpen ? NavBarContent : ""}
         </>
       ) : (
-        NavBarContent
+        <div ref={navRef} style={{height:"100%"}}>{NavBarContent}</div>
       )}
     </>
   );
