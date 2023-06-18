@@ -15,6 +15,7 @@ const LinkWrapper = styled(Link)`
   color: ${({theme}) => theme.colors.theme};
   font-weight: bold;
   font-size: 1.1em;
+  margin-left: 1rem;
 
   &>span{
     color: ${({theme}) => theme.colors.themeSecondary};
