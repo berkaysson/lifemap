@@ -35,10 +35,10 @@ const Sidebar = styled.aside`
     height: 100%;
   }
   @media (max-width: 768px) {
-    height: ${({isMobileNavOpen}) => isMobileNavOpen ? "100%": "10%"};
-    width: ${({isMobileNavOpen}) => isMobileNavOpen ? "100%": "20%"};
-    margin-left: ${({isMobileNavOpen}) => isMobileNavOpen ? "0%": "80%"};
-    
+    height: ${({ isMobileNavOpen }) => (isMobileNavOpen ? "100%" : "10%")};
+    width: ${({ isMobileNavOpen }) => (isMobileNavOpen ? "100%" : "20%")};
+    margin-left: ${({ isMobileNavOpen }) => (isMobileNavOpen ? "0%" : "80%")};
+
     ${({ isMobileNavOpen }) =>
       isMobileNavOpen &&
       css`
