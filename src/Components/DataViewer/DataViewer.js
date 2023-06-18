@@ -10,6 +10,11 @@ const DataViewerWrapper = styled.div`
   align-items: center;
   gap: ${({ theme }) => theme.sizes.medium};
   padding: ${({ theme }) => theme.sizes.large};
+
+  @media (max-width:768px) {
+    padding: ${({ theme }) => theme.sizes.medium};
+    gap: ${({ theme }) => theme.sizes.small};
+  }
 `;
 
 const TablesWrapper = styled.div`
@@ -17,6 +22,10 @@ const TablesWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   gap: ${({ theme }) => theme.sizes.large};
+
+  @media (max-width:768px) {
+    gap: ${({ theme }) => theme.sizes.medium};
+  }
 `;
 
 const DataViewer = ({ selectedDateDataUnit, activityCategories }) => {

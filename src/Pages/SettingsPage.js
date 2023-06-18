@@ -15,10 +15,18 @@ const Wrapper = styled.section`
   gap: ${({ theme }) => theme.sizes.large};
   width: 100%;
   height: 100%;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const Header = styled.header`
   grid-area: 1 / 1 / 2 / 4;
+
+  @media (max-width: 768px) {
+    grid-area: 1 / 1 / 2 / 2;
+  }
 `;
 
 const SettingsContainer = styled.div`
@@ -30,6 +38,10 @@ const SettingsContainer = styled.div`
   gap: 3rem;
   width: 100%;
   padding: ${({ theme }) => theme.sizes.large};
+
+  @media (max-width: 768px) {
+    grid-area: 2 / 1 / 3 / 2;
+  }
 `;
 
 const SettingsPage = ({ onExport, onImport }) => {

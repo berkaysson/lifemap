@@ -19,14 +19,27 @@ const AddActivityUnitPageWrapper = styled.section`
   gap: ${({ theme }) => theme.sizes.large};
   width: 100%;
   height: 100%;
+
+  @media (max-width: 768px){
+    grid-template-columns: 1fr;
+    gap: ${({ theme }) => theme.sizes.medium};
+  }
 `;
 
 const Header = styled.header`
   grid-area: 1 / 1 / 2 / 4;
+
+  @media (max-width: 768px){
+    grid-area: 1 / 1 / 2 / 2;
+  }
 `;
 
 const Welcome = styled.div`
   grid-area: 2 / 2 / 3 / 3;
+
+  @media (max-width: 768px){
+    grid-area: 2 / 1 / 3 / 2;
+  }
 `;
 
 const Activity = styled(motion.div)`
@@ -41,6 +54,11 @@ const Activity = styled(motion.div)`
   box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.medium};
+
+  @media (max-width: 768px){
+    grid-area: 3 / 1 / 4 / 2;
+    padding: ${({ theme }) => theme.sizes.small};
+  }
 `;
 
 const ActivityContainer = styled.div`
@@ -66,6 +84,11 @@ const Category = styled(motion.div)`
   box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.medium};
+
+  @media (max-width: 768px){
+    grid-area: 4 / 1 / 5 / 2;
+    padding: ${({ theme }) => theme.sizes.small};
+  }
 `;
 
 const CategoryContainer = styled.div`

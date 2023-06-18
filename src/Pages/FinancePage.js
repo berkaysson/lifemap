@@ -19,14 +19,27 @@ const Wrapper = styled.section`
   gap: ${({ theme }) => theme.sizes.large};
   width: 100%;
   height: 100%;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: ${({ theme }) => theme.sizes.medium};
+  }
 `;
 
 const Header = styled.header`
   grid-area: 1 / 1 / 2 / 4;
+
+  @media (max-width: 768px) {
+    grid-area: 1 / 1 / 2 / 2;
+  }
 `;
 
 const Welcome = styled.div`
   grid-area: 2 / 2 / 3 / 3;
+
+  @media (max-width: 768px) {
+    grid-area: 2 / 1 / 3 / 2;
+  }
 `;
 
 const Form = styled(motion.div)`
@@ -42,6 +55,11 @@ const Form = styled(motion.div)`
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.medium};
   z-index: 1;
+
+  @media (max-width: 768px) {
+    grid-area: 3 / 1 / 4 / 2;
+    padding: ${({ theme }) => theme.sizes.small};
+  }
 `;
 
 const Finance = styled.div`
@@ -49,11 +67,11 @@ const Finance = styled.div`
   grid-template-rows: 1fr; //change to 1fr 1fr responsive design
   grid-template-columns: 70% auto; //change to 1fr responsive design
   gap: ${({ theme }) => theme.sizes.small};
-  
+
   @media (max-width: 1024px) {
-  grid-template-rows: auto auto;
-  grid-template-columns: 1fr;
-  gap: ${({ theme }) => theme.sizes.medium};
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr;
+    gap: ${({ theme }) => theme.sizes.medium};
   }
 `;
 
@@ -67,6 +85,11 @@ const List = styled(motion.div)`
   box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.medium};
+
+  @media (max-width: 768px) {
+    grid-area: 4 / 1 / 5 / 2;
+    padding: ${({ theme }) => theme.sizes.small};
+  }
 `;
 
 const FormHeader = styled.h2`

@@ -25,15 +25,29 @@ const Wrapper = styled.section`
   gap: ${({ theme }) => theme.sizes.large};
   width: 100%;
   height: 100%;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: ${({ theme }) => theme.sizes.medium};
+  }
 `;
 
 const Header = styled.header`
   grid-area: 1 / 1 / 2 / 4;
+
+  @media (max-width: 768px) {
+    grid-area: 1 / 1 / 2 / 2;
+  }
 `;
 
 const Welcome = styled.div`
   grid-area: 2 / 1 / 3 / 4;
   margin: 0 2rem;
+
+  @media (max-width: 768px) {
+    margin: 0;
+    grid-area: 2 / 1 / 3 / 2;
+  }
 `;
 
 const Tables = styled.div`
@@ -47,6 +61,12 @@ const Tables = styled.div`
   box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.medium};
+
+  @media (max-width: 768px) {
+    grid-area: 3 / 1 / 4 / 2;
+    padding: ${({ theme }) => theme.sizes.small};
+    gap: 0;
+  }
 `;
 
 const FormContainer = styled(motion.div)`
@@ -56,6 +76,10 @@ const FormContainer = styled(motion.div)`
   justify-content: flex-start;
   gap: ${({ theme }) => theme.sizes.medium};
   margin-bottom: 1rem;
+
+  @media (max-width: 768px) {
+    margin-bottom: 0.5rem;
+  }
 `;
 
 const TablesContainer = styled.div`
@@ -67,6 +91,10 @@ const TablesContainer = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.medium};
   padding: ${({ theme }) => theme.sizes.large};
+
+  @media (max-width: 768px) {
+    padding: ${({ theme }) => theme.sizes.small};
+  }
 `;
 
 const DataRangeTableContainer = styled.div`
