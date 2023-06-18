@@ -25,6 +25,15 @@ const TaskItemWrapper = styled.li`
     top: ${({ theme }) => theme.sizes.medium};
     right: ${({ theme }) => theme.sizes.medium};
     display: ${({isDeleteActive}) => isDeleteActive ? "block" : "none"};
+    
+    @media (max-width: 768px) {
+      top: ${({ theme }) => theme.sizes.small};
+      right: ${({ theme }) => theme.sizes.small};
+    }
+  }
+
+  @media (max-width: 768px) {
+    gap: ${({ theme }) => theme.sizes.small};
   }
 `;
 
@@ -35,6 +44,12 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
   gap: ${({ theme }) => theme.sizes.medium};
   font-weight: bold;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+  }
 `;
 
 const HeaderItem = styled.h3`
@@ -46,6 +61,10 @@ const DateWrapper = styled.div`
   width: 100%;
   text-align: left;
   margin-left: ${({ theme }) => theme.sizes.medium};
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+  }
 `;
 
 const ProgressCircleWrapper = styled.div`

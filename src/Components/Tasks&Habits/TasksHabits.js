@@ -13,6 +13,10 @@ const Wrapper = styled.div`
   align-items: center;
   padding: ${({ theme }) => theme.sizes.medium};
   gap: ${({ theme }) => theme.sizes.medium};
+
+  @media (max-width: 768px) {
+    padding: 3px;
+  }
 `;
 
 const TasksHabitsWrapper = ({

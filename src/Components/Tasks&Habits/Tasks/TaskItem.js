@@ -22,7 +22,17 @@ const TaskItemWrapper = styled.li`
     position: absolute;
     top: ${({ theme }) => theme.sizes.medium};
     right: ${({ theme }) => theme.sizes.medium};
-    display: ${({isDeleteActive}) => isDeleteActive ? "block" : "none"};
+    display: ${({ isDeleteActive }) => (isDeleteActive ? "block" : "none")};
+
+    @media (max-width: 768px) {
+      top: ${({ theme }) => theme.sizes.small};
+      right: ${({ theme }) => theme.sizes.small};
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: ${({ theme }) => theme.sizes.medium};
+    gap: ${({ theme }) => theme.sizes.small};
   }
 `;
 
@@ -33,6 +43,12 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
   gap: ${({ theme }) => theme.sizes.medium};
   font-weight: bold;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+  }
 `;
 
 const HeaderItem = styled.h3`
@@ -47,15 +63,23 @@ const DateWrapper = styled.div`
   & > p {
     margin-bottom: 5px;
     margin-left: ${({ theme }) => theme.sizes.medium};
+
+    @media (max-width: 768px) {
+      margin-left: 0;
+    }
   }
 `;
 
-const TaskItem = ({ task, onDeleteTaskDataUnit, isDeleteActive=true }) => {
+const TaskItem = ({ task, onDeleteTaskDataUnit, isDeleteActive = true }) => {
   const deleteHandler = () => {
     onDeleteTaskDataUnit(task.id);
   };
   return (
-    <TaskItemWrapper id={task?.id} isClosed={task?.isClosed} isDeleteActive={isDeleteActive}>
+    <TaskItemWrapper
+      id={task?.id}
+      isClosed={task?.isClosed}
+      isDeleteActive={isDeleteActive}
+    >
       <HeaderWrapper>
         <HeaderItem headerColor={task?.isFulfilled}>
           {task?.nameValue} {task?.isClosed ? "(Expired)" : ""}

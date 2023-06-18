@@ -10,6 +10,11 @@ const StyledFormWrapper = styled.form`
   gap: ${({ theme }) => theme.sizes.medium};
   padding: ${({ theme }) => theme.sizes.large};
   text-align: center;
+
+  @media (max-width:768px){
+    gap: ${({ theme }) => theme.sizes.small};
+    padding: ${({ theme }) => theme.sizes.medium};
+  }
 `;
 
 const FormWrapper = ({ onSubmit, children, disableBoxShadow = false }) => {

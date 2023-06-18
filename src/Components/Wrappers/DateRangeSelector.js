@@ -15,9 +15,9 @@ const Wrapper = styled.div`
   box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.small};
-  
-  @media (max-width: 1024px) {
-    width: 85%;
+
+  @media (max-width: 768px) {
+    padding: 2px;
   }
 `;
 
@@ -36,6 +36,10 @@ const DateRangeWrapper = styled(DateRange)`
   
   @media (max-width: 1024px) {
     width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 10px;
   }
 `;
 
