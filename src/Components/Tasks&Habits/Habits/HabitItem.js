@@ -27,8 +27,9 @@ const TaskItemWrapper = styled.li`
     display: ${({isDeleteActive}) => isDeleteActive ? "block" : "none"};
     
     @media (max-width: 768px) {
-      top: ${({ theme }) => theme.sizes.small};
-      right: ${({ theme }) => theme.sizes.small};
+      position: relative;
+      margin-left: 40%;
+      margin-bottom: ${({ theme }) => theme.sizes.medium};
     }
   }
 
@@ -77,7 +78,6 @@ const ProgressCircleWrapper = styled.div`
   gap: 4px;
   flex-wrap: wrap;
   padding: ${({ theme }) => theme.sizes.small};
-  margin-bottom: 1rem;
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.small};
 `;
