@@ -25,21 +25,13 @@ const NavWrapperWrapper = styled(motion.nav)`
     width: 0;
   }
 
-  &::before {
-    content: "";
+  & #NavToggleButton {
     position: absolute;
-    width: 2.4rem;
-    height: 100%;
-    top: 0;
-    left: 100%;
+    bottom: 3rem;
   }
 
-  //Toggle button visibility
   &:hover #NavToggleButton {
-    opacity: 1;
     pointer-events: auto;
-    transform: ${({ isOpen }) =>
-      !isOpen ? "rotate(180deg) translateX(0)" : "rotate(0) translateX(0)"};
   }
 
   @media (max-width: 768px) {

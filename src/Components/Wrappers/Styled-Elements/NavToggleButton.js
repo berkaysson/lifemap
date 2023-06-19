@@ -2,27 +2,22 @@ import styled from "styled-components";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 
 const Button = styled.button`
-  position: absolute;
-  top: 44px;
-  right: -2.7rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.secondary};
+  background-color: ${({ theme }) => theme.colors.theme};
+  color: ${({ theme }) => theme.colors.primary};
   border: none;
-  border-radius: 50%;
+  border-radius: ${({ theme }) => theme.sizes.medium};
   padding: ${({ theme }) => theme.sizes.small};
-  opacity: 0;
   pointer-events: none;
   transition: all 0.4s;
-  border: 1px solid black;
-
+  border: 1px solid ${({ theme }) => theme.colors.themeSecondary};
   transform: ${({ isOpen }) =>
-    !isOpen ? "rotate(180deg) translateX(-50%)" : "rotate(0) translateX(-50%)"};
+    !isOpen ? "rotate(180deg)" : "rotate(0)"};
+  width: ${({isOpen}) => isOpen ? "50%" : "70%"};
 
   &:hover {
-    color: ${({ theme }) => theme.colors.themeSecondary};
     box-shadow: ${({ theme }) => theme.boxShadows.innerShadow};
   }
 `;
