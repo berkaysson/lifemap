@@ -21,6 +21,10 @@ const DexieImportExportWrapper = styled.div`
     justify-content: center;
     gap: ${({ theme }) => theme.sizes.small};
   }
+
+  @media (max-width: 425px){
+    padding: 10px;
+  } 
 `;
 
 const ImportExport = ({ onExport, onImport }) => {

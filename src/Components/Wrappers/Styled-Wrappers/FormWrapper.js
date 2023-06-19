@@ -11,9 +11,13 @@ const StyledFormWrapper = styled.form`
   padding: ${({ theme }) => theme.sizes.large};
   text-align: center;
 
-  @media (max-width:768px){
+  @media (max-width: 768px) {
     gap: ${({ theme }) => theme.sizes.small};
     padding: ${({ theme }) => theme.sizes.medium};
+  }
+
+  @media (max-width: 425px) {
+    padding: 10px;
   }
 `;
 

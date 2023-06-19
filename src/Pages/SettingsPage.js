@@ -41,6 +41,12 @@ const SettingsContainer = styled.div`
 
   @media (max-width: 768px) {
     grid-area: 2 / 1 / 3 / 2;
+    padding: ${({ theme }) => theme.sizes.medium};
+  }
+
+  @media (max-width: 425px) {
+    grid-area: 2 / 1 / 3 / 2;
+    padding: ${({ theme }) => theme.sizes.small};
   }
 `;
 

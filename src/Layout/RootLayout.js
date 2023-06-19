@@ -78,6 +78,12 @@ const MainContent = styled.main`
     margin: ${({ theme }) => theme.sizes.small};
     padding: ${({ theme }) => theme.sizes.medium};
   }
+
+  @media (max-width: 425px) {
+    margin: 0;
+    border-radius: 0;
+    padding: ${({ theme }) => theme.sizes.small};
+  }
 `;
 
 const NavBarWrapper = styled(NavBar)`
