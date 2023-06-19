@@ -3,6 +3,10 @@ import { CardWrapper } from "../Wrappers/Styled-Wrappers/CardWrapper";
 
 const Wrapper = styled.div`
   padding: ${({ theme }) => theme.sizes.medium};
+
+  @media (max-width: 425px){
+    padding: 10px;
+  }
 `;
 
 const ParagraphContent = ({ children }) => {

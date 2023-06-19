@@ -9,6 +9,10 @@ const HeaderContentWrapper = styled.div`
   align-items: center;
   padding: ${({ theme }) => theme.sizes.medium} 4px;
   font-size: 1.25em;
+
+  @media (max-width: 768px){
+    padding: 2.5rem 4px;
+  }
 `;
 
 const LinkWrapper = styled(Link)`
