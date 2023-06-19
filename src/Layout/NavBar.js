@@ -23,9 +23,13 @@ const NavItemsWrapper = styled.div`
   width: 100%;
 `;
 
-const NavBar = ({ isMobileNavActive, onMobileNavChange, isMobileNavOpen }) => {
+const NavBar = ({
+  isMobileNavActive,
+  onMobileNavChange,
+  isMobileNavOpen,
+}) => {
   const navRef = useRef(null);
-  
+
   const [isOpen, setIsOpen] = useState(() => {
     if (window.innerWidth <= 1024) return false;
     else return true;
@@ -113,7 +117,8 @@ const NavBar = ({ isMobileNavActive, onMobileNavChange, isMobileNavOpen }) => {
     const handleWindowClick = (event) => {
       if (window.innerWidth > 768) {
         if (
-          window.innerWidth <= 1024 && navRef.current &&
+          window.innerWidth <= 1024 &&
+          navRef.current &&
           !navRef.current.contains(event.target)
         ) {
           setIsOpen(false);
@@ -133,11 +138,16 @@ const NavBar = ({ isMobileNavActive, onMobileNavChange, isMobileNavOpen }) => {
     <>
       {isMobileNavActive ? (
         <>
-          <NavMenuButton onClick={toggleIsMobileNavOpen} isMobileNavOpen={isMobileNavOpen} />
+          <NavMenuButton
+            onClick={toggleIsMobileNavOpen}
+            isMobileNavOpen={isMobileNavOpen}
+          />
           {isMobileNavOpen ? NavBarContent : ""}
         </>
       ) : (
-        <div ref={navRef} style={{height:"100%"}}>{NavBarContent}</div>
+        <div ref={navRef} style={{ height: "100%" }}>
+          {NavBarContent}
+        </div>
       )}
     </>
   );
