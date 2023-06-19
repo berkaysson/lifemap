@@ -6,6 +6,7 @@ import styled, { css } from "styled-components";
 import { ThemeProvider } from "styled-components";
 import { useState, useEffect } from "react";
 import { fadeIn } from "../Style/animations";
+import FooterContent from "../Components/Contents/FooterContent";
 
 const RootContainer = styled.div`
   display: grid;
@@ -68,6 +69,10 @@ const MainContent = styled.main`
   border: 1px solid ${({ theme }) => theme.colors.theme};
   border-radius: ${({ theme }) => theme.radius.large};
   box-shadow: ${({ theme }) => theme.boxShadows.largeCardShadow};
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   @media (max-width: 1024px) {
     grid-column: 1 / 3;
@@ -140,6 +145,7 @@ const RootLayout = () => {
 
         <MainContent>
           <Outlet />
+          <FooterContent />
         </MainContent>
       </RootContainer>
     </ThemeProvider>
