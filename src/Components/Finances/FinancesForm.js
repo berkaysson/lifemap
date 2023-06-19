@@ -69,7 +69,7 @@ const FinancesForm = ({
       alert("Value can not be smaller than 0");
       return;
     }
-    
+
     toBeUpdatedData = {
       date: dateInput,
       time: time,
@@ -80,8 +80,8 @@ const FinancesForm = ({
       id: uuidv4(),
     };
 
-    for(const key in toBeUpdatedData){
-      if(
+    for (const key in toBeUpdatedData) {
+      if (
         !toBeUpdatedData[key] ||
         (key === "value" && toBeUpdatedData[key] <= 0)
       ) {
@@ -110,7 +110,7 @@ const FinancesForm = ({
   const resetForm = () => {
     document.getElementById("form").reset();
     setSelectedSubCategory(null);
-  }
+  };
 
   return (
     <Wrapper>
@@ -130,18 +130,18 @@ const FinancesForm = ({
             { value: "other", label: "Select Date" },
           ]}
         />
-        <SubCategorySelect
-          options={subCategoryOptions}
-          placeholder={`--Select a ${formMode} category--`}
-          value={selectedSubCategory}
-          onChange={subCategorySelectHandler}
-        />
         <ToggleButton
           onClick={formModeChangeHandler}
           options={[
             { value: "expense", label: "Expense" },
             { value: "income", label: "Income" },
           ]}
+        />
+        <SubCategorySelect
+          options={subCategoryOptions}
+          placeholder={`Select a ${formMode} category`}
+          value={selectedSubCategory}
+          onChange={subCategorySelectHandler}
         />
         <StyledInput
           type="number"

@@ -143,15 +143,12 @@ const CategoriesForm = ({
         return (
           <>
             <FormWrapper onSubmit={submitHandler}>
-              <label>
-                Select the type of Activity you want to add
-                <StyledSelect
-                  value={selectedCategory}
-                  options={categoryOptions}
-                  onChange={categorySelectHandler}
-                  placeholder="--Select a category--"
-                />
-              </label>
+              <StyledSelect
+                value={selectedCategory}
+                options={categoryOptions}
+                onChange={categorySelectHandler}
+                placeholder="Select an Activity or Finance"
+              />
               <StyledInput
                 type="text"
                 name="subCategoryInput"

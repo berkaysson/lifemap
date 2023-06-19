@@ -85,13 +85,13 @@ const CategorySubCategorySelect = ({ categories, onSubCategorySelect, resetDelet
         <StyledSelect
           onChange={categorySelectionHandler}
           options={categoryOptions}
-          placeholder="--Select Activity Type--"
+          placeholder="Select Activity Type"
           value={selectedCategory}
         />
       </div>
       <div>
         <SubCategorySelect
-          placeholder={"--Select a Category--"}
+          placeholder={"Select a Category"}
           onChange={subCategorySelectHandler}
           options={subCategoryOptions}
           category={selectedCategory}
