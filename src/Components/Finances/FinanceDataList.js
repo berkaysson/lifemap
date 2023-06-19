@@ -21,6 +21,11 @@ const Wrapper = styled.div`
   padding: ${({ theme }) => theme.sizes.medium};
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.medium};
+
+  @media (max-width: 768px){
+    padding: ${({ theme }) => theme.sizes.small};
+    border: none;
+  }
 `;
 
 const ListWrapper = styled.ul`
@@ -32,6 +37,10 @@ const ListWrapper = styled.ul`
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
   border-radius: ${({ theme }) => theme.radius.small};
+
+  @media (max-width: 768px){
+    padding: ${({ theme }) => theme.sizes.small};
+  }
 `;
 
 const FinanceDataList = ({

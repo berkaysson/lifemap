@@ -18,6 +18,10 @@ const ListItemWrapper = styled.li`
     align-items: flex-start;
     justify-content: flex-start;
   }
+
+  @media (max-width: 768px) {
+    padding: ${({ theme }) => theme.sizes.small};
+  }
 `;
 
 const HeaderWrapper = styled.div`
@@ -27,6 +31,10 @@ const HeaderWrapper = styled.div`
   justify-content: flex-start;
   padding: ${({ theme }) => theme.sizes.small};
   font-weight: bold;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const DateWrapper = styled.h4`
@@ -35,6 +43,10 @@ const DateWrapper = styled.h4`
   padding: ${({ theme }) => theme.sizes.small};
   width: 150px;
   text-align: center;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const ContentWrapper = styled.div`
@@ -47,6 +59,11 @@ const ContentWrapper = styled.div`
 
   @media (max-width: 1024px) {
     padding: ${({ theme }) => theme.sizes.small};
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
   }
 `;
 
@@ -71,6 +88,12 @@ const PriceWrapper = styled.div`
       margin-right: 20px;
     }
   }
+
+  @media (max-width: 768px) {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+  }
 `;
 
 const ButtonsWrapper = styled.div`
@@ -79,6 +102,14 @@ const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: row;
   gap: 5px;
+
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    border: none;
+    padding-left: 0;
+  }
 `;
 
 const FinanceDataListItem = ({
@@ -111,7 +142,7 @@ const FinanceDataListItem = ({
       value: editValue,
     };
 
-    if(!updatedData.value || updatedData.value<0){
+    if (!updatedData.value || updatedData.value < 0) {
       alert("Enter a positive value");
       return;
     }
@@ -123,12 +154,16 @@ const FinanceDataListItem = ({
     <ListItemWrapper id={item.id}>
       {isEditing ? (
         <>
-          <h4>{item.category}</h4>
-          <h4>{item.subCategory}</h4>
+          {" "}
+          <div style={{margin:"1rem"}}>
+            <h4>{item.category}</h4>
+            <h4>{item.subCategory}</h4>
+          </div>
           <StyledInput
             type="number"
             value={editValue}
             onChange={(e) => setEditValue(e.target.value)}
+            style={{margin:"0.4rem"}}
           />
           <ButtonsWrapper>
             <Button type="button" text={"Save"} onClick={handleSaveEdit} />
