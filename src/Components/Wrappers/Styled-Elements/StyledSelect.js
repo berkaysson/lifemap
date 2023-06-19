@@ -10,6 +10,10 @@ const StyledSelectWrapper = styled.div`
   max-width: 300px;
   min-width: 250px;
   transition: background-color 0.4s, color 0.4s;
+
+  @media (max-width: 375px) {
+    min-width: 200px;
+  }
 `
 
 export const StyledSelect = (props) => {

@@ -24,7 +24,13 @@ const DexieImportExportWrapper = styled.div`
 
   @media (max-width: 425px){
     padding: 10px;
-  } 
+  }
+
+  @media (max-width: 375px){
+    padding: 5px;
+    width: 90vw;
+    overflow-x: hidden;
+  }
 `;
 
 const ImportExport = ({ onExport, onImport }) => {

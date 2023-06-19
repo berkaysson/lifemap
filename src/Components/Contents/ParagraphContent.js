@@ -7,6 +7,10 @@ const Wrapper = styled.div`
   @media (max-width: 425px){
     padding: 10px;
   }
+
+  @media (max-width: 375px){
+    padding: 6px;
+  }
 `;
 
 const ParagraphContent = ({ children }) => {

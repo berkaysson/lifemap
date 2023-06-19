@@ -15,6 +15,10 @@ const DataViewerWrapper = styled.div`
     padding: ${({ theme }) => theme.sizes.medium};
     gap: ${({ theme }) => theme.sizes.small};
   }
+
+  @media (max-width: 375px){
+    padding: 6px;
+  }
 `;
 
 const TablesWrapper = styled.div`

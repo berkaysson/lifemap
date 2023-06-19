@@ -84,6 +84,11 @@ const MainContent = styled.main`
     border-radius: 0;
     padding: ${({ theme }) => theme.sizes.small};
   }
+
+  @media (max-width: 375px) {
+    padding: 1px;
+    overflow-x: auto;
+  }
 `;
 
 const NavBarWrapper = styled(NavBar)`

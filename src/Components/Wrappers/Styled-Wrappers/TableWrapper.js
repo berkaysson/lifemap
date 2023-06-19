@@ -13,6 +13,11 @@ const TableWrapperWrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.small};
   box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
+
+  @media (max-width: 375px){
+    width: 267px;
+    padding: 5px;
+  }
 `;
 
 const TableWrapper = ({ data }) => {

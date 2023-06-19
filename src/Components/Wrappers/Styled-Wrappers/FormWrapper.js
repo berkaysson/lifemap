@@ -19,6 +19,10 @@ const StyledFormWrapper = styled.form`
   @media (max-width: 425px) {
     padding: 10px;
   }
+
+  @media (max-width: 375px) {
+    padding: 5px;
+  }
 `;
 
 const FormWrapper = ({ onSubmit, children, disableBoxShadow = false }) => {

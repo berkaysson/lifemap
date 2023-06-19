@@ -14,6 +14,10 @@ const DataRangeTableViewerWrapper = styled.div`
   border-radius: ${({ theme }) => theme.radius.small};
   box-shadow: ${({ theme }) => theme.boxShadows.smallCardShadow};
   overflow: auto;
+
+  @media (max-width: 375px){
+    padding: 5px;
+  }
 `;
 
 const DataRangeTableViewer = ({

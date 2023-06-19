@@ -13,6 +13,10 @@ const Wrapper = styled.div`
   gap: ${({ theme }) => theme.sizes.medium};
   width: 100%;
   padding: ${({ theme }) => theme.sizes.medium};
+
+  @media (max-width: 375px) {
+    padding: 3px;
+  }
 `;
 
 const Container = styled.div`

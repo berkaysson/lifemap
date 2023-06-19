@@ -19,6 +19,10 @@ const NavMenuButtonWrapper = styled.button`
   &:hover {
     color: ${({ theme }) => theme.colors.themeSecondary};
   }
+
+  @media (max-width: 375px){
+    margin: -10px 10px;
+  }
 `;
 
 const NavMenuButton = ({ onClick, isMobileNavOpen }) => {

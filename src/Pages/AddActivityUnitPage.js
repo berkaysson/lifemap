@@ -20,7 +20,7 @@ const AddActivityUnitPageWrapper = styled.section`
   width: 100%;
   height: 100%;
 
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     grid-template-columns: 1fr;
     gap: ${({ theme }) => theme.sizes.medium};
   }
@@ -29,7 +29,7 @@ const AddActivityUnitPageWrapper = styled.section`
 const Header = styled.header`
   grid-area: 1 / 1 / 2 / 4;
 
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     grid-area: 1 / 1 / 2 / 2;
   }
 `;
@@ -37,7 +37,7 @@ const Header = styled.header`
 const Welcome = styled.div`
   grid-area: 2 / 2 / 3 / 3;
 
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     grid-area: 2 / 1 / 3 / 2;
   }
 `;
@@ -55,9 +55,13 @@ const Activity = styled(motion.div)`
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.medium};
 
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     grid-area: 3 / 1 / 4 / 2;
     padding: ${({ theme }) => theme.sizes.small};
+  }
+
+  @media (max-width: 375px) {
+    padding: 3px;
   }
 `;
 
@@ -68,9 +72,9 @@ const ActivityContainer = styled.div`
   gap: ${({ theme }) => theme.sizes.small};
 
   @media (max-width: 1024px) {
-  grid-template-rows: auto auto;
-  grid-template-columns: 1fr;
-  gap: ${({ theme }) => theme.sizes.medium};
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr;
+    gap: ${({ theme }) => theme.sizes.medium};
   }
 `;
 
@@ -85,9 +89,13 @@ const Category = styled(motion.div)`
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.medium};
 
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     grid-area: 4 / 1 / 5 / 2;
     padding: ${({ theme }) => theme.sizes.small};
+  }
+
+  @media (max-width: 375px) {
+    padding: 3px;
   }
 `;
 
@@ -98,9 +106,9 @@ const CategoryContainer = styled.div`
   gap: ${({ theme }) => theme.sizes.small};
 
   @media (max-width: 1024px) {
-  grid-template-rows: auto auto;
-  grid-template-columns: 1fr;
-  gap: ${({ theme }) => theme.sizes.medium};
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr;
+    gap: ${({ theme }) => theme.sizes.medium};
   }
 `;
 
@@ -157,7 +165,7 @@ const AddActivityUnitPage = ({
           initial="initial"
           animate="animate"
           exit="exit"
-          transition={{ duration: 0.2 }}          
+          transition={{ duration: 0.2 }}
         >
           <FormHeader>Category Form</FormHeader>
           <CategoryContainer>

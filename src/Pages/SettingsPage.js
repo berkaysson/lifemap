@@ -48,6 +48,10 @@ const SettingsContainer = styled.div`
     grid-area: 2 / 1 / 3 / 2;
     padding: ${({ theme }) => theme.sizes.small};
   }
+
+  @media (max-width: 375px){
+    padding: 5px;
+  }
 `;
 
 const SettingsPage = ({ onExport, onImport }) => {

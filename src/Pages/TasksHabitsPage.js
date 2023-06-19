@@ -59,6 +59,10 @@ const TaskHabit = styled(motion.div)`
     grid-area: 3 / 1 / 4 / 2;
     padding: ${({ theme }) => theme.sizes.small};
   }
+
+  @media (max-width: 375px) {
+    padding: 3px;
+  }
 `;
 
 const TaskHabitContainer = styled.div`
