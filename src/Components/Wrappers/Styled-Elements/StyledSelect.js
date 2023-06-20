@@ -46,10 +46,11 @@ export const StyledSelect = (props) => {
           }
         }}
       >
-        {props.options.map((option) => (
+        {props.options.map((option, index) => (
           <MenuItem 
           value={option} 
           disableRipple
+          key={index}
           sx={{
             "&:hover":{
               fontWeight:"bold",
