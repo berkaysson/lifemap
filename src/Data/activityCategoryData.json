@@ -7,11 +7,6 @@
       "Reading",
       "Writing",
       "Language",
-      "Technology",
-      "Philosophy",
-      "Business/Finance",
-      "Professional Development",
-      "Art",
       "Other"
     ]
   },
@@ -22,16 +17,17 @@
       "Arm",
       "Abs",
       "Leg",
-      "Shoulder/Back",
-      "Chest",
-      "Cardio",
-      "Walking",
       "Other"
     ]
   },
   "gameCategories": {
     "name": "Entertainment",
     "id": "gameCategories",
-    "subCategories": ["Other"]
+    "subCategories": [
+      "Gaming",
+      "Movies",
+      "Music",
+      "Other"
+    ]
   }
 }
