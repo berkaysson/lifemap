@@ -117,7 +117,7 @@ const ActivityForm = ({ onUpdateActivityDataUnit, activityCategories }) => {
   };
   
   const resetForm = () => {
-    document.getElementById("activityForm").reset();
+    document.getElementById("form").reset();
     setResetDeleteForm(!resetDeleteForm);
     setSelectedCategory(null);
     setSelectedSubCategory(null);
