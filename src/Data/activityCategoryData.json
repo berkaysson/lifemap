@@ -30,7 +30,7 @@
     ]
   },
   "gameCategories": {
-    "name": "Game",
+    "name": "Entertainment",
     "id": "gameCategories",
     "subCategories": ["Other"]
   }
