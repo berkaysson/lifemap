@@ -128,7 +128,7 @@ const AddActivityUnitPage = ({
     <AnimatedPage>
       <AddActivityUnitPageWrapper>
         <Header>
-          <HeaderContent headerText={"Add Activity Unit and Category"} />
+          <HeaderContent headerText={"Edit Activity Units and Categories"} />
         </Header>
         <Welcome>
           <ParagraphContent>

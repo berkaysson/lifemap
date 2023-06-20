@@ -59,7 +59,7 @@ const NavBar = ({
         >
           <AddCircleIcon />
           <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
-            Add Activity Unit
+            Activities & Categories
           </span>
         </NavItemWrapper>
         <NavItemWrapper to="/lifemap/tasks-habits" activeClassName="active">
