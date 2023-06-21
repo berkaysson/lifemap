@@ -95,6 +95,12 @@ const NavBar = ({
             Settings
           </span>
         </NavItemWrapper>
+        <NavItemWrapper to="/lifemap/sign" activeClassName="active">
+          <span>S</span>
+          <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
+            Sign in&out
+          </span>
+        </NavItemWrapper>
       </NavItemsWrapper>
       {isMobileNavActive ? (
         ""

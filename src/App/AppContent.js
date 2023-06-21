@@ -13,6 +13,7 @@ import ChartsPage from "../Pages/ChartsPage";
 import SettingsPage from "../Pages/SettingsPage";
 import RootLayout from "../Layout/RootLayout";
 import FinancePage from "../Pages/FinancePage";
+import SignIn from "../Pages/SignIn";
 
 const AppContent = ({
   onUpdateActivityDataUnit,
@@ -105,6 +106,7 @@ const AppContent = ({
           path="/lifemap/settings"
           element={<SettingsPage onExport={onExport} onImport={onImport} />}
         />
+        <Route path="/lifemap/sign" element={<SignIn />} />
       </Route>
     )
   );
