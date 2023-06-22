@@ -90,7 +90,7 @@ const HomePage = ({
     <AnimatedPage>
       <HomeWrapper>
         <Header>
-          <HeaderContent headerText="HOME" />
+          <HeaderContent headerText="Home" />
         </Header>
         <Welcome>
           <ParagraphContent>
