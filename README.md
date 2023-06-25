@@ -25,6 +25,12 @@ LifeMap is a personal dashboard that helps you track your habits, goals, expense
 
 <img src="./src/Images/readme/tasks-ss.png" alt="Activity Units" width="500" style="border-radius: 10px;">
 
+### Finances
+
+- The finance feature in LifeMap allows users to track their income and expenses, helping them maintain financial control and achieve their goals.
+
+<br/>
+
 - **Tasks** are single-time activities with set start and end dates, where users aim to accomplish specific goals within a given timeframe. **Habits**, on the other hand, are recurring activities that users want to incorporate into their daily, weekly, or monthly routines. By specifying the frequency and period of these habits, users can track their consistency and progress over time, fostering positive behaviors and improved time management. Both features contribute to enhancing productivity and helping users achieve their desired outcomes.
 
 ## Technologies Used
