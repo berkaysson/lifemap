@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
+import { getDatabase, ref, set } from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -14,7 +15,8 @@ const firebaseConfig = {
   storageBucket: "lifemap-berkaysson.appspot.com",
   messagingSenderId: "1090679434631",
   appId: "1:1090679434631:web:476ba129d4d17deb3af722",
-  measurementId: "G-M3DYTHC1SX"
+  measurementId: "G-M3DYTHC1SX",
+  databaseURL : "https://lifemap-berkaysson-default-rtdb.europe-west1.firebasedatabase.app/"
 };
 
 // Initialize Firebase
@@ -23,3 +25,5 @@ export const analytics = getAnalytics(app);
 
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(app);
+
+export const rtDatabase = getDatabase(app);
