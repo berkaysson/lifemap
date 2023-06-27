@@ -308,7 +308,6 @@ function App({ db, STORES }) {
         reader.onerror = reject;
         reader.readAsText(blob);
       });
-      console.log(blob);
       set(ref(rtDatabase, "users/" + userId), {
         email: user.email,
         userId: userId,
