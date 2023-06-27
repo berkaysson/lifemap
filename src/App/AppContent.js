@@ -115,16 +115,6 @@ const AppContent = ({
             />
           }
         />
-        <Route
-          path="/lifemap/auth"
-          element={
-            <AuthPage
-              handleLogin={handleLogin}
-              handleLogOut={handleLogOut}
-              isSignedIn={isSignedIn}
-            />
-          }
-        />
       </Route>
     )
   );
