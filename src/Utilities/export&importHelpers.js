@@ -23,3 +23,13 @@ export const importHandler = async (db, blob) => {
     console.error("Failed to import data:", error);
   }
 };
+
+export const deleteDBHandler = async (db) => {
+  try{
+    await db.delete();
+    console.log("Database deleted successfully");
+  }
+  catch(error){
+    console.error("Failed to delete data:", error);
+  }
+}

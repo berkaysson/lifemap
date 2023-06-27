@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import moment from "moment";
 import { formatDate } from "../Utilities/dateHelpers";
 import {
+  deleteDBHandler,
   exportHandler,
   importHandler,
 } from "../Utilities/export&importHelpers";
@@ -24,11 +25,19 @@ import {
   deleteSubCategoryHelper,
   updateCategoryHelper,
 } from "../Utilities/categotyHelpers";
+import { auth, rtDatabase } from "../firebase";
+import { get, ref, set } from "firebase/database";
+import { exportDB } from "dexie-export-import";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 const CURRENT_DATE = formatDate(moment());
 
 function App({ db, STORES }) {
   const [isNeedFetchUpdate, setIsNeedFetchUpdate] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(() => {
+    return auth.currentUser ? true : false;
+  });
+  const [isGuestModeActive, setIsGuestModeActive] = useState(false);
 
   useEffect(() => {
     createMissingDataUnits();
@@ -75,6 +84,7 @@ function App({ db, STORES }) {
       if (!(await db.financialData.get(date)))
         await createFinancialDataUnit(date);
     }
+    await updateRealtimeDatabase();
   };
 
   const getActivityDataUnit = async (dateID) => {
@@ -162,6 +172,7 @@ function App({ db, STORES }) {
       await db[selectedYear].put(activityDataUnit);
 
       fetchUpdateHandler(true);
+      await updateRealtimeDatabase();
       console.log("Activity Data unit updated successfully");
     } catch (error) {
       console.error("Failed to get activity data unit:", error);
@@ -171,6 +182,7 @@ function App({ db, STORES }) {
   const updateCategory = async (category, subCategory) => {
     await updateCategoryHelper(db, category, subCategory);
     fetchUpdateHandler(true);
+    await updateRealtimeDatabase();
   };
 
   const deleteSubCategory = async (categoryName, categoryID, subCategory) => {
@@ -183,11 +195,13 @@ function App({ db, STORES }) {
       allActivityDataUnits
     );
     fetchUpdateHandler(true);
+    await updateRealtimeDatabase();
   };
 
   const addFinancialDataUnit = async (toBeUpdatedData) => {
     await addFinancialDataUnitHelper(db, toBeUpdatedData);
     fetchUpdateHandler(true);
+    await updateRealtimeDatabase();
   };
 
   const updateFinancialDataUnit = async (
@@ -202,31 +216,37 @@ function App({ db, STORES }) {
       toBeUpdatedData
     );
     fetchUpdateHandler(true);
+    await updateRealtimeDatabase();
   };
 
   const deleteFinancialDataUnit = async (dateID, dataUnitID) => {
     await deleteFinancialDataUnitHelper(db, dateID, dataUnitID);
     fetchUpdateHandler(true);
+    await updateRealtimeDatabase();
   };
 
   const addTaskDataUnit = async (taskUnit) => {
     await addTaskOrHabitDataUnit(db, taskUnit, "task");
     fetchUpdateHandler(true);
+    await updateRealtimeDatabase();
   };
 
   const addHabitDataUnit = async (habitUnit) => {
     await addTaskOrHabitDataUnit(db, habitUnit, "habit");
     fetchUpdateHandler(true);
+    await updateRealtimeDatabase();
   };
 
   const deleteTaskDataUnit = async (dataID) => {
     await deleteTaskOrHabitDataUnit(db, dataID, "task");
     fetchUpdateHandler(true);
+    await updateRealtimeDatabase();
   };
 
   const deleteHabitDataUnit = async (dataID) => {
     await deleteTaskOrHabitDataUnit(db, dataID, "habit");
     fetchUpdateHandler(true);
+    await updateRealtimeDatabase();
   };
 
   const getAllTaskDataUnits = async () => {
@@ -245,14 +265,17 @@ function App({ db, STORES }) {
       isFulfilled,
       dataID
     );
+    await updateRealtimeDatabase();
   };
 
   const editTaskDataUnitCompletedValue = async (value, dataID) => {
     await editTaskOrHabitSituation(db, "task", "completedValue", value, dataID);
+    await updateRealtimeDatabase();
   };
 
   const editTaskDataUnitClosed = async (isClosed, dataID) => {
     await editTaskOrHabitSituation(db, "task", "isClosed", isClosed, dataID);
+    await updateRealtimeDatabase();
   };
 
   const editHabitDataUnitFulfilled = async (isFulfilled, dataID) => {
@@ -263,10 +286,12 @@ function App({ db, STORES }) {
       isFulfilled,
       dataID
     );
+    await updateRealtimeDatabase();
   };
 
   const editHabitDataUnitClosed = async (isClosed, dataID) => {
     await editTaskOrHabitSituation(db, "habit", "isClosed", isClosed, dataID);
+    await updateRealtimeDatabase();
   };
 
   const editHabitDataUnitCheckpointObjects = async (arrayOfObjects, dataID) => {
@@ -277,6 +302,7 @@ function App({ db, STORES }) {
       arrayOfObjects,
       dataID
     );
+    await updateRealtimeDatabase();
   };
 
   const handleExport = async () => {
@@ -285,6 +311,94 @@ function App({ db, STORES }) {
 
   const handleImport = async (blob) => {
     await importHandler(db, blob);
+  };
+
+  //firebase
+
+  const updateRealtimeDatabase = async () => {
+    const user = auth.currentUser;
+    const userId = user ? user.uid : null;
+
+    if (userId) {
+      const blob = await exportDB(db, { prettyJson: true });
+      const reader = new FileReader();
+      const fileData = await new Promise((resolve, reject) => {
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsText(blob);
+      });
+      set(ref(rtDatabase, "users/" + userId), {
+        email: user.email,
+        userId: userId,
+        lifemapData: fileData,
+      });
+    }
+  };
+
+  const updateIndexedDatabese = async () => {
+    const user = auth.currentUser;
+    const userId = user ? user.uid : null;
+
+    if (userId) {
+      const lifemapDataRef = get(ref(rtDatabase, "users/" + userId));
+      const dataFromRealtime = (await lifemapDataRef).val().lifemapData;
+      const blob = new Blob([dataFromRealtime], {
+        type: "text/json",
+      });
+      await importHandler(db, blob);
+      await db.open();
+      fetchUpdateHandler(true);
+    }
+  };
+
+  const handleLogin = async (email, password) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log("Sign-in successful:", userCredential.user);
+      if (await checkIfUsersFirstLogin()) {
+        await updateRealtimeDatabase();
+      } else {
+        await updateIndexedDatabese();
+      }
+  
+      setIsSignedIn(true);
+      setIsGuestModeActive(false);
+    } catch (error) {
+      alert(error);
+      console.log("Sign-in error:", error);
+    }
+  };
+  
+  const handleLogOut = async () => {
+    if (isSignedIn) await updateRealtimeDatabase();
+    signOut(auth)
+      .then(() => {
+        console.log("Sign-out successful", auth);
+        setIsSignedIn(false);
+        setIsGuestModeActive(false);
+        deleteDBHandler(db);
+        window.location.reload();
+      })
+      .catch((error) => {
+        alert(error);
+        console.log("Sign-out error:", error);
+      });
+  };
+
+  const openGuestMode = () => {
+    setIsGuestModeActive(true);
+  };
+
+  const checkIfUsersFirstLogin = async () => {
+    const user = auth.currentUser;
+    const userId = user ? user.uid : null;
+    if(userId){
+      const lifemapDataRef = get(ref(rtDatabase, "users/" + userId));
+      return (await lifemapDataRef).val() == null ? true : false;
+    }
+    else{
+      console.log("No user");
+    }
   };
 
   const fetchProps = {
@@ -319,6 +433,11 @@ function App({ db, STORES }) {
     onAddHabitUnit: addHabitDataUnit,
     onDeleteTaskDataUnit: deleteTaskDataUnit,
     onDeleteHabitDataUnit: deleteHabitDataUnit,
+    handleLogin: handleLogin,
+    handleLogOut: handleLogOut,
+    isSignedIn: isSignedIn,
+    isGuestModeActive: isGuestModeActive,
+    openGuestMode: openGuestMode,
   };
 
   return (

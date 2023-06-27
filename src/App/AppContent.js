@@ -13,6 +13,9 @@ import ChartsPage from "../Pages/ChartsPage";
 import SettingsPage from "../Pages/SettingsPage";
 import RootLayout from "../Layout/RootLayout";
 import FinancePage from "../Pages/FinancePage";
+import AuthPage from "../Pages/AuthPage";
+import { ThemeProvider } from "styled-components";
+import { theme } from "../Style/theme";
 
 const AppContent = ({
   onUpdateActivityDataUnit,
@@ -36,6 +39,11 @@ const AppContent = ({
   habitDataUnits,
   onDeleteTaskDataUnit,
   onDeleteHabitDataUnit,
+  handleLogin,
+  handleLogOut,
+  isSignedIn,
+  isGuestModeActive,
+  openGuestMode
 }) => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -103,16 +111,33 @@ const AppContent = ({
         <Route path="/lifemap/charts" element={<ChartsPage />} />
         <Route
           path="/lifemap/settings"
-          element={<SettingsPage onExport={onExport} onImport={onImport} />}
+          element={
+            <SettingsPage
+              onExport={onExport}
+              onImport={onImport}
+              handleLogOut={handleLogOut}
+            />
+          }
         />
       </Route>
     )
   );
 
   return (
-    <>
-      <RouterProvider router={router}></RouterProvider>
-    </>
+    <ThemeProvider theme={theme}>
+      {isSignedIn ? (
+        <RouterProvider router={router}></RouterProvider>
+      ) : isGuestModeActive ? (
+        <RouterProvider router={router}></RouterProvider>
+      ) : (
+        <AuthPage
+          handleLogin={handleLogin}
+          handleLogOut={handleLogOut}
+          isSignedIn={isSignedIn}
+          openGuestMode={openGuestMode}
+        />
+      )}
+    </ThemeProvider>
   );
 };
 
