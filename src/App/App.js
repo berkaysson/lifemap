@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import moment from "moment";
 import { formatDate } from "../Utilities/dateHelpers";
 import {
+  deleteDBHandler,
   exportHandler,
   importHandler,
 } from "../Utilities/export&importHelpers";
@@ -334,45 +335,32 @@ function App({ db, STORES }) {
   };
 
   const handleLogin = async (email, password) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log("Sign-in successful:", userCredential.user);
-        if (checkIfUsersFirstLogin()) {
-          updateRealtimeDatabase()
-            .then(() => {
-              setIsSignedIn(true);
-              setIsGuestModeActive(false);
-            })
-            .catch((error) => {
-              alert(error);
-              console.log("Sign-in error:", error);
-            });
-        } else {
-          updateIndexedDatabese()
-            .then(() => {
-              setIsSignedIn(true);
-              setIsGuestModeActive(false);
-            })
-            .catch((error) => {
-              alert(error);
-              console.log("Sign-in error:", error);
-            });
-        }
-      })
-      .catch((error) => {
-        alert(error);
-        console.log("Sign-in error:", error);
-      });
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log("Sign-in successful:", userCredential.user);
+      if (await checkIfUsersFirstLogin()) {
+        await updateRealtimeDatabase();
+      } else {
+        await updateIndexedDatabese();
+      }
+  
+      setIsSignedIn(true);
+      setIsGuestModeActive(false);
+    } catch (error) {
+      alert(error);
+      console.log("Sign-in error:", error);
+    }
   };
-
+  
   const handleLogOut = async () => {
-    if (isSignedIn) updateRealtimeDatabase();
+    if (isSignedIn) await updateRealtimeDatabase();
     signOut(auth)
       .then(() => {
         console.log("Sign-out successful", auth);
         setIsSignedIn(false);
         setIsGuestModeActive(false);
-        //clear IDB
+        deleteDBHandler(db);
+        window.location.reload();
       })
       .catch((error) => {
         alert(error);
@@ -387,12 +375,9 @@ function App({ db, STORES }) {
   const checkIfUsersFirstLogin = async () => {
     const user = auth.currentUser;
     const userId = user ? user.uid : null;
-
     if(userId){
-      const lifemapDataRef = ref(rtDatabase, "users/" + userId + "/lifemapData");
-      const lifemapDataSnapshot = await get(lifemapDataRef);
-      const lifemapDataExists = lifemapDataSnapshot.exists();
-      return !lifemapDataExists;
+      const lifemapDataRef = get(ref(rtDatabase, "users/" + userId));
+      return (await lifemapDataRef).val() == null ? true : false;
     }
     else{
       console.log("No user");
