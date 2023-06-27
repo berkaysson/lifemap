@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ImportExport from "../Components/Others/ImportExport";
 import { AnimatedPage } from "../Components/Wrappers/AnimatedPage";
 import HeaderContent from "../Components/Contents/HeaderContent";
+import Button from "../Components/Wrappers/Styled-Elements/Button";
 
 const Wrapper = styled.section`
   display: grid;
@@ -54,7 +55,7 @@ const SettingsContainer = styled.div`
   }
 `;
 
-const SettingsPage = ({ onExport, onImport }) => {
+const SettingsPage = ({ onExport, onImport, handleLogOut }) => {
   return (
     <AnimatedPage>
       <Wrapper>
@@ -63,6 +64,7 @@ const SettingsPage = ({ onExport, onImport }) => {
       </Header>
       <SettingsContainer>
         <ImportExport onExport={onExport} onImport={onImport} />
+        <Button text={"Sign Out"} type={"button"} onClick={handleLogOut} />
       </SettingsContainer>
       </Wrapper>
     </AnimatedPage>

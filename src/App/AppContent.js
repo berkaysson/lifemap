@@ -107,7 +107,13 @@ const AppContent = ({
         <Route path="/lifemap/charts" element={<ChartsPage />} />
         <Route
           path="/lifemap/settings"
-          element={<SettingsPage onExport={onExport} onImport={onImport} />}
+          element={
+            <SettingsPage
+              onExport={onExport}
+              onImport={onImport}
+              handleLogOut={handleLogOut}
+            />
+          }
         />
         <Route
           path="/lifemap/auth"
