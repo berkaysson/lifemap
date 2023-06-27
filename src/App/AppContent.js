@@ -38,7 +38,10 @@ const AppContent = ({
   onDeleteTaskDataUnit,
   onDeleteHabitDataUnit,
   onUpdateRealtimeDatabase,
-  onUpdateIndexedDatabase
+  onUpdateIndexedDatabase,
+  handleLogin,
+  handleLogOut,
+  isSignedIn
 }) => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -114,6 +117,9 @@ const AppContent = ({
             <AuthPage
               onUpdateRealtimeDatabase={onUpdateRealtimeDatabase}
               onUpdateIndexedDatabase={onUpdateIndexedDatabase}
+              handleLogin={handleLogin}
+              handleLogOut={handleLogOut}
+              isSignedIn={isSignedIn}
             />
           }
         />

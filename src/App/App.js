@@ -27,11 +27,15 @@ import {
 import { auth, rtDatabase } from "../firebase";
 import { get, ref, set } from "firebase/database";
 import { exportDB } from "dexie-export-import";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 const CURRENT_DATE = formatDate(moment());
 
 function App({ db, STORES }) {
   const [isNeedFetchUpdate, setIsNeedFetchUpdate] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(()=>{
+    return auth.currentUser ? true : false;
+  })
 
   useEffect(() => {
     createMissingDataUnits();
@@ -290,6 +294,8 @@ function App({ db, STORES }) {
     await importHandler(db, blob);
   };
 
+  //firebase
+
   const updateRealtimeDatabase = async () => {
     const user = auth.currentUser;
     const userId = user ? user.uid : null;
@@ -325,6 +331,28 @@ function App({ db, STORES }) {
     }
   };
 
+  const handleLogin = async (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log("Sign-in successful:", userCredential.user);
+        setIsSignedIn(true);
+      })
+      .catch((error) => {
+        console.log("Sign-in error:", error);
+      });
+  };
+
+  const handleLogOut = async () => {
+    signOut(auth)
+    .then(() => {
+      console.log("Sign-out successful", auth);
+      setIsSignedIn(false);
+    })
+    .catch((error) => {
+      console.log("Sign-out error:", error);
+    });
+  }
+
   const fetchProps = {
     onGetAllCategories: getAllCategories,
     onGetAllFinancialDataUnits: getAllFinancialDataUnits,
@@ -359,6 +387,9 @@ function App({ db, STORES }) {
     onDeleteHabitDataUnit: deleteHabitDataUnit,
     onUpdateRealtimeDatabase: updateRealtimeDatabase,
     onUpdateIndexedDatabase: updateIndexedDatabese,
+    handleLogin:handleLogin,
+    handleLogOut:handleLogOut,
+    isSignedIn:isSignedIn
   };
 
   return (

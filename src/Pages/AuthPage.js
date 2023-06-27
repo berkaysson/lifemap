@@ -5,6 +5,9 @@ import RegisterForm from "../Components/Auth/Register/RegisterForm";
 const AuthPage = ({
   onUpdateRealtimeDatabase,
   onUpdateIndexedDatabase,
+  handleLogin,
+  handleLogOut,
+  isSignedIn,
 }) => {
   const handleUpdateRTDB = async () => {
     await onUpdateRealtimeDatabase();
@@ -16,7 +19,11 @@ const AuthPage = ({
 
   return (
     <div>
-      <SignInForm />
+      <SignInForm
+        handleLogin={handleLogin}
+        handleLogOut={handleLogOut}
+        isSignedIn={isSignedIn}
+      />
       <RegisterForm />
       <button onClick={handleUpdateRTDB}>Update realtime DB</button>
       <button onClick={handleUpdateIDB}>Update indexed DB</button>
