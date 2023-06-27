@@ -14,6 +14,8 @@ import SettingsPage from "../Pages/SettingsPage";
 import RootLayout from "../Layout/RootLayout";
 import FinancePage from "../Pages/FinancePage";
 import AuthPage from "../Pages/AuthPage";
+import { ThemeProvider } from "styled-components";
+import { theme } from "../Style/theme";
 
 const AppContent = ({
   onUpdateActivityDataUnit,
@@ -120,7 +122,7 @@ const AppContent = ({
   );
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       {isSignedIn ? (
         <RouterProvider router={router}></RouterProvider>
       ) : (
@@ -130,7 +132,7 @@ const AppContent = ({
           isSignedIn={isSignedIn}
         />
       )}
-    </>
+    </ThemeProvider>
   );
 };
 
