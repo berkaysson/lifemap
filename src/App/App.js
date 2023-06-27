@@ -33,7 +33,7 @@ const CURRENT_DATE = formatDate(moment());
 
 function App({ db, STORES }) {
   const [isNeedFetchUpdate, setIsNeedFetchUpdate] = useState(false);
-  const [isSignedIn, setIsSignedIn] = useState(()=>{
+  const [isSignedIn, setIsSignedIn] = useState(() => {
     return auth.currentUser ? true : false;
   });
   const [isGuestModeActive, setIsGuestModeActive] = useState(false);
@@ -327,7 +327,9 @@ function App({ db, STORES }) {
       const blob = new Blob([dataFromRealtime], {
         type: "text/json",
       });
-      importHandler(db, blob);
+      await importHandler(db, blob);
+      await db.open();
+      fetchUpdateHandler(true);
     }
   };
 
@@ -335,8 +337,15 @@ function App({ db, STORES }) {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log("Sign-in successful:", userCredential.user);
-        setIsSignedIn(true);
-        setIsGuestModeActive(false);
+        updateIndexedDatabese()
+          .then(() => {
+            setIsSignedIn(true);
+            setIsGuestModeActive(false);
+          })
+          .catch((error) => {
+            alert(error);
+            console.log("Sign-in error:", error);
+          });
       })
       .catch((error) => {
         alert(error);
@@ -345,21 +354,23 @@ function App({ db, STORES }) {
   };
 
   const handleLogOut = async () => {
+    updateRealtimeDatabase();
     signOut(auth)
-    .then(() => {
-      console.log("Sign-out successful", auth);
-      setIsSignedIn(false);
-      setIsGuestModeActive(false);
-    })
-    .catch((error) => {
-      alert(error);
-      console.log("Sign-out error:", error);
-    });
+      .then(() => {
+        console.log("Sign-out successful", auth);
+        setIsSignedIn(false);
+        setIsGuestModeActive(false);
+        //clear IDB
+      })
+      .catch((error) => {
+        alert(error);
+        console.log("Sign-out error:", error);
+      });
   };
 
   const openGuestMode = () => {
     setIsGuestModeActive(true);
-  }
+  };
 
   const fetchProps = {
     onGetAllCategories: getAllCategories,
@@ -393,11 +404,11 @@ function App({ db, STORES }) {
     onAddHabitUnit: addHabitDataUnit,
     onDeleteTaskDataUnit: deleteTaskDataUnit,
     onDeleteHabitDataUnit: deleteHabitDataUnit,
-    handleLogin:handleLogin,
-    handleLogOut:handleLogOut,
-    isSignedIn:isSignedIn,
-    isGuestModeActive:isGuestModeActive,
-    openGuestMode:openGuestMode
+    handleLogin: handleLogin,
+    handleLogOut: handleLogOut,
+    isSignedIn: isSignedIn,
+    isGuestModeActive: isGuestModeActive,
+    openGuestMode: openGuestMode,
   };
 
   return (
