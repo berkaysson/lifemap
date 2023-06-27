@@ -1,6 +1,9 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { auth } from "../../../firebase";
+import FormWrapper from "../../Wrappers/Styled-Wrappers/FormWrapper";
+import StyledInput from "../../Wrappers/Styled-Elements/StyledInput";
+import Button from "../../Wrappers/Styled-Elements/Button";
 
 const RegisterForm = () => {
   const [email, setEmail] = useState("");
@@ -25,22 +28,22 @@ const RegisterForm = () => {
 
   return (
     <div>
+      <FormWrapper onSubmit={handleSignUp}>
       <h3>Sign Up</h3>
-      <form onSubmit={handleSignUp}>
-        <input
+        <StyledInput
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <input
+        <StyledInput
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Sign Up</button>
-      </form>
+        <Button text="Sign Up" type="submit" />
+      </FormWrapper>
       {error && <p>{error}</p>}
     </div>
   );

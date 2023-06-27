@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import StyledInput from "../../Wrappers/Styled-Elements/StyledInput";
+import Button from "../../Wrappers/Styled-Elements/Button";
+import FormWrapper from "../../Wrappers/Styled-Wrappers/FormWrapper";
 
 const SignInForm = ({ handleLogin, handleLogOut, isSignedIn }) => {
   const [email, setEmail] = useState("");
@@ -22,22 +25,22 @@ const SignInForm = ({ handleLogin, handleLogOut, isSignedIn }) => {
         </button>
       ) : (
         <>
-          <h3>Sign In</h3>
-          <form onSubmit={handleSignIn}>
-            <input
+          <FormWrapper onSubmit={handleSignIn}>
+            <h3>Sign In</h3>
+            <StyledInput
               type="email"
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <input
+            <StyledInput
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button type="submit">Sign In</button>
-          </form>
+            <Button type="submit" text={"Sign In"} />
+          </FormWrapper>
         </>
       )}
     </div>
