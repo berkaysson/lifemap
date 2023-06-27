@@ -23,6 +23,11 @@ const RegisterForm = () => {
       .then((userCredential) => {
         // Handle successful registration
         console.log("Registration successful:", userCredential.user);
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        setwarning("");
+        alert("Registered succesfully, you can sign in now");
       })
       .catch((error) => {
         // Handle registration errors
@@ -33,7 +38,7 @@ const RegisterForm = () => {
 
   return (
     <div>
-      <FormWrapper onSubmit={handleSignUp}>
+      <FormWrapper onSubmit={handleSignUp} id="form">
       <h3>Sign Up</h3>
         <StyledInput
           type="email"
