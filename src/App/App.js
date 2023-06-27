@@ -24,6 +24,9 @@ import {
   deleteSubCategoryHelper,
   updateCategoryHelper,
 } from "../Utilities/categotyHelpers";
+import { auth, rtDatabase } from "../firebase";
+import { get, ref, set } from "firebase/database";
+import { exportDB } from "dexie-export-import";
 
 const CURRENT_DATE = formatDate(moment());
 
@@ -287,6 +290,41 @@ function App({ db, STORES }) {
     await importHandler(db, blob);
   };
 
+  const updateRealtimeDatabase = async () => {
+    const user = auth.currentUser;
+    const userId = user ? user.uid : null;
+
+    if (userId) {
+      const blob = await exportDB(db, { prettyJson: true });
+      const reader = new FileReader();
+      const fileData = await new Promise((resolve, reject) => {
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsText(blob);
+      });
+      console.log(blob);
+      set(ref(rtDatabase, "users/" + userId), {
+        email: user.email,
+        userId: userId,
+        lifemapData: fileData,
+      });
+    }
+  };
+
+  const updateIndexedDatabese = async () => {
+    const user = auth.currentUser;
+    const userId = user ? user.uid : null;
+
+    if (userId) {
+      const lifemapDataRef = get(ref(rtDatabase, "users/" + userId));
+      const dataFromRealtime = (await lifemapDataRef).val().lifemapData;
+      const blob = new Blob([dataFromRealtime], {
+        type: "text/json",
+      });
+      importHandler(db, blob);
+    }
+  };
+
   const fetchProps = {
     onGetAllCategories: getAllCategories,
     onGetAllFinancialDataUnits: getAllFinancialDataUnits,
@@ -319,6 +357,8 @@ function App({ db, STORES }) {
     onAddHabitUnit: addHabitDataUnit,
     onDeleteTaskDataUnit: deleteTaskDataUnit,
     onDeleteHabitDataUnit: deleteHabitDataUnit,
+    onUpdateRealtimeDatabase: updateRealtimeDatabase,
+    onUpdateIndexedDatabase: updateIndexedDatabese,
   };
 
   return (
