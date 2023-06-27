@@ -37,7 +37,8 @@ const AppContent = ({
   habitDataUnits,
   onDeleteTaskDataUnit,
   onDeleteHabitDataUnit,
-  onGetDB
+  onUpdateRealtimeDatabase,
+  onUpdateIndexedDatabase
 }) => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -107,7 +108,15 @@ const AppContent = ({
           path="/lifemap/settings"
           element={<SettingsPage onExport={onExport} onImport={onImport} />}
         />
-        <Route path="/lifemap/auth" element={<AuthPage onGetDB={onGetDB} />} />
+        <Route
+          path="/lifemap/auth"
+          element={
+            <AuthPage
+              onUpdateRealtimeDatabase={onUpdateRealtimeDatabase}
+              onUpdateIndexedDatabase={onUpdateIndexedDatabase}
+            />
+          }
+        />
       </Route>
     )
   );
