@@ -8,12 +8,17 @@ import Button from "../../Wrappers/Styled-Elements/Button";
 const RegisterForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [warning, setwarning] = useState("");
 
   const handleSignUp = (event) => {
     event.preventDefault();
-    setError("");
-
+    setwarning("");
+    if (password !== confirmPassword) {
+      setwarning("Password and confirm password do not match.");
+      alert(warning);
+      return;
+    }
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Handle successful registration
@@ -21,7 +26,7 @@ const RegisterForm = () => {
       })
       .catch((error) => {
         // Handle registration errors
-        setError(error.message);
+        alert(warning);
         console.log("Registration error:", error);
       });
   };
@@ -42,9 +47,14 @@ const RegisterForm = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <StyledInput
+          type="password"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
         <Button text="Sign Up" type="submit" />
       </FormWrapper>
-      {error && <p>{error}</p>}
     </div>
   );
 };

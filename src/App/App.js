@@ -352,6 +352,7 @@ function App({ db, STORES }) {
       setIsGuestModeActive(false);
     })
     .catch((error) => {
+      alert(error);
       console.log("Sign-out error:", error);
     });
   };
