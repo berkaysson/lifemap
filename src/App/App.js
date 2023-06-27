@@ -385,8 +385,6 @@ function App({ db, STORES }) {
     onAddHabitUnit: addHabitDataUnit,
     onDeleteTaskDataUnit: deleteTaskDataUnit,
     onDeleteHabitDataUnit: deleteHabitDataUnit,
-    onUpdateRealtimeDatabase: updateRealtimeDatabase,
-    onUpdateIndexedDatabase: updateIndexedDatabese,
     handleLogin:handleLogin,
     handleLogOut:handleLogOut,
     isSignedIn:isSignedIn

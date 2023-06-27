@@ -37,11 +37,9 @@ const AppContent = ({
   habitDataUnits,
   onDeleteTaskDataUnit,
   onDeleteHabitDataUnit,
-  onUpdateRealtimeDatabase,
-  onUpdateIndexedDatabase,
   handleLogin,
   handleLogOut,
-  isSignedIn
+  isSignedIn,
 }) => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -115,8 +113,6 @@ const AppContent = ({
           path="/lifemap/auth"
           element={
             <AuthPage
-              onUpdateRealtimeDatabase={onUpdateRealtimeDatabase}
-              onUpdateIndexedDatabase={onUpdateIndexedDatabase}
               handleLogin={handleLogin}
               handleLogOut={handleLogOut}
               isSignedIn={isSignedIn}
@@ -129,7 +125,15 @@ const AppContent = ({
 
   return (
     <>
-      <RouterProvider router={router}></RouterProvider>
+      {isSignedIn ? (
+        <RouterProvider router={router}></RouterProvider>
+      ) : (
+        <AuthPage
+          handleLogin={handleLogin}
+          handleLogOut={handleLogOut}
+          isSignedIn={isSignedIn}
+        />
+      )}
     </>
   );
 };

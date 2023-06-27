@@ -3,19 +3,10 @@ import SignInForm from "../Components/Auth/SignIn/SignInForm";
 import RegisterForm from "../Components/Auth/Register/RegisterForm";
 
 const AuthPage = ({
-  onUpdateRealtimeDatabase,
-  onUpdateIndexedDatabase,
   handleLogin,
   handleLogOut,
   isSignedIn,
 }) => {
-  const handleUpdateRTDB = async () => {
-    await onUpdateRealtimeDatabase();
-  };
-
-  const handleUpdateIDB = async () => {
-    await onUpdateIndexedDatabase();
-  };
 
   return (
     <div>
@@ -25,8 +16,6 @@ const AuthPage = ({
         isSignedIn={isSignedIn}
       />
       <RegisterForm />
-      <button onClick={handleUpdateRTDB}>Update realtime DB</button>
-      <button onClick={handleUpdateIDB}>Update indexed DB</button>
     </div>
   );
 };
