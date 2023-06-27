@@ -337,15 +337,27 @@ function App({ db, STORES }) {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log("Sign-in successful:", userCredential.user);
-        updateIndexedDatabese()
-          .then(() => {
-            setIsSignedIn(true);
-            setIsGuestModeActive(false);
-          })
-          .catch((error) => {
-            alert(error);
-            console.log("Sign-in error:", error);
-          });
+        if (checkIfUsersFirstLogin()) {
+          updateRealtimeDatabase()
+            .then(() => {
+              setIsSignedIn(true);
+              setIsGuestModeActive(false);
+            })
+            .catch((error) => {
+              alert(error);
+              console.log("Sign-in error:", error);
+            });
+        } else {
+          updateIndexedDatabese()
+            .then(() => {
+              setIsSignedIn(true);
+              setIsGuestModeActive(false);
+            })
+            .catch((error) => {
+              alert(error);
+              console.log("Sign-in error:", error);
+            });
+        }
       })
       .catch((error) => {
         alert(error);
@@ -370,6 +382,21 @@ function App({ db, STORES }) {
 
   const openGuestMode = () => {
     setIsGuestModeActive(true);
+  };
+
+  const checkIfUsersFirstLogin = async () => {
+    const user = auth.currentUser;
+    const userId = user ? user.uid : null;
+
+    if(userId){
+      const lifemapDataRef = ref(rtDatabase, "users/" + userId + "/lifemapData");
+      const lifemapDataSnapshot = await get(lifemapDataRef);
+      const lifemapDataExists = lifemapDataSnapshot.exists();
+      return !lifemapDataExists;
+    }
+    else{
+      console.log("No user");
+    }
   };
 
   const fetchProps = {
