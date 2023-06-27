@@ -35,7 +35,8 @@ function App({ db, STORES }) {
   const [isNeedFetchUpdate, setIsNeedFetchUpdate] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(()=>{
     return auth.currentUser ? true : false;
-  })
+  });
+  const [isGuestModeActive, setIsGuestModeActive] = useState(false);
 
   useEffect(() => {
     createMissingDataUnits();
@@ -335,8 +336,10 @@ function App({ db, STORES }) {
       .then((userCredential) => {
         console.log("Sign-in successful:", userCredential.user);
         setIsSignedIn(true);
+        setIsGuestModeActive(false);
       })
       .catch((error) => {
+        alert(error);
         console.log("Sign-in error:", error);
       });
   };
@@ -346,10 +349,15 @@ function App({ db, STORES }) {
     .then(() => {
       console.log("Sign-out successful", auth);
       setIsSignedIn(false);
+      setIsGuestModeActive(false);
     })
     .catch((error) => {
       console.log("Sign-out error:", error);
     });
+  };
+
+  const openGuestMode = () => {
+    setIsGuestModeActive(true);
   }
 
   const fetchProps = {
@@ -386,7 +394,9 @@ function App({ db, STORES }) {
     onDeleteHabitDataUnit: deleteHabitDataUnit,
     handleLogin:handleLogin,
     handleLogOut:handleLogOut,
-    isSignedIn:isSignedIn
+    isSignedIn:isSignedIn,
+    isGuestModeActive:isGuestModeActive,
+    openGuestMode:openGuestMode
   };
 
   return (

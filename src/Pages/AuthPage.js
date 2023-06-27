@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { CardWrapper } from "../Components/Wrappers/Styled-Wrappers/CardWrapper";
 import FooterContent from "../Components/Contents/FooterContent";
 import ParagraphContent from "../Components/Contents/ParagraphContent";
-import HeaderContent from "../Components/Contents/HeaderContent";
 import Button from "../Components/Wrappers/Styled-Elements/Button";
 
 const AuthPageWrapper = styled.div`
@@ -54,12 +53,12 @@ const ContentWrapper = styled.div`
   padding: ${({ theme }) => theme.sizes.large};
   gap: ${({ theme }) => theme.sizes.medium};
 
-  &>Button{
+  & > Button {
     margin-top: 1rem;
   }
 `;
 
-const AuthPage = ({ handleLogin, handleLogOut, isSignedIn }) => {
+const AuthPage = ({ handleLogin, handleLogOut, isSignedIn, openGuestMode }) => {
   const [formContent, setFormContent] = useState("sign-in");
   const [warning, setWarning] = useState("");
 
@@ -100,7 +99,7 @@ const AuthPage = ({ handleLogin, handleLogOut, isSignedIn }) => {
           ) : (
             <RegisterForm />
           )}
-          <Button type="button" text="Try with Guest Mode" />
+          <Button onClick={openGuestMode} type="button" text="Try with Guest Mode" />
         </ContentWrapper>
       </CardWrapper>
       <FooterContent />

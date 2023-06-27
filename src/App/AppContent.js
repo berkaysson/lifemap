@@ -42,6 +42,8 @@ const AppContent = ({
   handleLogin,
   handleLogOut,
   isSignedIn,
+  isGuestModeActive,
+  openGuestMode
 }) => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -125,11 +127,14 @@ const AppContent = ({
     <ThemeProvider theme={theme}>
       {isSignedIn ? (
         <RouterProvider router={router}></RouterProvider>
+      ) : isGuestModeActive ? (
+        <RouterProvider router={router}></RouterProvider>
       ) : (
         <AuthPage
           handleLogin={handleLogin}
           handleLogOut={handleLogOut}
           isSignedIn={isSignedIn}
+          openGuestMode={openGuestMode}
         />
       )}
     </ThemeProvider>
