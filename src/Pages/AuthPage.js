@@ -18,8 +18,10 @@ const AuthPageWrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.theme};
   border-radius: ${({ theme }) => theme.radius.large};
   box-shadow: ${({ theme }) => theme.boxShadows.largeCardShadow};
-  height: 90vh;
+  height: 100%;
   width: 100%;
+  max-width: 1200px;
+  gap: 1rem;
 
   display: flex;
   flex-direction: column;
