@@ -171,8 +171,8 @@ function App({ db, STORES }) {
 
       await db[selectedYear].put(activityDataUnit);
 
-      fetchUpdateHandler(true);
       await updateRealtimeDatabase();
+      fetchUpdateHandler(true);
       console.log("Activity Data unit updated successfully");
     } catch (error) {
       console.error("Failed to get activity data unit:", error);
@@ -181,8 +181,8 @@ function App({ db, STORES }) {
 
   const updateCategory = async (category, subCategory) => {
     await updateCategoryHelper(db, category, subCategory);
-    fetchUpdateHandler(true);
     await updateRealtimeDatabase();
+    fetchUpdateHandler(true);
   };
 
   const deleteSubCategory = async (categoryName, categoryID, subCategory) => {
@@ -194,14 +194,14 @@ function App({ db, STORES }) {
       subCategory,
       allActivityDataUnits
     );
-    fetchUpdateHandler(true);
     await updateRealtimeDatabase();
+    fetchUpdateHandler(true);
   };
 
   const addFinancialDataUnit = async (toBeUpdatedData) => {
     await addFinancialDataUnitHelper(db, toBeUpdatedData);
-    fetchUpdateHandler(true);
     await updateRealtimeDatabase();
+    fetchUpdateHandler(true);
   };
 
   const updateFinancialDataUnit = async (
@@ -215,38 +215,38 @@ function App({ db, STORES }) {
       dataUnitID,
       toBeUpdatedData
     );
-    fetchUpdateHandler(true);
     await updateRealtimeDatabase();
+    fetchUpdateHandler(true);
   };
 
   const deleteFinancialDataUnit = async (dateID, dataUnitID) => {
     await deleteFinancialDataUnitHelper(db, dateID, dataUnitID);
-    fetchUpdateHandler(true);
     await updateRealtimeDatabase();
+    fetchUpdateHandler(true);
   };
 
   const addTaskDataUnit = async (taskUnit) => {
     await addTaskOrHabitDataUnit(db, taskUnit, "task");
-    fetchUpdateHandler(true);
     await updateRealtimeDatabase();
+    fetchUpdateHandler(true);
   };
 
   const addHabitDataUnit = async (habitUnit) => {
     await addTaskOrHabitDataUnit(db, habitUnit, "habit");
-    fetchUpdateHandler(true);
     await updateRealtimeDatabase();
+    fetchUpdateHandler(true);
   };
 
   const deleteTaskDataUnit = async (dataID) => {
     await deleteTaskOrHabitDataUnit(db, dataID, "task");
-    fetchUpdateHandler(true);
     await updateRealtimeDatabase();
+    fetchUpdateHandler(true);
   };
 
   const deleteHabitDataUnit = async (dataID) => {
     await deleteTaskOrHabitDataUnit(db, dataID, "habit");
-    fetchUpdateHandler(true);
     await updateRealtimeDatabase();
+    fetchUpdateHandler(true);
   };
 
   const getAllTaskDataUnits = async () => {
