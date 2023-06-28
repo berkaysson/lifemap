@@ -28,7 +28,7 @@ import {
 import { auth, rtDatabase } from "../firebase";
 import { get, ref, set } from "firebase/database";
 import { exportDB } from "dexie-export-import";
-import { browserLocalPersistence, setPersistence, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { browserLocalPersistence, browserSessionPersistence, setPersistence, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 const CURRENT_DATE = formatDate(moment());
 
@@ -353,6 +353,7 @@ function App({ db, STORES }) {
 
   const handleLogin = async (email, password) => {
     try {
+      await setPersistence(auth, browserSessionPersistence);
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log("Sign-in successful:", userCredential.user);
       if (await checkIfUsersFirstLogin()) {
