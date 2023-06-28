@@ -358,11 +358,10 @@ function App({ db, STORES }) {
     if(userId){
       const lifemapDataRef = get(ref(rtDatabase, "users/" + userId));
 
-      const unsubscribe = onValue(lifemapDataRef, (snapshot) => {
-        updateIndexedDatabese();
+      onValue(lifemapDataRef, async (snapshot) => {
+        await updateIndexedDatabese();
+        console.log("Update IDB since change happen in cloud");
       });
-  
-      return () => unsubscribe();
     }
   }, []);
 
