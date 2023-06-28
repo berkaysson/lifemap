@@ -33,6 +33,9 @@ LifeMap is a personal dashboard that helps you track your habits, goals, expense
 
 - **Tasks** are single-time activities with set start and end dates, where users aim to accomplish specific goals within a given timeframe. **Habits**, on the other hand, are recurring activities that users want to incorporate into their daily, weekly, or monthly routines. By specifying the frequency and period of these habits, users can track their consistency and progress over time, fostering positive behaviors and improved time management. Both features contribute to enhancing productivity and helping users achieve their desired outcomes.
 
+### How to store Data
+- LifeMap leverages both IndexedDB and Firebase Realtime Database for data storage. In guest mode, data is stored solely in IndexedDB, while signing in enables data to be securely stored in both Firebase Realtime Database and IndexedDB. If you sign in; Whether you're on your computer, tablet, or smartphone, Lifemap keeps your data synchronized and readily available for a smooth and convenient user experience.
+
 ## Technologies Used
 
 - <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/120px-JavaScript-logo.png" alt="JavaScript Logo" width="22px"> JavaScript
@@ -43,6 +46,7 @@ LifeMap is a personal dashboard that helps you track your habits, goals, expense
 - <img src="https://dexie.org/assets/images/dexie-logo-icon.svg" alt="Dexie.js Logo" width="22px"> Dexie.js
 - <img src="https://cdn.worldvectorlogo.com/logos/styled-components-1.svg" alt="Styled Components Logo" width="22px"> Styled Components
 - <img src="https://cdn.worldvectorlogo.com/logos/material-ui-1.svg" alt="Material UI Logo" width="22px"> Material UI
+- <img src="https://firebase.google.com/static/images/brand-guidelines/logo-logomark.png" alt="firebase" width="22px"> Firebase Auth and Firebase Realtime DB
 
 
 ## Getting Started
