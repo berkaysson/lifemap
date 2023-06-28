@@ -370,7 +370,6 @@ function App({ db, STORES }) {
   };
   
   const handleLogOut = async () => {
-    if (isSignedIn) await updateRealtimeDatabase();
     signOut(auth)
       .then(() => {
         console.log("Sign-out successful", auth);
