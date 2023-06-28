@@ -26,9 +26,9 @@ import {
   updateCategoryHelper,
 } from "../Utilities/categotyHelpers";
 import { auth, rtDatabase } from "../firebase";
-import { get, ref, set } from "firebase/database";
+import { get, onValue, ref, set } from "firebase/database";
 import { exportDB } from "dexie-export-import";
-import { browserLocalPersistence, browserSessionPersistence, setPersistence, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 const CURRENT_DATE = formatDate(moment());
 
@@ -350,6 +350,21 @@ function App({ db, STORES }) {
       fetchUpdateHandler(true);
     }
   };
+
+  useEffect(()=>{
+    const user = auth.currentUser;
+    const userId = user ? user.uid : null;
+
+    if(userId){
+      const lifemapDataRef = get(ref(rtDatabase, "users/" + userId));
+
+      const unsubscribe = onValue(lifemapDataRef, (snapshot) => {
+        updateIndexedDatabese();
+      });
+  
+      return () => unsubscribe();
+    }
+  }, []);
 
   const handleLogin = async (email, password) => {
     try {
