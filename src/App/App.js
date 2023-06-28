@@ -353,7 +353,6 @@ function App({ db, STORES }) {
 
   const handleLogin = async (email, password) => {
     try {
-      await setPersistence(auth, browserSessionPersistence);
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log("Sign-in successful:", userCredential.user);
       if (await checkIfUsersFirstLogin()) {
