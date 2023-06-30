@@ -28,7 +28,6 @@ export const updateFinancialDataUnitHelper = async (
         const updatedDataUnit = { ...oldDataUnit, ...toBeUpdatedData };
         financialDataUnit.financeDatas[oldDataUnitIndex] = updatedDataUnit;
         await db.financialData.put(financialDataUnit);
-        console.log("Financial Data unit updated successfully");
       }
     }
   } catch (error) {
@@ -44,7 +43,6 @@ export const deleteFinancialDataUnitHelper = async (db, dateID, dataUnitID) => {
         (obj) => obj.id !== dataUnitID
       );
       await db.financialData.put(financialDataUnit);
-      console.log("Financial Data unit deleted successfully");
     }
   } catch (error) {
     console.error("Error deleting Financial data:", error);

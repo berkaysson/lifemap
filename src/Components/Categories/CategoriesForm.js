@@ -85,7 +85,6 @@ const CategoriesForm = ({
         subCategories: category.subCategories,
       }))
     );
-    console.log("Category options assigned successfully");
   }
 
   useEffect(() => {

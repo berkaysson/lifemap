@@ -10,7 +10,6 @@ export const addTaskOrHabitDataUnit = async (db, unit, dataType) => {
         isClosed: false,
         completedValue: 0,
       });
-      console.log("Task unit added successfully");
     } else if (dataType === "habit") {
       await db.habitsData.put({
         ...unit,
@@ -19,7 +18,6 @@ export const addTaskOrHabitDataUnit = async (db, unit, dataType) => {
         checkpoints: createCheckpointsHabit(unit),
         checkpointObjects: createCheckpointsTaskForHabit(unit),
       });
-      console.log("Habit unit added successfully");
     }
   } catch (error) {
     console.error("Error creating data unit:", error);
@@ -85,15 +83,12 @@ export const deleteTaskOrHabitDataUnit = async (db, dataID, dataType) => {
     let dataStore;
     if (dataType === "task") {
       dataStore = db.tasksData;
-      console.log("Task Units deleted successfully");
     } else if (dataType === "habit") {
       dataStore = db.habitsData;
-      console.log("Habit Units deleted successfully");
     }
     if (await dataStore.get(dataID)) {
       await dataStore.delete(dataID);
     } else {
-      console.log("Can't find the data unit");
     }
   } catch (error) {
     console.error("Error deleting data unit:", error);
@@ -126,7 +121,6 @@ export const editTaskOrHabitSituation = async (
     const dataUnit = await db[`${dataType}sData`].get(dataID);
     dataUnit[prop] = value;
     await db[`${dataType}sData`].put(dataUnit);
-    console.log(`${dataType} unit edited successfully`);
   } catch (error) {
     console.error(`Error editing ${dataType} unit:`, error);
   }

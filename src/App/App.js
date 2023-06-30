@@ -54,7 +54,6 @@ function App({ db, STORES }) {
     const year = date.slice(0, 4);
     try {
       await db[year].add(activityDataUnit);
-      console.log("Activity Data unit added successfully");
     } catch (error) {
       console.error("Error adding activity data unit:", error);
     }
@@ -92,7 +91,6 @@ function App({ db, STORES }) {
       const selectedYear = dateID.slice(0, 4).toString();
       const activityDataUnit = await db[selectedYear].get(dateID);
       if (activityDataUnit) {
-        console.log("Activity Data unit retrieved successfully");
         return activityDataUnit;
       } else {
         console.error("Acitivty Data unit not found");
@@ -109,7 +107,7 @@ function App({ db, STORES }) {
       const dbCategoriesStore = await db.categoriesData.toArray();
       return dbCategoriesStore;
     } catch (error) {
-      console.log(`getAllCategories: ${error}`);
+      console.error(`getAllCategories`);
     }
   };
 
@@ -120,7 +118,6 @@ function App({ db, STORES }) {
         const newDataUnits = await db[year].toArray();
         allActivityDataUnits.push(...newDataUnits);
       }
-      console.log("All activity data units retrieved successfully");
       return allActivityDataUnits;
     } catch (error) {
       console.error("Error getting all activity data units:", error);
@@ -142,7 +139,6 @@ function App({ db, STORES }) {
       const activityDataUnit = await getActivityDataUnit(
         toBeUpdatedActivityData.date
       );
-      console.log("Activty Data unit to be updated retrieved successfully");
       const selectedYear = toBeUpdatedActivityData.date.slice(0, 4).toString();
       const currentValue =
         parseInt(
@@ -173,7 +169,6 @@ function App({ db, STORES }) {
 
       await updateRealtimeDatabase();
       fetchUpdateHandler(true);
-      console.log("Activity Data unit updated successfully");
     } catch (error) {
       console.error("Failed to get activity data unit:", error);
     }
@@ -368,8 +363,7 @@ function App({ db, STORES }) {
   const handleLogin = async (email, password) => {
     try {
       setPersistence(auth, inMemoryPersistence);
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log("Sign-in successful:", userCredential.user);
+      await signInWithEmailAndPassword(auth, email, password);
       if (await checkIfUsersFirstLogin()) {
         await updateRealtimeDatabase();
       } else {
@@ -388,12 +382,11 @@ function App({ db, STORES }) {
   const handleLogOut = async () => {
     try {
       await signOut(auth);
-      console.log("Sign-out successful", auth);
       setIsSignedIn(false);
       setIsGuestModeActive(false);
       deleteDBHandler(db);
       window.location.href = "../lifemap";
-      await new Promise(resolve => setTimeout(resolve, 222));
+      await new Promise(resolve => setTimeout(resolve, 300));
       window.location.reload();
     } catch (error) {
       alert(error);

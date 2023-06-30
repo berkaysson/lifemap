@@ -22,7 +22,6 @@ const RegisterForm = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Handle successful registration
-        console.log("Registration successful:", userCredential.user);
         setEmail("");
         setPassword("");
         setConfirmPassword("");

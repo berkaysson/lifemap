@@ -194,8 +194,6 @@ const AppFetch = ({
     await fetchHabitDataUnits();
     await checkTasks();
     await checkHabits();
-    await fetchCategories();
-    await fetchFinanceDataUnits();
     await fetchActivityDataUnits();
     await fetchTodaysActivityDataUnit();
     await fetchTaskDataUnits();
