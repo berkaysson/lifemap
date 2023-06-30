@@ -184,6 +184,7 @@ const AppFetch = ({
   };
 
   async function fetchAll() {
+    setIsLoading(true);
     await fetchCategories();
     await fetchFinanceDataUnits();
     await fetchActivityDataUnits();
@@ -198,13 +199,13 @@ const AppFetch = ({
     await fetchTodaysActivityDataUnit();
     await fetchTaskDataUnits();
     await fetchHabitDataUnits();
+    setIsLoading(false);
   }
 
   useEffect(() => {
     (async () => {
       await fetchAll()
       onFetchUpdate(false);
-      setIsLoading(false);
       console.log("Fetch Updated");
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -213,7 +214,6 @@ const AppFetch = ({
   useEffect(() => {
     (async () => {
       await fetchAll();
-      setIsLoading(false);
       console.log("First Fetch");
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
