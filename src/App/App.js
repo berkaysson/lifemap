@@ -386,18 +386,19 @@ function App({ db, STORES }) {
   };
   
   const handleLogOut = async () => {
-    signOut(auth)
-      .then(() => {
-        console.log("Sign-out successful", auth);
-        setIsSignedIn(false);
-        setIsGuestModeActive(false);
-        deleteDBHandler(db);
-        window.location.reload();
-      })
-      .catch((error) => {
-        alert(error);
-        console.log("Sign-out error:", error);
-      });
+    try {
+      await signOut(auth);
+      console.log("Sign-out successful", auth);
+      setIsSignedIn(false);
+      setIsGuestModeActive(false);
+      deleteDBHandler(db);
+      window.location.href = "../lifemap";
+      await new Promise(resolve => setTimeout(resolve, 222));
+      window.location.reload();
+    } catch (error) {
+      alert(error);
+      console.log("Sign-out error:", error);
+    }
   };
 
   const openGuestMode = () => {
