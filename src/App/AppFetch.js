@@ -198,14 +198,14 @@ const AppFetch = ({
     await fetchTodaysActivityDataUnit();
     await fetchTaskDataUnits();
     await fetchHabitDataUnits();
+    await new Promise(resolve => setTimeout(resolve, 300));
     setIsLoading(false);
+    console.log("End fetch");
   }
 
   useEffect(() => {
     (async () => {
       await fetchAll();
-      onFetchUpdate(false);
-      console.log("Fetch Updated");
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isNeedFetchUpdate]);
@@ -213,7 +213,6 @@ const AppFetch = ({
   useEffect(() => {
     (async () => {
       await fetchAll();
-      console.log("First Fetch");
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
