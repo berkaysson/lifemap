@@ -10,6 +10,7 @@ import {
   checkNonDailyCheckpoint,
 } from "../Utilities/task&habitCheckHelpers";
 import moment from "moment";
+import LoadingModal from "../Components/Wrappers/LoadingModal";
 
 const CURRENT_DATE = formatDate(moment());
 
@@ -204,7 +205,7 @@ const AppFetch = ({
 
   useEffect(() => {
     (async () => {
-      await fetchAll()
+      await fetchAll();
       onFetchUpdate(false);
       console.log("Fetch Updated");
     })();
@@ -233,7 +234,9 @@ const AppFetch = ({
 
   return (
     <>
-      {isLoading ? <p>Loading...</p> : <AppContent {...updatedContentProps} />}
+      {isLoading ? <LoadingModal /> : ""}
+
+      <AppContent {...updatedContentProps} />
     </>
   );
 };
