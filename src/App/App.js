@@ -351,7 +351,7 @@ function App({ db, STORES }) {
     }
   };
 
-  useEffect(()=>{
+  useEffect(()=>{ // not working??
     const user = auth.currentUser;
     const userId = user ? user.uid : null;
 
