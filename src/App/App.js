@@ -374,6 +374,7 @@ function App({ db, STORES }) {
         await updateRealtimeDatabase();
       } else {
         await updateIndexedDatabese();
+        createMissingDataUnits();
       }
   
       setIsSignedIn(true);
