@@ -46,7 +46,7 @@ function App({ db, STORES }) {
   }, []);
 
   const fetchUpdateHandler = (boolean) => {
-    setIsNeedFetchUpdate(boolean);
+    setIsNeedFetchUpdate(!isNeedFetchUpdate);
   };
 
   const createActivityDataUnit = async (date = CURRENT_DATE) => {
