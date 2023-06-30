@@ -187,24 +187,24 @@ const AppFetch = ({
     await fetchCategories();
     await fetchFinanceDataUnits();
     await fetchActivityDataUnits();
+    await fetchTodaysActivityDataUnit();
     await fetchTaskDataUnits();
     await fetchHabitDataUnits();
-    await fetchTodaysActivityDataUnit();
     await checkTasks();
     await checkHabits();
     await fetchCategories();
     await fetchFinanceDataUnits();
     await fetchActivityDataUnits();
+    await fetchTodaysActivityDataUnit();
     await fetchTaskDataUnits();
     await fetchHabitDataUnits();
-    await fetchTodaysActivityDataUnit();
   }
 
   useEffect(() => {
     (async () => {
-      await fetchAll();
-      setIsLoading(false);
+      await fetchAll()
       onFetchUpdate(false);
+      setIsLoading(false);
       console.log("Fetch Updated");
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
