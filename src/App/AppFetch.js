@@ -194,8 +194,6 @@ const AppFetch = ({
     await fetchHabitDataUnits();
     await checkTasks();
     await checkHabits();
-    await fetchActivityDataUnits();
-    await fetchTodaysActivityDataUnit();
     await fetchTaskDataUnits();
     await fetchHabitDataUnits();
     await new Promise(resolve => setTimeout(resolve, 300));
