@@ -82,9 +82,9 @@ export const deleteTaskOrHabitDataUnit = async (db, dataID, dataType) => {
   try {
     let dataStore;
     if (dataType === "task") {
-      dataStore = db.tasksData;
+      dataStore = await db.tasksData;
     } else if (dataType === "habit") {
-      dataStore = db.habitsData;
+      dataStore = await db.habitsData;
     }
     if (await dataStore.get(dataID)) {
       await dataStore.delete(dataID);
@@ -99,9 +99,9 @@ export const getAllTaskOrHabitDataUnits = async (db, dataType) => {
   try {
     let dataStore;
     if (dataType === "task") {
-      dataStore = db.tasksData;
+      dataStore = await db.tasksData;
     } else if (dataType === "habit") {
-      dataStore = db.habitsData;
+      dataStore = await db.habitsData;
     }
     const allTaskAndHabitDataUnits = await dataStore.toArray();
     return allTaskAndHabitDataUnits;
