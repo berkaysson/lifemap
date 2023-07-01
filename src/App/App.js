@@ -342,7 +342,6 @@ function App({ db, STORES }) {
       });
       await importHandler(db, blob);
       await db.open();
-      fetchUpdateHandler(true);
     }
   };
 
@@ -373,6 +372,7 @@ function App({ db, STORES }) {
   
       setIsSignedIn(true);
       setIsGuestModeActive(false);
+      fetchUpdateHandler(true);
     } catch (error) {
       alert(error);
       console.log("Sign-in error:", error);
