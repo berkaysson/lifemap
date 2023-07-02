@@ -116,6 +116,7 @@ const AppContent = ({
               onExport={onExport}
               onImport={onImport}
               handleLogOut={handleLogOut}
+              isGuestModeActive={isGuestModeActive}
             />
           }
         />

@@ -1,9 +1,10 @@
 import styled from "styled-components";
-
+import { auth } from "../firebase";
 import ImportExport from "../Components/Others/ImportExport";
 import { AnimatedPage } from "../Components/Wrappers/AnimatedPage";
 import HeaderContent from "../Components/Contents/HeaderContent";
 import Button from "../Components/Wrappers/Styled-Elements/Button";
+import { useState } from "react";
 
 const Wrapper = styled.section`
   display: grid;
@@ -50,22 +51,42 @@ const SettingsContainer = styled.div`
     padding: ${({ theme }) => theme.sizes.small};
   }
 
-  @media (max-width: 375px){
+  @media (max-width: 375px) {
     padding: 5px;
   }
 `;
 
-const SettingsPage = ({ onExport, onImport, handleLogOut }) => {
+const AuthInfoContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+`;
+
+const SettingsPage = ({
+  onExport,
+  onImport,
+  handleLogOut,
+  isGuestModeActive,
+}) => {
   return (
     <AnimatedPage>
       <Wrapper>
-      <Header>
-        <HeaderContent headerText={"Settings"} />
-      </Header>
-      <SettingsContainer>
-        <ImportExport onExport={onExport} onImport={onImport} />
-        <Button text={"Sign Out"} type={"button"} onClick={handleLogOut} />
-      </SettingsContainer>
+        <Header>
+          <HeaderContent headerText={"Settings"} />
+        </Header>
+        <SettingsContainer>
+          <ImportExport onExport={onExport} onImport={onImport} />
+          <AuthInfoContainer>
+            <p>
+              Signed In as{" "}
+              <b>{isGuestModeActive ? "Guest" : auth?.currentUser?.email}</b>
+            </p>
+            <Button text={"Sign Out"} type={"button"} onClick={handleLogOut} />
+          </AuthInfoContainer>
+        </SettingsContainer>
       </Wrapper>
     </AnimatedPage>
   );
