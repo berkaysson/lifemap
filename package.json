@@ -1,5 +1,6 @@
 {
   "name": "lifemap",
+  "homepage": "https://berkaysson.github.io/lifemap",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
