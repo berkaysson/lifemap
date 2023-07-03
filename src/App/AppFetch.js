@@ -190,16 +190,24 @@ const AppFetch = ({
     await fetchFinanceDataUnits();
     await fetchActivityDataUnits();
     await fetchTodaysActivityDataUnit();
+  }
+
+  const fetchTasksAndHabits = async () => {
     await fetchTaskDataUnits();
     await fetchHabitDataUnits();
+  }
+
+  const checkTasksAndHabits = async () => {
     await checkTasks();
     await checkHabits();
-    await fetchTaskDataUnits();
-    await fetchHabitDataUnits();
-    await new Promise(resolve => setTimeout(resolve, 300));
-    setIsLoading(false);
-    console.log("End fetch");
   }
+
+  useEffect(() => {
+    (async () => {
+      await fetchAll();
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -210,10 +218,21 @@ const AppFetch = ({
 
   useEffect(() => {
     (async () => {
-      await fetchAll();
+      await fetchTasksAndHabits();
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [todaysActivityDataUnit, activityCategories, activityDataUnits]);
+
+
+  useEffect(() => {
+    (async () => {
+      await checkTasksAndHabits();
+      setIsLoading(false);
+      console.log("End fetch");
+    })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [taskDataUnits, habitDataUnits]);
+
 
   const updatedContentProps = {
     ...contentProps,
