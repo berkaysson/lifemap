@@ -85,6 +85,7 @@ const HomePage = ({
   todaysActivityDataUnit,
   taskDataUnits,
   habitDataUnits,
+  fetchUpdateHandler
 }) => {
   return (
     <AnimatedPage>
@@ -146,6 +147,7 @@ const HomePage = ({
           <FilteredTasksHabitsList
             taskDataUnits={taskDataUnits}
             habitDataUnits={habitDataUnits}
+            fetchUpdateHandler={fetchUpdateHandler}
           />
         </Reminder>
       </HomeWrapper>

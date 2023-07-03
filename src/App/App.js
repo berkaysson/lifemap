@@ -447,6 +447,7 @@ function App({ db, STORES }) {
     isSignedIn: isSignedIn,
     isGuestModeActive: isGuestModeActive,
     openGuestMode: openGuestMode,
+    fetchUpdateHandler:fetchUpdateHandler
   };
 
   return (

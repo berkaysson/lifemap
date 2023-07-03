@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Button from "../../Wrappers/Styled-Elements/Button";
 import ProgressCircle from "../../Wrappers/ProgressCircle";
 import { formatDate } from "../../../Utilities/dateHelpers";
+import RefreshButton from "../../Wrappers/Styled-Elements/RefreshButton";
 
 const TaskItemWrapper = styled.li`
   display: flex;
@@ -82,7 +83,7 @@ const ProgressCircleWrapper = styled.div`
   border-radius: ${({ theme }) => theme.radius.small};
 `;
 
-const HabitItem = ({ habit, onDeleteHabitDataUnit, isDeleteActive=true }) => {
+const HabitItem = ({ habit, onDeleteHabitDataUnit, isDeleteActive=true, fetchUpdateHandler }) => {
   const deleteHandler = () => {
     onDeleteHabitDataUnit(habit.id);
   };
@@ -116,6 +117,7 @@ const HabitItem = ({ habit, onDeleteHabitDataUnit, isDeleteActive=true }) => {
         ))}
       </ProgressCircleWrapper>
       <Button type={"button"} text={"Delete"} onClick={deleteHandler} />
+      <RefreshButton fetchUpdateHandler={fetchUpdateHandler} />
     </TaskItemWrapper>
   );
 };

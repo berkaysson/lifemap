@@ -34,7 +34,7 @@ const ListWrapper = styled.ul`
   gap: ${({ theme }) => theme.sizes.medium};
 `;
 
-const FilteredTasksHabitsList = ({ taskDataUnits, habitDataUnits }) => {
+const FilteredTasksHabitsList = ({ taskDataUnits, habitDataUnits, fetchUpdateHandler }) => {
   return (
     <CardWrapper>
       <Wrapper>
@@ -50,6 +50,7 @@ const FilteredTasksHabitsList = ({ taskDataUnits, habitDataUnits }) => {
                       key={task.id}
                       isDeleteActive={false}
                       onDeleteTaskDataUnit={() => {}}
+                      fetchUpdateHandler={fetchUpdateHandler}
                     />
                   ) : (
                     ""
@@ -73,6 +74,7 @@ const FilteredTasksHabitsList = ({ taskDataUnits, habitDataUnits }) => {
                       key={habit.id}
                       isDeleteActive={false}
                       onDeleteHabitDataUnit={() => {}}
+                      fetchUpdateHandler={fetchUpdateHandler}
                     />
                   ) : (
                     ""

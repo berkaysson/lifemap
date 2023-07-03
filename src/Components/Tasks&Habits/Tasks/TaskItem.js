@@ -3,6 +3,7 @@ import React from "react";
 import Button from "../../Wrappers/Styled-Elements/Button";
 import styled from "styled-components";
 import ProgressBar from "../../Wrappers/ProgressBar";
+import RefreshButton from "../../Wrappers/Styled-Elements/RefreshButton";
 
 const TaskItemWrapper = styled.li`
   display: flex;
@@ -71,7 +72,7 @@ const DateWrapper = styled.div`
   }
 `;
 
-const TaskItem = ({ task, onDeleteTaskDataUnit, isDeleteActive = true }) => {
+const TaskItem = ({ task, onDeleteTaskDataUnit, isDeleteActive = true, fetchUpdateHandler }) => {
   const deleteHandler = () => {
     onDeleteTaskDataUnit(task.id);
   };
@@ -98,6 +99,7 @@ const TaskItem = ({ task, onDeleteTaskDataUnit, isDeleteActive = true }) => {
         />
       </DateWrapper>
       <Button type={"button"} text={"Delete"} onClick={deleteHandler} />
+      <RefreshButton fetchUpdateHandler={fetchUpdateHandler} />
     </TaskItemWrapper>
   );
 };
