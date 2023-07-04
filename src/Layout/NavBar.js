@@ -23,11 +23,7 @@ const NavItemsWrapper = styled.div`
   width: 100%;
 `;
 
-const NavBar = ({
-  isMobileNavActive,
-  onMobileNavChange,
-  isMobileNavOpen,
-}) => {
+const NavBar = ({ isMobileNavActive, onMobileNavChange, isMobileNavOpen }) => {
   const navRef = useRef(null);
 
   const [isOpen, setIsOpen] = useState(() => {
@@ -47,7 +43,13 @@ const NavBar = ({
       isMobileNavActive={isMobileNavActive}
     >
       <NavItemsWrapper>
-        <NavItemWrapper to="/lifemap/" activeClassName="active">
+        <NavItemWrapper
+          to="/lifemap/"
+          activeClassName="active"
+          onClick={() => {
+            isMobileNavActive && toggleIsMobileNavOpen();
+          }}
+        >
           <HomeIcon />
           <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
             Home
@@ -56,25 +58,43 @@ const NavBar = ({
         <NavItemWrapper
           to="/lifemap/edit-activity-unit"
           activeClassName="active"
+          onClick={() => {
+            isMobileNavActive && toggleIsMobileNavOpen();
+          }}
         >
           <AddCircleIcon />
           <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
             Activities & Categories
           </span>
         </NavItemWrapper>
-        <NavItemWrapper to="/lifemap/tasks-habits" activeClassName="active">
+        <NavItemWrapper
+          to="/lifemap/tasks-habits"
+          activeClassName="active"
+          onClick={() => {
+            isMobileNavActive && toggleIsMobileNavOpen();
+          }}
+        >
           <AssignmentIcon />
           <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
             Tasks & Habits
           </span>
         </NavItemWrapper>
-        <NavItemWrapper to="/lifemap/finances" activeClassName="active">
+        <NavItemWrapper
+          onClick={() => {
+            isMobileNavActive && toggleIsMobileNavOpen();
+          }}
+          to="/lifemap/finances"
+          activeClassName="active"
+        >
           <MonetizationOnIcon />
           <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
             Finances
           </span>
         </NavItemWrapper>
         <NavItemWrapper
+          onClick={() => {
+            isMobileNavActive && toggleIsMobileNavOpen();
+          }}
           to="/lifemap/view-activity-units"
           activeClassName="active"
         >
@@ -83,13 +103,25 @@ const NavBar = ({
             View Activity Units
           </span>
         </NavItemWrapper>
-        <NavItemWrapper to="/lifemap/charts" activeClassName="active">
+        <NavItemWrapper
+          onClick={() => {
+            isMobileNavActive && toggleIsMobileNavOpen();
+          }}
+          to="/lifemap/charts"
+          activeClassName="active"
+        >
           <BarChartIcon />
           <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
             Charts
           </span>
         </NavItemWrapper>
-        <NavItemWrapper to="/lifemap/settings" activeClassName="active">
+        <NavItemWrapper
+          onClick={() => {
+            isMobileNavActive && toggleIsMobileNavOpen();
+          }}
+          to="/lifemap/settings"
+          activeClassName="active"
+        >
           <SettingsIcon />
           <span className={`nav-item-text ${isOpen ? "active" : ""}`}>
             Settings
