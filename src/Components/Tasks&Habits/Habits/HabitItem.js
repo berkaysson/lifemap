@@ -103,7 +103,6 @@ const HabitItem = ({
     <TaskItemWrapper
       id={habit?.id}
       isClosed={habit?.isClosed}
-      isDeleteActive={isDeleteActive}
     >
       <HeaderWrapper>
         <HeaderItem headerColor={habit?.isFulfilled}>
@@ -132,7 +131,7 @@ const HabitItem = ({
           />
         ))}
       </ProgressCircleWrapper>
-      <ButtonWrapper>
+      <ButtonWrapper isDeleteActive={isDeleteActive}>
         <RefreshButton fetchUpdateHandler={fetchUpdateHandler} />
         <Button type={"button"} text={"Delete"} onClick={deleteHandler} />
       </ButtonWrapper>

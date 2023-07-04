@@ -87,7 +87,6 @@ const TaskItem = ({ task, onDeleteTaskDataUnit, isDeleteActive = true, fetchUpda
     <TaskItemWrapper
       id={task?.id}
       isClosed={task?.isClosed}
-      isDeleteActive={isDeleteActive}
     >
       <HeaderWrapper>
         <HeaderItem headerColor={task?.isFulfilled}>
@@ -105,7 +104,7 @@ const TaskItem = ({ task, onDeleteTaskDataUnit, isDeleteActive = true, fetchUpda
           goalValue={task?.timeValue}
         />
       </DateWrapper>
-      <ButtonWrapper>
+      <ButtonWrapper isDeleteActive={isDeleteActive}>
         <RefreshButton fetchUpdateHandler={fetchUpdateHandler} />
         <Button type={"button"} text={"Delete"} onClick={deleteHandler} />
       </ButtonWrapper>
