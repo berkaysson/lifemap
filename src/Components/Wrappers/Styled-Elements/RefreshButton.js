@@ -2,9 +2,6 @@ import styled from "styled-components";
 import RefreshIcon from '@mui/icons-material/Refresh';
 
 const Wrapper = styled.i`
-  position: absolute;
-  top: 40%;
-  right: 1rem;
   cursor: pointer;
   display: inline-flex;
   border: 1px solid ${({theme})=> theme.colors.alternative};

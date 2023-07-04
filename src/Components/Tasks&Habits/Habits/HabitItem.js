@@ -21,19 +21,6 @@ const TaskItemWrapper = styled.li`
   background-color: ${({ isClosed, theme }) =>
     isClosed ? theme.colors.alternative : theme.colors.secondary};
 
-  & > Button {
-    position: absolute;
-    top: ${({ theme }) => theme.sizes.medium};
-    right: ${({ theme }) => theme.sizes.medium};
-    display: ${({isDeleteActive}) => isDeleteActive ? "block" : "none"};
-    
-    @media (max-width: 768px) {
-      position: relative;
-      margin-left: 40%;
-      margin-bottom: ${({ theme }) => theme.sizes.medium};
-    }
-  }
-
   @media (max-width: 768px) {
     gap: ${({ theme }) => theme.sizes.small};
   }
@@ -69,6 +56,26 @@ const DateWrapper = styled.div`
   }
 `;
 
+const ButtonWrapper = styled.div`
+  position: absolute;
+  top: ${({ theme }) => theme.sizes.medium};
+  right: ${({ theme }) => theme.sizes.medium};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap:${({ theme }) => theme.sizes.medium};
+
+  & > Button {
+    display: ${({ isDeleteActive }) => (isDeleteActive ? "block" : "none")};
+  }
+
+  @media (max-width: 768px) {
+    position: relative;
+    margin-left: 40%;
+    margin-bottom: ${({ theme }) => theme.sizes.medium};
+  }
+`;
+
 const ProgressCircleWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -83,12 +90,21 @@ const ProgressCircleWrapper = styled.div`
   border-radius: ${({ theme }) => theme.radius.small};
 `;
 
-const HabitItem = ({ habit, onDeleteHabitDataUnit, isDeleteActive=true, fetchUpdateHandler }) => {
+const HabitItem = ({
+  habit,
+  onDeleteHabitDataUnit,
+  isDeleteActive = true,
+  fetchUpdateHandler,
+}) => {
   const deleteHandler = () => {
     onDeleteHabitDataUnit(habit.id);
   };
   return (
-    <TaskItemWrapper id={habit?.id} isClosed={habit?.isClosed} isDeleteActive={isDeleteActive} >
+    <TaskItemWrapper
+      id={habit?.id}
+      isClosed={habit?.isClosed}
+      isDeleteActive={isDeleteActive}
+    >
       <HeaderWrapper>
         <HeaderItem headerColor={habit?.isFulfilled}>
           {habit?.nameValue} {habit?.isClosed ? "(Expired)" : ""}{" "}
@@ -116,8 +132,10 @@ const HabitItem = ({ habit, onDeleteHabitDataUnit, isDeleteActive=true, fetchUpd
           />
         ))}
       </ProgressCircleWrapper>
-      <Button type={"button"} text={"Delete"} onClick={deleteHandler} />
-      <RefreshButton fetchUpdateHandler={fetchUpdateHandler} />
+      <ButtonWrapper>
+        <RefreshButton fetchUpdateHandler={fetchUpdateHandler} />
+        <Button type={"button"} text={"Delete"} onClick={deleteHandler} />
+      </ButtonWrapper>
     </TaskItemWrapper>
   );
 };
