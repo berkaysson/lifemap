@@ -47,6 +47,7 @@ LifeMap is a personal dashboard that helps you track your habits, goals, expense
 - <img src="https://cdn.worldvectorlogo.com/logos/styled-components-1.svg" alt="Styled Components Logo" width="22px"> Styled Components
 - <img src="https://cdn.worldvectorlogo.com/logos/material-ui-1.svg" alt="Material UI Logo" width="22px"> Material UI
 - <img src="https://firebase.google.com/static/images/brand-guidelines/logo-logomark.png" alt="firebase" width="22px"> Firebase Auth and Firebase Realtime DB
+- <img src="https://seeklogo.com/images/F/framer-motion-logo-DA1E33CAA1-seeklogo.com.png" alt="firebase" width="22px"> Framer Motion
 
 
 ## Getting Started
