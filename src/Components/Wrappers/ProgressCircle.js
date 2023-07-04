@@ -3,6 +3,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { theme } from "../../Style/theme";
 import styled from "styled-components";
 import { Tooltip } from "@mui/material";
+import moment from "moment";
 
 const CIRCLE_DIAMETER = "27px";
 
@@ -28,6 +29,20 @@ const ProgressCircle = ({ currentValue, goalValue, unit }) => {
   Done: ${unit.currentValue}/${unit.goalValue} | 
   Percentage: ${Math.round(calculatedProgressPercentage)}%
   `;
+
+  let borderColor = theme.colors.theme;
+
+  const CURRENT_DATE = moment().startOf('day');
+  const unitEndDate = moment(unit.endDate);
+  const unitStartDate = moment(unit.startDate);
+
+  if(unitEndDate.isBefore(CURRENT_DATE)){
+    borderColor = unit.isFulfilled ? theme.colors.success : theme.colors.danger;
+  }
+  if(CURRENT_DATE.isBetween(unitStartDate, unitEndDate, null, [])){
+    borderColor = theme.colors.primary;
+  }
+  
   return (
     <ProgressCircleWrapper>
       <Tooltip title={toolTipText}>
@@ -38,7 +53,7 @@ const ProgressCircle = ({ currentValue, goalValue, unit }) => {
             bgcolor: `${theme.colors.alternative}`,
             borderRadius: `50%`,
             height: `${CIRCLE_DIAMETER}`,
-            border: `1px solid ${theme.colors.theme}`,
+            border: `1px solid ${borderColor}`,
 
             "&:hover": {
               boxShadow: `${theme.boxShadows.themeShadow}`,
