@@ -88,6 +88,7 @@ const HabitsForm = ({ onAddHabitUnit, activityCategories }) => {
           frequency={habit.frequency}
           resetDeleteForm={resetDeleteForm}
         />
+        <br/>
         <StyledInput
           type="number"
           name="timeValue"
