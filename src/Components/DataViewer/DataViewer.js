@@ -1,3 +1,4 @@
+import RefreshButton from "../Wrappers/Styled-Elements/RefreshButton";
 import { CardWrapper } from "../Wrappers/Styled-Wrappers/CardWrapper";
 import TableWrapper from "../Wrappers/Styled-Wrappers/TableWrapper";
 
@@ -32,8 +33,10 @@ const TablesWrapper = styled.div`
   }
 `;
 
-const DataViewer = ({ selectedDateDataUnit, activityCategories }) => {
-  if (!selectedDateDataUnit || !activityCategories) return <p>No Data</p>;
+const DataViewer = ({ selectedDateDataUnit, activityCategories,fetchUpdateHandler }) => {
+  if (!selectedDateDataUnit || !activityCategories) return (<p>No Data
+    <br /> <RefreshButton fetchUpdateHandler={fetchUpdateHandler} />
+  </p>);
 
   const tableDatas = activityCategories.map((category) => ({
     categoryName: category.name,

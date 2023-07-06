@@ -44,7 +44,7 @@ const AppContent = ({
   isSignedIn,
   isGuestModeActive,
   openGuestMode,
-  fetchUpdateHandler
+  fetchUpdateHandler,
 }) => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -107,6 +107,7 @@ const AppContent = ({
               onGetActivityDataUnit={onGetActivityDataUnit}
               activityCategories={activityCategories}
               activityDataUnits={activityDataUnits}
+              fetchUpdateHandler={fetchUpdateHandler}
             />
           }
         />

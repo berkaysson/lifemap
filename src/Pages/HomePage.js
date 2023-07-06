@@ -106,6 +106,7 @@ const HomePage = ({
           <DataViewer
             selectedDateDataUnit={todaysActivityDataUnit}
             activityCategories={activityCategories}
+            fetchUpdateHandler={fetchUpdateHandler}
           />
         </Viewer>
 

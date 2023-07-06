@@ -105,6 +105,7 @@ const ViewActivityUnitsPage = ({
   activityCategories,
   activityDataUnits,
   onGetActivityDataUnit,
+  fetchUpdateHandler
 }) => {
   const [isDateRangeSelected, setIsDateRangeSelected] = useState(false);
   const [selectedDateRange, setSelectedDateRange] = useState({
@@ -215,6 +216,7 @@ const ViewActivityUnitsPage = ({
               <DataViewer
                 selectedDateDataUnit={selectedDateActivityUnit}
                 activityCategories={activityCategories}
+                fetchUpdateHandler={fetchUpdateHandler}
               />
             ) : (
               <>
