@@ -42,7 +42,7 @@ LifeMap is a personal dashboard that helps you track your habits, goals, expense
 - <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/270px-React-icon.svg.png" alt="React Logo" width="22px"> React
 - <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/170px-CSS3_logo_and_wordmark.svg.png" alt="CSS Logo" width="22px"> CSS
 - <img src="https://seeklogo.com/images/R/reactrouter-logo-4572B114B5-seeklogo.com.png" alt="React Router Logo" width="22px"> React Router
-- IndexedDB
+- <img src="https://greenido.files.wordpress.com/2012/05/screen-shot-2012-05-15-at-3-13-59-pm.png" alt="React Router Logo" width="22px"> IndexedDB
 - <img src="https://dexie.org/assets/images/dexie-logo-icon.svg" alt="Dexie.js Logo" width="22px"> Dexie.js
 - <img src="https://cdn.worldvectorlogo.com/logos/styled-components-1.svg" alt="Styled Components Logo" width="22px"> Styled Components
 - <img src="https://cdn.worldvectorlogo.com/logos/material-ui-1.svg" alt="Material UI Logo" width="22px"> Material UI
