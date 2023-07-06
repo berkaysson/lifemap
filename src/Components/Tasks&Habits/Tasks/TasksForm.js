@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import CategorySubCategorySelect from "../../Categories/CategorySubCategorySelect";
@@ -6,6 +6,7 @@ import DateRangeSelector from "../../Wrappers/DateRangeSelector";
 import FormWrapper from "../../Wrappers/Styled-Wrappers/FormWrapper";
 import Button from "../../Wrappers/Styled-Elements/Button";
 import StyledInput from "../../Wrappers/Styled-Elements/StyledInput";
+import moment from "moment";
 
 const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
   const [task, setTask] = useState({
@@ -18,6 +19,7 @@ const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
   });
 
   const [resetDeleteForm, setResetDeleteForm] = useState(false);
+  const [minutesPerDay, setMinutesPerDay] = useState(null);
 
   const subCategorySelectionHandler = (category, subCategory) => {
     setTask({ ...task, category: category, subCategory: subCategory });
@@ -50,6 +52,16 @@ const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
     resetForm();
   };
 
+  useEffect(()=>{
+    if(task.startDate && task.endDate){
+      const totalDays = moment(task.endDate).diff(moment(task.startDate), "days")+1;
+      if(task.timeValue){
+        const calculatedMinutesPerDay = ((task.timeValue*1)/(totalDays*1)).toFixed(1);
+        setMinutesPerDay(calculatedMinutesPerDay);
+      }
+    }
+  }, [task]);
+
   const resetForm = () => {
     document.getElementById("form").reset();
     setResetDeleteForm(!resetDeleteForm);
@@ -70,6 +82,7 @@ const TasksForm = ({ activityCategories, onAddTaskUnit }) => {
           onChange={timeValueHandler}
           placeholder="Enter minute"
         />
+        <p style={{fontSize:"12px"}}>Minutes per Day: <b>{minutesPerDay}</b></p>
         <StyledInput
           type="text"
           name="nameValue"
