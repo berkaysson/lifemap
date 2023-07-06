@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import CategorySubCategorySelect from "../../Categories/CategorySubCategorySelect";
@@ -7,6 +7,7 @@ import HabitDurationInput from "./HabitDurationInput";
 import FormWrapper from "../../Wrappers/Styled-Wrappers/FormWrapper";
 import Button from "../../Wrappers/Styled-Elements/Button";
 import StyledInput from "../../Wrappers/Styled-Elements/StyledInput";
+import { calculateFrequencyDateValue } from "../../../Utilities/dateHelpers";
 
 const HabitsForm = ({ onAddHabitUnit, activityCategories }) => {
   const [habit, setHabit] = useState({
@@ -20,6 +21,7 @@ const HabitsForm = ({ onAddHabitUnit, activityCategories }) => {
   });
 
   const [resetDeleteForm, setResetDeleteForm] = useState(false);
+  const [habitSummary, setHabitSummary] = useState("");
 
   const subCategorySelectionHandler = (category, subCategory) => {
     setHabit({
@@ -57,22 +59,37 @@ const HabitsForm = ({ onAddHabitUnit, activityCategories }) => {
     event.preventDefault();
     const habitUnit = { ...habit, id: uuidv4() };
 
-    for(const key in habitUnit){
-      if(!habitUnit[key]){
+    for (const key in habitUnit) {
+      if (!habitUnit[key]) {
         alert(`Please fill all fields`);
-        return
+        return;
       }
     }
 
     onAddHabitUnit(habitUnit);
     resetForm();
   };
-  
+
   const resetForm = () => {
     document.getElementById("form").reset();
     setResetDeleteForm(!resetDeleteForm);
-  }
+  };
 
+  useEffect(() => {
+    if (
+      habit.subCategory &&
+      habit.frequency &&
+      habit.timeValue &&
+      habit.startDate
+    ) {
+      const timeUnit = calculateFrequencyDateValue(habit.frequency).dateType.slice(0, -1);
+      setHabitSummary(
+        `Complete ${habit.category.label}-${habit.subCategory.label}, ${habit.period} ${habit.frequency} and for each ${timeUnit} ${habit.timeValue} minutes`
+      );
+    } else {
+      setHabitSummary("");
+    }
+  }, [habit]);
 
   return (
     <div>
@@ -82,19 +99,22 @@ const HabitsForm = ({ onAddHabitUnit, activityCategories }) => {
           onSubCategorySelect={subCategorySelectionHandler}
           resetDeleteForm={resetDeleteForm}
         />
-        <HabitFrequencySelector onSelect={frequencyHandler} resetDeleteForm={resetDeleteForm} />
+        <HabitFrequencySelector
+          onSelect={frequencyHandler}
+          resetDeleteForm={resetDeleteForm}
+        />
         <HabitDurationInput
           onChange={durationHandler}
           frequency={habit.frequency}
           resetDeleteForm={resetDeleteForm}
         />
-        <br/>
         <StyledInput
           type="number"
           name="timeValue"
           onChange={timeValueHandler}
           placeholder="Enter minute"
         />
+        <p style={{fontSize:"12px"}}>{habitSummary}</p>
         <StyledInput
           type="text"
           name="nameValue"
