@@ -57,12 +57,9 @@ const DateWrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  position: absolute;
-  top: ${({ theme }) => theme.sizes.medium};
-  right: ${({ theme }) => theme.sizes.medium};
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   gap:${({ theme }) => theme.sizes.medium};
 
   & > Button {
@@ -70,8 +67,7 @@ const ButtonWrapper = styled.div`
   }
 
   @media (max-width: 768px) {
-    position: relative;
-    margin-left: 40%;
+    width: 100%;
     margin-bottom: ${({ theme }) => theme.sizes.medium};
   }
 `;
