@@ -1,9 +1,17 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 @import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
 
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 * {
@@ -21,18 +29,31 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 100%;
   background-color: #abc4ff;
 }
 
 .App, #root{
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 img,
@@ -62,7 +83,6 @@ h6 {
 }
 
 button {
-  all: none;
   cursor: pointer;
 }
 
@@ -93,5 +113,6 @@ a {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  box-shadow: inset 0 0 7px 3px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: inset 0 0 7px 3px rgba(0, 0, 0, 0.3);
+          box-shadow: inset 0 0 7px 3px rgba(0, 0, 0, 0.3);
 }
