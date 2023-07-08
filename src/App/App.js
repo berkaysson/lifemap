@@ -26,7 +26,7 @@ import {
   updateCategoryHelper,
 } from "../Utilities/categotyHelpers";
 import { auth, rtDatabase } from "../firebase";
-import { get, onValue, ref, set } from "firebase/database";
+import { get, ref, set } from "firebase/database";
 import { exportDB } from "dexie-export-import";
 import { inMemoryPersistence, setPersistence, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
@@ -345,19 +345,19 @@ function App({ db, STORES }) {
     }
   };
 
-  useEffect(()=>{ // not working??
-    const user = auth.currentUser;
-    const userId = user ? user.uid : null;
+  // useEffect(()=>{ // not working??
+  //   const user = auth.currentUser;
+  //   const userId = user ? user.uid : null;
 
-    if(userId){
-      const lifemapDataRef = get(ref(rtDatabase, "users/" + userId));
+  //   if(userId){
+  //     const lifemapDataRef = get(ref(rtDatabase, "users/" + userId));
 
-      onValue(lifemapDataRef, async (snapshot) => {
-        await updateIndexedDatabese();
-        console.log("Update IDB since change happen in cloud");
-      });
-    }
-  }, []);
+  //     onValue(lifemapDataRef, async (snapshot) => {
+  //       await updateIndexedDatabese();
+  //       console.log("Update IDB since change happen in cloud");
+  //     });
+  //   }
+  // }, []);
 
   const handleLogin = async (email, password) => {
     try {

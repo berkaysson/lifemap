@@ -62,7 +62,6 @@ const ContentWrapper = styled.div`
 
 const AuthPage = ({ handleLogin, handleLogOut, isSignedIn, openGuestMode }) => {
   const [formContent, setFormContent] = useState("sign-in");
-  const [warning, setWarning] = useState("");
 
   const formContentHnadler = (mode) => {
     setFormContent(mode);
@@ -91,7 +90,6 @@ const AuthPage = ({ handleLogin, handleLogOut, isSignedIn, openGuestMode }) => {
               { label: "Register", value: "sign-up" },
             ]}
           />
-          <p>{warning}</p>
           {formContent === "sign-in" ? (
             <SignInForm
               handleLogin={handleLogin}
