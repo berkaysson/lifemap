@@ -33,6 +33,18 @@ const DeleteCategoryFormWrapper = styled.div`
   align-items: center;
   gap: ${({ theme }) => theme.sizes.medium};
   padding: ${({ theme }) => theme.sizes.large};
+
+  @media (max-width: 768px) {
+    padding: ${({ theme }) => theme.sizes.medium};
+  }
+
+  @media (max-width: 425px) {
+    padding: ${({ theme }) => theme.sizes.small};
+  }
+
+  @media (max-width: 375px) {
+    padding: 5px;
+  }
 `;
 
 const CategoriesForm = ({
