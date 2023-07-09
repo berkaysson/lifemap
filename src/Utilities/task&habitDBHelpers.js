@@ -1,7 +1,7 @@
 import moment from "moment";
 import { calculateFrequencyDateValue } from "./dateHelpers";
 
-export const addTaskOrHabitDataUnit = async (db, unit, dataType) => {
+export const addTaskOrHabitDataUnit = async (db, unit, dataType, snackBarHandler) => {
   try {
     if (dataType === "task") {
       await db.tasksData.put({
@@ -10,6 +10,7 @@ export const addTaskOrHabitDataUnit = async (db, unit, dataType) => {
         isClosed: false,
         completedValue: 0,
       });
+      snackBarHandler("Task created successfully 🤩", "success");
     } else if (dataType === "habit") {
       await db.habitsData.put({
         ...unit,
@@ -18,9 +19,11 @@ export const addTaskOrHabitDataUnit = async (db, unit, dataType) => {
         checkpoints: createCheckpointsHabit(unit),
         checkpointObjects: createCheckpointsTaskForHabit(unit),
       });
+      snackBarHandler("Habit created successfully 🥳", "success");
     }
   } catch (error) {
     console.error("Error creating data unit:", error);
+    snackBarHandler("Task or Habit could not created 🥺", "error");
   }
 };
 
@@ -78,7 +81,7 @@ export const createCheckpointsTaskForHabit = (habitUnit) => {
   return checkpointTasks;
 };
 
-export const deleteTaskOrHabitDataUnit = async (db, dataID, dataType) => {
+export const deleteTaskOrHabitDataUnit = async (db, dataID, dataType, snackBarHandler) => {
   try {
     let dataStore;
     if (dataType === "task") {
@@ -88,10 +91,12 @@ export const deleteTaskOrHabitDataUnit = async (db, dataID, dataType) => {
     }
     if (await dataStore.get(dataID)) {
       await dataStore.delete(dataID);
+      snackBarHandler("Task or Habit deleted successfully 👍", "success");
     } else {
     }
   } catch (error) {
     console.error("Error deleting data unit:", error);
+    snackBarHandler("Task or Habit could not deleted 👎", "error");
   }
 };
 

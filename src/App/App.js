@@ -38,6 +38,11 @@ function App({ db, STORES }) {
     return auth.currentUser ? true : false;
   });
   const [isGuestModeActive, setIsGuestModeActive] = useState(false);
+  const [snackbarState, setSnackbarState] = useState({
+    open:false,
+    message:"",
+    severity: "info" //info, error, warning, success 
+  });
 
   useEffect(() => {
     createMissingDataUnits();
@@ -47,6 +52,26 @@ function App({ db, STORES }) {
 
   const fetchUpdateHandler = (boolean) => {
     setIsNeedFetchUpdate(!isNeedFetchUpdate);
+  };
+
+  const snackBarHandler = (message, severity) => {
+    setSnackbarState({
+      open:true,
+      message:message,
+      severity:severity
+    })
+  }
+
+  const snackbarCloseHandler = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSnackbarState({
+      open:false,
+      message:"",
+      severity: "info"
+    });
   };
 
   const createActivityDataUnit = async (date = CURRENT_DATE) => {
@@ -169,13 +194,15 @@ function App({ db, STORES }) {
 
       await updateRealtimeDatabase();
       fetchUpdateHandler(true);
+      snackBarHandler("Activity Unit Successfully Submitted 🥳", "success");
     } catch (error) {
       console.error("Failed to get activity data unit:", error);
+      snackBarHandler("Activity Unit Could not Submitted 😢", "error");
     }
   };
 
   const updateCategory = async (category, subCategory) => {
-    await updateCategoryHelper(db, category, subCategory);
+    await updateCategoryHelper(db, category, subCategory, snackBarHandler);
     await updateRealtimeDatabase();
     fetchUpdateHandler(true);
   };
@@ -187,14 +214,15 @@ function App({ db, STORES }) {
       categoryName,
       categoryID,
       subCategory,
-      allActivityDataUnits
+      allActivityDataUnits,
+      snackBarHandler
     );
     await updateRealtimeDatabase();
     fetchUpdateHandler(true);
   };
 
   const addFinancialDataUnit = async (toBeUpdatedData) => {
-    await addFinancialDataUnitHelper(db, toBeUpdatedData);
+    await addFinancialDataUnitHelper(db, toBeUpdatedData, snackBarHandler);
     await updateRealtimeDatabase();
     fetchUpdateHandler(true);
   };
@@ -208,38 +236,39 @@ function App({ db, STORES }) {
       db,
       dateID,
       dataUnitID,
-      toBeUpdatedData
+      toBeUpdatedData,
+      snackBarHandler
     );
     await updateRealtimeDatabase();
     fetchUpdateHandler(true);
   };
 
   const deleteFinancialDataUnit = async (dateID, dataUnitID) => {
-    await deleteFinancialDataUnitHelper(db, dateID, dataUnitID);
+    await deleteFinancialDataUnitHelper(db, dateID, dataUnitID, snackBarHandler);
     await updateRealtimeDatabase();
     fetchUpdateHandler(true);
   };
 
   const addTaskDataUnit = async (taskUnit) => {
-    await addTaskOrHabitDataUnit(db, taskUnit, "task");
+    await addTaskOrHabitDataUnit(db, taskUnit, "task", snackBarHandler);
     await updateRealtimeDatabase();
     fetchUpdateHandler(true);
   };
 
   const addHabitDataUnit = async (habitUnit) => {
-    await addTaskOrHabitDataUnit(db, habitUnit, "habit");
+    await addTaskOrHabitDataUnit(db, habitUnit, "habit", snackBarHandler);
     await updateRealtimeDatabase();
     fetchUpdateHandler(true);
   };
 
   const deleteTaskDataUnit = async (dataID) => {
-    await deleteTaskOrHabitDataUnit(db, dataID, "task");
+    await deleteTaskOrHabitDataUnit(db, dataID, "task", snackBarHandler);
     await updateRealtimeDatabase();
     fetchUpdateHandler(true);
   };
 
   const deleteHabitDataUnit = async (dataID) => {
-    await deleteTaskOrHabitDataUnit(db, dataID, "habit");
+    await deleteTaskOrHabitDataUnit(db, dataID, "habit", snackBarHandler);
     await updateRealtimeDatabase();
     fetchUpdateHandler(true);
   };
@@ -365,8 +394,10 @@ function App({ db, STORES }) {
       await signInWithEmailAndPassword(auth, email, password);
       if (await checkIfUsersFirstLogin()) {
         await updateRealtimeDatabase();
+        snackBarHandler("Welcome to the club 🥳 👌", "success");
       } else {
         await updateIndexedDatabese();
+        snackBarHandler("Welcome again 🙂 👋", "success");
         createMissingDataUnits();
       }
   
@@ -388,6 +419,7 @@ function App({ db, STORES }) {
       window.location.href = "../lifemap";
       await new Promise(resolve => setTimeout(resolve, 300));
       window.location.reload();
+      snackBarHandler("Successfully Signed Out", "success");
     } catch (error) {
       alert(error);
       console.log("Sign-out error:", error);
@@ -396,6 +428,7 @@ function App({ db, STORES }) {
 
   const openGuestMode = () => {
     setIsGuestModeActive(true);
+    snackBarHandler("Be our Guest 😁 👋", "success");
   };
 
   const checkIfUsersFirstLogin = async () => {
@@ -447,7 +480,9 @@ function App({ db, STORES }) {
     isSignedIn: isSignedIn,
     isGuestModeActive: isGuestModeActive,
     openGuestMode: openGuestMode,
-    fetchUpdateHandler:fetchUpdateHandler
+    fetchUpdateHandler:fetchUpdateHandler,
+    snackbarState:snackbarState,
+    snackbarCloseHandler:snackbarCloseHandler
   };
 
   return (

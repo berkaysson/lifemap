@@ -16,6 +16,7 @@ import FinancePage from "../Pages/FinancePage";
 import AuthPage from "../Pages/AuthPage";
 import { ThemeProvider } from "styled-components";
 import { theme } from "../Style/theme";
+import SnackbarModal from "../Components/Wrappers/Styled-Elements/Snackbar";
 
 const AppContent = ({
   onUpdateActivityDataUnit,
@@ -45,6 +46,8 @@ const AppContent = ({
   isGuestModeActive,
   openGuestMode,
   fetchUpdateHandler,
+  snackbarState,
+  snackbarCloseHandler,
 }) => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -130,6 +133,10 @@ const AppContent = ({
 
   return (
     <ThemeProvider theme={theme}>
+      <SnackbarModal
+        snackbarCloseHandler={snackbarCloseHandler}
+        snackbarState={snackbarState}
+      />
       {isSignedIn ? (
         <RouterProvider router={router}></RouterProvider>
       ) : isGuestModeActive ? (
