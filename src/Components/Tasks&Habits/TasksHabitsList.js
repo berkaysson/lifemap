@@ -40,6 +40,7 @@ const TasksHabitsList = ({
   habitDataUnits,
   onDeleteTaskDataUnit,
   onDeleteHabitDataUnit,
+  fetchUpdateHandler
 }) => {
   return (
     <CardWrapper>
@@ -53,6 +54,7 @@ const TasksHabitsList = ({
                   task={task}
                   key={task.id}
                   onDeleteTaskDataUnit={onDeleteTaskDataUnit}
+                  fetchUpdateHandler={fetchUpdateHandler}
                 />
               ))}
             </ListWrapper>
@@ -69,6 +71,7 @@ const TasksHabitsList = ({
                   habit={habit}
                   key={habit.id}
                   onDeleteHabitDataUnit={onDeleteHabitDataUnit}
+                  fetchUpdateHandler={fetchUpdateHandler}
                 />
               ))}
             </ListWrapper>

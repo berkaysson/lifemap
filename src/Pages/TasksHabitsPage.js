@@ -108,6 +108,7 @@ const TasksHabitsPage = ({
   habitDataUnits,
   onDeleteTaskDataUnit,
   onDeleteHabitDataUnit,
+  fetchUpdateHandler
 }) => {
   const [selectedForm, setSelectedForm] = useState("tasks");
 
@@ -169,6 +170,7 @@ const TasksHabitsPage = ({
             habitDataUnits={habitDataUnits}
             onDeleteTaskDataUnit={onDeleteTaskDataUnit}
             onDeleteHabitDataUnit={onDeleteHabitDataUnit}
+            fetchUpdateHandler={fetchUpdateHandler}
           />
         </TaskHabitListWrapper>
       </TasksHabitsPageWrapper>

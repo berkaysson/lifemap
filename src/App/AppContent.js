@@ -85,6 +85,7 @@ const AppContent = ({
               habitDataUnits={habitDataUnits}
               onDeleteTaskDataUnit={onDeleteTaskDataUnit}
               onDeleteHabitDataUnit={onDeleteHabitDataUnit}
+              fetchUpdateHandler={fetchUpdateHandler}
             />
           }
         />
