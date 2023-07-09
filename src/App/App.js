@@ -181,10 +181,7 @@ function App({ db, STORES }) {
         calculatedValue < 0 &&
         toBeUpdatedActivityData.category !== "expenseCategories"
       ) {
-        return alert(
-          "Value is negative, it must be bigger than zero, value after change:" +
-            calculatedValue
-        );
+        return snackBarHandler(`Value is negative, it must be bigger than zero, value after change: ${calculatedValue}`, "warning");
       }
       activityDataUnit[toBeUpdatedActivityData.category][
         toBeUpdatedActivityData.subCategory
