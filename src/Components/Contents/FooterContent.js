@@ -23,7 +23,7 @@ const FooterWrapper = styled(motion.footer)`
     gap: 0.5rem;
 
     & > .github-icon {
-        transition: all 0.5s ease;
+        transition: all 0.4s ease;
       }
 
     &:hover{
@@ -44,7 +44,7 @@ const FooterContent = () => {
     variants={animations.cardAnimation}
     animate="animate"
     exit="exit"
-    transition={{ duration: 0.3 }}
+    transition={{ duration: 0.2 }}
     >
       <p>&copy; 2023 Lifemap. All rights reserved.</p>
       <a href="https://github.com/berkaysson" target="_blank" rel="noreferrer">

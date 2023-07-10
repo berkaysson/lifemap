@@ -11,7 +11,7 @@ const Button = styled.button`
   border-radius: ${({ theme }) => theme.sizes.medium};
   padding: ${({ theme }) => theme.sizes.small};
   pointer-events: none;
-  transition: all 0.4s;
+  transition: all 0.3s;
   border: 1px solid ${({ theme }) => theme.colors.themeSecondary};
   transform: ${({ isOpen }) =>
     !isOpen ? "rotate(180deg)" : "rotate(0)"};

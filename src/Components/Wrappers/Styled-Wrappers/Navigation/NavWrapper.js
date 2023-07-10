@@ -19,7 +19,7 @@ const NavWrapperWrapper = styled(motion.nav)`
   box-shadow: ${({ theme }) => theme.boxShadows.largeCardShadow};
   overflow-y: scroll;
   overflow-x: hidden;
-  transition: width 0.4s ease;
+  transition: width 0.3s ease;
 
   &::-webkit-scrollbar {
     width: 0;

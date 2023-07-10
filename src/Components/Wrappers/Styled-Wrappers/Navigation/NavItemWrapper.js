@@ -14,7 +14,7 @@ export const NavItemWrapper = styled(NavLink)`
   cursor: pointer;
   color: ${({ theme }) => theme.colors.secondary};
   border-radius: ${({ theme }) => theme.radius.medium};
-  transition: background-color 0.4s, color 0.4s;
+  transition: background-color 0.3s, color 0.3s;
   height: 45px;
   box-shadow: ${({ theme }) => theme.boxShadows.innerShadow};
 
@@ -34,7 +34,7 @@ export const NavItemWrapper = styled(NavLink)`
   & > .nav-item-text {
     display: none;
     opacity: 0;
-    animation: ${fadeIn} 0.5s ease-in-out forwards;
+    animation: ${fadeIn} 0.3s ease-in-out forwards;
 
     &.active {
       display: inline-block;
