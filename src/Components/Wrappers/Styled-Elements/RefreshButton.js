@@ -7,7 +7,7 @@ const Wrapper = styled.i`
   border: 1px solid ${({theme})=> theme.colors.alternative};
   border-radius: ${({theme})=> theme.radius.large};
   padding: 5px;
-  background-color: ${({theme})=> theme.colors.secomdary};
+  background-color: ${({theme})=> theme.colors.secondary};
 
   &:hover {
     background-color: ${({theme})=> theme.colors.alternative};
