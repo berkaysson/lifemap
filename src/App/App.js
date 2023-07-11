@@ -28,7 +28,12 @@ import {
 import { auth, rtDatabase } from "../firebase";
 import { get, ref, set } from "firebase/database";
 import { exportDB } from "dexie-export-import";
-import { inMemoryPersistence, setPersistence, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import {
+  inMemoryPersistence,
+  setPersistence,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 
 const CURRENT_DATE = formatDate(moment());
 
@@ -39,9 +44,9 @@ function App({ db, STORES }) {
   });
   const [isGuestModeActive, setIsGuestModeActive] = useState(false);
   const [snackbarState, setSnackbarState] = useState({
-    open:false,
-    message:"",
-    severity: "info" //info, error, warning, success 
+    open: false,
+    message: "",
+    severity: "info", //info, error, warning, success
   });
 
   useEffect(() => {
@@ -56,21 +61,21 @@ function App({ db, STORES }) {
 
   const snackBarHandler = (message, severity) => {
     setSnackbarState({
-      open:true,
-      message:message,
-      severity:severity
-    })
-  }
+      open: true,
+      message: message,
+      severity: severity,
+    });
+  };
 
   const snackbarCloseHandler = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
     setSnackbarState({
-      open:false,
-      message:"",
-      severity: "info"
+      open: false,
+      message: "",
+      severity: "info",
     });
   };
 
@@ -161,31 +166,21 @@ function App({ db, STORES }) {
 
   const updateActivityDataUnit = async (toBeUpdatedActivityData) => {
     try {
-      const activityDataUnit = await getActivityDataUnit(
-        toBeUpdatedActivityData.date
-      );
-      const selectedYear = toBeUpdatedActivityData.date.slice(0, 4).toString();
-      const currentValue =
-        parseInt(
-          activityDataUnit[toBeUpdatedActivityData.category][
-            toBeUpdatedActivityData.subCategory
-          ]
-        ) || 0;
-      const newValue = parseInt(toBeUpdatedActivityData.value) || 0;
-      const calculatedValue = (
-        toBeUpdatedActivityData.formMode === "add"
-          ? +currentValue + +newValue
-          : +currentValue - +newValue
-      ).toString();
-      if (
-        calculatedValue < 0 &&
-        toBeUpdatedActivityData.category !== "expenseCategories"
-      ) {
-        return snackBarHandler(`Value is negative, it must be bigger than zero, value after change: ${calculatedValue}`, "warning");
+      const { date, category, subCategory, value, formMode } =
+        toBeUpdatedActivityData;
+      const activityDataUnit = await getActivityDataUnit(date);
+      const selectedYear = date.slice(0, 4).toString();
+      const currentValue = +activityDataUnit[category][subCategory] || 0;
+      const newValue = +value || 0;
+      const calculatedValue =
+        formMode === "add" ? currentValue + newValue : currentValue - newValue;
+      if (calculatedValue < 0 && category !== "expenseCategories") {
+        return snackBarHandler(
+          `Value is negative, it must be bigger than zero, value after change: ${calculatedValue}`,
+          "warning"
+        );
       }
-      activityDataUnit[toBeUpdatedActivityData.category][
-        toBeUpdatedActivityData.subCategory
-      ] = calculatedValue;
+      activityDataUnit[category][subCategory] = calculatedValue.toString();
 
       await db[selectedYear].put(activityDataUnit);
 
@@ -241,7 +236,12 @@ function App({ db, STORES }) {
   };
 
   const deleteFinancialDataUnit = async (dateID, dataUnitID) => {
-    await deleteFinancialDataUnitHelper(db, dateID, dataUnitID, snackBarHandler);
+    await deleteFinancialDataUnitHelper(
+      db,
+      dateID,
+      dataUnitID,
+      snackBarHandler
+    );
     await updateRealtimeDatabase();
     fetchUpdateHandler(true);
   };
@@ -397,16 +397,15 @@ function App({ db, STORES }) {
         snackBarHandler("Welcome again 🙂 👋", "success");
         createMissingDataUnits();
       }
-  
+
       setIsSignedIn(true);
       setIsGuestModeActive(false);
       fetchUpdateHandler(true);
     } catch (error) {
-      alert(error);
-      console.log("Sign-in error:", error);
+      console.error("Sign-in error:", error);
     }
   };
-  
+
   const handleLogOut = async () => {
     try {
       await signOut(auth);
@@ -414,12 +413,9 @@ function App({ db, STORES }) {
       setIsGuestModeActive(false);
       deleteDBHandler(db);
       window.location.href = "../lifemap";
-      await new Promise(resolve => setTimeout(resolve, 300));
-      window.location.reload();
-      snackBarHandler("Successfully Signed Out", "success");
+      await new Promise((resolve) => setTimeout(resolve, 300));
     } catch (error) {
-      alert(error);
-      console.log("Sign-out error:", error);
+      console.error("Sign-Out error:", error);
     }
   };
 
@@ -431,11 +427,10 @@ function App({ db, STORES }) {
   const checkIfUsersFirstLogin = async () => {
     const user = auth.currentUser;
     const userId = user ? user.uid : null;
-    if(userId){
+    if (userId) {
       const lifemapDataRef = get(ref(rtDatabase, "users/" + userId));
-      return (await lifemapDataRef).val() == null ? true : false;
-    }
-    else{
+      return (await lifemapDataRef).val() == null;
+    } else {
       console.log("No user");
     }
   };
@@ -477,9 +472,9 @@ function App({ db, STORES }) {
     isSignedIn: isSignedIn,
     isGuestModeActive: isGuestModeActive,
     openGuestMode: openGuestMode,
-    fetchUpdateHandler:fetchUpdateHandler,
-    snackbarState:snackbarState,
-    snackbarCloseHandler:snackbarCloseHandler
+    fetchUpdateHandler: fetchUpdateHandler,
+    snackbarState: snackbarState,
+    snackbarCloseHandler: snackbarCloseHandler,
   };
 
   return (
