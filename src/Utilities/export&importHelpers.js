@@ -9,6 +9,7 @@ export const exportHandler = async (db) => {
     link.href = url;
     link.download = "lifemap-data.json";
     link.click();
+    URL.revokeObjectURL(url);
   } catch (error) {
     console.error("Failed to export database:", error);
   }
@@ -25,11 +26,10 @@ export const importHandler = async (db, blob) => {
 };
 
 export const deleteDBHandler = async (db) => {
-  try{
+  try {
     await db.delete();
     console.log("Database deleted successfully");
-  }
-  catch(error){
+  } catch (error) {
     console.error("Failed to delete data:", error);
   }
-}
+};

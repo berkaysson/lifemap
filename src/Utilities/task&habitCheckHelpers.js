@@ -16,9 +16,9 @@ export const calculateCurrentTimeValue = (unit, activityDataUnits) => {
       (dataUnit) => dataUnit.date === date
     );
     if (dataUnit) {
-      const timeValue = dataUnit[category][subCategory] * 1
-      if (typeof timeValue === "number" && !Number.isNaN(timeValue)){
-        currentTimeValue += dataUnit[category][subCategory] * 1;
+      const timeValue = dataUnit[category][subCategory] * 1;
+      if (typeof timeValue === "number" && !Number.isNaN(timeValue)) {
+        currentTimeValue += timeValue;
       }
     }
   }
