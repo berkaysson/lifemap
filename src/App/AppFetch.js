@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import AppContent from "./AppContent";
-import { formatDate } from "../Utilities/dateHelpers";
+// import { formatDate } from "../Utilities/dateHelpers";
 import {
   calculateCurrentTimeValue,
   checkDailyCheckpoint,
@@ -9,10 +9,10 @@ import {
   checkIsFulfilled,
   checkNonDailyCheckpoint,
 } from "../Utilities/task&habitCheckHelpers";
-import moment from "moment";
+// import moment from "moment";
 import LoadingModal from "../Components/Wrappers/LoadingModal";
 
-const CURRENT_DATE = formatDate(moment());
+// const CURRENT_DATE = formatDate(moment());
 
 const AppFetch = ({
   onGetAllCategories,
@@ -79,6 +79,8 @@ const AppFetch = ({
     try {
       const allActivityDataUnits = await onGetAllActivityDataUnits();
       setActivityDatas(allActivityDataUnits);
+      const newTodaysActivityDataUnit = allActivityDataUnits?.slice(-1);
+      setTodaysActivityDataUnit(newTodaysActivityDataUnit);
       console.log("Activity data fetched successfully");
     } catch (error) {
       console.error("Error fetching activity data:", error);
@@ -102,18 +104,6 @@ const AppFetch = ({
       console.log("Habit data fetched successfully");
     } catch (error) {
       console.error("Error fetching Habit data:", error);
-    }
-  }
-
-  async function fetchTodaysActivityDataUnit() {
-    try {
-      const newTodaysActivityDataUnit = await onGetActivityDataUnit(
-        CURRENT_DATE
-      );
-      setTodaysActivityDataUnit(newTodaysActivityDataUnit);
-      console.log("Today's activity data fetched successfully");
-    } catch (error) {
-      console.error("Error fetching today's activity data:", error);
     }
   }
 
@@ -142,7 +132,6 @@ const AppFetch = ({
 
     if (allHabitDataUnits) {
       for (const habitUnit of allHabitDataUnits) {
-        // Check for due date
         await onEditHabitDataUnitClosed(checkDueDate(habitUnit), habitUnit.id);
 
         if (!habitUnit.isClosed) {
@@ -153,35 +142,22 @@ const AppFetch = ({
   };
 
   const checkCheckpointsOfHabitUnit = async (habitUnit) => {
+    let isFulfilled, checkpointObjects;
+  
     if (habitUnit.frequency === "daily") {
-      const isFulfilled = checkDailyCheckpoint(
+      ({ isFulfilled, checkpointObjects } = checkDailyCheckpoint(
         habitUnit,
         activityDataUnits
-      ).isFulfilled;
-      const checkpointObjects = checkDailyCheckpoint(
-        habitUnit,
-        activityDataUnits
-      ).checkpointObjects;
-      await onEditHabitDataUnitFulfilled(isFulfilled, habitUnit.id);
-      await onEditHabitDataUnitCheckpointObjects(
-        checkpointObjects,
-        habitUnit.id
-      );
+      ));
     } else {
-      const isFulfilled = checkNonDailyCheckpoint(
+      ({ isFulfilled, checkpointObjects } = checkNonDailyCheckpoint(
         habitUnit,
         activityDataUnits
-      ).isFulfilled;
-      const checkpointObjects = checkNonDailyCheckpoint(
-        habitUnit,
-        activityDataUnits
-      ).checkpointObjects;
-      await onEditHabitDataUnitFulfilled(isFulfilled, habitUnit.id);
-      await onEditHabitDataUnitCheckpointObjects(
-        checkpointObjects,
-        habitUnit.id
-      );
+      ));
     }
+  
+    await onEditHabitDataUnitFulfilled(isFulfilled, habitUnit.id);
+    await onEditHabitDataUnitCheckpointObjects(checkpointObjects, habitUnit.id);
   };
 
   async function fetchAll() {
@@ -189,18 +165,17 @@ const AppFetch = ({
     await fetchCategories();
     await fetchFinanceDataUnits();
     await fetchActivityDataUnits();
-    await fetchTodaysActivityDataUnit();
   }
 
   const fetchTasksAndHabits = async () => {
     await fetchTaskDataUnits();
     await fetchHabitDataUnits();
-  }
+  };
 
   const checkTasksAndHabits = async () => {
     await checkTasks();
     await checkHabits();
-  }
+  };
 
   useEffect(() => {
     (async () => {
@@ -220,9 +195,8 @@ const AppFetch = ({
     (async () => {
       await fetchTasksAndHabits();
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [todaysActivityDataUnit, activityCategories, activityDataUnits]);
-
 
   useEffect(() => {
     (async () => {
@@ -230,9 +204,8 @@ const AppFetch = ({
       setIsLoading(false);
       console.log("End fetch");
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [taskDataUnits, habitDataUnits]);
-
 
   const updatedContentProps = {
     ...contentProps,
