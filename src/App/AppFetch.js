@@ -79,7 +79,7 @@ const AppFetch = ({
     try {
       const allActivityDataUnits = await onGetAllActivityDataUnits();
       setActivityDatas(allActivityDataUnits);
-      const newTodaysActivityDataUnit = allActivityDataUnits?.slice(-1);
+      const newTodaysActivityDataUnit = allActivityDataUnits?.slice(-1)[0];
       setTodaysActivityDataUnit(newTodaysActivityDataUnit);
       console.log("Activity data fetched successfully");
     } catch (error) {
