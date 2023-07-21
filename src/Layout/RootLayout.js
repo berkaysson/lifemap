@@ -7,6 +7,7 @@ import { ThemeProvider } from "styled-components";
 import { useState, useEffect } from "react";
 import { fadeIn } from "../Style/animations";
 import FooterContent from "../Components/Contents/FooterContent";
+import ScrollToTop from "../Hooks/ScrollToTop";
 
 const RootContainer = styled.div`
   display: grid;
@@ -134,6 +135,7 @@ const RootLayout = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <ScrollToTop />
       <RootContainer>
         <Sidebar isMobileNavOpen={isMobileNavOpen}>
           <NavBarWrapper
