@@ -34,6 +34,7 @@ const SignInForm = ({ handleLogin, handleLogOut, isSignedIn }) => {
               onChange={(e) => setEmail(e.target.value)}
             />
             <StyledInput
+              autocomplete="current-password"
               type="password"
               placeholder="Password"
               value={password}
