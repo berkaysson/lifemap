@@ -38,6 +38,14 @@ const NavWrapperWrapper = styled(motion.nav)`
     margin-left: 10px;
     width: 95%;
   }
+
+  @media (max-height: 560px){
+    #NavToggleButton {
+    position: relative;
+    width: 100%;
+    bottom: auto;
+    }
+  }
 `;
 
 export const NavWrapper = ({ isOpen, children }) => {
