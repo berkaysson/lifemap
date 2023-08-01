@@ -8,9 +8,11 @@ const Wrapper = styled.i`
   border-radius: ${({theme})=> theme.radius.large};
   padding: 5px;
   background-color: ${({theme})=> theme.colors.secondary};
+  transition: 0.2s transform ease;
 
   &:hover {
     background-color: ${({theme})=> theme.colors.alternative};
+    transform: rotate(90deg);
   }
 
   &:active {
