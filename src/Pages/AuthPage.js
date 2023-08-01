@@ -18,7 +18,7 @@ const AuthPageWrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.theme};
   border-radius: ${({ theme }) => theme.radius.large};
   box-shadow: ${({ theme }) => theme.boxShadows.largeCardShadow};
-  height: 100%;
+  height: calc(100vh - (2 * ${({ theme }) => theme.sizes.medium}));
   width: 100%;
   max-width: 1200px;
   gap: 1rem;
@@ -99,7 +99,11 @@ const AuthPage = ({ handleLogin, handleLogOut, isSignedIn, openGuestMode }) => {
           ) : (
             <RegisterForm />
           )}
-          <Button onClick={openGuestMode} type="button" text="Try with Guest Mode" />
+          <Button
+            onClick={openGuestMode}
+            type="button"
+            text="Try with Guest Mode"
+          />
         </ContentWrapper>
       </CardWrapper>
       <FooterContent />
