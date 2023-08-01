@@ -103,8 +103,6 @@ a {
 
 ::-webkit-scrollbar-track {
   background: #fff;
-  border-radius: 8px;
-  border: 1px solid gray;
 }
 
 ::-webkit-scrollbar-thumb {
