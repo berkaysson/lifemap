@@ -22,6 +22,7 @@ const StyledInputWrapper = styled.input`
 
   &::placeholder {
     font-size: 12px;
+    color: ${({ theme }) => theme.colors.theme};
   }
 `;
 
