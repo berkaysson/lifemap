@@ -37,6 +37,7 @@ const AppFetch = ({
 
   const [financeDataUnits, setFinanceDatas] = useState([]);
   const [activityDataUnits, setActivityDatas] = useState([]);
+  const [activityDataUnitsMap, setActivityDatasMap] = useState(new Map());
   const [taskDataUnits, setTaskDataUnits] = useState([]);
   const [habitDataUnits, setHabitDataUnits] = useState([]);
   const [todaysActivityDataUnit, setTodaysActivityDataUnit] = useState(null);
@@ -81,6 +82,11 @@ const AppFetch = ({
       setActivityDatas(allActivityDataUnits);
       const newTodaysActivityDataUnit = allActivityDataUnits?.slice(-1)[0];
       setTodaysActivityDataUnit(newTodaysActivityDataUnit);
+      let activityDataUnitsMapSample = new Map();
+      allActivityDataUnits.forEach(dataUnit => {
+        activityDataUnitsMapSample.set(dataUnit.date, dataUnit);
+      });
+      setActivityDatasMap(activityDataUnitsMapSample);
       console.log("Activity data fetched successfully");
     } catch (error) {
       console.error("Error fetching activity data:", error);
@@ -115,10 +121,10 @@ const AppFetch = ({
         await onEditTaskDataUnitClosed(checkDueDate(taskUnit), taskUnit.id);
 
         if (!taskUnit.isClosed) {
-          const isFulfilled = checkIsFulfilled(taskUnit, activityDataUnits);
+          const isFulfilled = checkIsFulfilled(taskUnit, activityDataUnitsMap);
           const completedValue = calculateCurrentTimeValue(
             taskUnit,
-            activityDataUnits
+            activityDataUnitsMap
           );
           await onEditTaskDataUnitCompletedValue(completedValue, taskUnit.id);
           await onEditTaskDataUnitFulfilled(isFulfilled, taskUnit.id);
@@ -147,12 +153,12 @@ const AppFetch = ({
     if (habitUnit.frequency === "daily") {
       ({ isFulfilled, checkpointObjects } = checkDailyCheckpoint(
         habitUnit,
-        activityDataUnits
+        activityDataUnitsMap
       ));
     } else {
       ({ isFulfilled, checkpointObjects } = checkNonDailyCheckpoint(
         habitUnit,
-        activityDataUnits
+        activityDataUnitsMap
       ));
     }
   
