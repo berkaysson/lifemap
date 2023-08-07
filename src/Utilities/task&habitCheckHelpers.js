@@ -2,19 +2,18 @@ import moment from "moment";
 import addDays from "date-fns/addDays";
 import { formatDate } from "./dateHelpers";
 
-export const calculateCurrentTimeValue = (unit, activityDataUnits) => {
+export const calculateCurrentTimeValue = (unit, activityDataUnitsMap) => {
   const category = unit.category.label;
   const subCategory = unit.subCategory.value;
   let currentTimeValue = 0;
+
   for (
-    let startDate = moment(unit.startDate);
-    startDate <= moment(unit.endDate);
-    startDate.add(1, "days")
+    let currentDate = moment(unit.startDate);
+    currentDate <= moment(unit.endDate);
+    currentDate.add(1, "days")
   ) {
-    const date = startDate.format("YYYY-MM-DD");
-    const dataUnit = activityDataUnits.find(
-      (dataUnit) => dataUnit.date === date
-    );
+    const date = currentDate.format("YYYY-MM-DD");
+    const dataUnit = activityDataUnitsMap.get(date);
     if (dataUnit) {
       const timeValue = dataUnit[category][subCategory] * 1;
       if (typeof timeValue === "number" && !Number.isNaN(timeValue)) {
@@ -22,7 +21,6 @@ export const calculateCurrentTimeValue = (unit, activityDataUnits) => {
       }
     }
   }
-
   return currentTimeValue;
 };
 
@@ -32,8 +30,8 @@ export const checkDueDate = (unit) => {
   return dueDate.isSameOrBefore(today, "day");
 };
 
-export const checkIsFulfilled = (unit, activityDataUnits) => {
-  let currentTimeValue = calculateCurrentTimeValue(unit, activityDataUnits);
+export const checkIsFulfilled = (unit, activityDataUnitsMap) => {
+  let currentTimeValue = calculateCurrentTimeValue(unit, activityDataUnitsMap);
   return currentTimeValue >= unit.timeValue;
 };
 
@@ -41,7 +39,7 @@ export const checkCheckpointTasks = (
   startDate,
   endDate,
   unit,
-  activityDataUnits
+  activityDataUnitsMap
 ) => {
   const formattedUnit = {
     category: unit.category,
@@ -50,10 +48,10 @@ export const checkCheckpointTasks = (
     endDate: endDate,
     timeValue: unit.timeValue,
   };
-  return checkIsFulfilled(formattedUnit, activityDataUnits);
+  return checkIsFulfilled(formattedUnit, activityDataUnitsMap);
 };
 
-export const checkDailyCheckpoint = (habitUnit, activityDataUnits) => {
+export const checkDailyCheckpoint = (habitUnit, activityDataUnitsMap) => {
   let allCheckpointsFulfilled = true;
   let allCheckpointsArray = habitUnit.checkpointObjects;
 
@@ -68,7 +66,7 @@ export const checkDailyCheckpoint = (habitUnit, activityDataUnits) => {
         checkpointDate,
         checkpointDate,
         habitUnit,
-        activityDataUnits
+        activityDataUnitsMap
       )
     ) {
       allCheckpointsFulfilled = false;
@@ -77,7 +75,7 @@ export const checkDailyCheckpoint = (habitUnit, activityDataUnits) => {
     }
     checkpointObject.currentValue = calculateCurrentTimeValue(
       checkpointObject,
-      activityDataUnits
+      activityDataUnitsMap
     );
   }
   return {
@@ -86,7 +84,7 @@ export const checkDailyCheckpoint = (habitUnit, activityDataUnits) => {
   };
 };
 
-export const checkNonDailyCheckpoint = (habitUnit, activityDataUnits) => {
+export const checkNonDailyCheckpoint = (habitUnit, activityDataUnitsMap) => {
   let allCheckpointsFulfilled = true;
   let allCheckpointsArray = habitUnit.checkpointObjects;
 
@@ -99,7 +97,7 @@ export const checkNonDailyCheckpoint = (habitUnit, activityDataUnits) => {
       (object) => object.id === startDate + "_cp-start"
     );
     if (
-      !checkCheckpointTasks(startDate, endDate, habitUnit, activityDataUnits)
+      !checkCheckpointTasks(startDate, endDate, habitUnit, activityDataUnitsMap)
     ) {
       allCheckpointsFulfilled = false;
     } else {
@@ -107,7 +105,7 @@ export const checkNonDailyCheckpoint = (habitUnit, activityDataUnits) => {
     }
     checkpointObject.currentValue = calculateCurrentTimeValue(
       checkpointObject,
-      activityDataUnits
+      activityDataUnitsMap
     );
   }
   return {
