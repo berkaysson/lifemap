@@ -1,6 +1,5 @@
 import moment from "moment";
 import addDays from "date-fns/addDays";
-import { formatDate } from "./dateHelpers";
 
 export const calculateCurrentTimeValue = (unit, activityDataUnitsMap) => {
   const category = unit.category.label;
@@ -53,63 +52,43 @@ export const checkCheckpointTasks = (
 
 export const checkDailyCheckpoint = (habitUnit, activityDataUnitsMap) => {
   let allCheckpointsFulfilled = true;
-  let allCheckpointsArray = habitUnit.checkpointObjects;
+  let allCheckpointsArray = habitUnit.checkpointObjects.slice(0, -1);
 
-  for (let i = 0; i < habitUnit.checkpoints.length - 2; i++) {
-    const checkpointDate = habitUnit.checkpoints[i];
-    let checkpointObject = allCheckpointsArray.find(
-      (object) => object.id === checkpointDate + "_cp-start"
-    );
-
-    if (
-      !checkCheckpointTasks(
-        checkpointDate,
-        checkpointDate,
-        habitUnit,
-        activityDataUnitsMap
-      )
-    ) {
-      allCheckpointsFulfilled = false;
-    } else {
-      checkpointObject.isFulfilled = true;
-    }
+  for (const checkpointObject of allCheckpointsArray) {
     checkpointObject.currentValue = calculateCurrentTimeValue(
       checkpointObject,
       activityDataUnitsMap
     );
+
+    if (habitUnit.timeValue >= checkpointObject.currentValue) {
+      allCheckpointsFulfilled = false;
+    } else {
+      checkpointObject.isFulfilled = true;
+    }
   }
   return {
     isFulfilled: allCheckpointsFulfilled,
-    checkpointObjects: allCheckpointsArray,
+    checkpointObjects: habitUnit.checkpointObjects,
   };
 };
 
 export const checkNonDailyCheckpoint = (habitUnit, activityDataUnitsMap) => {
   let allCheckpointsFulfilled = true;
-  let allCheckpointsArray = habitUnit.checkpointObjects;
-
-  for (let i = 0; i < habitUnit.checkpoints.length - 2; i++) {
-    const startDate = habitUnit.checkpoints[i];
-    const endDate = formatDate(
-      moment(habitUnit.checkpoints[i + 1]).subtract(1, "day")
-    );
-    let checkpointObject = allCheckpointsArray.find(
-      (object) => object.id === startDate + "_cp-start"
-    );
-    if (
-      !checkCheckpointTasks(startDate, endDate, habitUnit, activityDataUnitsMap)
-    ) {
-      allCheckpointsFulfilled = false;
-    } else {
-      checkpointObject.isFulfilled = true;
-    }
+  let allCheckpointsArray = habitUnit.checkpointObjects.slice(0, -1);
+  for (const checkpointObject of allCheckpointsArray) {
     checkpointObject.currentValue = calculateCurrentTimeValue(
       checkpointObject,
       activityDataUnitsMap
     );
+
+    if (habitUnit.timeValue >= checkpointObject.currentValue) {
+      allCheckpointsFulfilled = false;
+    } else {
+      checkpointObject.isFulfilled = true;
+    }
   }
   return {
     isFulfilled: allCheckpointsFulfilled,
-    checkpointObjects: allCheckpointsArray,
+    checkpointObjects: habitUnit.checkpointObjects,
   };
 };
