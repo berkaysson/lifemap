@@ -6,7 +6,6 @@ import {
   calculateCurrentTimeValue,
   checkDailyCheckpoint,
   checkDueDate,
-  checkIsFulfilled,
   checkNonDailyCheckpoint,
 } from "../Utilities/task&habitCheckHelpers";
 // import moment from "moment";
@@ -121,11 +120,11 @@ const AppFetch = ({
         await onEditTaskDataUnitClosed(checkDueDate(taskUnit), taskUnit.id);
 
         if (!taskUnit.isClosed) {
-          const isFulfilled = checkIsFulfilled(taskUnit, activityDataUnitsMap);
           const completedValue = calculateCurrentTimeValue(
             taskUnit,
             activityDataUnitsMap
           );
+          const isFulfilled = completedValue >= taskUnit.timeValue;
           await onEditTaskDataUnitCompletedValue(completedValue, taskUnit.id);
           await onEditTaskDataUnitFulfilled(isFulfilled, taskUnit.id);
         }
