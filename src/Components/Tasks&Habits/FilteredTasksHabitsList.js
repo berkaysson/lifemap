@@ -44,7 +44,7 @@ const FilteredTasksHabitsList = ({ taskDataUnits, habitDataUnits, fetchUpdateHan
             {taskDataUnits.length > 0 ? (
               <ListWrapper>
                 {taskDataUnits.map((task) =>
-                  !task.isFulfilled && !task.isClosed ? (
+                  !task.isClosed ? (
                     <TaskItem
                       task={task}
                       key={task.id}
@@ -68,7 +68,7 @@ const FilteredTasksHabitsList = ({ taskDataUnits, habitDataUnits, fetchUpdateHan
             {habitDataUnits.length > 0 ? (
               <ListWrapper>
                 {habitDataUnits.map((habit) =>
-                  !habit.isFulfilled && !habit.isClosed ? (
+                  !habit.isClosed ? (
                     <HabitItem
                       habit={habit}
                       key={habit.id}
