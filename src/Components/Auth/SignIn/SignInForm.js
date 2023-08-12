@@ -9,7 +9,6 @@ const SignInForm = ({ handleLogin, handleLogOut, isSignedIn }) => {
 
   const handleSignIn = (event) => {
     event.preventDefault();
-    //form check and warnings
     handleLogin(email, password);
   };
 

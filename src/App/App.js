@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
-import { formatDate } from "../Utilities/dateHelpers";
 import {
   deleteDBHandler,
   exportHandler,
@@ -34,8 +33,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-
-const CURRENT_DATE = formatDate(moment());
+import { CURRENT_DATE } from "../Utilities/dateHelpers";
 
 function App({ db, STORES }) {
   const [isNeedFetchUpdate, setIsNeedFetchUpdate] = useState(false);
@@ -46,7 +44,7 @@ function App({ db, STORES }) {
   const [snackbarState, setSnackbarState] = useState({
     open: false,
     message: "",
-    severity: "info", //info, error, warning, success
+    severity: "info",
   });
 
   useEffect(() => {

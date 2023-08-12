@@ -60,7 +60,6 @@ const CategoriesForm = ({
 
   const [resetDeleteForm, setResetDeleteForm] = useState(false);
 
-  // Handle form submission to update the category with a new subcategory
   const submitHandler = async (event) => {
     event.preventDefault();
     if(!selectedCategory){
@@ -104,18 +103,15 @@ const CategoriesForm = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Handle selection of a category from the dropdown
   const categorySelectHandler = (selectedOption) => {
     setSelectedCategory(selectedOption);
     setSelectedSubCategory(null);
   };
 
-  //Handle formMode changes
   const formModeChangeHandler = (mode) => {
     setFormMode(mode);
   };
 
-  // Handle deleting a subcategory
   const deleteSubCategory = async () => {
     if(!selectedCategory){
       alert("Please Select an Activity Type");
@@ -141,7 +137,6 @@ const CategoriesForm = ({
     setSelectedSubCategory(subCategory);
   };
 
-  //render the appropriate form content based on the formMode state variable.
   const getFormContent = () => {
     switch (formMode) {
       case null:

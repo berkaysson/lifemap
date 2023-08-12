@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import {
+  CURRENT_DATE,
   calculateFrequencyDateValue,
   formatDate,
 } from "../../../Utilities/dateHelpers";
@@ -67,7 +68,7 @@ const HabitDurationInput = ({ onChange, frequency, resetDeleteForm }) => {
             Start Date:{" "}
             <StyledInput
               type="date"
-              value={startDate || formatDate(moment())}
+              value={startDate || CURRENT_DATE}
               onChange={handleStartDateChange}
             />
           </span>

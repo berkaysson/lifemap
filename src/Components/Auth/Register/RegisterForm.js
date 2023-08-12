@@ -21,7 +21,6 @@ const RegisterForm = () => {
     }
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Handle successful registration
         setEmail("");
         setPassword("");
         setConfirmPassword("");
@@ -29,7 +28,6 @@ const RegisterForm = () => {
         alert("Registered succesfully, you can sign in now");
       })
       .catch((error) => {
-        // Handle registration errors
         alert(warning);
         console.log("Registration error:", error);
       });

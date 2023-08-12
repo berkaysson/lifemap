@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 
 import styled from "styled-components";
 import moment from "moment";
-import { formatDate } from "../../Utilities/dateHelpers";
 
 import FinanceDataListItem from "./FinanceDataListItem";
 import ToggleButton from "../Wrappers/Styled-Elements/ToggleButton";
 import DateRangeSelector from "../Wrappers/DateRangeSelector";
 import StyledInput from "../Wrappers/Styled-Elements/StyledInput";
-
-const CURRENT_DATE = formatDate(moment());
+import { CURRENT_DATE } from "../../Utilities/dateHelpers";
 
 const Wrapper = styled.div`
   display: flex;
