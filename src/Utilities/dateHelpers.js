@@ -20,3 +20,5 @@ export const calculateFrequencyDateValue = (frequency) => {
       return { coefficient: 0, dateType: "" };
   }
 };
+
+export const CURRENT_DATE = formatDate(moment());
