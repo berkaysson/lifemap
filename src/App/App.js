@@ -369,20 +369,6 @@ function App({ db, STORES }) {
     }
   };
 
-  // useEffect(()=>{ // not working??
-  //   const user = auth.currentUser;
-  //   const userId = user ? user.uid : null;
-
-  //   if(userId){
-  //     const lifemapDataRef = get(ref(rtDatabase, "users/" + userId));
-
-  //     onValue(lifemapDataRef, async (snapshot) => {
-  //       await updateIndexedDatabese();
-  //       console.log("Update IDB since change happen in cloud");
-  //     });
-  //   }
-  // }, []);
-
   const handleLogin = async (email, password) => {
     try {
       setPersistence(auth, inMemoryPersistence);
