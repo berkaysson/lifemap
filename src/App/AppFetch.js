@@ -183,7 +183,7 @@ const AppFetch = ({
 
   const checkTasks = async () => {
     const startTime = performance.now();
-    const allTaskDataUnits = await onGetAllTaskDataUnits();
+    const allTaskDataUnits = taskDataUnits;
 
     if (allTaskDataUnits) {
       for (const taskUnit of allTaskDataUnits) {
@@ -212,7 +212,7 @@ const AppFetch = ({
 
   const checkHabits = async () => {
     const startTime = performance.now();
-    const allHabitDataUnits = await onGetAllHabitDataUnits();
+    const allHabitDataUnits = habitDataUnits;
 
     if (allHabitDataUnits) {
       for (const habitUnit of allHabitDataUnits) {
@@ -357,13 +357,13 @@ const AppFetch = ({
         onClick={() => {
           setPerformanceState(samplePerformanceState);
         }}
-        style={{ position: "absolute", zIndex: "99999", top: "0", left: "0" }}
+        style={{ position: "fixed", zIndex: "99999", top: "0", left: "0" }}
       >
         RESET PERFORMANCE TEST
       </button>
       <button
         onClick={impactPerformance}
-        style={{ position: "absolute", zIndex: "99999", top: "0", left: "50%" }}
+        style={{ position: "fixed", zIndex: "99999", top: "0", left: "50%" }}
       >
         SHOW IMPACT
       </button>
