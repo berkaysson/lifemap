@@ -264,11 +264,6 @@ const AppFetch = ({
     await fetchHabitDataUnits();
   };
 
-  const checkTasksAndHabits = async () => {
-    await checkTasks();
-    await checkHabits();
-  };
-
   useEffect(() => {
     (async () => {
       await fetchAll();
@@ -288,20 +283,26 @@ const AppFetch = ({
       await fetchTasksAndHabits();
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [todaysActivityDataUnit, activityCategories, activityDataUnits]);
+  }, [todaysActivityDataUnit, activityDataUnits]);
 
-  useEffect(() => {
-    (async () => {
-      await checkTasksAndHabits();
+  useEffect(()=>{
+    (async ()=>{
+      await checkTasks();
       setIsLoading(false);
-      console.log("End fetch");
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [taskDataUnits, habitDataUnits]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, taskDataUnits);
+
+  useEffect(()=>{
+    (async ()=>{
+      await checkHabits();
+      setIsLoading(false);
+    })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, habitDataUnits);
 
   useEffect(() => {
     console.log(performanceState);
-    // console.log("");
   }, [performanceState]);
 
   const updatedContentProps = {
