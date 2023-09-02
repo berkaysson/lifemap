@@ -52,8 +52,7 @@ export const checkCheckpointTasks = (
 
 export const checkDailyCheckpoint = (habitUnit, activityDataUnitsMap) => {
   let allCheckpointsFulfilled = true;
-  let allCheckpointsArray = habitUnit.checkpointObjects.slice(0, -1);
-
+  let allCheckpointsArray = habitUnit.checkpointObjects;
   for (const checkpointObject of allCheckpointsArray) {
     checkpointObject.currentValue = calculateCurrentTimeValue(
       checkpointObject,
@@ -74,7 +73,7 @@ export const checkDailyCheckpoint = (habitUnit, activityDataUnitsMap) => {
 
 export const checkNonDailyCheckpoint = (habitUnit, activityDataUnitsMap) => {
   let allCheckpointsFulfilled = true;
-  let allCheckpointsArray = habitUnit.checkpointObjects.slice(0, -1);
+  let allCheckpointsArray = habitUnit.checkpointObjects;
   for (const checkpointObject of allCheckpointsArray) {
     checkpointObject.currentValue = calculateCurrentTimeValue(
       checkpointObject,
