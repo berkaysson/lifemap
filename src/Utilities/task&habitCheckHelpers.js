@@ -60,7 +60,7 @@ export const checkDailyCheckpoint = (habitUnit, activityDataUnitsMap) => {
       activityDataUnitsMap
     );
 
-    if (habitUnit.timeValue >= checkpointObject.currentValue) {
+    if (habitUnit.timeValue > checkpointObject.currentValue) {
       allCheckpointsFulfilled = false;
     } else {
       checkpointObject.isFulfilled = true;
@@ -81,7 +81,7 @@ export const checkNonDailyCheckpoint = (habitUnit, activityDataUnitsMap) => {
       activityDataUnitsMap
     );
 
-    if (habitUnit.timeValue >= checkpointObject.currentValue) {
+    if (habitUnit.timeValue > checkpointObject.currentValue) {
       allCheckpointsFulfilled = false;
     } else {
       checkpointObject.isFulfilled = true;
