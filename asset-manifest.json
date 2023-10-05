@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/lifemap/static/css/main.3ffedb3f.css",
-    "main.js": "/lifemap/static/js/main.35df8c01.js",
+    "main.js": "/lifemap/static/js/main.607b1ba0.js",
     "index.html": "/lifemap/index.html",
     "main.3ffedb3f.css.map": "/lifemap/static/css/main.3ffedb3f.css.map",
-    "main.35df8c01.js.map": "/lifemap/static/js/main.35df8c01.js.map"
+    "main.607b1ba0.js.map": "/lifemap/static/js/main.607b1ba0.js.map"
   },
   "entrypoints": [
     "static/css/main.3ffedb3f.css",
-    "static/js/main.35df8c01.js"
+    "static/js/main.607b1ba0.js"
   ]
 }
