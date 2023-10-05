@@ -115,7 +115,15 @@ const AppContent = ({
             />
           }
         />
-        <Route path="/lifemap/charts" element={<ChartsPage />} />
+        <Route
+          path="/lifemap/charts"
+          element={
+            <ChartsPage
+              activityDataUnits={activityDataUnits}
+              activityCategories={activityCategories}
+            />
+          }
+        />
         <Route
           path="/lifemap/settings"
           element={

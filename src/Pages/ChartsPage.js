@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { AnimatedPage } from "../Components/Wrappers/AnimatedPage";
 import HeaderContent from "../Components/Contents/HeaderContent";
+import ResponsiveBarChart from "../Components/Charts/ResponsiveBar";
+import CategorySubCategorySelect from "../Components/Categories/CategorySubCategorySelect";
+import { useEffect, useState } from "react";
+import DateRangeSelector from "./../Components/Wrappers/DateRangeSelector";
 
 const Wrapper = styled.section`
   display: grid;
@@ -36,6 +40,7 @@ const Content = styled.div`
   align-items: center;
   gap: 3rem;
   width: 100%;
+  height: 1000px;
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.medium};
   padding: ${({ theme }) => theme.sizes.large};
@@ -45,7 +50,58 @@ const Content = styled.div`
   }
 `;
 
-const ChartsPage = () => {
+const ChartsPage = ({ activityDataUnits, activityCategories }) => {
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  const [dateRange, setDateRange] = useState({
+    startDate: null,
+    endDate: null,
+  });
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [subCategories, setSubCategories] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [subCategoryOptions, setSubCategoryOptions] = useState();
+
+  async function fetchCategories() {
+    const selectedCategoryName = selectedCategory?.name;
+    const category = activityCategories.find(
+      (item) => item.name === selectedCategoryName
+    );
+    setSubCategories(category?.subCategories ?? []);
+  }
+
+  useEffect(() => {
+    fetchCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Update the select dropdown options when the subCategories change
+  useEffect(() => {
+    setSubCategoryOptions(() =>
+      subCategories.map((subCategory) => ({
+        label: subCategory,
+        value: subCategory,
+        subCategory: subCategory,
+      }))
+    );
+  }, [activityCategories, subCategories]);
+
+  const categorySelectionHandler = (selectedCategory) => {
+    setSelectedCategory(selectedCategory);
+
+    const category = activityCategories.find(
+      (item) => item.id === selectedCategory.value
+    );
+    setSubCategories(category.subCategories);
+  };
+
+  const subCategorySelectHandler = (category, subCategory) => {
+    setSelectedSubCategory(subCategory);
+    categorySelectionHandler(category);
+  };
+
+  const dateRangeHandler = (start, end) => {
+    setDateRange({ startDate: start, endDate: end });
+  };
   return (
     <AnimatedPage>
       <Wrapper>
@@ -53,8 +109,20 @@ const ChartsPage = () => {
           <HeaderContent headerText={"Charts"} />
         </Header>
         <Content>
-          <h3>UNDER CONSTRUCTION</h3>
-          <h4>Coming soon...</h4>
+          <div>
+            <DateRangeSelector onSubmit={dateRangeHandler} />
+            <CategorySubCategorySelect
+              categories={activityCategories}
+              onSubCategorySelect={subCategorySelectHandler}
+            />
+          </div>
+
+          <ResponsiveBarChart
+            activityDataUnits={activityDataUnits}
+            dateRange={dateRange}
+            selectedCategory={selectedCategory}
+            selectedSubCategory={selectedSubCategory}
+          />
         </Content>
       </Wrapper>
     </AnimatedPage>
