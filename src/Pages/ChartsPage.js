@@ -36,7 +36,7 @@ const Content = styled.div`
   grid-area: 2 / 2 / 4 / 3;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 3rem;
   width: 100%;
@@ -44,6 +44,11 @@ const Content = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.medium};
   padding: ${({ theme }) => theme.sizes.large};
+
+  svg:last-child {
+    border: ${({ theme }) => theme.colors.alternative} 1px solid;
+    border-radius: ${({ theme }) => theme.radius.medium};
+  }
 
   @media (max-width: 768px) {
     grid-area: 2 / 1 / 3 / 2;
