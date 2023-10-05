@@ -40,13 +40,28 @@ const Content = styled.div`
   align-items: center;
   gap: 3rem;
   width: 100%;
-  height: 1000px;
+  height: 1200px;
   border: 1px solid ${({ theme }) => theme.colors.alternative};
   border-radius: ${({ theme }) => theme.radius.medium};
   padding: ${({ theme }) => theme.sizes.large};
 
   @media (max-width: 768px) {
     grid-area: 2 / 1 / 3 / 2;
+  }
+`;
+
+const ChartFormWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    margin-bottom: 1rem;
+    gap: 2rem;
   }
 `;
 
@@ -109,20 +124,23 @@ const ChartsPage = ({ activityDataUnits, activityCategories }) => {
           <HeaderContent headerText={"Charts"} />
         </Header>
         <Content>
-          <div>
+          <ChartFormWrapper>
             <DateRangeSelector onSubmit={dateRangeHandler} />
             <CategorySubCategorySelect
               categories={activityCategories}
               onSubCategorySelect={subCategorySelectHandler}
             />
-          </div>
-
-          <ResponsiveBarChart
-            activityDataUnits={activityDataUnits}
-            dateRange={dateRange}
-            selectedCategory={selectedCategory}
-            selectedSubCategory={selectedSubCategory}
-          />
+          </ChartFormWrapper>
+          {!selectedCategory && !selectedSubCategory ? (
+            <h3>Please select Category</h3>
+          ) : (
+            <ResponsiveBarChart
+              activityDataUnits={activityDataUnits}
+              dateRange={dateRange}
+              selectedCategory={selectedCategory}
+              selectedSubCategory={selectedSubCategory}
+            />
+          )}
         </Content>
       </Wrapper>
     </AnimatedPage>
