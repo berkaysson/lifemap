@@ -1,5 +1,4 @@
 import { ResponsiveBar } from "@nivo/bar";
-import { useMemo } from "react";
 
 const fontStyles = {
   fontSize: 12,
@@ -26,33 +25,10 @@ const responsiveBarTheme = {
 };
 
 const ResponsiveBarChart = ({
-  activityDataUnits,
-  dateRange,
   selectedCategory,
   selectedSubCategory,
+  data
 }) => {
-  const filteredData = useMemo(() => {
-    return activityDataUnits.filter((data) => {
-      const isDateInRange =
-        (!dateRange.startDate || data.date >= dateRange.startDate) &&
-        (!dateRange.endDate || data.date <= dateRange.endDate);
-
-      const isCategoryMatch =
-        (selectedCategory && data[selectedCategory.label] != null) ?? false;
-
-      const isSubCategoryMatch =
-        (selectedSubCategory &&
-          data[selectedCategory.label][selectedSubCategory.label] != null) ??
-        false;
-      return isDateInRange && isCategoryMatch && isSubCategoryMatch;
-    });
-  }, [activityDataUnits, dateRange, selectedCategory, selectedSubCategory]);
-
-  const data = filteredData.map((dataPoint) => ({
-    id: dataPoint.date,
-    value: dataPoint[selectedCategory.label][selectedSubCategory.label] * 1,
-  }));
-
   const legendYName = selectedCategory
     ? selectedSubCategory
       ? selectedCategory.label + ", " + selectedSubCategory.label
@@ -73,7 +49,7 @@ const ResponsiveBarChart = ({
     <ResponsiveBar
       data={data}
       keys={["value"]}
-      indexBy="id"
+      indexBy="day"
       margin={{ top: 10, right: 10, bottom: 100, left: 50 }}
       minValue={0}
       padding={0.1}
