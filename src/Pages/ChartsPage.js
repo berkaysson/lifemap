@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { AnimatedPage } from "../Components/Wrappers/AnimatedPage";
 import HeaderContent from "../Components/Contents/HeaderContent";
-import ResponsiveBarChart from "../Components/Charts/ResponsiveBar";
 import CategorySubCategorySelect from "../Components/Categories/CategorySubCategorySelect";
 import { useEffect, useState } from "react";
 import DateRangeSelector from "./../Components/Wrappers/DateRangeSelector";
+import Charts from "../Components/Charts/Charts";
 
 const Wrapper = styled.section`
   display: grid;
@@ -129,6 +129,7 @@ const ChartsPage = ({ activityDataUnits, activityCategories }) => {
           <HeaderContent headerText={"Charts"} />
         </Header>
         <Content>
+          <h3>Select chart type, date and category </h3>
           <ChartFormWrapper>
             <DateRangeSelector onSubmit={dateRangeHandler} />
             <CategorySubCategorySelect
@@ -139,11 +140,12 @@ const ChartsPage = ({ activityDataUnits, activityCategories }) => {
           {!selectedCategory && !selectedSubCategory ? (
             <h3>Please select Category</h3>
           ) : (
-            <ResponsiveBarChart
+            <Charts
               activityDataUnits={activityDataUnits}
               dateRange={dateRange}
               selectedCategory={selectedCategory}
               selectedSubCategory={selectedSubCategory}
+              selectedChartType={"bar"}
             />
           )}
         </Content>
